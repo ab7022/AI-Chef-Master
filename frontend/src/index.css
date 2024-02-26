@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500&family=Poppins:wght@200;300;400;600;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.active{
+    color: #10b104;
+   
+    padding: 6px;
+   
+    
+    font-weight: 800;
+    transition-duration: 400ms ;
+    transition-timing-function: ease-in-out;
+   
+}
+
+
+body {
+  background-color: #ffffff;
+  overflow-x: hidden;
+  --dot-bg: rgb(240, 240, 240);
+  --dot-color: rgb(1, 1, 1);
+  --dot-size: 1px;
+  --dot-space: 10px;
+  background:
+    linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+    linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+    linear-gradient(to top, #fafafa, rgba(91, 91, 91, 0.99));
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+
+
+/* This is just to transition when you change the viewport size. */
+* {
+  transition: all 0.25s ease-out;
+}
+
+.get-started {
+    
+    border: 1px solid #ffffff00;
+    
+    background: linear-gradient(to right,#131313, #000000) padding-box, linear-gradient(
+          var(--angle),
+          #070707,
+          #fe7011
+        ) border-box;
+    animation: 8s rotate linear infinite;
+  }
+  
+  @keyframes rotate {
+    to {
+      --angle: 360deg;
+    }
+  }
+  
+  @property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+  
+
+  .popup-media {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 200;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    min-height: 100%;
+    overflow-y: auto; /* Allow vertical scrolling within the popup */
+    backdrop-filter: blur(10px);
+    transition: all 2s ease;
+}
+:root{
+  /* font-family: 'Poppins','san-serif'; */
+}

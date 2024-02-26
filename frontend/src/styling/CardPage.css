@@ -1,0 +1,14 @@
+.cardcss {
+    width: 400px;
+    height: max-content;
+    margin: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    align-items: center;
+    box-shadow: #0000003d 0px 3px 8px;
+    z-index: 100;
+    background-color: white;
+   
+}

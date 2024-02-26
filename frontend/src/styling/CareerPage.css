@@ -1,0 +1,73 @@
+.careerscss {
+    margin: 4%;
+    border-radius: 2.1875rem;
+    background: #0c5bc6;
+    padding: 4rem;
+
+    /* display: flex; */
+    /* justify-content: center; */
+    flex-direction: column;
+    gap: 6rem;
+    z-index: 100;
+
+  
+
+    /* .body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 4rem;
+    } */ 
+}
+.jobpagecss{
+    /* margin: 4%; */
+    border-radius: 2.1875rem;
+    background: #FFFFFF;
+    /* padding: 4rem; */
+
+    /* display: flex; */
+    /* justify-content: center; */
+    flex-direction: column;
+    /* gap: 6rem; */
+    z-index: 10;
+}
+.title{
+    color: white;
+}
+.card{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: #fff;
+}
+.image{
+    height: 7rem;
+        /* min-width: 20rem; */
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+}
+.content {
+    max-width: 24rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1rem;
+
+    
+
+    
+}
+
+.desc {
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    text-align: left !important;
+}
+
