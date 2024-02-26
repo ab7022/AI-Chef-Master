@@ -1,0 +1,3 @@
+.react-form-stepper .stepper-step.active {
+    background-color: blue !important;
+}
