@@ -6,10 +6,10 @@ const VoluntaryDisclosures = () => {
       <h1 className="mx-4 sm:mx-6 lg:mx-8 font-bold text-2xl">
         Voluntary Disclosures
       </h1>
-          <form className="mx-4 sm:mx-6 lg:mx-8 my-5 flex flex-col justify-start gap-y-7">
+      <form className="mx-4 sm:mx-6 lg:mx-8 my-5 flex flex-col justify-start gap-y-7">
         <div className="md:w-full text-sm flex flex-col md:flex-row md:items-center gap-y-4 md:gap-x-8">
-              <label className="w-full md:w-1/4 mb-2 md:mb-0">
-             Please select your veteran status
+          <label className="w-full md:w-1/4 mb-2 md:mb-0">
+            Please select your veteran status
             <span style={{ color: "red", fontSize: "1.5rem" }}>*</span>:
           </label>
           <select className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5">
@@ -23,7 +23,7 @@ const VoluntaryDisclosures = () => {
         </div>
 
         <div className="md:w-full text-sm flex flex-col md:flex-row md:items-center gap-y-4 md:gap-x-8">
-              <label className="w-full md:w-1/4 mb-2 md:mb-0">
+          <label className="w-full md:w-1/4 mb-2 md:mb-0">
             Please select your gender
             <span style={{ color: "red", fontSize: "1.5rem" }}>*</span>:
           </label>
@@ -36,7 +36,7 @@ const VoluntaryDisclosures = () => {
         </div>
 
         <div className="md:w-full text-sm flex flex-col md:flex-row md:items-center gap-y-4 md:gap-x-8">
-              <label className="w-full md:w-1/4 mb-2 md:mb-0">
+          <label className="w-full md:w-1/4 mb-2 md:mb-0">
             Please select your ethnicity
             <span style={{ color: "red", fontSize: "1.5rem" }}>*</span>:
           </label>
@@ -50,28 +50,28 @@ const VoluntaryDisclosures = () => {
             <option value="other">Other</option>
           </select>
         </div>
-        
-{/* Terms and Conditions */}
-<div className="mt-8">
-  <h2 className="text-xl font-bold mb-3">Terms and Conditions</h2>
-  <p className="text-base">
-    By checking the box below, you acknowledge you have read these Terms & Conditions
-  </p>
-  <div className="mt-3 flex ">
-    <input
-      type="checkbox"
-      style={{ transform: "scale(1.5)", marginRight: "5px" }}
-    />
-    <label className="">
-      <span className="ml-2">Check this box to confirm the statement above.</span>
-            <span className="text-red-500 text-lg">*</span>
-    </label>
-  </div>
-</div>
+
+        {/* Terms and Conditions */}
+        <div className="mt-8">
+          <h2 className="text-xl font-bold mb-3">Terms and Conditions</h2>
+          <p className="text-base">
+            By checking the box below, you acknowledge you have read these Terms & Conditions
+          </p>
+          <div className="mt-3 flex ">
+            <input
+              type="checkbox"
+              style={{ transform: "scale(1.5)", marginRight: "5px" }}
+            />
+            <label className="">
+              <span className="ml-2">Check this box to confirm the statement above.</span>
+              <span className="text-red-500 text-lg">*</span>
+            </label>
+          </div>
+        </div>
 
       </form>
-      
-     </>
+
+    </>
   );
 };
 
