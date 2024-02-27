@@ -37,8 +37,8 @@ export default function MyNavbar() {
                       <Link
                         to="/product"
                         className={`nav-link ${location.pathname === "/product"
-                            ? "active"
-                            : ""
+                          ? "active"
+                          : ""
                           } rounded-md px-3 py-2 text-sm font-medium`}
                       >
                         Product
@@ -53,8 +53,8 @@ export default function MyNavbar() {
                       <Link
                         to="/company"
                         className={`nav-link ${location.pathname === "/company"
-                            ? "active"
-                            : ""
+                          ? "active"
+                          : ""
                           } rounded-md px-3 py-2 text-sm font-medium`}
                       >
                         Company
@@ -77,28 +77,28 @@ export default function MyNavbar() {
             <Disclosure.Panel className="sm:hidden">
               <div className="space-y-1 px-2 pb-3 pt-2">
                 <Link
-                  href="/"
+                  to="/"
                   className={` text-black  hover:bg-gray-100 hover:text-white block rounded-md px-3 py-2 text-base font-medium ${location.pathname === "/" ? "active" : ""
                     }`}
                 >
                   HOME
                 </Link>
                 <Link
-                  href="/product"
+                  to="/product"
                   className={`text-black  hover:bg-gray-100 hover:text-white block rounded-md px-3 py-2 text-base font-medium ${location.pathname === "/product" ? "active" : ""
                     }`}
                 >
                   PRODUCT
                 </Link>
                 <Link
-                  href="/career"
+                  to="/career"
                   className={`text-black hover:bg-gray-100 hover:text-white block rounded-md px-3 py-2 text-base font-medium ${location.pathname === "/career" ? "active" : ""
                     }`}
                 >
                   CAREER
                 </Link>
                 <Link
-                  href="/company"
+                  to="/company"
                   className={`text-black hover:bg-gray-100 hover:text-white block rounded-md px-3 py-2 text-base font-medium ${location.pathname === "/company" ? "active" : ""
                     }`}
                 >
