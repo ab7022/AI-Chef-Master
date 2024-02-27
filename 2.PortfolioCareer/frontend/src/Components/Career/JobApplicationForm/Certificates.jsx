@@ -1,8 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 
-function CertificateUploader() {
+function Certificates({ certificates, setCertificates }) {
   const fileInputRef = useRef(null);
-  const [certificates, setCertificates] = useState([]);
 
   // Function to handle file upload
   const handleFileUpload = () => {
@@ -24,7 +23,8 @@ function CertificateUploader() {
   };
 
   return (
-    <div className="mx-4 sm:mx-6 lg:mx-8">
+    <>
+      <h1 className='font-bold text-3xl my-6' style={{ fontSize: '20px' }}>Certifications</h1>
       <input
         type="file"
         accept=".pdf,.doc,.docx"
@@ -35,21 +35,23 @@ function CertificateUploader() {
       />
 
       {/* Display selected certificates */}
-      <ul className="text-blue-700 text-lg my-6">
-        {certificates.map((certificate, index) => (
-          <li key={index}>{certificate.name}</li>
-        ))}
-      </ul>
+      {certificates && certificates.length > 0 && (
+        <ul className="text-blue-700 text-lg my-6">
+          {certificates.map((certificate, index) => (
+            <li key={index}>{certificate.name}</li>
+          ))}
+        </ul>
+      )}
 
       {/* Button to trigger file selection */}
       <button
-        className="text-blue-700 text-lg my-5"
+        className="text-blue-700 text-lg my-1"
         onClick={handleFileUpload}
       >
         + Add Certificates
       </button>
-    </div>
+    </>
   );
 }
 
-export default CertificateUploader;
+export default Certificates;

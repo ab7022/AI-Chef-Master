@@ -1,6 +1,12 @@
-import React from "react";
+const VoluntaryDisclosures = ({ voluntaryDisclosures, setVoluntaryDisclosures }) => {
+  const handleInputChange = (event) => {
+    const { name, value, type } = event.target;
+    setVoluntaryDisclosures((prevValues) => ({
+      ...prevValues,
+      [name]: type === "checkbox" ? event.target.checked : value,
+    }));
+  };
 
-const VoluntaryDisclosures = () => {
   return (
     <>
       <h1 className="mx-4 sm:mx-6 lg:mx-8 font-bold text-2xl">
@@ -12,7 +18,12 @@ const VoluntaryDisclosures = () => {
             Please select your veteran status
             <span style={{ color: "red", fontSize: "1.5rem" }}>*</span>:
           </label>
-          <select className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5">
+          <select
+            name="veteranStatus"
+            className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+            value={voluntaryDisclosures.veteranStatus}
+            onChange={handleInputChange}
+          >
             <option value="Select">Please Select</option>
             <option value="No">I am not a protected Veteran</option>
             <option value="Yes">
@@ -27,7 +38,12 @@ const VoluntaryDisclosures = () => {
             Please select your gender
             <span style={{ color: "red", fontSize: "1.5rem" }}>*</span>:
           </label>
-          <select className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5">
+          <select
+            name="gender"
+            className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+            value={voluntaryDisclosures.gender}
+            onChange={handleInputChange}
+          >
             <option value="Select">Please Select</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
@@ -40,7 +56,12 @@ const VoluntaryDisclosures = () => {
             Please select your ethnicity
             <span style={{ color: "red", fontSize: "1.5rem" }}>*</span>:
           </label>
-          <select className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5">
+          <select
+            name="ethnicity"
+            className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+            value={voluntaryDisclosures.ethnicity}
+            onChange={handleInputChange}
+          >
             <option value="">Please select</option>
             <option value="asian">Asian</option>
             <option value="black">Black or African American</option>
@@ -60,6 +81,9 @@ const VoluntaryDisclosures = () => {
           <div className="mt-3 flex ">
             <input
               type="checkbox"
+              name="termsAccepted"
+              checked={voluntaryDisclosures.termsAccepted}
+              onChange={handleInputChange}
               style={{ transform: "scale(1.5)", marginRight: "5px" }}
             />
             <label className="">
@@ -68,9 +92,7 @@ const VoluntaryDisclosures = () => {
             </label>
           </div>
         </div>
-
       </form>
-
     </>
   );
 };

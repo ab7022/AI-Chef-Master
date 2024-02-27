@@ -24,6 +24,7 @@
     "react-scripts": "^5.0.1",
     "react-slick": "^0.29.0",
     "slick-carousel": "^1.8.1",
+    "sonner": "^1.4.2",
     "spinners-react": "^1.0.7",
     "tailwindcss-gradients": "^3.0.0",
     "uuid": "^9.0.1",

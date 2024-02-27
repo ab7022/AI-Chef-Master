@@ -25,7 +25,7 @@ import FullStackDeveloperEngineer from "./Components/Career/ListOfCareerJobs/Ful
 import CustomerSupportAssociate from "./Components/Career/ListOfCareerJobs/CustomerSupportAssociate";
 import ResearchDevelopmentEngineer from "./Components/Career/ListOfCareerJobs/ResearchDevelopmentEngineer";
 import Application from "./Components/Career/JobApplicationForm/Application";
-import MyExperience from "./Components/Career/JobApplicationForm/MyExperience";
+// import Experience from "./Components/Career/JobApplicationForm/Experience";
 import VoluntaryDisclosures from "./Components/Career/JobApplicationForm/VoluntaryDisclosures";
 import ApplicationQuestions from "./Components/Career/JobApplicationForm/ApplicationQuestions";
 import Review from "./Components/Career/JobApplicationForm/Review";
@@ -39,35 +39,6 @@ import AiAssistant from "./Components/AIChefPocketData/AiAssistant";
 import Kitchen from "./Components/AIChefPocketData/Kitchen";
 import NutritionManager from "./Components/AIChefPocketData/NutritionManager";
 import JobRoles from "./Components/Career/searchJobCards"
-const jobData = [
-  {
-    title: "Fronend Developer"
-  },
-  {
-    title: "Backend Developer Engineer"
-  },
-  {
-    title: "AI Engineer"
-  },
-  {
-    title: "Android Application Developer Engineer"
-  },
-  {
-    title: "Customer Support Associate"
-  },
-  {
-    title: "iOS Application Developer Engineer"
-  },
-  {
-    title: "Research and Development Engineer"
-  },
-  {
-    title: "Server Engineer"
-  },
-  {
-    title: "UI/UX Designer"
-  }
-];
 
 const App = () => {
   return (
@@ -88,8 +59,8 @@ const App = () => {
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/Team" element={<Team />} />
         <Route path="/AiAssistant" element={<AiAssistant />} />
-        <Route path="/Hiring" element={<Hiring />}/>
-        <Route path="/Job" element={<JobRoles />}/>
+        <Route path="/Hiring" element={<Hiring />} />
+        <Route path="/Job" element={<JobRoles />} />
         <Route
           path="/ainutritionmanager"
           element={<NutritionManager />}
@@ -128,9 +99,9 @@ const App = () => {
         />
         <Route
           path="/application"
-          element={<Application jobData={jobData[0]} />}
+          element={<Application />}
         />
-        <Route path="/experience" element={<MyExperience />} />
+        {/* <Route path="/experience" element={<Experience />} /> */}
         <Route path="/voluntary" element={<VoluntaryDisclosures />} />
         <Route path="/questions" element={<ApplicationQuestions />} />
         <Route path="/review" element={<Review />} />
@@ -142,3 +113,33 @@ const App = () => {
 };
 
 export default App;
+
+// const jobData = [
+//   {
+//     title: "Fronend Developer"
+//   },
+//   {
+//     title: "Backend Developer Engineer"
+//   },
+//   {
+//     title: "AI Engineer"
+//   },
+//   {
+//     title: "Android Application Developer Engineer"
+//   },
+//   {
+//     title: "Customer Support Associate"
+//   },
+//   {
+//     title: "iOS Application Developer Engineer"
+//   },
+//   {
+//     title: "Research and Development Engineer"
+//   },
+//   {
+//     title: "Server Engineer"
+//   },
+//   {
+//     title: "UI/UX Designer"
+//   }
+// ];

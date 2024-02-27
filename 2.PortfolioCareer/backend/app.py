@@ -265,6 +265,8 @@ def carrer():
     if request.method =="POST":
         data = request.get_json()
 
+        applied_for = data.get("appliedFor")
+
         personal = data.get("personal")
 
         # pdf_file = request.files['resume']
@@ -279,7 +281,7 @@ def carrer():
         #     'file_id': file_id
         # }
 
-        experience = data.get("experience")
+        experience = data.get("experiences")
 
         education = data.get("education")
 
@@ -289,14 +291,19 @@ def carrer():
 
         socials = data.get('socials')
 
-        # all_questions =  request.get("all_questions")
+        all_questions =  data.get("allQuestions")
+
+        voluntary_questions =  data.get("voluntaryDisclosures")
 
         db.carrers.insert_one({
-            'personal_information': personal,
+            'applied_for': applied_for,
+            'personal': personal,
             'experience': experience,
             'education': education,
             'skills': skills,
             'socials': socials,
+            'all_questions': all_questions,
+            'voluntary_questions': voluntary_questions,
             # { 'resume':metadata },
             # { 'all_questions': all_questions }
         })
