@@ -260,78 +260,48 @@ def calculate_hash(content):
     md5.update(content)
     return md5.hexdigest()
 
-@app.route('/carrer' ,methods = ['GET','POST'])
+@app.route('/career' ,methods = ['POST'])
 def carrer():
-
     if request.method =="POST":
         data = request.get_json()
 
-        first_name = data.get('firstName')
-        last_name  = data.get('lastName')
-        email = data.get('email')
-        phone = data.get('phone')
-        address_line1 = data.get('address_line1')
-        address_line2 = data.get('address_line2')
-        city = data.get('city')
-        hear_about = data.get('hear_about')
-        past_employe = data.get('past_employe')
-        pdf_file = request.files['resume']
-        
-        # experinence
-        data2 =request.get_json()
-        company=data2.get("company")
-        job_title=data2.get("job_title")
-        start_date=data2.get("from")
-        end_date=data2.get("to",None)
-        currently_working = data2.get('currently_working')
-        jd = data2.get('jd')
+        personal = data.get("personal")
 
-        # eduction
-        data3 = request.get_json()
-        school=data3.get("school")
-        degree=data3.get("degree")
-        fieldofstudy=data3.get("fieldofstudy","Not provided")
-        start = data3.get('start_date')
-        end_date = data3.get('end_date')
+        # pdf_file = request.files['resume']
+        # pdf_content = pdf_file.read()
+        # pdf_hash = calculate_hash(pdf_content)
+        # if db.carrers.find_one({'hash':pdf_hash}):
+        #     return jsonify({'message': 'Duplicate PDF file detected'}), 409
+        # file_id = fs.put(pdf_content, filename=pdf_file.filename)
+        # metadata = {
+        #     'filename': pdf_file.filename,
+        #     'hash': pdf_hash,
+        #     'file_id': file_id
+        # }
 
-        # certificate
-        certification = request.files['certificate']
+        experience = data.get("experience")
 
-        # skills
-        skills = request.get_json()
+        education = data.get("education")
 
-        # website link
-        weblink  = request.args.get('weblink','N/A')
+        # certification = request.files['certificate']
 
-        # social media links
-        linkdin = request.args.get('linkdin','N/A')
+        skills = data.get('skills')
 
-        # github 
-        github = request.args.get('github','N/A')
+        socials = data.get('socials')
 
-        # social media urls
-        socials={'linkdin':linkdin ,'github':github,'weblink':weblink}
+        # all_questions =  request.get("all_questions")
 
-        # aplication questions 
-        appQuestions =  request.get_json()
-
-        pdf_content = pdf_file.read()
-        pdf_hash = calculate_hash(pdf_content)
-
-        if db.carrers.find_one({'hash':pdf_hash}):
-            return jsonify({'message': 'Duplicate PDF file detected'}), 409
-        
-        file_id = fs.put(pdf_content, filename=pdf_file.filename)
-
-        metadata = {
-            'filename': pdf_file.filename,
-            'hash': pdf_hash,
-            'file_id': file_id
-        }
-
-        db.carrers.insert_one([{'personal_information':data },{'education':data3 },{'experience':data2},{'ALL Links':socials},{'Skills':skills},{'resume':metadata},{'Allquestion':appQuestions}])
+        db.carrers.insert_one({
+            'personal_information': personal,
+            'experience': experience,
+            'education': education,
+            'skills': skills,
+            'socials': socials,
+            # { 'resume':metadata },
+            # { 'all_questions': all_questions }
+        })
     
-        return jsonify({'message':'Application submitted successfully'}),201
+        return jsonify({'message':'Application submitted successfully'}), 201
 
 if __name__ =="__main__":
     app.run(debug= True)
