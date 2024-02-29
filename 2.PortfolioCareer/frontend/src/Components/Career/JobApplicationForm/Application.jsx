@@ -2,6 +2,7 @@ import { useState } from "react";
 import Path from "./Path";
 import { Link, useLocation } from "react-router-dom";
 import { SpinnerCircular } from "spinners-react";
+import Modal from "./Modal.jsx";
 import Personal from "./Personal.jsx";
 import Experience from "./Experience.jsx";
 import Education from "./Education.jsx";
@@ -83,6 +84,8 @@ const Application = () => {
 
   const [confirmReview, setConfirmReview] = useState(false);
 
+  const [showModal, setShowModal] = useState(false);
+
   const nxtStep = async () => {
     if (count === 0) {
       setPersonal({
@@ -155,36 +158,48 @@ const Application = () => {
     switch (count) {
       case 0:
         return (
-          <Personal
-            fname={fname}
-            setfName={setfName}
-            lname={lname}
-            setlName={setlName}
-            address1={address1}
-            setAddress1={setAddress1}
-            address2={address2}
-            setAddress2={setAddress2}
-            pincode={pincode}
-            setPincode={setPincode}
-            city={city}
-            setCity={setCity}
-            state={state}
-            setState={setState}
-            country={country}
-            setCountry={setCountry}
-            email={email}
-            setEmail={setEmail}
-            phoneDevice={phoneDevice}
-            setPhoneDevice={setPhoneDevice}
-            phoneCode={phoneCode}
-            setPhoneCode={setPhoneCode}
-            phoneNumber={phoneNumber}
-            setPhoneNumber={setPhoneNumber}
-            hear={hear}
-            setHear={setHear}
-            employee={employee}
-            setEmployee={setEmployee}
-          />
+          <>
+            <Modal
+              showModal={showModal}
+              setShowModal={setShowModal}
+              setfName={setfName}
+              setlName={setlName}
+              setCountry={setCountry}
+              setEmail={setEmail}
+              setPhoneCode={setPhoneCode}
+              setPhoneNumber={setPhoneNumber}
+            />
+            <Personal
+              fname={fname}
+              setfName={setfName}
+              lname={lname}
+              setlName={setlName}
+              address1={address1}
+              setAddress1={setAddress1}
+              address2={address2}
+              setAddress2={setAddress2}
+              pincode={pincode}
+              setPincode={setPincode}
+              city={city}
+              setCity={setCity}
+              state={state}
+              setState={setState}
+              country={country}
+              setCountry={setCountry}
+              email={email}
+              setEmail={setEmail}
+              phoneDevice={phoneDevice}
+              setPhoneDevice={setPhoneDevice}
+              phoneCode={phoneCode}
+              setPhoneCode={setPhoneCode}
+              phoneNumber={phoneNumber}
+              setPhoneNumber={setPhoneNumber}
+              hear={hear}
+              setHear={setHear}
+              employee={employee}
+              setEmployee={setEmployee}
+            />
+          </>
         )
       case 1:
         return (

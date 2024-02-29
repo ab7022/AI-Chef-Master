@@ -1,5 +1,3 @@
-import Linkedin from "./Linkedin";
-import Modal from "./Modal";
 import { countries, countryPhoneCodes } from "./data/countryData";
 
 const Personal = ({
@@ -47,19 +45,6 @@ const Personal = ({
     return (
         <div>
             <div className="w-full h-full">
-                <div className="text-lg sm:text-lg md:text-xl font-sans flex flex-col items-center">
-                    <p className="py-2 md:py-3 lg:py-4">
-                        Please upload your resume, and we will do our best to complete as much of the application as we can for you!
-                    </p>
-                    <p className="py-2 pb-3 md:pb-4 lg:pb-5">
-                        Upload either DOC, DOCX, HTML, PDF, or TXT file types (1MB max)
-                    </p>
-                    <div className="flex justify-center items-center flex-wrap">
-                        <Linkedin />
-                        <Modal />
-                    </div>
-                </div>
-
                 <div>
                     <h1 className="font-bold text-3xl my-6" style={{ fontSize: "20px" }}>
                         My Information
