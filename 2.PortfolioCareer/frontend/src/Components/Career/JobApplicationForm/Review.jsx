@@ -103,7 +103,20 @@ const Review = ({
                     <h1 className="text-base md:text-lg font-semibold">
                       From - To
                     </h1>
-                    <p className="text-gray-700">{exp.from} - {exp.isCurrentlyPursuing ? "Present" : exp.to}</p>
+                    <p className="text-gray-700">
+                      {new Date(exp.from).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "numeric",
+                        day: "numeric"
+                      })}
+                      - {exp.isCurrentlyPursuing ? "Present" :
+                        new Date(exp.to).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "numeric",
+                          day: "numeric"
+                        })
+                      }
+                    </p>
                   </div>
                   <div>
                     <h1 className="text-base md:text-lg font-semibold">Role Description</h1>

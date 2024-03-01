@@ -96,7 +96,7 @@ const Experience = ({ experiences, setExperiences }) => {
                 selected={experience.from}
                 onChange={(date) => {
                   const newExperiences = [...experiences];
-                  newExperiences[index].from = date;
+                  newExperiences[index].from = date ? date.toISOString() : null;
                   setExperiences(newExperiences);
                 }}
               />
@@ -112,7 +112,7 @@ const Experience = ({ experiences, setExperiences }) => {
                   selected={experience.to}
                   onChange={(date) => {
                     const newExperiences = [...experiences];
-                    newExperiences[index].to = date;
+                    newExperiences[index].to = date ? date.toISOString() : null;
                     setExperiences(newExperiences);
                   }}
                 />

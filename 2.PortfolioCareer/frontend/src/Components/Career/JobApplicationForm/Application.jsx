@@ -109,26 +109,23 @@ const Application = () => {
       setCount(count + 1);
     }
     if (count === 4) {
-      const CustomHeader = new Headers();
-      CustomHeader.append('Content-Type', 'application/json');
+      const formData = new FormData();
+      formData.append('appliedFor', selectedJob);
+      formData.append('personal', JSON.stringify(personal));
+      formData.append('experiences', JSON.stringify(experiences));
+      formData.append('education', JSON.stringify(education));
+      formData.append('skills', skills.join(','));
+      formData.append('socials', JSON.stringify({
+        weblinks: links,
+        linkedin: linkedinInput,
+        github: githubInput
+      }));
+      formData.append('allQuestions', JSON.stringify(allQuestions));
+      formData.append('voluntaryDisclosures', JSON.stringify(voluntaryDisclosures));
 
       const config = {
         method: 'POST',
-        headers: CustomHeader,
-        body: JSON.stringify({
-          appliedFor: selectedJob,
-          personal,
-          experiences,
-          education,
-          skills,
-          socials: {
-            weblinks: links,
-            linkedin: linkedinInput,
-            github: githubInput
-          },
-          allQuestions,
-          voluntaryDisclosures
-        })
+        body: formData
       }
 
       try {
@@ -273,6 +270,15 @@ const Application = () => {
     }
   };
 
+  const shouldShowNextButton = () => {
+    if (count === 3) {
+      return voluntaryDisclosures.termsAccepted;
+    } else if (count === 4) {
+      return confirmReview;
+    }
+    return true;
+  };
+
   if (selectedJob === null || selectedJob === undefined || !selectedJob) {
     return (
       <div className="h-[calc(100vh-80px)] grid place-items-center">
@@ -303,26 +309,21 @@ const Application = () => {
 
           {ShowPage(count)}
 
-          {count <= 5 && (
-            <div className="flex justify-between bottom-2">
-              {count > 0 && (
-                <button className="bg-blue-600 p-2 w-32 rounded text-white font-bold text-xl font-sans my-3" onClick={prevStep}>
-                  Previous
-                </button>
-              )}
-              {count === 3 ? voluntaryDisclosures.termsAccepted && (
-                <button className="bg-blue-600 p-2 w-32 rounded text-white font-bold text-xl my-3" onClick={nxtStep}>
-                  Next
-                </button>
-              ) : count === 4 ? confirmReview && (
-                <button className="bg-blue-600 p-2 w-32 rounded text-white font-bold text-xl my-3" onClick={nxtStep}>
-                  {count === 5 ? <SpinnerCircular /> : "Next"}
-                </button>
-              ) : (
-                <button className="bg-blue-600 p-2 w-32 rounded text-white font-bold text-xl my-3" onClick={nxtStep}>
-                  Next
-                </button>
-              )}
+          <div className="flex justify-between bottom-2">
+            {count < 5 &&  (
+              <button className="bg-blue-600 p-2 w-32 rounded text-white font-bold text-xl font-sans my-3" onClick={prevStep}>
+                Previous
+              </button>
+            )}
+            {count < 5 && shouldShowNextButton() && (
+              <button className="bg-blue-600 p-2 w-32 rounded text-white font-bold text-xl my-3" onClick={nxtStep}>
+                Next
+              </button>
+            )}
+          </div>
+          {count === 5 && (
+            <div className="w-full flex items-center justify-center">
+              <SpinnerCircular />
             </div>
           )}
         </div>

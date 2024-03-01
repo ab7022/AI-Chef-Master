@@ -255,60 +255,36 @@ def contact():
 
     return jsonify({"message":"Message submitted succesfully"})
 
-def calculate_hash(content):
-    md5 = hashlib.md5()
-    md5.update(content)
-    return md5.hexdigest()
-
 @app.route('/career' ,methods = ['POST'])
 def carrer():
     if request.method =="POST":
-        data = request.get_json()
-
-        applied_for = data.get("appliedFor")
-
-        personal = data.get("personal")
-
-        # pdf_file = request.files['resume']
-        # pdf_content = pdf_file.read()
-        # pdf_hash = calculate_hash(pdf_content)
-        # if db.carrers.find_one({'hash':pdf_hash}):
-        #     return jsonify({'message': 'Duplicate PDF file detected'}), 409
-        # file_id = fs.put(pdf_content, filename=pdf_file.filename)
-        # metadata = {
-        #     'filename': pdf_file.filename,
-        #     'hash': pdf_hash,
-        #     'file_id': file_id
-        # }
-
-        experience = data.get("experiences")
-
-        education = data.get("education")
-
-        # certification = request.files['certificate']
-
-        skills = data.get('skills')
-
-        socials = data.get('socials')
-
-        all_questions =  data.get("allQuestions")
-
-        voluntary_questions =  data.get("voluntaryDisclosures")
+        applied_for = request.form.get("appliedFor")
+        personal = request.form.get("personal")
+        experiences = request.form.get("experiences")
+        education = request.form.get("education")
+        skills = request.form.get('skills')
+        socials_json = request.form.get('socials')
+        socials = json.loads(socials_json) if socials_json else {}
+        all_questions = request.form.get("allQuestions")
+        voluntary_questions = request.form.get("voluntaryDisclosures")
 
         db.carrers.insert_one({
             'applied_for': applied_for,
             'personal': personal,
-            'experience': experience,
+            'experience': experiences,
             'education': education,
             'skills': skills,
             'socials': socials,
             'all_questions': all_questions,
             'voluntary_questions': voluntary_questions,
-            # { 'resume':metadata },
-            # { 'all_questions': all_questions }
         })
     
         return jsonify({'message':'Application submitted successfully'}), 201
+
+def calculate_hash(content):
+    md5 = hashlib.md5()
+    md5.update(content)
+    return md5.hexdigest()
 
 if __name__ =="__main__":
     app.run(debug= True)

@@ -98,8 +98,9 @@ const Education = ({ education, setEducation }) => {
                                 selected={edu.from}
                                 onChange={(date) => {
                                     const newEducation = [...education];
-                                    newEducation[index].from = date;
+                                    newEducation[index].from = date ? date.toISOString() : null;
                                     setEducation(newEducation);
+
                                 }}
                             />
                         </div>
@@ -114,7 +115,7 @@ const Education = ({ education, setEducation }) => {
                                 selected={edu.to}
                                 onChange={(date) => {
                                     const newEducation = [...education];
-                                    newEducation[index].to = date;
+                                    newEducation[index].to = date ? date.toISOString() : null;
                                     setEducation(newEducation);
                                 }}
                             />
