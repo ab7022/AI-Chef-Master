@@ -123,7 +123,7 @@ const Application = () => {
       formData.append('allQuestions', JSON.stringify(allQuestions));
       formData.append('voluntaryDisclosures', JSON.stringify(voluntaryDisclosures));
 
-      certificates.map((certificate) => formData.append('certificate', certificate));
+      certificates.map((certificate) => formData.append('certificates[]', certificate));
 
       const config = {
         method: 'POST',
@@ -133,13 +133,13 @@ const Application = () => {
       try {
         setCount(5);
         const response = await fetch(`${process.env.REACT_APP_API_URL}/career`, config);
+        const responseData = await response.json();
         if (response.ok) {
-          const responseData = await response.json();
           toast.success(responseData["message"]);
           setCount(6);
         }
         else {
-          toast.error("Something went wrong.");
+          toast.error(responseData["message"]);
           setCount(4);
         }
       } catch (error) {

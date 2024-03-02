@@ -22,7 +22,7 @@ function Certificates({ certificates, setCertificates }) {
       <h1 className='font-bold text-3xl my-6' style={{ fontSize: '20px' }}>Certifications</h1>
       <input
         type="file"
-        accept=".pdf,.doc,.docx"
+        accept=".pdf,.doc,.docx,.png,.jpeg,.jpg"
         multiple
         ref={fileInputRef}
         style={{ display: 'none' }}
