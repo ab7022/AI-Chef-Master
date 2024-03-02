@@ -123,6 +123,8 @@ const Application = () => {
       formData.append('allQuestions', JSON.stringify(allQuestions));
       formData.append('voluntaryDisclosures', JSON.stringify(voluntaryDisclosures));
 
+      certificates.map((certificate) => formData.append('certificate', certificate));
+
       const config = {
         method: 'POST',
         body: formData
@@ -310,7 +312,7 @@ const Application = () => {
           {ShowPage(count)}
 
           <div className="flex justify-between bottom-2">
-            {count < 5 &&  (
+            {count > 0 && count < 5 && (
               <button className="bg-blue-600 p-2 w-32 rounded text-white font-bold text-xl font-sans my-3" onClick={prevStep}>
                 Previous
               </button>

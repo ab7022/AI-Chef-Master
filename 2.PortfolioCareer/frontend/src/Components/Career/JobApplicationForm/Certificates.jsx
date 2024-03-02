@@ -3,22 +3,17 @@ import React, { useRef } from 'react';
 function Certificates({ certificates, setCertificates }) {
   const fileInputRef = useRef(null);
 
-  // Function to handle file upload
   const handleFileUpload = () => {
-    // Trigger the file input click event
     fileInputRef.current.click();
   };
 
-  // Function to handle file selection
   const handleFileSelection = (event) => {
     const newCertificates = [...certificates];
 
-    // Add selected files to the existing list
     for (let i = 0; i < event.target.files.length; i++) {
       newCertificates.push(event.target.files[i]);
     }
 
-    // Update state with the new list of certificates
     setCertificates(newCertificates);
   };
 

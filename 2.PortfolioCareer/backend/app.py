@@ -20,8 +20,6 @@ from datetime import datetime,timedelta
 
 load_dotenv()
 
-import datetime 
-
 #auth
 from authlib .integrations .flask_client import OAuth
 
@@ -57,6 +55,8 @@ app.register_blueprint(google_blueprint, url_prefix="/login")
 # app.config['MAIL_USE_SSL'] = os.getenv('MAIL_USE_SSL') == 'True'
 # app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
 # app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+
+app.config['UPLOAD_FOLDER'] = 'files'
 
 # mail = Mail(app)
 fs = GridFS(db)
@@ -268,18 +268,30 @@ def carrer():
         all_questions = request.form.get("allQuestions")
         voluntary_questions = request.form.get("voluntaryDisclosures")
 
-        db.carrers.insert_one({
-            'applied_for': applied_for,
-            'personal': personal,
-            'experience': experiences,
-            'education': education,
-            'skills': skills,
-            'socials': socials,
-            'all_questions': all_questions,
-            'voluntary_questions': voluntary_questions,
-        })
-    
-        return jsonify({'message':'Application submitted successfully'}), 201
+        ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpeg'}
+        certificate = request.files["certificate"]
+        filename = certificate.filename
+        timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+        new_filename = f"{timestamp}-{filename}"
+
+        if '.' in new_filename and new_filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS:
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], new_filename)
+            certificate.save(file_path)
+
+            db.carrers.insert_one({
+                'applied_for': applied_for,
+                'personal': personal,
+                'experience': experiences,
+                'education': education,
+                'skills': skills,
+                'socials': socials,
+                'all_questions': all_questions,
+                'voluntary_questions': voluntary_questions,
+                'certificate': file_path
+            })
+            return jsonify({'message':'Application submitted successfully'}), 201
+        else:
+            return jsonify({'message': 'Invalid file format'}), 400
 
 def calculate_hash(content):
     md5 = hashlib.md5()
