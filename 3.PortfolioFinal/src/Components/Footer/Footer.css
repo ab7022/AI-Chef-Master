@@ -1,0 +1,113 @@
+.footer-button {
+    background-color: #028090;
+      outline: none;
+      overflow: hidden;
+     }
+    
+  .footer-button:hover {
+      transform: scale(1.05);
+      border-color: #fff9;
+    }
+    
+    .footer-button:hover::before {
+      animation: shine 1.2s ease-out infinite;
+    }
+    .footer-button::before {
+      content: "";
+      position: absolute;
+      width: 100px;
+      height: 100%;
+      background-image: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0) 30%,
+        rgba(255, 255, 255, 0.8),
+        rgba(255, 255, 255, 0) 70%
+      );
+      top: 0;
+      left: -100px;
+      opacity: 0.6;
+    }
+    
+    @keyframes shine {
+      0% {
+        left: -90px;
+      }
+    
+      60% {
+        left: 100%;
+      }
+    
+      to {
+        left: 90%;
+      }
+    }
+  
+  .card-container {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      width: 80%;
+      margin: auto;
+  }
+  
+  .inner-card {
+      display: flex;
+      justify-content: center;
+  }
+  
+  .list-items-styles {
+      list-style: none;
+      font-family: "Gilroy", sans-serif;
+      font-weight: 700;
+      text-align: start;
+      font-size: 17px;
+      line-height: 1.75em;
+  }
+  
+  .list-items-styles li:hover {
+      color: rgb(249, 249, 249);
+      text-shadow: 2px 2px 4px rgba(149, 143, 143, 0);
+  }
+  
+  .heading-item {
+      font-family: "Gilroy", sans-serif;
+      font-weight: 800;
+      margin-bottom: 10px;
+      text-decoration: underline;
+      font-size: 20px;
+      line-height: 26px;
+  }
+  
+   .heading-title {
+      font-family: "Gilroy", sans-serif;
+      font-size: 6rem;
+      font-weight: 800;
+      line-height: 1em;
+      letter-spacing: 0.06px;
+      text-shadow: 5px 5px 8px rgba(12, 0, 0, 0.5);
+  }
+  
+  .heading-title:hover {
+      text-shadow: 5px 5px 8px rgba(12, 0, 0, 0.8);
+  }
+  
+   .list-items-styles li {
+      margin-bottom: 5px; 
+      text-align: start;
+  }
+  
+   .footer {
+       font-family: Arial, Helvetica, sans-serif;
+       color: #333; 
+  }
+  .footer h1, .footer h2 {
+       font-size: 24px;
+      font-weight: bold;
+  }
+  
+  .footer p {
+       font-size: 18px;
+  }
+   .golden-text {
+      color: hsl(50, 33%, 30%);
+  }

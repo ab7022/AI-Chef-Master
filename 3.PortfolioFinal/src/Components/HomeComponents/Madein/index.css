@@ -1,0 +1,19 @@
+.bg-made-india {
+  background: linear-gradient(to right, #84e4f1 0%, #d6dadb 100%);
+ 
+  }
+  
+  .made-in-india {
+    background: linear-gradient(#ff9933, #138808);
+    line-height: 4rem;
+    font-family: 'Times New Roman';
+    background-clip: text;
+     color: transparent; 
+    display: inline-block; 
+    font-size: 4rem;
+    margin-top: 20px;
+  }
+  .counter, .counter-name{
+    color: #028090;
+  }
+  
