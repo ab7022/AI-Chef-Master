@@ -1,41 +1,32 @@
 from flask import Flask,request,jsonify,redirect ,session ,url_for 
-from flask_dance.contrib.google import make_google_blueprint, google
 from flask_jwt_extended import JWTManager,jwt_required,create_access_token ,get_jwt_identity,get_current_user
 from pymongo import MongoClient
-
+from flask_dance.contrib.google import make_google_blueprint, google
 from gridfs import GridFS
-from flask_cors import CORS
+from flask_cors import CORS,cross_origin
 import os
-os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
-import urllib.parse
 import json
 import requests
+import re
+import urllib.parse
+import bson
 from dotenv import  load_dotenv
 load_dotenv()
-
 from pathlib import Path
 from datetime import datetime,timedelta
-
-load_dotenv()
-
-import datetime 
-
-#auth
-from authlib .integrations .flask_client import OAuth
-
 
 app  = Flask(__name__)
 CORS(app, origins=os.getenv('FRONTEND_URL'), supports_credentials=True)
 
 app.secret_key = os.urandom(12)
 
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=1)
 app.config['JWT_REFRESH_TOKEN_EXPIRES'] = timedelta(days=30)
 jwt = JWTManager(app)
 
-# client = MongoClient('mongodb://localhost:27017/')
-client = MongoClient(os.getenv('MONGODB_URI'))
+client = MongoClient(os.getenv('MONGODB_URL'))
 db = client['AI_database']
 
 app.config["GOOGLE_OAUTH_CLIENT_ID"] = os.getenv('GOOGLE_OAUTH_CLIENT_ID')
@@ -57,14 +48,14 @@ def index():
 @app.route("/callback")
 def google_callback():
     if not google.authorized:
-        return jsonify({"error": "Failed to log in."}),  400
+        return jsonify({"error": "Failed to log in."}),400
     resp = google.get("/oauth2/v1/userinfo")
     assert resp.ok, resp.text
-    user_info = resp.json()
 
+    user_info = resp.json()
     exist_user = db.AllUser.find_one({'email':user_info['email']},{'first_name':1})
 
-    if (not exist_user):
+    if not exist_user:
         db.AllUser.insert_one({'first_name':user_info['given_name'] ,'last_name': user_info['family_name'],'email':user_info['email']})
 
     token = create_access_token(identity=user_info['email'])
@@ -120,50 +111,14 @@ def login():
         else:
             return  jsonify({'message':'Invalid email and password'}),401
 
-# google Auth
-# @app.route('/google_login',methods = ['POST'])
-# def google_login():
-#     auth_code = request.get_json()['code']
-
-#     data = {
-#         'code':auth_code,
-#         'client_id': os.getenv('661696889341-t7qs1n7slqoh60d1ooie4i7inefi3jco.apps.googleusercontent.com'),
-#         'client_secret':os.getenv('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'),
-#         'redirect_uri':'http://localhost:5173',
-#         'grant_type':'authorization_code'
-    
-#     }
-#     response = requests.post('https://oauth2.googleapis.com/token',data = data).json()
-
-#     headers ={
-#         'Authorization':f'Bearer {response["access_token"]}'
-#     }
-
-#     user_info = requests.get('https://www.googleapis.com/oauth2/v3/userinfo' ,headers = headers).json()
-
-#     token = create_access_token(identity= user_info['email'])
-
-#     return jsonify({'access_token':token,'user_info':user_info })
-
 @app.route('/chef/createDish',methods = ['POST'])
 @jwt_required()
 def create_dish():
     
     user_info = get_jwt_identity()
-    
-    login_user = db.AllUser.find_one({'email':user_info})
 
+    login_user = db.AllUser.find_one({'email':user_info},{'first_name':1 ,'last_name':1})
     kname = login_user['first_name']+" "+login_user['last_name']
-
-    #dish_name =  request.form.get('name')
-    #veg_non_veg = request.form.get('veg_non_veg')
-    # description = request.form.get('description')
-
-    #pop_state = request.form.get('popularity_state')
-
-    #cuisine = request.form.get('cuisine')
-    #kitchen_equi = request.form.get('kitchen_equipments')
-    #course_type= request.form.get('course_type')
 
     temp = request.get_json()
     instructions = request.get_json()
@@ -172,7 +127,7 @@ def create_dish():
     description = temp['description']
     pop_state = temp['popularity_state']
     cuisine = temp['cuisine']
-    #image = temp['image'] #comment
+    #image = temp['image']
     cooking_time = temp['cooking_time']
     kitchen_equip = temp['kitchen_equipments']
     course = temp['courses']
@@ -185,7 +140,7 @@ def create_dish():
     
     db.Dish.insert_one({"created_by":kname ,"indegrients": ingre,"instructions":instru ,"description":description,"dish_name":dish_name,"veg_non_veg":veg_non_veg,"popularity_state":pop_state,"Cuisine":cuisine,"cooking_time":cooking_time,"kitchen_equipments":kitchen_equip,"courses":course,"Created_date":formatted_date,"Created_time":formatted_time,"email":user_info})
     
-    return jsonify({'message':'Dished Saved Successfully'}),201
+    return jsonify({'Message':'Dished Saved Successfully'}),201
 
     
 @app.route('/myAccount',methods = ['GET'])
@@ -195,33 +150,9 @@ def myAccount():
     user_info = get_jwt_identity()   
     login_user = db.AllUser.find_one({'email':user_info},{'first_name':1 ,'last_name':1})
     name = login_user['first_name']+" " +login_user['last_name']
-    '''
-    if filterCuisine =="Indian" or filterCuisine == "Chinese":
-        dis = db.Dish.find({"created_by":name ,"Cuisine":filterCuisine,"email":user_info})
-        
-        output =[]
-        for dish in dis:
-            dish_data = {
-                "id":str(dish['_id']),
-                "name" :dish['dish_name'],
-                "cuisine":dish['Cuisine'],
-                "veg_non":dish['veg_non_veg'],
-                "course_type":dish['courses'],
-                "Created_date":dish['Created_date'],
-                "Created_time":dish['Created_time'],
-                "description":dish['description']   
-            }
-            output.append(dish_data)
-
-        print("heello 8")
-        return jsonify(output)
     
-    else:
-    
-    '''
     All_dis = db.Dish.find({'email':user_info})
     output3  =[]
-
     for dish in All_dis:
         dish_data = {
                 "id":str(dish['_id']),
@@ -231,21 +162,63 @@ def myAccount():
                 "course_type":dish['courses'],
                 "created_date":dish['Created_date'],
                 "created_time":dish['Created_time'],
-                "description":dish['description']   
+                "description":dish['description'],
+                "cooking_time":dish["cooking_time"], 
+                "popularity_state":dish["popularity_state"]
         }
         output3.append(dish_data)
 
     return jsonify(output3)
-    
 
+@app.route('/api/search' ,methods =['GET','POST'])
+def search():
+    query = request.get_json()
+    sea = query
+    final  = sea["query"]
+    print(final)
+    All_dishes = db.Dish.find({"dish_name": {"$regex": final ,"$options":"i"}})
+    output =[]
+    for dish in All_dishes:
+        dish1 ={
+            
+            "name" :dish['dish_name'],
+            "cuisine":dish['Cuisine'],
+            "veg_non_veg":dish['veg_non_veg'],
+            "courses":dish['courses'],
+            "created_date":dish['Created_date'],
+            "created_time":dish['Created_time'],
+            "created_by":dish['created_by'],
+            "description":dish['description'],
+            "cooking_time":dish["cooking_time"],
+            #"indegrients":dish['indegrients'],
+            #"instructions":dish['instructions'],
+            "kitchen_equipments":dish["kitchen_equipments"],
+            "popularity_state":dish["popularity_state"]
+        }
+        output.append(dish1)
+    return jsonify(output)
 
-@app.route('/api/dish/filter/<string:id>/id/',methods =['GET'])
+@app.route('/api/dish/<id>',methods =['GET'])
 @jwt_required()
 def  filter_by_id(id):
 
-    dishes = db.Dish.find({'_id':id})
-
-    return jsonify(dishes)
+    dish = db.Dish.find_one({'_id':bson.ObjectId(oid=id)})
+    dish_data = {
+               
+            "name" :dish['dish_name'],
+            "cuisine":dish['Cuisine'],
+            "veg_non_veg":dish['veg_non_veg'],
+            "courses":dish['courses'],
+            "created_date":dish['Created_date'],
+            "created_time":dish['Created_time'],
+            "description":dish['description'],
+            "cooking_time":dish["cooking_time"],
+            "indegrients":dish['indegrients'],
+            "instructions":dish['instructions'],
+            "kitchen_equipments":dish["kitchen_equipments"],
+            "popularity_state":dish["popularity_state"]     
+    }
+    return dish_data
 
 @app.route('/show')
 @jwt_required()
@@ -253,7 +226,7 @@ def show():
     user_info  = get_jwt_identity()
     login_user = db.AllUser.find_one({'email':user_info},{'first_name':1 ,'last_name':1})
     name = login_user['first_name']  +" " + login_user['last_name']
-    return jsonify({'name':name ,'email':user_info}) 
+    return jsonify({'name':name ,'email':user_info})
     
 @app.route('/api/contact',methods =['POST'])
 def contact():
@@ -262,10 +235,10 @@ def contact():
     name = data['name']
     email = data['email']
     message =data['message']
-
+    
     db.Contact.insert_one({'name':name,'email':email ,'message':message})
 
-    return jsonify({"message":"Message submitted succesfully"})
+    return jsonify({"Message":"Message submitted succesfully"}),200
 
 if __name__ =="__main__":
     app.run(debug= True)
