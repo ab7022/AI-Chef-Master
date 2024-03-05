@@ -1,4 +1,3 @@
-"use client";
 import { useLocation } from "react-router-dom";
 import Link from "next/link";
 import logoSrc from "public/logo.svg";

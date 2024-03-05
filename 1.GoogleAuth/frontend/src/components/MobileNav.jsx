@@ -66,9 +66,9 @@ const MobileNav = () => {
             <li key='contact' className=' text-base  pb-1   transition-all duration-300     hover:text-amber-500' onClick={()=>{setOpenMenu(false)}}>
             <NavLink  to='/contact'>Contact</NavLink>
             </li>
-            <li key='career' className=' text-base  pb-1   transition-all duration-300     hover:text-amber-500' onClick={()=>{setOpenMenu(false)}}>
+            {/* <li key='career' className=' text-base  pb-1   transition-all duration-300     hover:text-amber-500' onClick={()=>{setOpenMenu(false)}}>
             <NavLink  to='/career'>Career</NavLink>
-            </li>
+            </li> */}
 
             
 

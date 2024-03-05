@@ -135,8 +135,8 @@ def create_dish():
     ingre = temp['ingredients']
     instru = temp['instructions']
 
-    formatted_time = datetime.datetime.now().strftime("%H:%M:%S")
-    formatted_date = datetime.datetime.now().strftime("%Y-%m-%d")
+    formatted_time = datetime.now().strftime("%H:%M:%S")
+    formatted_date = datetime.now().strftime("%Y-%m-%d")
     
     db.Dish.insert_one({"created_by":kname ,"indegrients": ingre,"instructions":instru ,"description":description,"dish_name":dish_name,"veg_non_veg":veg_non_veg,"popularity_state":pop_state,"Cuisine":cuisine,"cooking_time":cooking_time,"kitchen_equipments":kitchen_equip,"courses":course,"Created_date":formatted_date,"Created_time":formatted_time,"email":user_info})
     
@@ -240,5 +240,6 @@ def contact():
 
     return jsonify({"Message":"Message submitted succesfully"}),200
 
-if __name__ =="__main__":
-    app.run(debug= True)
+if __name__ == '__main__':
+    app.debug = True
+    app.run()

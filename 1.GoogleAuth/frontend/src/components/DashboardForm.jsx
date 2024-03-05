@@ -23,7 +23,7 @@ const DashboardForm = () => {
     kitchen_equipments:"",
   };
   const [form, setForm] = useState(initialFormState);
-  // console.log(form);
+  console.log(form);
 
   useEffect(() => {
     if (user && user.account_id) {

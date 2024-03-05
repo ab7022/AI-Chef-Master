@@ -12,6 +12,7 @@ const DishResultCard = ({dish}) => {
         setDishView(dish); // Update dishView with the current dish prop
         console.log(dishView)
     };
+    console.log(dish);
 
 
     
@@ -22,7 +23,7 @@ const DishResultCard = ({dish}) => {
     <h3 className="text-2xl text-amber-600 font-semibold border-b border-zinc-400">{dish.name}</h3>
     <div className='text-base'>
 
-    <p className='text-black'>Course Type - {dish.course_type}</p>
+    <p className='text-black'>Created by - {dish.created_by}</p>
     <p className='text-black'>Cuisine - {dish.cuisine}</p>
     {dish.veg_non_veg === "vegetarian" ? <p className='rounded-xl bg-[#0f83059e] text-white my-1 text-center w-1/2 border p-0.5 border-emerald-500'>{dish.veg_non_veg}</p> : <p className='rounded-xl bg-[#cd1d1d9c] p-0.5 text-center w-1/2 border my-1 text-white border-rose-500'>{dish.veg_non_veg}</p>}
     </div>
@@ -31,7 +32,7 @@ const DishResultCard = ({dish}) => {
    
     <div className={'popup-media transition-all min-h-screen  w-full max-auto justify-center ' } style={{display: open?'flex':'none'}}>
             <span onClick={(prev)=>setOpen(!prev)} className='absolute cursor-pointer right-0 p-8'><IoIosClose className="text-rose-600 border border-rose-600 rounded-full hover:bg-rose-200 text-3xl" /></span>
-            {open && <Overview form={dishView} color={'text-black'}/>}
+            {open && <Overview open={open} setOpen={setOpen} form={dishView} value="searchPage" color={'text-black'}/>}
     </div>
     
   </div>
