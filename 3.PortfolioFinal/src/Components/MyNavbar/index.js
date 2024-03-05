@@ -62,7 +62,7 @@ export default function MyNavbar() {
                     </div>
                   </div>
                   <div className="sm:hidden">
-                    <Disclosure.Button className="text-white font-extrabold p-2">
+                    <Disclosure.Button className="text-black font-extrabold p-2">
                       {open ? (
                         <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                       ) : (

@@ -12,7 +12,7 @@ const Page1 = () => {
         </h1>
       </div>
 
-      <div className='bg-gradient-to-b from-sky-400 to-slate-50 py-16 sm:py-24 md:py-32 lg:py-40 xl:py-56 w-full'>
+      <div className='bg-gradient-to-b from-[#D3D3D3] to-[#FFFFFF] py-16 sm:py-24 md:py-32 lg:py-40 xl:py-56 w-full'>
         <div className='text-center'>
           <p className='text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl my-2 font-semibold'>Bring your talents to   <span className=" text-green-700 font-extrabold"> AI CHEFMASTER</span>
           </p>
@@ -25,7 +25,7 @@ const Page1 = () => {
             name="myInput"
             placeholder='Enter a Job title, Keyword'
           />
-          <button className='bg-blue-500 hover:bg-blue-700 text-white font-semibold rounded-md px-5 py-3 md:ml-4'>
+          <button className='bg-black hover:bg-blue-700 text-white font-semibold rounded-md px-5 py-3 md:ml-4'>
             Search
           </button>
 

@@ -5,8 +5,8 @@ import Madein from "../HomeComponents/Madein";
 import Happiness from "../HomeComponents/Happiness";
 import Values from "../HomeComponents/Values";
 import FooterItem from "../HomeComponents/FooterItem";
-
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+
 function Home() {
   return (
     <>

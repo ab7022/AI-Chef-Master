@@ -3,42 +3,42 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MyNavbar from "./Components/MyNavbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./Components/Home";
-// import Product from "./Components/Product";
-// import Technology from "./Components/Career/Technology";
-// import Hiring from "./Components/Career/CareerMain/HiringProcess"
-// import Company from "./Components/Company";
-// import SignUpForm from "./Components/SineUpForm";
-// import LoginForm from "./Components/LoginForm";
+import Product from "./Components/Product";
+import Technology from "./Components/Career/Technology";
+import Hiring from "./Components/Career/CareerMain/HiringProcess"
+import Company from "./Components/Company";
+import SignUpForm from "./Components/SineUpForm";
+import LoginForm from "./Components/LoginForm";
 // import CardAIAssistant from "../src/Components/HomeComponents/CardAIAssistant";
 // import CardAIKitchen from "../src/Components/HomeComponents/CardAIKitchen";
 // import CardAINutritionManager from "../src/Components/HomeComponents/CardAINutritionManager";
 // import Experience from "./Components/Career/JobApplicationForm/Experience";
-// import NotFound from "./Components/NotFound";
-// import SearchJobCards from "./Components/Career/searchJobCards";
-// import FrontendDeveloperEngineer from "./Components/Career/ListOfCareerJobs/FrontendDeveloperEngineer";
-// import BackendDeveloperEngineer from "./Components/Career/ListOfCareerJobs/BackendDeveloperEngineer";
-// import AIEngineer from "./Components/Career/ListOfCareerJobs/AIEngineer";
-// import ServerEngineer from "./Components/Career/ListOfCareerJobs/ServerEngineer";
-// import UiUxDesigner from "./Components/Career/ListOfCareerJobs/UiUxDesigner";
-// import AndroidApplicationDeveloperEngineer from "./Components/Career/ListOfCareerJobs/AndroidApplicationDeveloperEngineer";
-// import IOSApplicationDeveloperEngineer from "./Components/Career/ListOfCareerJobs/IOSApplicationDeveloperEngineer";
-// import FullStackDeveloperEngineer from "./Components/Career/ListOfCareerJobs/FullStackDeveloperEngineer";
-// import CustomerSupportAssociate from "./Components/Career/ListOfCareerJobs/CustomerSupportAssociate";
-// import ResearchDevelopmentEngineer from "./Components/Career/ListOfCareerJobs/ResearchDevelopmentEngineer";
+import NotFound from "./Components/NotFound";
+import SearchJobCards from "./Components/Career/searchJobCards";
+import FrontendDeveloperEngineer from "./Components/Career/ListOfCareerJobs/FrontendDeveloperEngineer";
+import BackendDeveloperEngineer from "./Components/Career/ListOfCareerJobs/BackendDeveloperEngineer";
+import AIEngineer from "./Components/Career/ListOfCareerJobs/AIEngineer";
+import ServerEngineer from "./Components/Career/ListOfCareerJobs/ServerEngineer";
+import UiUxDesigner from "./Components/Career/ListOfCareerJobs/UiUxDesigner";
+import AndroidApplicationDeveloperEngineer from "./Components/Career/ListOfCareerJobs/AndroidApplicationDeveloperEngineer";
+import IOSApplicationDeveloperEngineer from "./Components/Career/ListOfCareerJobs/IOSApplicationDeveloperEngineer";
+import FullStackDeveloperEngineer from "./Components/Career/ListOfCareerJobs/FullStackDeveloperEngineer";
+import CustomerSupportAssociate from "./Components/Career/ListOfCareerJobs/CustomerSupportAssociate";
+import ResearchDevelopmentEngineer from "./Components/Career/ListOfCareerJobs/ResearchDevelopmentEngineer";
 import Application from "./Components/Career/JobApplicationForm/Application";
-// import VoluntaryDisclosures from "./Components/Career/JobApplicationForm/VoluntaryDisclosures";
-// import ApplicationQuestions from "./Components/Career/JobApplicationForm/ApplicationQuestions";
-// import Review from "./Components/Career/JobApplicationForm/Review";
-// import CareerHomePage from "./Components/Career/CareerHomePage";
-// import RD from './Components/CardData/RD'
-// import LongTerm from './Components/CardData/LongTerm'
-// import Customer from './Components/CardData/Customer'
-// import AboutUs from './Components/Team/About'
-// import Team from './Components/Team/Team'
-// import AiAssistant from "./Components/AIChefPocketData/AiAssistant";
-// import Kitchen from "./Components/AIChefPocketData/Kitchen";
-// import NutritionManager from "./Components/AIChefPocketData/NutritionManager";
-// import JobRoles from "./Components/Career/searchJobCards"
+import VoluntaryDisclosures from "./Components/Career/JobApplicationForm/VoluntaryDisclosures";
+import ApplicationQuestions from "./Components/Career/JobApplicationForm/ApplicationQuestions";
+import Review from "./Components/Career/JobApplicationForm/Review";
+import CareerHomePage from "./Components/Career/CareerHomePage";
+import RD from './Components/CardData/RD'
+import LongTerm from './Components/CardData/LongTerm'
+import Customer from './Components/CardData/Customer'
+import AboutUs from './Components/Team/About'
+import Team from './Components/Team/Team'
+import AiAssistant from "./Components/AIChefPocketData/AiAssistant";
+import Kitchen from "./Components/AIChefPocketData/Kitchen";
+import NutritionManager from "./Components/AIChefPocketData/NutritionManager";
+import JobRoles from "./Components/Career/searchJobCards"
 
 const App = () => {
   return (
@@ -46,7 +46,7 @@ const App = () => {
       <MyNavbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/product" element={<Product />} />
+        <Route path="/product" element={<Product />} />
         <Route path="/career" element={<CareerHomePage />} />
         <Route path="/company" element={<Company />} />
         <Route path="/login" element={<LoginForm />} />
@@ -96,17 +96,17 @@ const App = () => {
         <Route
           path="/Research-And-Development-Engineer"
           element={<ResearchDevelopmentEngineer />}
-        /> */}
+        />
         <Route
           path="/application"
           element={<Application />}
         />
         {/* <Route path="/experience" element={<Experience />} /> */}
-        {/* <Route path="/voluntary" element={<VoluntaryDisclosures />} />
+        <Route path="/voluntary" element={<VoluntaryDisclosures />} />
         <Route path="/questions" element={<ApplicationQuestions />} />
         <Route path="/review" element={<Review />} />
 
-        <Route path="/notfound" element={<NotFound />} /> */}
+        <Route path="/notfound" element={<NotFound />} />
       </Routes>
     </Router>
   );

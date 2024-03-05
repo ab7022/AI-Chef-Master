@@ -14,7 +14,7 @@ const FooterItem = () => {
         <h5 className="text-2xl font-bold mb-4">Let's get you started.</h5>
         <div className="flex justify-center ">
           <Button className="footer-button p-3 hover:shadow-lg w-48 md:w-68 rounded font-sans text-white text-sm md:text-lg transform transition duration-500 hover:scale-110">
-            <Link to="/signup" className="no-underline text-white ">
+            <Link to="/signup" className="no-underline" style={{ color: 'hsl(50, 33%, 30%)' }}>
               SIGN UP NOW ➪
             </Link>
           </Button>

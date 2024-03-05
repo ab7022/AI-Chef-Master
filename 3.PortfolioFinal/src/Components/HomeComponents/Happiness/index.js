@@ -26,7 +26,8 @@ function Happiness() {
           personalized support further enhances the overall customer experience,
           fostering a positive relationship and solidifying trust in our brand.
         </p>
-        <Button className="bg-sky-700 hover:bg-sky-800 text-white rounded-md font-sans font-medium text-lg sm:text-xl md:text-2xl lg:text-3xl">
+        {/* <Button className="bg-sky-700 hover:bg-sky-800 text-white rounded-md font-sans font-medium text-lg sm:text-xl md:text-2xl lg:text-3xl"> */}
+        <Button className="bg-black text-white rounded-md font-sans font-medium text-lg sm:text-xl md:text-2xl lg:text-3xl">
           ▶️ Watch Co-workers Video
         </Button>
       </div>
