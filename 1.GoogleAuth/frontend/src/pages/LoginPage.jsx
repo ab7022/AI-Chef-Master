@@ -4,7 +4,7 @@ import { BiShow } from 'react-icons/bi'
 import { MdOutlineVisibilityOff } from 'react-icons/md'
 import { useLogin } from '../hooks/useLogin';
 import { useAuthContext } from '../hooks/useAuthContext';
-import toast, { Toaster } from 'react-hot-toast'
+import toast from 'react-hot-toast'
 // import { GoogleOAuthProvider } from "@react-oauth/google";
 // import { GoogleLogin } from "@react-oauth/google";
 // import { jwtDecode } from "jwt-decode";
@@ -148,8 +148,6 @@ const LoginPage = () => {
 
         </div>
       </form>
-      <Toaster position="top-right"
-        reverseOrder={false} />
     </div>
   )
 }
