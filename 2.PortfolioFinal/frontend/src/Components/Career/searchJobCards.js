@@ -170,7 +170,7 @@ function SearchJobCards() {
 
   return (
     <>
-      <div className="" style={{ backgroundColor: "#f6ffe4" }}>
+      <div>
         <h1 className="text-4xl mb-8 md:py-18 py-12 md:text-5xl lg:text-6xl text-center font-bold text-green-800">
           Search Jobs at AI CHEF MASTER
         </h1>

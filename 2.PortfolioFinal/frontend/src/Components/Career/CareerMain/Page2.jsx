@@ -14,7 +14,8 @@ import { Link } from 'react-router-dom';
 const Page2 = () => {
   return (
     <>
-      <div className='min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-100 to-gray-200'>
+      {/* <div className='min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-100 to-gray-200'> */}
+      <div className='min-h-screen flex flex-col items-center justify-center'>
         <h1 className='font-medium text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center font-sans mb-4'>Life at AI Chef Master</h1>
 
         <div className="text-2xl sm:text-4xl md:text-5xl mb-3">
@@ -64,7 +65,7 @@ const Page2 = () => {
           <GredientText className='ml-2 sm:ml-3'> next level</GredientText>.
           Discover the perfect job for you.
         </p>
-        <div className='gap-4 mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center bg-white '>
+        <div className='gap-4 mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center'>
           <div className="w-80 h-80 bg-[#EEEEEE] hover:shadow-lg rounded-md border-2 hover:shadow-slate-500 ">
             <img className='h-64 mt-1' src={operations} alt='operations' />
             <div className="flex gap-4 justify-center">
@@ -75,7 +76,7 @@ const Page2 = () => {
           <div className="w-80 h-80 bg-[#EEEEEE] hover:shadow-lg rounded-md border-2 hover:shadow-slate-500 ">
             <img className='h-64 mt-1' src={RD} alt='RB' />
             <div className="flex gap-4 justify-center">
-              <Button className='bg-white w-full h-16 text-black text-2xl'>R & D 🡪</Button>
+              <Button className='bg-white w-full h-16 text-black text-2xl'><Link to="/R&D" onClick={() => window.scrollTo(0, 0)}>R & D 🡪</Link></Button>
             </div>
           </div>
 

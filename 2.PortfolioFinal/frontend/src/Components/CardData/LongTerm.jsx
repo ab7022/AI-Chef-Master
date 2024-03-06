@@ -30,7 +30,7 @@ const sectionData = [
 const LongTerm = () => {
   return (
     <>
-      <div className='bg-cyan-300 min-h-screen md:pb-16'>
+      <div className='min-h-screen md:pb-16'>
         <div className='flex justify-center items-center h-32 bg-cyan-600'>
           <h1 className='text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white font-serif py-4 px-6 md:px-8 lg:px-10 xl:px-12 text-center md:text-left'>
             Long Term Growth - Elevating Culinary Experiences, Expanding Horizons

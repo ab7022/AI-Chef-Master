@@ -14,9 +14,10 @@ export default function Unique() {
         <div className="lg:w-7/12 sm:w-full md:w-full mb-8 sm:mb-0 ">
           <h1
             style={{ lineHeight: "3rem" }}
-            className="main-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4 md:text-start"
+            className="main-heading relative text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4 md:text-start"
           >
             Welcome to AI Chef Master
+            <div class="w-[300px] h-[300px] z-1 rounded-full absolute top-[-125px] left-[-40px] blur-3xl bg-[#8bfb451c]" />
           </h1>
           <div className="md:text-start">
             <p className="sub-heading mb-4 text-base sm:text-xl md:text-xl lg:text-2xl">

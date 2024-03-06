@@ -4,7 +4,7 @@ import "../Happiness/index.css";
 
 function Happiness() {
   return (
-    <div className="bg-white flex flex-col md:flex-row justify-center break-words items-center px-6 md:px-10 py-8 md:py-20">
+    <div className="flex flex-col md:flex-row justify-center break-words items-center px-6 md:px-10 py-8 md:py-20">
       <div className="sm:text-left lg:w-7/12 sm:w-full md:w-full mb-8 sm:mb-0">
         <h1
           style={{ lineHeight: "3rem" }}
@@ -35,7 +35,7 @@ function Happiness() {
         <div className="w-full h-auto">
           <img
             className="object-cover w-full h-full"
-            src="https://img.freepik.com/free-vector/one-man-jumping-cheerful-icon-isolated_18591-82710.jpg?w=740&t=st=1705746597~exp=1705747197~hmac=33ab33f1efe2f6fc12687b0a96ca62b55bf95e172f9d2a05b8fd1c73f94b44f6"
+            src="/assets/jump.png"
             alt=""
           />
         </div>

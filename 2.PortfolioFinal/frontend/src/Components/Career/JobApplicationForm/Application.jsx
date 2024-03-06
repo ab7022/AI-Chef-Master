@@ -301,7 +301,7 @@ const Application = () => {
         richColors
       />
       {loading ? (
-        <div className="container-lg shadow-lg px-12 py-12 mx-auto  sm:px-6 lg:px-8">
+        <div className="container-lg bg-[rgb(241 245 249)] shadow-lg px-12 py-12 mx-auto  sm:px-6 lg:px-8">
           {count <= 5 && (
             <>
               <h1 className="text-xl sm:text-lg md:text-3xl font-medium font-sans mb-3">

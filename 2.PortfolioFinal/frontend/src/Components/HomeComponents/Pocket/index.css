@@ -2,10 +2,10 @@
    font-family: 'Times New Roman', Times, serif;
 }
 
-.background-style-pocket {
+/* .background-style-pocket {
    background: linear-gradient(to right, #ffffff 0%, #D3D3D3 100%);
-   /* background: linear-gradient(to right, #84e4f1 0%, #d6dadb 100%) !important; */
-}
+   background: linear-gradient(to right, #84e4f1 0%, #d6dadb 100%) !important;
+} */
 
 .learn-more-button {
    color: #000000;

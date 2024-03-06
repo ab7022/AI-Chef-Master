@@ -11,18 +11,19 @@ export default function MyNavbar() {
 
   return (
     <>
-      <Disclosure as="nav" className="my-navbar shadow-lg sticky top-0 z-50">
+      <Disclosure as="nav" className="my-navbar shadow-xl sticky top-0 z-50">
         {({ open }) => (
           <>
-            <div className="mx-auto p-2 max-w-7xl px-2 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-[1262px] py-1 px-2 sm:px-6 lg:px-8">
               <div className="relative flex h-16 items-center">
                 <div className="flex items-center w-full justify-between">
-                  <Link to='/' className="lg:mr-24">
+                  <Link to='/' className="text-3xl font-semibold font-primary flex items-center justify-between gap-x-2">
                     <img
-                      className="h-10 rounded w-auto navbar-logo ml-5"
-                      src="/logo.jpeg"
+                      className="h-10 rounded w-auto navbar-logo"
+                      src="/assets/logo.jpeg"
                       alt="AI CHEF MASTER"
                     />
+                    <h1>AIChefMaster</h1>
                   </Link>
 
                   <div className="hidden sm:block">

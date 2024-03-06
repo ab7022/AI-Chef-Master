@@ -7,7 +7,7 @@ import img1 from "./img1.jpg";
 const About = () => {
   return (
     <>
-      <div className=" p-6 bg-gradient-to-r from-cyan-300 to-neutral-50 h-full min-h-screen w-full">
+      <div className=" p-6 h-full min-h-screen w-full">
         <div className="flex justify-center item-center h-32 bg-cyan-600 border rounded-lg mb-8 md:ml-20 md:mr-20 mt-16">
           <h1 className="text-5xl font-bold text-white font-serif py-8">
             ABOUT US

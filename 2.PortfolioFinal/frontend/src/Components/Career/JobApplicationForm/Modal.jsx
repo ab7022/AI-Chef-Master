@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { toast } from 'sonner';
 import axios from 'axios';
 import { countryPhoneCodes } from './data/countryData';
@@ -34,66 +34,62 @@ export default function Modal({
 
     await axios.request(options)
       .then((response) => {
-        localStorage.setItem('resume', JSON.stringify(response.data["hireability"]["extracted_data"]));
+        const resume = response.data["hireability"]["extracted_data"]
+
+        setfName(resume["personal_infos"]["name"]["first_name"] || "");
+        setlName(resume["personal_infos"]["name"]["last_name"] || "");
+
+        setPinCode(resume["personal_infos"]["address"]["postal_code"] || "");
+        setCity(resume["personal_infos"]["address"]["city"] || "");
+        setCountry(resume["personal_infos"]["address"]["country"] || "");
+
+        setEmail(resume["personal_infos"]["mails"][0] || "");
+
+        const phoneNumber = resume["personal_infos"]["phones"][0];
+        const escapedCountryCodes = Object.values(countryPhoneCodes).map(code => code.replace(/\+/g, '\\+'));
+        const countryCodePattern = new RegExp(`(${escapedCountryCodes.join('|')})`);
+        const phoneMatch = phoneNumber.match(countryCodePattern);
+        if (phoneMatch) {
+          const countryCode = phoneMatch[0];
+          const restOfPhoneNumber = phoneNumber.replace(countryCode, '').trim();
+          setPhoneCode(countryCode || "");
+          setPhoneNumber(restOfPhoneNumber || "");
+        } else {
+          console.error('Country code not found in the provided phone number.');
+        }
+
+        const workExperience = resume["work_experience"]["entries"] || [];
+        if (workExperience.length > 0) {
+          workExperience.map((work) =>
+            setExperiences(prevExperiences => [...prevExperiences, {
+              jobTitle: work["title"],
+              company: work["company"],
+              from: work["start_date"] || null,
+              to: work["end_date"] ? work["end_date"] : null,
+              isCurrentlyPursuing: work["end_date"] ? false : true
+            }])
+          )
+        }
+
+        const educationData = resume["education"]["entries"] || [];
+        if (educationData.length > 0) {
+          educationData.map((education) =>
+            setEducation(prevEducation => [...prevEducation, {
+              school: `${education.title} ${education.description} ${education.establishment}`
+            }])
+          )
+        }
+
+        const skillsData = resume["skills"];
+        if (skillsData.length > 0) {
+          skillsData.map((skill) => setSkills(prevSkill => [...prevSkill, skill.name]))
+        }
       })
       .finally(() => {
         setLoading(false);
         setShowModal(false);
       });
   };
-
-  useEffect(() => {
-    const resume = JSON.parse(localStorage.getItem('resume'));
-
-    setfName(resume["personal_infos"]["name"]["first_name"] || "");
-    setlName(resume["personal_infos"]["name"]["last_name"] || "");
-
-    setPinCode(resume["personal_infos"]["address"]["postal_code"] || "");
-    setCity(resume["personal_infos"]["address"]["city"] || "");
-    setCountry(resume["personal_infos"]["address"]["country"] || "");
-
-    setEmail(resume["personal_infos"]["mails"][0] || "");
-
-    const phoneNumber = resume["personal_infos"]["phones"][0];
-    const escapedCountryCodes = Object.values(countryPhoneCodes).map(code => code.replace(/\+/g, '\\+'));
-    const countryCodePattern = new RegExp(`(${escapedCountryCodes.join('|')})`);
-    const phoneMatch = phoneNumber.match(countryCodePattern);
-    if (phoneMatch) {
-      const countryCode = phoneMatch[0];
-      const restOfPhoneNumber = phoneNumber.replace(countryCode, '').trim();
-      setPhoneCode(countryCode || "");
-      setPhoneNumber(restOfPhoneNumber || "");
-    } else {
-      console.error('Country code not found in the provided phone number.');
-    }
-
-    const workExperience = resume["work_experience"]["entries"] || [];
-    if (workExperience.length > 0) {
-      workExperience.map((work) =>
-        setExperiences(prevExperiences => [...prevExperiences, {
-          jobTitle: work["title"],
-          company: work["company"],
-          from: work["start_date"] || null,
-          to: work["end_date"] ? work["end_date"] : null,
-          isCurrentlyPursuing: work["end_date"] ? false : true
-        }])
-      )
-    }
-
-    const educationData = resume["education"]["entries"] || [];
-    if (educationData.length > 0) {
-      educationData.map((education) =>
-        setEducation(prevEducation => [...prevEducation, {
-          school: `${education.title} ${education.description} ${education.establishment}`
-        }])
-      )
-    }
-
-    const skillsData = resume["skills"];
-    if (skillsData.length > 0) {
-      skillsData.map((skill) => setSkills(prevSkill => [...prevSkill, skill.name]))
-    }
-  }, [setfName, setlName, setPinCode, setCity, setCountry, setEmail, setPhoneCode, setPhoneNumber, setExperiences, setEducation, setSkills]);
 
   return (
     <>
@@ -168,39 +164,3 @@ export default function Modal({
     </>
   );
 }
-
-// import { useState } from 'react';
-// import { Document, Page } from 'react-pdf';
-
-// const [file, setFile] = useState(null);
-// const [numPages, setNumPages] = useState(null);
-
-// const handleFileUpload = (event) => {
-//   const file = event.target.files[0];
-//   if (file) {
-//     const reader = new FileReader();
-//     reader.onload = (event) => {
-//       const dataUrl = event.target.result;
-//       setFile(dataUrl);
-//       processPdf(dataUrl);
-//     };
-//     reader.readAsDataURL(file);
-//   }
-// };
-
-// const onDocumentLoadSuccess = ({ numPages }) => {
-//   setNumPages(numPages);
-// };
-
-// {
-//   file && (
-//     <Document
-//       file={file}
-//       onLoadSuccess={onDocumentLoadSuccess}
-//     >
-//       {Array.from(new Array(numPages), (el, index) => (
-//         <Page key={`page_${index + 1}`} pageNumber={index + 1} />
-//       ))}
-//     </Document>
-//   )
-// }

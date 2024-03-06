@@ -3,7 +3,7 @@ import AiAssistantData from "./Data/AiAssistantData";
 
 const AiAssistant = () => {
   return (
-    <div className="bg-[#8BE0E9] pb-4">
+    <div className="pb-4">
       <div className="flex w-full justify-center items-center p-2 bg-[#1F969B] text-white font-semibold text-[2rem]">
         AI Assistant
       </div>
@@ -22,7 +22,7 @@ const AiAssistant = () => {
       <div className="px-8 md:px-20 text-[1.2rem] mb-12 flex justify-center items-center text-center">
         Let's say you have some chicken, tomatoes, and pasta in your kitchen. Enter these ingredients, and our platform might suggest a mouthwatering Chicken Tomato Pasta recipe. Our platform will guide you through the process, helping you create a restaurant-quality dish right at home.
       </div>
-      <div className="mt-6 bg-[#8BE0E9]">
+      <div className="mt-6">
         {AiAssistantData.map((obj, index) => (
           <div key={index} className={`flex flex-col md:flex-row ${index % 2 === 0 ? 'md:flex-row-reverse' : 'md:flex-row'} justify-center items-center w-full gap-8 md:gap-12 mx-auto my-12 px-4 sm:px-6 lg:px-8`}>
             <img src={obj.imageUrl} className="w-full h-64 md:h-96 md:w-1/2 rounded-lg shadow-lg" alt={obj.heading} />

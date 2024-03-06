@@ -1,1 +1,25 @@
- 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    /* background-color: #ffffff;
+    --dot-bg: rgb(240, 240, 240);
+    --dot-color: rgb(1, 1, 1);
+    --dot-size: 1px;
+    --dot-space: 10px;
+    background:
+        linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+        linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+        linear-gradient(to top, #fafafa, rgba(91, 91, 91, 0.99)); */
+    --body_background: #f0f0f0;
+    --body_color: rgba(1, 1, 1, 0.5);
+    --dot-bg: var(--body_background);
+    --dot-color: var(--body_color);
+    --dot-size: 1px;
+    --dot-space: 10px;
+    background:
+        linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+        linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+        var(--dot-color);
+}

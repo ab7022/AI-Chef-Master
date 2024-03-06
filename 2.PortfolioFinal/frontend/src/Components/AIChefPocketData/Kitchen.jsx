@@ -3,7 +3,7 @@ import WhatIsInKitchenData from "./Data/WhatIsInKitchenData";
 
 const Kitchen = () => {
   return (
-    <div className="bg-[#8BE0E9] pb-4">
+    <div className="pb-4">
       <div className="flex w-full justify-center items-center p-2 bg-[#1F969B] text-white font-semibold text-[2rem]">
         What's in your kitchen?
       </div>
@@ -11,7 +11,7 @@ const Kitchen = () => {
         Welcome to "What's In Your Kitchen," your go-to platform for turning every day ingredients into delightful dishes! Our platform is designed to make your cooking experience not just convenient, but also creative and sustainable. Let's take a closer look at how it works:
       </div>
 
-      <div className="mt-6 bg-[#8BE0E9]">
+      <div className="mt-6">
         {WhatIsInKitchenData.map((obj, index) => (
           <div key={index} className={`flex flex-col md:flex-row ${index % 2 === 0 ? 'md:flex-row-reverse' : 'md:flex-row'} justify-center items-center w-full gap-8 md:gap-12 mx-auto my-12 px-4 sm:px-6 lg:px-8`}>
             <img src={obj.imageUrl} className="w-full h-64 md:h-96  md:w-1/2 rounded-2xl" alt="" />

@@ -49,7 +49,7 @@ const rdSections = [
 const RD = () => {
   return (
     <>
-      <div className=" bg-cyan-300 h-full min-h-screen w-full">
+      <div className="h-full min-h-screen w-full">
         <div className="flex justify-center items-center mb-12 h-28 bg-cyan-600">
           <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white font-serif py-4 px-6 md:px-8 lg:px-10 xl:px-12 text-center md:text-left">
             R&D (Research and Development)
