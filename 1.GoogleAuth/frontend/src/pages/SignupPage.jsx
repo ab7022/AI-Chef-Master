@@ -30,16 +30,14 @@ const SignupPage = () => {
   }
 
   return (
-    <div className='px-4 sm:px-4 min-h-screen max-w-screen  text-black overflow-hidden mt-16 lg:mt-20 mb-4'>
-      <form className='signup  flex flex-col  justify-center  items-center font-primary' onSubmit={handleSubmit}>
-        <h3 className='text-4xl font-semibold  mt-8  text-center  py-2'>Create a new account</h3>
+    <div className='px-4 sm:px-4 h-screen py-12 text-black   '>
+      <form className='signup py-8 flex flex-col  justify-center  items-center font-primary' onSubmit={handleSubmit}>
+        <h3 className='text-4xl font-semibold   text-center  py-2'>Create a new account</h3>
         <p className='text-center mb-8 text-base '>Enter the fields below to get started</p>
-
 
         <div className=' bg-gradient-to-b from-zinc-600 z-0 to-black p-0.5  rounded-lg'>
 
           <div className=' bg-white backdrop-filter backdrop-blur-xl h-full w-full items-center p-4   md:p-16 rounded-lg flex flex-col justify-center'>
-
 
 
             <div className='grid grid-cols-1 md:grid-cols-2 md:gap-4'>
