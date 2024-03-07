@@ -140,7 +140,7 @@ def create_dish():
     
     db.Dish.insert_one({"created_by":kname ,"indegrients": ingre,"instructions":instru ,"description":description,"dish_name":dish_name,"veg_non_veg":veg_non_veg,"popularity_state":pop_state,"Cuisine":cuisine,"cooking_time":cooking_time,"kitchen_equipments":kitchen_equip,"courses":course,"Created_date":formatted_date,"Created_time":formatted_time,"email":user_info})
     
-    return jsonify({'Message':'Dished Saved Successfully'}),201
+    return jsonify({'message':'Dished Saved Successfully'}),201
 
     
 @app.route('/myAccount',methods = ['GET'])
@@ -230,15 +230,13 @@ def show():
     
 @app.route('/api/contact',methods =['POST'])
 def contact():
-
     data = request.get_json()
     name = data['name']
-    email = data['email']
     message =data['message']
     
-    db.Contact.insert_one({'name':name,'email':email ,'message':message})
+    db.Contact.insert_one({'name':name,'message':message})
 
-    return jsonify({"Message":"Message submitted succesfully"}),200
+    return jsonify({"message":"Message submitted succesfully"}),200
 
 if __name__ == '__main__':
     app.debug = True

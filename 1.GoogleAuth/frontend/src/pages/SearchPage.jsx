@@ -12,7 +12,7 @@ const SearchPage = () => {
   const [message, setMessage] = useState("");
   const [isLoading, setisLoading] = useState(false);
   const [errormsg, setErrormsg] = useState("");
-  console.log(query, "helloji");
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     setisLoading(true);
@@ -30,28 +30,25 @@ const SearchPage = () => {
       if (response.ok) {
         // setQuery("");
         const responseData = await response.json();
-        console.log(responseData);
         setresultDishes(responseData);
         setErrormsg("");
         setisLoading(false);
         setMessage(
           `${responseData.message} ${responseData?.data?.length} dishes found`
         );
-
-        console.log(resultDishes);
       } else {
         // setQuery("");
         setisLoading(false);
         setresultDishes([]);
         setMessage("");
         const errorData = await response.json();
-        console.error("Error :", response.statusText);
+        // console.error("Error :", response.statusText);
         setErrormsg("Dish does not exist.");
       }
     } catch (err) {
       // setQuery("");
       setisLoading(false);
-      console.error("An error occurred:", err);
+      // console.error("An error occurred:", err);
     }
   };
   const searchfunction = async () => {
@@ -70,7 +67,7 @@ const SearchPage = () => {
       if (response.ok) {
         // setQuery("");
         const responseData = await response.json();
-        console.log(responseData);
+        // console.log(responseData);
         setresultDishes(responseData);
         setErrormsg("");
         setisLoading(false);
@@ -78,34 +75,33 @@ const SearchPage = () => {
           `${responseData.message} ${responseData?.data?.length} dishes found`
         );
 
-        console.log(resultDishes);
+        // console.log(resultDishes);
       } else {
         // setQuery("");
         setisLoading(false);
         setresultDishes([]);
         setMessage("");
         const errorData = await response.json();
-        console.error("Error :", response.statusText);
+        // console.error("Error :", response.statusText);
         setErrormsg("Dish does not exist.");
       }
     } catch (err) {
       // setQuery("");
       setisLoading(false);
-      console.error("An error occurred:", err);
+      // console.error("An error occurred:", err);
     }
   };
   useEffect(() => {
-    console.log(query);
-
+    // console.log(query);
     searchfunction();
   }, [query]);
+
   const handleInputChange = (e) => {
     setQuery(e.target.value);
   };
+
   return (
     <div className="mt-20 font-primary w-full min-h-screen flex flex-col text-black  items-center">
-      {" "}
-      {/* Add 'items-center' to center horizontally */}
       <form
         onSubmit={handleFormSubmit}
         className="py-8 w-full flex text-center flex-col justify-center items-center"
@@ -127,9 +123,8 @@ const SearchPage = () => {
           className="w-[90%] lg:w-1/2 border px-4 py-2 text-black text-lg bg-white border-slate-700 rounded-full placeholder-italic outline-none focus:border-orange-400"
         />
         <button
-          className={`${
-            isLoading ? "cursor-wait" : "cursor-pointer"
-          } text-white py-2 border bg-green-600 hover:bg-green-800  my-4 rounded-md flex px-4 items-center gap-2`}
+          className={`${isLoading ? "cursor-wait" : "cursor-pointer"
+            } text-white py-2 border bg-green-600 hover:bg-green-800  my-4 rounded-md flex px-4 items-center gap-2`}
         >
           Search <AiOutlineSearch />
         </button>
@@ -140,15 +135,15 @@ const SearchPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-8 xl:grid-cols-4 gap-8">
         {resultDishes?.length > 0 || query !== ""
           ? resultDishes.map((dish, index) => (
-              <div className="flex flex-col">
-                <DishResultCard key={index} dish={dish} />
-              </div>
-            ))
+            <div className="flex flex-col" key={index}>
+              <DishResultCard key={index} dish={dish} />
+            </div>
+          ))
           : isLoading && (
-              <div className="flex flex-col w-screen justify-center items-center">
-                <CircularProgress color="inherit" />
-              </div>
-            )}
+            <div className="flex flex-col w-screen justify-center items-center">
+              <CircularProgress color="inherit" />
+            </div>
+          )}
       </div>
     </div>
   );

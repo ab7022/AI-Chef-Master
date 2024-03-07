@@ -137,7 +137,7 @@ const LoginPage = () => {
               }}>
                 Continue with Google
               </button> */}
-              <button onClick={handleSignIn}>Sign in with Google</button>
+              <button type='button' onClick={handleSignIn}>Sign in with Google</button>
             </div>
 
             <p className='text-center text-zinc-800 font-medium'>Don't have an account ? <Link to='/signup'>

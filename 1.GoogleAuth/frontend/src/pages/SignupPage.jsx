@@ -147,29 +147,10 @@ const SignupPage = () => {
               <p className=' text-richblack-5 font-medium  leading-[1.375rem]'>OR</p>
               <div className='w-full h-[1px] bg-black '></div>
             </div>
+
             <div className='text-xl mt-2 mb-8 '>
-              {/* <GoogleOAuthProvider clientId="661696889341-t7qs1n7slqoh60d1ooie4i7inefi3jco.apps.googleusercontent.com">
-                <GoogleLogin theme='filled_blue' size='large' text='continue_with' shape='circle'
-                  onSuccess={(credentialResponse) => {
-                    const decoded = jwtDecode(credentialResponse.credential);
-
-                    console.log(decoded)
-                  }}
-                  onError={() => {
-                    console.log("Login Failed");
-                  }}
-                />
-              </GoogleOAuthProvider> */}
-
-              {/* <button type='button' onClick={() => {
-                googleLogin()
-              }}>
-                Continue with Google
-              </button> */}
-              <button onClick={handleSignIn}>Sign in with Google</button>
+              <button type='button' onClick={handleSignIn}>Sign in with Google</button>
             </div>
-
-
 
             <p className='text-center text-zinc-800 font-medium '>Already have an account ? <Link to='/login'>
               <Button_2 name={'Log in'} />

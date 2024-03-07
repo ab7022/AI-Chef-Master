@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const ContactPage = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("info@aichefmaster.com");
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState(null);
@@ -20,7 +20,6 @@ const ContactPage = () => {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contact`, {
         method: "POST",
         body: JSON.stringify({
-          email,
           name,
           message,
         }),
@@ -88,7 +87,7 @@ const ContactPage = () => {
 
               <div className="my-2 w-full">
                 <label>Email</label>
-                <input type="email" name="email" className="block w-full py-2 placeholder:italic px-4 my-2 border border-zinc-600 rounded-lg" placeholder="abc@gmail.com" onChange={(e) => setEmail(e.target.value)}
+                <input disabled type="email" name="email" className="block w-full py-2 placeholder:italic px-4 my-2 border border-zinc-600 rounded-lg" placeholder="abc@gmail.com" onChange={(e) => setEmail(e.target.value)}
                   value={email}
                   required={true}
                 />

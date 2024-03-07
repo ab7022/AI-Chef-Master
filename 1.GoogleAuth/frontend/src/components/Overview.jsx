@@ -4,9 +4,7 @@ import { BiDish } from "react-icons/bi";
 
 const Overview = ({ form, color, value, open, setOpen }) => {
   return (
-    <div
-      className={`w-full min-h-screen  flex flex-col justify-center items-center font-primary  ${color} py-10 px-1 lg:px-8`}
-    >
+    <div className={`w-full flex flex-col justify-center items-center font-primary  ${color} py-10 px-1 lg:px-8`}>
       {value == "searchPage" ? (
         <button
           className="bg-black text-white p-1 rounded-xl"
@@ -47,20 +45,19 @@ const Overview = ({ form, color, value, open, setOpen }) => {
           </p>{" "}
           <span className="text-lg "> {form.kitchen_equipments}</span>
         </div>
-        
+
         <div className="flex items-center gap-4 border-b border-zinc-500">
           <p className="p-1  py-2 font-semibold lg:text-xl">Course Types - </p>
           <div className="flex gap-1">
             {form?.courses?.map((type, index) => (
               <span key={index} className="text-lg">
-                {type.name},
+                {type.name}{form?.courses?.length !== index + 1 ? "," : ""}
               </span>
-            ))}
+            )
+            )}
           </div>
-            
-          
-            
-          </div>
+        </div>
+        
         <div className="flex items-center gap-4 border-b border-zinc-500">
           <p className="p-1 py-2 font-semibold lg:text-xl">Cooking time - </p>
           <span className=" text-lg">{form.cooking_time} min</span>

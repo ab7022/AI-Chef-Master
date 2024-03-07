@@ -43,18 +43,15 @@ const History = () => {
     setId(id);
     try {
       const apiUrl = `${import.meta.env.VITE_API_URL}/api/dish/${id}`;
-      let textDecoder = new TextDecoder("utf-8");
+      // let textDecoder = new TextDecoder("utf-8");
       setisLoading(true);
-      const response = await axios
+      await axios
         .get(apiUrl, {
           headers: {
             Authorization: `Bearer ${user.access_token}`,
           },
         })
         .then((response) => {
-          // Handle successful response
-          //console.log(response)
-          console.log(response.data);
           setDishData({
             ...dishData,
             dish_picture: null,
@@ -69,41 +66,32 @@ const History = () => {
             cooking_time: response.data.cooking_time,
             indegrients: response.data.indegrients,
           });
-          //console.log(dishData)
-
-          //setUserDishes(response.data);
           setisLoading(false);
         })
         .catch((error) => {
-          // Handle error
           console.error("Error:", error);
         });
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-  useEffect(() => {
-    handleClick(id);
-  }, [id]);
+  // useEffect(() => {
+  //   handleClick(id);
+  // }, [id]);
+
   const fetchDishes = async () => {
     try {
       const apiUrl = `${import.meta.env.VITE_API_URL}/myAccount`;
-      let textDecoder = new TextDecoder("utf-8");
       setisLoading(true);
-      const response = await axios
+      await axios
         .get(apiUrl, {
-          headers: {
-            Authorization: `Bearer ${user.access_token}`,
-          },
+          headers: { Authorization: `Bearer ${user.access_token}` },
         })
         .then((response) => {
-          // Handle successful response
-          console.log(response);
           setUserDishes(response.data);
           setisLoading(false);
         })
         .catch((error) => {
-          // Handle error
           console.error("Error:", error);
         });
     } catch (error) {
@@ -115,13 +103,14 @@ const History = () => {
     open;
   }, []);
 
-  const content = Array(100)
-    .fill(0)
-    .map((_, index) => <p key={index}>Modal with scroll</p>);
-  const handleFilterChange = (event) => {
-    // Update the filter value when the select input changes
-    setFilterCuisine(event.target.value);
-  };
+  // const content = Array(100)
+  //   .fill(0)
+  //   .map((_, index) => <p key={index}>Modal with scroll</p>);
+  // const handleFilterChange = (event) => {
+  //   // Update the filter value when the select input changes
+  //   setFilterCuisine(event.target.value);
+  // };
+
   const [open, setOpen] = useState(false);
 
   return (
@@ -157,16 +146,7 @@ const History = () => {
           <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center rounded-xl  p-2 lg:p-6 ">
             {userDishes.length > 0 && isLoading == false ? (
               userDishes.map((dish, index) => {
-                // Parse the date string to a JavaScript Date object
-                const createdDate = new Date(dish?.created_at);
-
-                // Format the date and time
-                // const formattedDate = createdDate.toLocaleDateString();
-                //const formattedTime = createdDate.toLocaleTimeString();
-                if (
-                  filterCuisine === "all" ||
-                  dish?.cuisine === filterCuisine
-                ) {
+                if (filterCuisine === "all" || dish?.cuisine === filterCuisine) {
                   return (
                     <div
                       index={index}
@@ -212,7 +192,7 @@ const History = () => {
                     </div>
                   );
                 }
-                return null; // Hide dishes that don't match the filter
+                return null;
               })
             ) : (
               <div
