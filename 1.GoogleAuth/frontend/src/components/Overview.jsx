@@ -51,7 +51,7 @@ const Overview = ({ form, color, value, open, setOpen }) => {
           <div className="flex gap-1">
             {form?.courses?.map((type, index) => (
               <span key={index} className="text-lg">
-                {type.name}{form?.courses?.length !== index + 1 ? "," : ""}
+                {type.name}{form?.courses?.length !== index + 1 && ","}
               </span>
             )
             )}
@@ -68,8 +68,8 @@ const Overview = ({ form, color, value, open, setOpen }) => {
             <p className=" font-semibold lg:text-xl ">Ingredients - </p>
             <ul className="flex flex-wrap lg:w-full py-4 lg:py-0 gap-2">
               {form.ingredients.map((ingredient, index) => (
-                <li className="lg:text-lg  " key={index}>
-                  {ingredient.name}-{ingredient.quantity} {ingredient.unit},
+                <li className="lg:text-lg" key={index}>
+                  {ingredient.name}-{ingredient.quantity} {ingredient.unit}{form?.ingredients?.length !== index + 1 && ","}
                 </li>
               ))}
             </ul>

@@ -30,10 +30,10 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
   const { user } = useAuthContext()
   const [open, setOpen] = useState(false);
   const [ingredientName, setIngredientName] = useState("");
-  const [ingredientQuantity, setIngredientQuantity] = useState(0);
+  const [ingredientQuantity, setIngredientQuantity] = useState("");
   const [ingredientUnit, setIngredientUnit] = useState("gram");
   const [newInstruction, setNewInstruction] = useState("");
-  const [instructionTime, setInstructionTime] = useState(0);
+  const [instructionTime, setInstructionTime] = useState("");
   const [isLoading, setisLoading] = useState(false)
 
   const btnHandler = () => {
@@ -50,8 +50,8 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setisLoading(true);
-    console.log(formData)
-    console.log(userToken)
+    // console.log(formData)
+    // console.log(userToken)
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/chef/createDish`, {
         method: "POST",
@@ -61,7 +61,6 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
         },
         body: JSON.stringify(formData),
       });
-
 
       if (response.ok) {
         setisLoading(false)
@@ -80,13 +79,13 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
       } else {
         setisLoading(false)
         const errorData = await response.json();
-        console.error("Error creating dish:", response.statusText);
+        // console.error("Error creating dish:", response.statusText);
         toast.error(errorData.msg === "Token has expired" && "Signout and login again" || errorData.message || "Something went wrong");
-        console.log("DISH:", formData)
+        // console.log("DISH:", formData)
       }
     } catch (error) {
       setisLoading(false)
-      console.error("An error occurred:", error);
+      // console.error("An error occurred:", error);
       toast.error("Something went wrong");
     }
   };
@@ -169,14 +168,12 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
   useEffect(() => {
     let totalTime = 0;
     formData.instructions.forEach((instruction) => {
-      // Assuming instruction.time is in minutes, you can adjust accordingly
       totalTime += parseInt(instruction.time);
     });
 
-    // Update formData with the calculated totalTime
     setFormData((prevData) => ({
       ...prevData,
-      cooking_time: totalTime, // Adjust if needed
+      cooking_time: totalTime,
     }));
   }, [formData.instructions]);
 
@@ -252,10 +249,10 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
               <div className="flex w-full items-center justify-center">
                 <button
                   onClick={handleIngredientSubmit}
-                  type="submit"
+                  type="button"
                   className="text-white border  bg-zinc-700 p-2 px-6 my-4 rounded-xl hover:bg-zinc-950 "
                 >
-                  Submit
+                  Add Ingredient
                 </button>
               </div>
             </div>
@@ -264,7 +261,7 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
 
         {/* Instructions */}
 
-        <p className=" text-3xl text-center py-4  flex items-center justify-center gap-2 font-medium">Instructions <IoIosPaper className="text-green-600" /></p>
+        <p className=" text-3xl text-center pt-4 flex items-center justify-center gap-2 font-medium">Instructions <IoIosPaper className="text-green-600" /></p>
 
         <div className="p-1 lg:p-8 ">
           {formData.instructions.map((instruction, index) => (
@@ -286,7 +283,7 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
             <div className="items center w-full ">
 
 
-              <div className="flex flex-col lg:flex-row gap-4 pt-2  items-center">
+              <div className="flex flex-col lg:flex-row gap-4 pt-2">
                 <div className="w-full">
                   <label className=" font-medium text-md">Enter a new Step  <span className="text-rose-600">*</span></label>
                   <textarea
@@ -298,62 +295,73 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
                     className="border border-black w-full px-4 py-4 focus:border-orange-400  text-lg  rounded-md placeholder:italic placeholder-text-sm outline-none focus-border-orange-400"
                   />
                 </div>
-                <div className="flex flex-col">
+                <div className="w-full lg:w-auto flex flex-col">
                   <label className="text-black font-medium text-md">Enter Time <span className="text-rose-600">*</span> </label>
-                  <input
-                    value={instructionTime}
-                    onChange={(e) => setInstructionTime(e.target.value)}
-                    type="number"
-                    placeholder="eg. 20"
-                    className="border w-full  px-2 py-4 text-lg  focus:border-orange-400 border-black rounded-md placeholder:text-gray-400 outline-none placeholder:italic " />
-                  <p>min</p>
-                </div>
+                  <div className="flex items-center gap-2">
+                    <input
+                      value={instructionTime}
+                      onChange={(e) => setInstructionTime(e.target.value)}
+                      type="number"
+                      placeholder="eg. 20"
+                      className="border w-full  px-2 py-4 text-lg  focus:border-orange-400 border-black rounded-md placeholder:text-gray-400 outline-none placeholder:italic " />
+                    <p>min</p>
+                  </div>
 
-                <button onClick={addInstruction} type="button" className=" ">
-                  <IoIosAdd className="text-green-500 text-3xl rounded-full border border-green-600 hover:bg-green-200" />
+                  {/* <button onClick={addInstruction} type="button" className=" ">
+                    <IoIosAdd className="text-green-500 text-3xl rounded-full border border-green-600 hover:bg-green-200" />
+                  </button> */}
+                </div>
+              </div>
+              <div className="flex w-full items-center justify-center">
+                <button
+                  onClick={addInstruction}
+                  type="button"
+                  className="text-white border  bg-zinc-700 p-2 px-6 my-4 rounded-xl hover:bg-zinc-950 "
+                >
+                  Add Instruction
                 </button>
               </div>
             </div>
           </div>
-        </div>
 
-        <div>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 py-8">
-            <div className="flex gap-4">
-              <button
-                type="button"
-                onClick={btnHandler}
-                className="bg-blue-800 hover:bg-blue-900 px-4 py-2 overflow-hidden font-medium rounded-xl text-xl md:text-2xl"
-              >
-                <span className="text-white">Overview</span>
-              </button>
+          <div>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-4 py-8">
+              <div className="flex gap-4">
+                <button
+                  type="button"
+                  onClick={btnHandler}
+                  className="bg-blue-800 hover:bg-blue-900 px-4 py-2 overflow-hidden font-medium rounded-xl text-xl md:text-2xl"
+                >
+                  <span className="text-white">Overview</span>
+                </button>
 
-              <button
-                type="button"
-                onClick={() => setTab(0)}
-                className="bg-zinc-800 hover:bg-zinc-900 group relative px-4 py-2 overflow-hidden font-medium rounded-xl text-xl md:text-2xl"
-              >
-                <span className="text-white">Back</span>
-              </button>
-            </div>
-            <button
-              onClick={submitHandler}
-              className={`${isLoading ? 'cursor-wait' : 'cursor-pointer'} bg-green-600 hover:bg-green-800 px-4 py-2 overflow-hidden font-medium rounded-xl text-xl md:text-2xl`}
-            >
-              <span className="text-white">Submit</span>
-            </button>
-
-            {open && (
-              <div className="absolute top-0 bg-white backdrop-filter shadow-xl backdrop-blur-xl w-full rounded-xl bg-gradient  text-black p-4">
-                <div className="flex justify-end">
-                  <AiOutlineClose
-                    onClick={btnHandler}
-                    className="cursor-pointer text-3xl text-rose-600 border border-rose-500 p-1  hover:bg-rose-200 rounded-full"
-                  />
-                </div>
-                <Overview form={formData} color={'text-black'} />
+                <button
+                  type="button"
+                  onClick={() => setTab(0)}
+                  className="bg-zinc-800 hover:bg-zinc-900 group relative px-4 py-2 overflow-hidden font-medium rounded-xl text-xl md:text-2xl"
+                >
+                  <span className="text-white">Back</span>
+                </button>
               </div>
-            )}
+              <button
+                onClick={submitHandler}
+                className={`${isLoading ? 'cursor-wait' : 'cursor-pointer'} bg-green-600 hover:bg-green-800 px-4 py-2 overflow-hidden font-medium rounded-xl text-xl md:text-2xl`}
+              >
+                <span className="text-white">Submit</span>
+              </button>
+
+              {open && (
+                <div className="absolute top-0 bg-white backdrop-filter shadow-xl backdrop-blur-xl w-full rounded-xl bg-gradient  text-black p-4">
+                  <div className="flex justify-end">
+                    <AiOutlineClose
+                      onClick={btnHandler}
+                      className="cursor-pointer text-3xl text-rose-600 border border-rose-500 p-1  hover:bg-rose-200 rounded-full"
+                    />
+                  </div>
+                  <Overview form={formData} color={'text-black'} />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

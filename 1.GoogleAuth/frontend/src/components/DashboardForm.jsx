@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { IoIosClose } from "react-icons/io";
+import toast from "react-hot-toast";
+import { statesData } from "../Data/statesData";
 
 const DashboardForm = ({ setTab, form, setForm }) => {
   const [courseName, setCourseName] = useState("");
@@ -14,10 +16,6 @@ const DashboardForm = ({ setTab, form, setForm }) => {
       localStorage.setItem("formData", JSON.stringify(updatedFormData));
     }
   }, [form]);
-
-  const saveFormDataToLocalStorage = (form) => {
-    localStorage.setItem("formData", JSON.stringify(form));
-  };
 
   const inputHandlerCourse = (e) => {
     const selectedValue = e.target.value;
@@ -50,19 +48,59 @@ const DashboardForm = ({ setTab, form, setForm }) => {
     // console.log('After update:', form.courses);
   };
 
+  const saveFormDataToLocalStorage = (form) => {
+    localStorage.setItem("formData", JSON.stringify(form));
+  };
+
   const inputHandler = (e) => {
     const { name, value } = e.target;
-    const updatedForm = {
-      ...form,
-      [name]: value,
-    };
+    let updatedForm = { ...form };
+
+    if (name === "popularity_state" && value === "") {
+      updatedForm = {
+        ...updatedForm,
+        popularity_state: "",
+        cuisine: "",
+      };
+    } else if (name === "popularity_state" && value !== "") {
+      updatedForm = {
+        ...updatedForm,
+        [name]: value,
+        cuisine: "Indian",
+      };
+    } else {
+      updatedForm = {
+        ...updatedForm,
+        [name]: value,
+      };
+    }
+
     setForm(updatedForm);
     saveFormDataToLocalStorage(updatedForm);
   };
 
   const handleNextTab = () => {
+    const requiredFields = [
+      { name: 'name', label: 'Dish Name' },
+      { name: 'veg_non_veg', label: 'Veg or Non Veg' },
+      { name: 'description', label: 'Dish Description' },
+      { name: 'cuisine', label: 'Cuisine' },
+      { name: 'kitchen_equipments', label: 'Kitchen Equipments' },
+      { name: 'courses', label: 'Course Type' }
+    ];
+
+    for (const field of requiredFields) {
+      if (field.name === 'courses' && form[field.name].length === 0) {
+        toast(`${field.label} is required.`);
+        return;
+      } else if (field.name !== 'courses' && form[field.name].trim() === '') {
+        toast.error(`${field.label} is required.`);
+        return;
+      }
+    }
+
     setTab(1);
-  }
+  };
 
   return (
     <div className="pt-0 w-[90%] lg:w-1/2">
@@ -77,7 +115,6 @@ const DashboardForm = ({ setTab, form, setForm }) => {
       <div className="bg-white p-1 md:p-2 lg:p-4 w-full  rounded-lg shadow-xl">
         <div className="bg-gradient-to-b  relative backdrop-filter backdrop-blur-xl rounded-lg items-center">
           {/* <div className='w-[400px] h-[400px]  rounded-full absolute top-[-40px] left-[-40px] blur-3xl z-[-10] bg-[#14318629]  '></div>  */}
-
           <div className="grid grid-cols-1 lg:grid-cols-2 p-4 pb-0 lg:px-8 lg:gap-8">
             <div className="flex flex-col pt-4">
               <label
@@ -109,7 +146,6 @@ const DashboardForm = ({ setTab, form, setForm }) => {
                 className=" text-lg border rounded-md p-2   border-black outline-none placeholder:italic focus:border-orange-400"
 
               >
-
                 <option className="italic" value="Vegeterian">Vegeterian</option>
                 <option className="italic" value="Non-Vegeratian">Non-Vegetarian</option>
               </select>
@@ -136,7 +172,7 @@ const DashboardForm = ({ setTab, form, setForm }) => {
               />
             </div>
 
-            <div className="w-full flex flex-col lg:flex-row items-center lg:gap-8">
+            <div className="w-full grid grid-cols-2 lg:gap-8">
               <div className="w-full flex flex-col pt-4">
                 <label
                   htmlFor=""
@@ -144,15 +180,17 @@ const DashboardForm = ({ setTab, form, setForm }) => {
                 >
                   Popularity State
                 </label>
-
-                <input
-                  type="text"
+                <select
                   name="popularity_state"
-                  placeholder="Hyderabad"
-                  onChange={inputHandler}
                   value={form.popularity_state}
-                  className="border px-2 py-1  text-lg  border-black rounded-md placeholder:text-gray-400 placeholder:italic outline-none focus:border-orange-400"
-                />
+                  onChange={inputHandler}
+                  className="text-lg border rounded-md p-2 border-black outline-none placeholder:italic focus:border-orange-400"
+                >
+                  <option value="">Select State</option>
+                  {statesData.map((state) => (
+                    <option className="italic" value={state} key={state}>{state}</option>
+                  ))}
+                </select>
               </div>
 
               <div className="w-full flex flex-col pt-4">
@@ -188,22 +226,6 @@ const DashboardForm = ({ setTab, form, setForm }) => {
           </div>
 
           <div className="pt-4 flex flex-col px-4 lg:px-8 pb-8">
-            <ul className="flex flex-wrap gap-4 my-2 w-full">
-              {form.courses && form.courses.map((course, index) => {
-                return (
-                  <li
-                    key={index}
-                    className="bg-amber-300 font-medium flex flex-row rounded-md items-center gap-2 px-2 py-1"
-                  >
-                    <span>{course.name}</span>
-                    <IoIosClose
-                      onClick={() => removeCourse(course.name)}
-                      className="text-xl cursor-pointer  border  border-black hover:bg-amber-500 rounded-full"
-                    />
-                  </li>
-                );
-              })}
-            </ul>
             <div className="flex flex-col">
               <label htmlFor="course_type" className=" text-md font-medium pb-2">
                 Course Type  <span className="text-rose-600">*</span>
@@ -226,13 +248,27 @@ const DashboardForm = ({ setTab, form, setForm }) => {
                 <option value="Brunch">Brunch</option>
                 <option value="Snacks">Snacks</option>
               </select>
+
+              <ul className="flex flex-wrap gap-2 my-2 w-full">
+                {form.courses && form.courses.map((course, index) => {
+                  return (
+                    <li
+                      key={index}
+                      className="bg-amber-300 font-medium flex flex-row rounded-md items-center gap-2 px-2 py-1"
+                    >
+                      <span>{course.name}</span>
+                      <IoIosClose
+                        onClick={() => removeCourse(course.name)}
+                        className="text-xl cursor-pointer  border  border-black hover:bg-amber-500 rounded-full"
+                      />
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
           </div>
         </div>
       </div>
-
-
-
 
       <div className="flex items-center justify-center my-5">
         <button
