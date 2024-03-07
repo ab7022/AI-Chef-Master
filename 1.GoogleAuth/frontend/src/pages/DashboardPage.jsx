@@ -20,7 +20,7 @@ const DashboardPage = () => {
     instructions: [],
     courses: [],
     description: "",
-    kitchen_equipments: "",
+    kitchen_equipments: [],
   };
 
   const [form, setForm] = useState(initialFormState);

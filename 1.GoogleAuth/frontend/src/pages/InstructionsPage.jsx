@@ -215,7 +215,7 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
                       value={ingredientName}
                       onChange={(e) => setIngredientName(e.target.value)}
                       placeholder="eg. Chicken"
-                      className="px-2 my-2 py-1  text-lg w-full border border-black  rounded-md focus:border-orange-400 placeholder:italic outline-none"
+                      className="px-2 mt-2 py-1  text-lg w-full border border-black  rounded-md focus:border-orange-400 placeholder:italic outline-none"
                     />
                   </div>
 
@@ -227,7 +227,7 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
                       value={ingredientQuantity}
                       onChange={(e) => setIngredientQuantity(e.target.value)}
                       placeholder="eg. 200"
-                      className="px-2 my-2 py-1 text-black text-lg w-full border border-black  rounded-md placeholder:italic focus:border-orange-400 outline-none"
+                      className="px-2 mt-2 py-1 text-black text-lg w-full border border-black  rounded-md placeholder:italic focus:border-orange-400 outline-none"
                     />
                   </div>
                   <div className="w-full lg:w-1/2 pt-4">
@@ -238,7 +238,7 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
                       value={ingredientUnit}
                       onChange={(e) => setIngredientUnit(e.target.value)}
 
-                      className="px-2 my-2 py-1 text-black text-lg w-full border border-zinc-700  rounded-md focus:border-orange-400 placeholder:italic outline-none"
+                      className="px-2 mt-2 py-[7px] text-black text-lg w-full border border-zinc-700  rounded-md focus:border-orange-400 placeholder:italic outline-none"
                     >
                       <option value="">Select Course Type </option>
                       <option value="gram">gram</option>
@@ -268,8 +268,8 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
 
           <div className="p-1 lg:p-8 ">
             {formData.instructions.map((instruction, index) => (
-              <div key={index} className="w-full pt-3 px-2 md:px-4 lg:px-8 ">
-                <div className="items-center w-full lg:w-3/4">
+              <div key={index} className="w-full pt-3">
+                <div className="items-center w-full">
                   <div className=" font-medium text-md flex w-full ">
                     <span className=" px-4 max-w-full flex gap-2">
                       <p>Step</p> <p>{index + 1} </p>  <p> -</p>

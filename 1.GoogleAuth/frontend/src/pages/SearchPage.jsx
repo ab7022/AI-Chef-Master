@@ -101,7 +101,7 @@ const SearchPage = () => {
   };
 
   return (
-    <div className="mt-20 font-primary w-full min-h-screen flex flex-col text-black  items-center">
+    <div className="pt-20 font-primary w-full min-h-screen flex flex-col text-black  items-center">
       <form
         onSubmit={handleFormSubmit}
         className="py-8 w-full flex text-center flex-col justify-center items-center"

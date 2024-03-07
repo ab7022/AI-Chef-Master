@@ -14,7 +14,7 @@ const DishResultCard = ({ dish }) => {
   };
 
   return (
-    <div className="max-w-[300px] w-[100%] flex flex-col items-start gap-3 rounded-xl px-6 py-6 text-lg md:text-xl bg-[linear-gradient(45deg,transparent_25%,rgba(68,68,68,.2)_50%,transparent_75%,transparent_100%)] bg-white    bg-[length:250%_250%,100%_100%] bg-[position:-100%_0,0_0] bg-no-repeat shadow-xl shadow-zinc-400 transition-[background-position_0s_ease] hover:bg-[position:200%_0,0_0] hover:duration-[1200ms] p-6   ">
+    <div className="w-[300px] flex flex-col items-start gap-3 rounded-xl px-6 py-6 text-lg md:text-xl bg-[linear-gradient(45deg,transparent_25%,rgba(68,68,68,.2)_50%,transparent_75%,transparent_100%)] bg-white    bg-[length:250%_250%,100%_100%] bg-[position:-100%_0,0_0] bg-no-repeat shadow-xl shadow-zinc-400 transition-[background-position_0s_ease] hover:bg-[position:200%_0,0_0] hover:duration-[1200ms] p-6   ">
       <h3 className="text-2xl text-amber-600 font-semibold border-b border-zinc-400">{dish.name}</h3>
       <div className='text-base'>
         <p className='text-black ellipsis'>Created by- {dish.created_by}</p>

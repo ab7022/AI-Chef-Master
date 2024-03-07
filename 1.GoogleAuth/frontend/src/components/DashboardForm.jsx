@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
-import { IoIosClose } from "react-icons/io";
+import { IoIosAdd, IoIosClose } from "react-icons/io";
 import toast from "react-hot-toast";
 import { statesData } from "../Data/statesData";
 
@@ -88,15 +88,53 @@ const DashboardForm = ({ setTab, form, setForm }) => {
 
     for (const field of requiredFields) {
       if (field.name === 'courses' && form[field.name].length === 0) {
-        toast(`${field.label} is required.`);
+        toast.error(`${field.label} is required.`);
         return;
-      } else if (field.name !== 'courses' && form[field.name].trim() === '') {
+      } else if (field.name === 'kitchen_equipments' && form[field.name].length === 0) {
+        toast.error(`${field.label} is required.`);
+        return;
+      } else if (field.name !== 'courses' && field.name !== 'kitchen_equipments' && form[field.name].trim() === '') {
         toast.error(`${field.label} is required.`);
         return;
       }
     }
 
     setTab(1);
+  };
+
+  const [kitchenEquipmentName, setKitchenEquipmentName] = useState("");
+
+  const handleKitchenEquipmentChange = (e) => {
+    setKitchenEquipmentName(e.target.value);
+  };
+
+  const handleKitchenEquipmentSubmit = () => {
+    if (kitchenEquipmentName) {
+      const newKitchenEquipment = kitchenEquipmentName;
+      setForm((prevData) => ({
+        ...prevData,
+        kitchen_equipments: [...prevData.kitchen_equipments, newKitchenEquipment],
+      }));
+      localStorage.setItem("formData", JSON.stringify({
+        ...form,
+        kitchen_equipments: [...form.kitchen_equipments, newKitchenEquipment],
+      }));
+      setKitchenEquipmentName("");
+    }
+  };
+
+  const removeKitchenEquipment = (equipment) => {
+    const updatedEquipments = form.kitchen_equipments.filter(
+      (item) => item !== equipment
+    );
+    setForm((prevData) => ({
+      ...prevData,
+      kitchen_equipments: updatedEquipments,
+    }));
+    localStorage.setItem("formData", JSON.stringify({
+      ...form,
+      kitchen_equipments: updatedEquipments,
+    }));
   };
 
   return (
@@ -210,19 +248,39 @@ const DashboardForm = ({ setTab, form, setForm }) => {
             </div>
 
             <div className="flex flex-col pt-4">
-              <label className=" text-md font-medium pb-2">Kitchen Equipments  <span className="text-rose-600">*</span></label>
-              <input
-                name="kitchen_equipments"
-                value={form.kitchen_equipments}
-                onChange={inputHandler}
-                placeholder="eg. Oven, Pan, Spatula"
-                className="border px-2 py-1 placeholder:italic  text-lg  border-black rounded-md placeholder:text-gray-400 outline-none focus:border-orange-400"
-              >
-              </input>
+              <label className="text-md font-medium pb-2">Kitchen Equipments <span className="text-rose-600">*</span></label>
+              <div className="w-full flex items-center gap-4">
+                <input
+                  name="kitchen_equipments"
+                  value={kitchenEquipmentName}
+                  onChange={handleKitchenEquipmentChange}
+                  placeholder="eg. Oven, Pan, Spatula"
+                  className="flex-1 border px-2 py-1 placeholder:italic text-lg border-black rounded-md placeholder:text-gray-400 outline-none focus:border-orange-400"
+                />
+                <button onClick={handleKitchenEquipmentSubmit} type="button" className="">
+                  <IoIosAdd className="text-green-500 text-3xl rounded-full border border-green-600 hover:bg-green-200" />
+                </button>
+              </div>
+              <ul className="flex flex-wrap gap-2 my-2 w-full">
+                {form.kitchen_equipments && form.kitchen_equipments.map((equipment, index) => {
+                  return (
+                    <li
+                      key={index}
+                      className="bg-amber-300 font-medium flex flex-row rounded-md items-center gap-2 px-2 py-1"
+                    >
+                      <span>{equipment}</span>
+                      <IoIosClose
+                        onClick={() => removeKitchenEquipment(equipment)}
+                        className="text-xl cursor-pointer border border-black hover:bg-amber-500 rounded-full"
+                      />
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
           </div>
 
-          <div className="pt-4 flex flex-col px-4 lg:px-8 pb-8">
+          <div className="flex flex-col px-4 lg:px-8 pb-8">
             <div className="flex flex-col">
               <label htmlFor="course_type" className=" text-md font-medium pb-2">
                 Course Type  <span className="text-rose-600">*</span>

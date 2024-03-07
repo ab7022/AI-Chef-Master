@@ -2,13 +2,16 @@
 import React from "react";
 import { BiDish } from "react-icons/bi";
 
-const Overview = ({ form, color, value, open, setOpen }) => {
+const Overview = ({ form, color, value, open, setOpen, page }) => {
   return (
-    <div className={`lg:max-w-[75%] mx-auto flex flex-col justify-center items-center font-primary  ${color} py-10 px-1 lg:px-8`}>
+    <div className={`lg:max-w-[75%] mx-auto flex flex-col justify-center items-center font-primary ${color} py-10 px-1 lg:px-8`}>
       {value == "searchPage" ? (
         <button
           className="bg-black text-white p-1 rounded-xl"
-          onClick={() => setOpen(false)}
+          onClick={() => {
+            // document.body.style.overflow = "";
+            setOpen(false);
+          }}
         >
           Back
         </button>
@@ -45,7 +48,13 @@ const Overview = ({ form, color, value, open, setOpen }) => {
           <p className="p-1  py-2 font-semibold lg:text-xl">
             Kitchen Equipments -{" "}
           </p>{" "}
-          <span className="text-lg "> {form.kitchen_equipments}</span>
+          <div>
+            {form.kitchen_equipments && form.kitchen_equipments.map((equipment, index) => (
+              <span className="text-lg" key={index}>
+                {equipment}{form.kitchen_equipments.length !== index + 1 && ", "}
+              </span>
+            ))}
+          </div>
         </div>
 
         <div className="flex gap-4 border-b border-zinc-500">
