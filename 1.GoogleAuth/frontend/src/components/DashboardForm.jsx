@@ -6,7 +6,6 @@ import { statesData } from "../Data/statesData";
 
 const DashboardForm = ({ setTab, form, setForm }) => {
   const [courseName, setCourseName] = useState("");
-  // const [courses, setCourses] = useState([]);
 
   const { user } = useAuthContext()
 
@@ -19,18 +18,16 @@ const DashboardForm = ({ setTab, form, setForm }) => {
 
   const inputHandlerCourse = (e) => {
     const selectedValue = e.target.value;
+    if (selectedValue === "" || form.courses.some(course => course.name === selectedValue)) {
+      return;
+    }
 
     const courseObject = { name: selectedValue };
-
-    setCourseName(selectedValue === "" ? [] : selectedValue);
-
-    // setCourses((prevCourses) => [...prevCourses, courseObject]);
-
+    setCourseName(selectedValue);
     const updatedForm = {
       ...form,
       courses: [...form.courses, courseObject],
     };
-
     setForm(updatedForm);
     saveFormDataToLocalStorage(updatedForm);
   };
@@ -172,8 +169,8 @@ const DashboardForm = ({ setTab, form, setForm }) => {
               />
             </div>
 
-            <div className="w-full grid grid-cols-2 lg:gap-8">
-              <div className="w-full flex flex-col pt-4">
+            <div className="w-full grid grid-cols-1 lg:grid-cols-2 lg:gap-8">
+              <div className="flex flex-col pt-4">
                 <label
                   htmlFor=""
                   className=" text-md font-medium pb-2"
@@ -193,7 +190,7 @@ const DashboardForm = ({ setTab, form, setForm }) => {
                 </select>
               </div>
 
-              <div className="w-full flex flex-col pt-4">
+              <div className="flex flex-col pt-4">
                 <label
                   htmlFor=""
                   className=" text-md font-medium pb-2"
@@ -275,8 +272,7 @@ const DashboardForm = ({ setTab, form, setForm }) => {
           onClick={handleNextTab}
           className="  bg-green-600 hover:bg-green-800 px-8 py-2 overflow-hidden font-medium rounded-xl border  text-xl md:text-2xl  "
         >
-
-          <span className=" text-white" >Next</span>
+          <span className=" text-white">Next</span>
         </button>
       </div>
     </div>

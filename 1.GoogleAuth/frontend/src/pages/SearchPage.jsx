@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import DishResultCard from "../components/DishResultCard";
 import { useState } from "react";
-import Message from "../components/Message";
+// import Message from "../components/Message";
 import CircularProgress from "@mui/material/CircularProgress";
-import axios from "axios";
+// import axios from "axios";
 
 const SearchPage = () => {
   const [query, setQuery] = useState("");

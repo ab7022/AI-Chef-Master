@@ -4,7 +4,7 @@ import { BiDish } from "react-icons/bi";
 
 const Overview = ({ form, color, value, open, setOpen }) => {
   return (
-    <div className={`w-full flex flex-col justify-center items-center font-primary  ${color} py-10 px-1 lg:px-8`}>
+    <div className={`lg:max-w-[75%] mx-auto flex flex-col justify-center items-center font-primary  ${color} py-10 px-1 lg:px-8`}>
       {value == "searchPage" ? (
         <button
           className="bg-black text-white p-1 rounded-xl"
@@ -18,7 +18,7 @@ const Overview = ({ form, color, value, open, setOpen }) => {
       <p className="text-3xl text-center font-semibold text-amber-500 pb-4 flex items-center justify-center gap-4">
         Dish Overview <BiDish />
       </p>
-      <div className="">
+      <div className="w-full">
         <div className="flex items-center gap-4 border-b border-zinc-500">
           <p className="p-1  py-2 font-semibold lg:text-xl">Dish Name - </p>{" "}
           <span className="text-lg ">{form.name}</span>
@@ -29,12 +29,14 @@ const Overview = ({ form, color, value, open, setOpen }) => {
           </p>
           <span className="text-lg ">{form.veg_non_veg}</span>
         </div>
-        <div className="flex items-center gap-4 border-b border-zinc-500">
-          <p className="p-1 py-2 font-semibold lg:text-xl">
-            Popularity state -{" "}
-          </p>
-          <span className=" text-lg"> {form.popularity_state}</span>
-        </div>
+        {form.popularity_state && (
+          <div className="flex items-center gap-4 border-b border-zinc-500">
+            <p className="p-1 py-2 font-semibold lg:text-xl">
+              Popularity state -{" "}
+            </p>
+            <span className=" text-lg"> {form.popularity_state}</span>
+          </div>
+        )}
         <div className="flex items-center gap-4 border-b border-zinc-500">
           <p className="p-1  py-2 font-semibold lg:text-xl">Cuisine - </p>{" "}
           <span className="text-lg "> {form.cuisine}</span>
@@ -46,18 +48,18 @@ const Overview = ({ form, color, value, open, setOpen }) => {
           <span className="text-lg "> {form.kitchen_equipments}</span>
         </div>
 
-        <div className="flex items-center gap-4 border-b border-zinc-500">
-          <p className="p-1  py-2 font-semibold lg:text-xl">Course Types - </p>
-          <div className="flex gap-1">
+        <div className="flex gap-4 border-b border-zinc-500">
+          <p className="p-1 py-2 font-semibold lg:text-xl">Course Types - </p>
+          <div className="p-1 py-2">
             {form?.courses?.map((type, index) => (
               <span key={index} className="text-lg">
-                {type.name}{form?.courses?.length !== index + 1 && ","}
+                {type.name}{form?.courses?.length !== index + 1 && ", "}
               </span>
             )
             )}
           </div>
         </div>
-        
+
         <div className="flex items-center gap-4 border-b border-zinc-500">
           <p className="p-1 py-2 font-semibold lg:text-xl">Cooking time - </p>
           <span className=" text-lg">{form.cooking_time} min</span>
@@ -65,8 +67,8 @@ const Overview = ({ form, color, value, open, setOpen }) => {
 
         {form.ingredients && (
           <div className="p-1 border-b border-zinc-500 py-2  gap-4">
-            <p className=" font-semibold lg:text-xl ">Ingredients - </p>
-            <ul className="flex flex-wrap lg:w-full py-4 lg:py-0 gap-2">
+            <p className=" font-semibold lg:text-xl pt-2">Ingredients - </p>
+            <ul className="flex flex-wrap lg:w-full pb-2 gap-2">
               {form.ingredients.map((ingredient, index) => (
                 <li className="lg:text-lg" key={index}>
                   {ingredient.name}-{ingredient.quantity} {ingredient.unit}{form?.ingredients?.length !== index + 1 && ","}
@@ -78,7 +80,7 @@ const Overview = ({ form, color, value, open, setOpen }) => {
         {form.instructions && (
           <div className="p-1 py-2 border-b border-zinc-500">
             <p className=" font-semibold lg:text-xl">Instructions - </p>
-            <ul className="flex flex-col gap-1 py-4">
+            <ul className="flex flex-col gap-1 py-4 lg:py-0">
               {form.instructions.map((instruction, index) => (
                 <li className="text-lg break-all flex gap-1" key={index}>
                   {" "}
