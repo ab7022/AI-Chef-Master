@@ -1,4 +1,4 @@
-import toast from 'react-hot-toast';
+// import toast from 'react-hot-toast';
 import { useAuthContext } from './useAuthContext'
 
 export const useLogout = () => {
@@ -7,7 +7,7 @@ export const useLogout = () => {
     const logout = () => {
         localStorage.removeItem('user');
         dispatch({ type: 'LOGOUT' })
-        toast.success("Log out successfull")
+        // toast.success("Log out successfull")
     }
 
     return { logout }

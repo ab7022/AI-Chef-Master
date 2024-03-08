@@ -359,8 +359,8 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
       </form>
       {open && (
         // <div className="absolute top-0 bg-white backdrop-filter shadow-xl backdrop-blur-xl w-full rounded-xl bg-gradient  text-black p-4">
-        <div className="fixed z-[3000] left-0 top-0 w-full h-[100svh] flex items-center justify-center">
-          <div className="absolute top-0 z-[3001] w-full h-[100svh] bg-black opacity-50" />
+        <div className="fixed z-[3000] left-0 top-0 w-full h-[100dvh] flex items-center justify-center">
+          <div className="absolute top-0 z-[3001] w-full h-[100dvh] bg-black opacity-50" />
           <div className="w-[90%] lg:w-1/2 max-h-[90vh] relative z-[3002] p-2 lg:p-0 bg-white overflow-y-auto">
             <div className="absolute top-2.5 right-2.5 lg:top-5 lg:right-5">
               <AiOutlineClose

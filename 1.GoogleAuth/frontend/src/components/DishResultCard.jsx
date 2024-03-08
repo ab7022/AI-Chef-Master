@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { IoIosClose, } from "react-icons/io";
-import Overview from './Overview';
 import { BsFillArrowUpRightSquareFill } from "react-icons/bs";
 import { BiFoodTag } from "react-icons/bi";
 
-const DishResultCard = ({ dish }) => {
-  const [open, setOpen] = useState(false);
-  const [dishView, setDishView] = useState({});
+const DishResultCard = ({ dish, open, setOpen, setDishView }) => {
 
   const showDish = () => {
+    document.body.style.overflow = "hidden";
     setOpen((prev) => !prev);
     setDishView(dish);
   };
@@ -30,7 +28,6 @@ const DishResultCard = ({ dish }) => {
 
       <div className={'popup-media transition-all min-h-screen  w-full max-auto justify-center '} style={{ display: open ? 'flex' : 'none' }}>
         <span onClick={(prev) => setOpen(!prev)} className='absolute cursor-pointer right-0 p-8'><IoIosClose className="text-rose-600 border border-rose-600 rounded-full hover:bg-rose-200 text-3xl" /></span>
-        {open && <Overview open={open} setOpen={setOpen} form={dishView} value="searchPage" color={'text-black'} />}
       </div>
     </div>
   )

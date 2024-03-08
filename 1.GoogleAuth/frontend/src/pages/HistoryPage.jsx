@@ -68,7 +68,7 @@ const History = () => {
             description: response.data.description,
             cuisine: response.data.cuisine,
             cooking_time: response.data.cooking_time,
-            indegrients: response.data.indegrients,
+            ingredients: response.data.ingredients,
           });
           setisLoading(false);
         })
@@ -234,7 +234,7 @@ const History = () => {
         </div>
       </MantineProvider>)
         : (
-          <div className="pt-20 min-h-[100svh] bg-white">
+          <div className="pt-20 min-h-[100dvh] bg-white">
             <Overview
               open={open}
               setOpen={setOpen}

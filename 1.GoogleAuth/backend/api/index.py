@@ -78,8 +78,6 @@ def sign_up():
         password = data.get('password')
         password_repeat= data.get('password_repeat')
         
-
-
         exist_user  =db.AllUser.find_one({'email':email},{'first_name':1})
 
         if exist_user:
@@ -114,7 +112,6 @@ def login():
 @app.route('/chef/createDish',methods = ['POST'])
 @jwt_required()
 def create_dish():
-    
     user_info = get_jwt_identity()
 
     login_user = db.AllUser.find_one({'email':user_info},{'first_name':1 ,'last_name':1})
@@ -138,7 +135,7 @@ def create_dish():
     formatted_time = datetime.now().strftime("%H:%M:%S")
     formatted_date = datetime.now().strftime("%Y-%m-%d")
     
-    db.Dish.insert_one({"created_by":kname ,"indegrients": ingre,"instructions":instru ,"description":description,"dish_name":dish_name,"veg_non_veg":veg_non_veg,"popularity_state":pop_state,"Cuisine":cuisine,"cooking_time":cooking_time,"kitchen_equipments":kitchen_equip,"courses":course,"Created_date":formatted_date,"Created_time":formatted_time,"email":user_info})
+    db.Dish.insert_one({"created_by":kname ,"ingredients": ingre,"instructions":instru ,"description":description,"dish_name":dish_name,"veg_non_veg":veg_non_veg,"popularity_state":pop_state,"Cuisine":cuisine,"cooking_time":cooking_time,"kitchen_equipments":kitchen_equip,"courses":course,"Created_date":formatted_date,"Created_time":formatted_time,"email":user_info})
     
     return jsonify({'message':'Dished Saved Successfully'}),201
 
@@ -146,7 +143,6 @@ def create_dish():
 @app.route('/myAccount',methods = ['GET'])
 @jwt_required()
 def myAccount():
-
     user_info = get_jwt_identity()   
     login_user = db.AllUser.find_one({'email':user_info},{'first_name':1 ,'last_name':1})
     name = login_user['first_name']+" " +login_user['last_name']
@@ -170,41 +166,43 @@ def myAccount():
 
     return jsonify(output3)
 
-@app.route('/api/search' ,methods =['GET','POST'])
+@app.route('/api/search', methods=['GET', 'POST'])
 def search():
     query = request.get_json()
     sea = query
-    final  = sea["query"]
-    print(final)
-    All_dishes = db.Dish.find({"dish_name": {"$regex": final ,"$options":"i"}})
-    output =[]
+    final = sea["query"].lower()
+    All_dishes = db.Dish.find({"dish_name": {"$regex": final, "$options": "i"}})
+    output = []
+    found_dishes = set()
     for dish in All_dishes:
-        dish1 ={
-            
-            "name" :dish['dish_name'],
-            "cuisine":dish['Cuisine'],
-            "veg_non_veg":dish['veg_non_veg'],
-            "courses":dish['courses'],
-            "created_date":dish['Created_date'],
-            "created_time":dish['Created_time'],
-            "created_by":dish['created_by'],
-            "description":dish['description'],
-            "cooking_time":dish["cooking_time"],
-            #"indegrients":dish['indegrients'],
-            #"instructions":dish['instructions'],
-            "kitchen_equipments":dish["kitchen_equipments"],
-            "popularity_state":dish["popularity_state"]
-        }
-        output.append(dish1)
+        ingredients = dish['ingredients']
+        ingredients_lower = [ing['name'].lower() for ing in ingredients]
+        if (dish['dish_name'], tuple(ingredients_lower)) not in found_dishes:
+            dish1 = {
+                "name": dish['dish_name'],
+                "cuisine": dish['Cuisine'],
+                "veg_non_veg": dish['veg_non_veg'],
+                "courses": dish['courses'],
+                "created_date": dish['Created_date'],
+                "created_time": dish['Created_time'],
+                "created_by": dish['created_by'],
+                "description": dish['description'],
+                "cooking_time": dish["cooking_time"],
+                "kitchen_equipments": dish["kitchen_equipments"],
+                "popularity_state": dish["popularity_state"],
+                "ingredients":dish['ingredients'],
+                "instructions":dish['instructions'],
+            }
+            output.append(dish1)
+            found_dishes.add((dish['dish_name'], tuple(ingredients_lower)))
     return jsonify(output)
 
 @app.route('/api/dish/<id>',methods =['GET'])
 @jwt_required()
 def  filter_by_id(id):
-
     dish = db.Dish.find_one({'_id':bson.ObjectId(oid=id)})
+    
     dish_data = {
-               
             "name" :dish['dish_name'],
             "cuisine":dish['Cuisine'],
             "veg_non_veg":dish['veg_non_veg'],
@@ -213,7 +211,7 @@ def  filter_by_id(id):
             "created_time":dish['Created_time'],
             "description":dish['description'],
             "cooking_time":dish["cooking_time"],
-            "indegrients":dish['indegrients'],
+            "ingredients":dish['ingredients'],
             "instructions":dish['instructions'],
             "kitchen_equipments":dish["kitchen_equipments"],
             "popularity_state":dish["popularity_state"]     

@@ -9,7 +9,7 @@ const Overview = ({ form, color, value, open, setOpen, page }) => {
         <button
           className="bg-black text-white p-1 rounded-xl"
           onClick={() => {
-            // document.body.style.overflow = "";
+            document.body.style.overflow = "";
             setOpen(false);
           }}
         >
