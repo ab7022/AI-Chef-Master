@@ -12,7 +12,7 @@ const DashboardPage = () => {
     chef: "",
     dish_picture: null,
     name: "",
-    veg_non_veg: "vegetarian",
+    veg_non_veg: "",
     popularity_state: "",
     cuisine: "",
     cooking_time: "",
@@ -22,7 +22,6 @@ const DashboardPage = () => {
     description: "",
     kitchen_equipments: [],
   };
-
   const [form, setForm] = useState(initialFormState);
 
   return (

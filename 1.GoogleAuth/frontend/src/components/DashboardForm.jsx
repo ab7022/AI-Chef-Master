@@ -3,11 +3,16 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { IoIosAdd, IoIosClose } from "react-icons/io";
 import toast from "react-hot-toast";
 import { statesData } from "../Data/statesData";
+import { nonVegetarianIngredients } from "../Data/nonVegetarianIngredients";
 
 const DashboardForm = ({ setTab, form, setForm }) => {
   const [courseName, setCourseName] = useState("");
 
   const { user } = useAuthContext()
+
+  const hasNonVegetarianIngredient = () => {
+    return form.ingredients.some(ingredient => nonVegetarianIngredients.includes(ingredient.name.toLowerCase()));
+  };
 
   useEffect(() => {
     if (user && user.account_id) {
@@ -172,17 +177,17 @@ const DashboardForm = ({ setTab, form, setForm }) => {
 
             <div className="flex flex-col pt-4">
               <label htmlFor="" className=" text-md font-medium pb-2">
-                Veg or Non-veg  <span className="text-rose-600">*</span>
+                Veg or Non-veg <span className="text-rose-600">*</span>
               </label>
               <select
                 name="veg_non_veg"
                 value={form.veg_non_veg}
                 onChange={inputHandler}
+                disabled={hasNonVegetarianIngredient()}
                 className=" text-lg border rounded-md p-2   border-black outline-none placeholder:italic focus:border-orange-400"
-
               >
-                <option className="italic" value="Vegeterian">Vegeterian</option>
-                <option className="italic" value="Non-Vegeratian">Non-Vegetarian</option>
+                <option className="italic" value="Vegetarian">Vegetarian</option>
+                <option className="italic" value="Non-Vegetarian">Non-Vegetarian</option>
               </select>
             </div>
           </div>

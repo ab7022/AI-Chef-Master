@@ -42,47 +42,46 @@ const MobileNav = () => {
         className='bg-white shadow w-full absolute
         top-0 right-0 max-w-xs h-screen z-20 text-black rounded-l-xl '>
 
-        <div onClick={() => { setOpenMenu(false) }} className='text-4xl absolute z-30 left-4 top-14
-             cursor-pointer text-black'><IoMdClose /></div>
+        <div onClick={() => { setOpenMenu(false) }} className='text-4xl absolute z-30 left-4 top-14 cursor-pointer text-black'>
+          <IoMdClose />
+        </div>
+        
         {/* menu list */}
         <ul className='h-full flex flex-col justify-center
             items-center gap-y-6  font-primary first-letter:first
             font-medium text-2xl '>
-          <li key='home' className=' text-base  py-1   transition-all duration-300    hover:text-amber-500' onClick={() => { setOpenMenu(false) }}>
-            <NavLink to='/'>Home</NavLink>
+          <li key='home' className=' text-base  py-1   transition-all duration-300 hover:text-amber-500'>
+            <NavLink to='/' onClick={() => setOpenMenu(false)}>Home</NavLink>
           </li>
-          <li key='search' className=' text-base  pb-1  transition-all duration-300     hover:text-amber-500' onClick={() => { setOpenMenu(false) }}>
-            <NavLink to='/search'>Search Dish</NavLink>
+          <li key='search' className=' text-base  pb-1  transition-all duration-300 hover:text-amber-500'>
+            <NavLink to='/search' onClick={() => setOpenMenu(false)}>Search Dish</NavLink>
           </li>
-          <li key='dashboard' className=' text-base  pb-1   transition-all duration-300    hover:text-amber-500' onClick={() => { setOpenMenu(false) }}>
-            <NavLink to='/dashboard'>Dashboard</NavLink>
+          <li key='dashboard' className=' text-base  pb-1   transition-all duration-300 hover:text-amber-500'>
+            <NavLink to='/dashboard' onClick={() => setOpenMenu(false)}>Dashboard</NavLink>
           </li>
-          <li key='history' className=' text-base  pb-1   transition-all duration-300     hover:text-amber-500' onClick={() => { setOpenMenu(false) }}>
-            <NavLink to='/history'>My Account</NavLink>
+          <li key='history' className=' text-base  pb-1   transition-all duration-300 hover:text-amber-500'>
+            <NavLink to='/history' onClick={() => setOpenMenu(false)}>My Account</NavLink>
           </li>
-          <li key='contact' className=' text-base  pb-1   transition-all duration-300     hover:text-amber-500' onClick={() => { setOpenMenu(false) }}>
-            <NavLink to='/contact'>Contact</NavLink>
+          <li key='contact' className=' text-base  pb-1   transition-all duration-300 hover:text-amber-500'>
+            <NavLink to='/contact' onClick={() => setOpenMenu(false)}>Contact</NavLink>
           </li>
+
           {/* <li key='career' className=' text-base  pb-1   transition-all duration-300     hover:text-amber-500' onClick={()=>{setOpenMenu(false)}}>
             <NavLink  to='/career'>Career</NavLink>
             </li> */}
 
-
-
-
-
           {user && (<div className='flex-col flex items-center  md:flex-row'>
-            <span className=' text-base  pb-1  border-r-2 border-hidden md: '>{user.first_name}</span>
+            <span className=' text-base  pb-1  border-r-2 border-hidden md: '>{user.name}</span>
             <button onClick={handleClick} className='border text-base my-4 border-amber-500 px-2  rounded-full mx-2 '>Logout</button>
           </div>)}
 
           {!user && (
             <>
               <li key='login' className=' text-lg  font-primary px-4   transition-all duration-300 border border-yellow-800 rounded-xl hover:bg-[#ff910032]  py-2 '>
-                <Link to='/login'>login</Link>
+                <Link to='/login' onClick={() => setOpenMenu(false)}>login</Link>
               </li>
               <li key='signup' className=' text-lg font-primary px-4   transition-all duration-300 border border-yellow-800 rounded-xl hover:bg-[#ff910032]  py-2 '>
-                <Link to='/signup'>signup</Link>
+                <Link to='/signup' onClick={() => setOpenMenu(false)}>signup</Link>
               </li>
             </>
           )}

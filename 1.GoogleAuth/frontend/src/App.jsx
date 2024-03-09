@@ -42,8 +42,8 @@ function App() {
             <Route path='/jobapplication' element={!user ? <JobDataPage /> : <Navigate to='/login' />} />
             <Route path='/jobopenings' element={!user ? <ApplicationPage /> : <Navigate to='/login' />} />
             <Route path='/resume-parser' element={!user ? <Page /> : <Navigate to='/login' />} />
-            <Route path='/history' element={!user ? <SignupPage /> : <HistoryPage />} />
-            <Route path='/search' element={!user ? <SignupPage /> : <SearchPage />} />
+            <Route path='/history' element={!user ? <LoginPage /> : <HistoryPage />} />
+            <Route path='/search' element={!user ? <LoginPage /> : <SearchPage />} />
           </Routes>
         </div>
       </BrowserRouter>

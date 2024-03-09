@@ -5,6 +5,7 @@ import Overview from "../components/Overview";
 import { AiOutlineClose } from "react-icons/ai";
 import { useAuthContext } from "../hooks/useAuthContext";
 import toast from "react-hot-toast";
+import { nonVegetarianIngredients } from "../Data/nonVegetarianIngredients";
 
 
 const InstructionsPage = ({ setTab, formData, setFormData }) => {
@@ -100,14 +101,21 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
         quantity: ingredientQuantity,
         unit: ingredientUnit
       };
+
+      const isNonVegetarian = nonVegetarianIngredients.includes(ingredientName.toLowerCase());
+
       setFormData((prevData) => ({
         ...prevData,
         ingredients: [...prevData.ingredients, newIngredient],
+        veg_non_veg: isNonVegetarian ? "Non-Vegetarian" : prevData.veg_non_veg,
       }));
+
       localStorage.setItem("formData", JSON.stringify({
         ...formData,
         ingredients: [...formData.ingredients, newIngredient],
+        veg_non_veg: isNonVegetarian ? "Non-Vegetarian" : formData.veg_non_veg,
       }));
+
       setIngredientName("");
       setIngredientQuantity("");
       setIngredientUnit(0);

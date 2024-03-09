@@ -56,9 +56,9 @@ const LoginPage = () => {
   }, []);
 
   return (
-    <div className='px-4 sm:px-4 mb-4 '>
-      <form className='signup  flex flex-col  justify-center z-10 items-center  font-primary' onSubmit={handleSubmit}>
-        <h3 className='text-3xl font-semibold  mt-16  text-center  py-2'>Welcome, log in to you account</h3>
+    <div className='px-4 sm:px-4 pt-12 '>
+      <form className='signup py-8 flex flex-col  justify-center z-10 items-center  font-primary' onSubmit={handleSubmit}>
+        <h3 className='text-4xl font-semibold  text-center  py-2'>Welcome, log in to you account</h3>
         <p className='text-center mb-8 font-semibold text-zinc-800'>Enter the fields below to continue</p>
 
         {forgotPass}
