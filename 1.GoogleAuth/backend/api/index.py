@@ -133,7 +133,7 @@ def create_dish():
     dish_name_lower = dish_name.lower()
 
     similar_dishes = db.Dish.find({
-        'created_by': kname,
+        # 'created_by': kname,
         'dish_name': Regex('^' + re.escape(dish_name_lower) + '$', 'i')
     })
 
@@ -143,7 +143,8 @@ def create_dish():
         new_ingredients_lower = [(ing['name'].lower(), ing['quantity'], ing['unit']) for ing in ingredients]
 
         if set(existing_ingredients_lower) == set(new_ingredients_lower):
-            return jsonify({'error': 'You have already created a dish with the same name and ingredients'}), 400
+            return jsonify({'error': 'Dish already exists with the same name and ingredients'}), 400
+            # return jsonify({'error': 'You have already created a dish with the same name and ingredients'}), 400
 
     formatted_time = datetime.now().strftime("%H:%M:%S")
     formatted_date = datetime.now().strftime("%Y-%m-%d")
