@@ -14,6 +14,8 @@ from dotenv import  load_dotenv
 load_dotenv()
 from pathlib import Path
 from datetime import datetime,timedelta
+from bson.regex import Regex
+import re
 
 app  = Flask(__name__)
 CORS(app, origins=os.getenv('FRONTEND_URL'), supports_credentials=True)
@@ -109,36 +111,61 @@ def login():
         else:
             return  jsonify({'message':'Invalid email and password'}),401
 
-@app.route('/chef/createDish',methods = ['POST'])
+@app.route('/chef/createDish', methods=['POST'])
 @jwt_required()
 def create_dish():
     user_info = get_jwt_identity()
-
-    login_user = db.AllUser.find_one({'email':user_info},{'first_name':1 ,'last_name':1})
-    kname = login_user['first_name']+" "+login_user['last_name']
+    login_user = db.AllUser.find_one({'email': user_info}, {'first_name': 1, 'last_name': 1})
+    kname = login_user['first_name'] + " " + login_user['last_name']
 
     temp = request.get_json()
-    instructions = request.get_json()
-    dish_name  = temp['name']
+    instructions = temp['instructions']
+    dish_name = temp['name']
     veg_non_veg = temp['veg_non_veg']
     description = temp['description']
     pop_state = temp['popularity_state']
     cuisine = temp['cuisine']
-    #image = temp['image']
     cooking_time = temp['cooking_time']
     kitchen_equip = temp['kitchen_equipments']
     course = temp['courses']
+    ingredients = temp['ingredients']
 
-    ingre = temp['ingredients']
-    instru = temp['instructions']
+    dish_name_lower = dish_name.lower()
+
+    similar_dishes = db.Dish.find({
+        'created_by': kname,
+        'dish_name': Regex('^' + re.escape(dish_name_lower) + '$', 'i')
+    })
+
+    for dish in similar_dishes:
+        existing_ingredients = dish['ingredients']
+        existing_ingredients_lower = [(ing['name'].lower(), ing['quantity'], ing['unit']) for ing in existing_ingredients]
+        new_ingredients_lower = [(ing['name'].lower(), ing['quantity'], ing['unit']) for ing in ingredients]
+
+        if set(existing_ingredients_lower) == set(new_ingredients_lower):
+            return jsonify({'error': 'You have already created a dish with the same name and ingredients'}), 400
 
     formatted_time = datetime.now().strftime("%H:%M:%S")
     formatted_date = datetime.now().strftime("%Y-%m-%d")
-    
-    db.Dish.insert_one({"created_by":kname ,"ingredients": ingre,"instructions":instru ,"description":description,"dish_name":dish_name,"veg_non_veg":veg_non_veg,"popularity_state":pop_state,"Cuisine":cuisine,"cooking_time":cooking_time,"kitchen_equipments":kitchen_equip,"courses":course,"Created_date":formatted_date,"Created_time":formatted_time,"email":user_info})
-    
-    return jsonify({'message':'Dished Saved Successfully'}),201
 
+    db.Dish.insert_one({
+        "created_by": kname,
+        "ingredients": ingredients,
+        "instructions": instructions,
+        "description": description,
+        "dish_name": dish_name,
+        "veg_non_veg": veg_non_veg,
+        "popularity_state": pop_state,
+        "Cuisine": cuisine,
+        "cooking_time": cooking_time,
+        "kitchen_equipments": kitchen_equip,
+        "courses": course,
+        "Created_date": formatted_date,
+        "Created_time": formatted_time,
+        "email": user_info
+    })
+
+    return jsonify({'message': 'Dish Saved Successfully'}), 201
     
 @app.route('/myAccount',methods = ['GET'])
 @jwt_required()

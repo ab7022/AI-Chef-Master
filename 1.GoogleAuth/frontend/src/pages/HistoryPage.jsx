@@ -33,7 +33,6 @@ const History = () => {
   const [id, setId] = useState();
   const isMobile = useMediaQuery("(max-width: 50em)");
   const [dishData, setDishData] = useState({
-    dish_picture: null,
     name: "",
     veg_non_veg: "vegetarian",
     popularity_state: "",
@@ -58,7 +57,6 @@ const History = () => {
         .then((response) => {
           setDishData({
             ...dishData,
-            dish_picture: null,
             name: response.data.name,
             veg_non_veg: response.data.veg_non_veg,
             popularity_state: response.data.popularity_state,

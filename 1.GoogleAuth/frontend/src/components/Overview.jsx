@@ -74,38 +74,39 @@ const Overview = ({ form, color, value, open, setOpen, page }) => {
           <span className=" text-lg">{form.cooking_time} min</span>
         </div>
 
-        {form.ingredients && (
-          <div className="p-1 border-b border-zinc-500 py-2  gap-4">
-            <p className=" font-semibold lg:text-xl pt-2">Ingredients - </p>
-            <ul className="flex flex-wrap lg:w-full pb-2 gap-2">
-              {form.ingredients.map((ingredient, index) => (
-                <li className="lg:text-lg" key={index}>
-                  {ingredient.name}-{ingredient.quantity} {ingredient.unit}{form?.ingredients?.length !== index + 1 && ","}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-        {form.instructions && (
-          <div className="p-1 py-2 border-b border-zinc-500">
-            <p className=" font-semibold lg:text-xl">Instructions - </p>
-            <ul className="flex flex-col gap-1 py-4 lg:py-0">
-              {form.instructions.map((instruction, index) => (
-                <li className="text-lg break-all flex gap-1" key={index}>
-                  {" "}
-                  <p>{index + 1}</p> <p>. </p>
-                  <p
-                    className="
+        {/* {form.ingredients.length > 0 && ( */}
+        <div className="p-1 border-b border-zinc-500 py-2  gap-4">
+          <p className=" font-semibold lg:text-xl pt-2">Ingredients - </p>
+          <ul className="flex flex-wrap lg:w-full pb-2">
+            {form?.ingredients?.map((ingredient, index) => (
+              <li className="lg:text-lg" key={index}>
+                {ingredient.name}-{ingredient.quantity} {ingredient.unit}{form?.ingredients?.length !== index + 1 && ","}
+              </li>
+            ))}
+          </ul>
+        </div>
+        {/* )} */}
+
+        {/* {form.instructions.length > 0 && ( */}
+        <div className="p-1 py-2 border-b border-zinc-500">
+          <p className=" font-semibold lg:text-xl">Instructions - </p>
+          <ul className="flex flex-col gap-1 py-4 lg:py-0">
+            {form?.instructions?.map((instruction, index) => (
+              <li className="text-lg break-all flex gap-1" key={index}>
+                {" "}
+                <p>{index + 1}</p> <p>. </p>
+                <p
+                  className="
             px-2"
-                  >
-                    {" "}
-                    {instruction.step} ({instruction.time} min)
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+                >
+                  {" "}
+                  {instruction.step} ({instruction.time} min)
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+        {/* )} */}
       </div>
     </div>
   );

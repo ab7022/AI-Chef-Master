@@ -186,6 +186,7 @@ const DashboardForm = ({ setTab, form, setForm }) => {
                 disabled={hasNonVegetarianIngredient()}
                 className=" text-lg border rounded-md p-2   border-black outline-none placeholder:italic focus:border-orange-400"
               >
+                <option className="italic" value="">Please select</option>
                 <option className="italic" value="Vegetarian">Vegetarian</option>
                 <option className="italic" value="Non-Vegetarian">Non-Vegetarian</option>
               </select>
@@ -299,14 +300,15 @@ const DashboardForm = ({ setTab, form, setForm }) => {
               >
                 <option value="">Select Course Type</option>
                 <option value="Appetizers">Appetizers</option>
-                <option value="Main Course">Main Course</option>
-                <option value="Side Dishes">Side Dishes</option>
-                <option value="Desserts">Desserts</option>
                 <option value="Beverages">Beverages</option>
                 <option value="Breakfast">Breakfast</option>
-                <option value="Drinks">Tea or Coffee</option>
                 <option value="Brunch">Brunch</option>
+                <option value="Desserts">Desserts</option>
+                <option value="Appetizers">Dinner</option>
+                <option value="Main Course">Main Course</option>
+                <option value="Side Dishes">Side Dishes</option>
                 <option value="Snacks">Snacks</option>
+                <option value="Drinks">Tea or Coffee</option>
               </select>
 
               <ul className="flex flex-wrap gap-2 my-2 w-full">

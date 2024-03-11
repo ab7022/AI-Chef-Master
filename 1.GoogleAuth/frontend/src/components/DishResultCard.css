@@ -3,7 +3,5 @@
     white-space: nowrap;
     overflow: hidden;
     display: inline-block;
-    /* Adjusted to inline-block */
     width: 252px;
-    /* Specify a width */
 }

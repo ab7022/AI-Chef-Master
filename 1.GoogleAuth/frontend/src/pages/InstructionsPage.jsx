@@ -14,7 +14,6 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
   const userToken = JSON.parse(localStorage.getItem("user"));
 
   const successInitialFormData = {
-    dish_picture: null,
     name: "",
     veg_non_veg: "vegetarian",
     popularity_state: "",
@@ -35,7 +34,8 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
   const [ingredientUnit, setIngredientUnit] = useState("gram");
   const [newInstruction, setNewInstruction] = useState("");
   const [instructionTime, setInstructionTime] = useState("");
-  const [isLoading, setisLoading] = useState(false)
+  const [isLoading, setisLoading] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
   const btnHandler = () => {
     if (!open) document.body.style.overflow = "hidden";
@@ -53,9 +53,25 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setisLoading(true);
-    // console.log(formData)
-    // console.log(userToken)
+
+    const requiredFields = ["name", "veg_non_veg", "cuisine"];
+    const arrayFields = ["ingredients", "instructions", "courses", "kitchen_equipments"];
+
     try {
+      const missingFields = requiredFields.filter(field => !formData[field]);
+      if (missingFields.length > 0) {
+        toast.error(`Please fill in the following fields: ${missingFields.join(', ')}`);
+        setisLoading(false);
+        return;
+      }
+
+      const emptyArrayFields = arrayFields.filter(field => Array.isArray(formData[field]) && formData[field].length === 0);
+      if (emptyArrayFields.length > 0) {
+        toast.error(`Please add items to the following fields: ${emptyArrayFields.join(', ')}`);
+        setisLoading(false);
+        return;
+      }
+
       const response = await fetch(`${import.meta.env.VITE_API_URL}/chef/createDish`, {
         method: "POST",
         headers: {
@@ -66,29 +82,24 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
       });
 
       if (response.ok) {
-        setisLoading(false)
-        const responseData = await response.json();
-        console.log("Dish created successfully:", responseData);
+        setDisabled(true);
+        setisLoading(false);
         toast.success("Dish Created");
         localStorage.removeItem("formData");
-        setFormData(successInitialFormData)
+        setFormData(successInitialFormData);
         const backPage = () => {
           setTimeout(() => {
             navigate('/history')
           }, 2000);
         }
-
-        backPage()
+        backPage();
       } else {
-        setisLoading(false)
+        setisLoading(false);
         const errorData = await response.json();
-        // console.error("Error creating dish:", response.statusText);
-        toast.error(errorData.msg === "Token has expired" && "Signout and login again" || errorData.message || "Something went wrong");
-        // console.log("DISH:", formData)
+        toast.error(errorData.msg === "Token has expired" && "Signout and login again" || errorData.message || errorData.error || "Something went wrong");
       }
     } catch (error) {
-      setisLoading(false)
-      // console.error("An error occurred:", error);
+      setisLoading(false);
       toast.error("Something went wrong");
     }
   };
@@ -102,7 +113,11 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
         unit: ingredientUnit
       };
 
-      const isNonVegetarian = nonVegetarianIngredients.includes(ingredientName.toLowerCase());
+      const lowerCaseIngredientName = ingredientName.toLowerCase();
+
+      const isNonVegetarian = nonVegetarianIngredients.some(ingredient =>
+        lowerCaseIngredientName.includes(ingredient)
+      );
 
       setFormData((prevData) => ({
         ...prevData,
@@ -356,6 +371,7 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
                 </div>
                 <button
                   onClick={submitHandler}
+                  disabled={disabled || isLoading}
                   className={`${isLoading ? 'cursor-wait' : 'cursor-pointer'} bg-green-600 hover:bg-green-800 px-4 py-2 overflow-hidden font-medium rounded-xl text-xl md:text-2xl`}
                 >
                   <span className="text-white">Submit</span>

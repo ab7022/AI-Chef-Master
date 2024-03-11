@@ -10,7 +10,6 @@ const DashboardPage = () => {
 
   const initialFormState = JSON.parse(localStorage.getItem("formData")) || {
     chef: "",
-    dish_picture: null,
     name: "",
     veg_non_veg: "",
     popularity_state: "",
