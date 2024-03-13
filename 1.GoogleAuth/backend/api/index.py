@@ -111,6 +111,16 @@ def login():
         else:
             return  jsonify({'message':'Invalid email and password'}),401
 
+@app.route('/chef/checkDishExists', methods=['GET'])
+def check_dish_exists():
+    dish_name = request.args.get('name').lower()
+    existing_dish = db.Dish.find_one({'dish_name': {"$regex": f'^{re.escape(dish_name)}$', "$options": "i"}})
+
+    if existing_dish:
+        return jsonify({'exists': True}), 200
+    else:
+        return jsonify({'exists': False}), 200
+
 @app.route('/chef/createDish', methods=['POST'])
 @jwt_required()
 def create_dish():
@@ -119,48 +129,28 @@ def create_dish():
     kname = login_user['first_name'] + " " + login_user['last_name']
 
     temp = request.get_json()
-    instructions = temp['instructions']
-    dish_name = temp['name']
-    veg_non_veg = temp['veg_non_veg']
-    description = temp['description']
-    pop_state = temp['popularity_state']
-    cuisine = temp['cuisine']
-    cooking_time = temp['cooking_time']
-    kitchen_equip = temp['kitchen_equipments']
-    course = temp['courses']
-    ingredients = temp['ingredients']
+    dish_name = temp['name'].lower()
 
-    dish_name_lower = dish_name.lower()
+    existing_dish = db.Dish.find_one({'dish_name': {"$regex": f'^{re.escape(dish_name)}$', "$options": "i"}})
 
-    similar_dishes = db.Dish.find({
-        # 'created_by': kname,
-        'dish_name': Regex('^' + re.escape(dish_name_lower) + '$', 'i')
-    })
-
-    for dish in similar_dishes:
-        existing_ingredients = dish['ingredients']
-        existing_ingredients_lower = [(ing['name'].lower(), ing['quantity'], ing['unit']) for ing in existing_ingredients]
-        new_ingredients_lower = [(ing['name'].lower(), ing['quantity'], ing['unit']) for ing in ingredients]
-
-        if set(existing_ingredients_lower) == set(new_ingredients_lower):
-            return jsonify({'error': 'Dish already exists with the same name and ingredients'}), 400
-            # return jsonify({'error': 'You have already created a dish with the same name and ingredients'}), 400
+    if existing_dish:
+        return jsonify({'error': 'Dish already exists with the same name'}), 400
 
     formatted_time = datetime.now().strftime("%H:%M:%S")
     formatted_date = datetime.now().strftime("%Y-%m-%d")
 
     db.Dish.insert_one({
         "created_by": kname,
-        "ingredients": ingredients,
-        "instructions": instructions,
-        "description": description,
-        "dish_name": dish_name,
-        "veg_non_veg": veg_non_veg,
-        "popularity_state": pop_state,
-        "Cuisine": cuisine,
-        "cooking_time": cooking_time,
-        "kitchen_equipments": kitchen_equip,
-        "courses": course,
+        "ingredients": temp['ingredients'],
+        "instructions": temp.get('instructions'),
+        "description": temp.get('description'),
+        "dish_name": temp['name'],
+        "veg_non_veg": temp['veg_non_veg'],
+        "popularity_state": temp['popularity_state'],
+        "Cuisine": temp['cuisine'],
+        "cooking_time": temp['cooking_time'],
+        "kitchen_equipments": temp['kitchen_equipments'],
+        "courses": temp['courses'],
         "Created_date": formatted_date,
         "Created_time": formatted_time,
         "email": user_info

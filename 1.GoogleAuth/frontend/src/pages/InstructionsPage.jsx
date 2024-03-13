@@ -114,22 +114,33 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
       };
 
       const lowerCaseIngredientName = ingredientName.toLowerCase();
-
       const isNonVegetarian = nonVegetarianIngredients.some(ingredient =>
-        lowerCaseIngredientName.includes(ingredient)
+        lowerCaseIngredientName.includes(ingredient.toLowerCase())
       );
 
-      setFormData((prevData) => ({
-        ...prevData,
-        ingredients: [...prevData.ingredients, newIngredient],
-        veg_non_veg: isNonVegetarian ? "Non-Vegetarian" : prevData.veg_non_veg,
-      }));
+      let newVegNonVegValue = "Vegetarian";
+      if (isNonVegetarian) {
+        newVegNonVegValue = "Non-Vegetarian";
+      } else {
+        const isExistingNonVegetarian = formData.ingredients.some(existingIngredient =>
+          nonVegetarianIngredients.some(nonVegIngredient =>
+            existingIngredient.name.toLowerCase().includes(nonVegIngredient.toLowerCase())
+          )
+        );
 
-      localStorage.setItem("formData", JSON.stringify({
+        if (!isExistingNonVegetarian) {
+          newVegNonVegValue = "Vegetarian";
+        }
+      }
+
+      const updatedFormData = {
         ...formData,
         ingredients: [...formData.ingredients, newIngredient],
-        veg_non_veg: isNonVegetarian ? "Non-Vegetarian" : formData.veg_non_veg,
-      }));
+        veg_non_veg: newVegNonVegValue,
+      };
+
+      setFormData(updatedFormData);
+      localStorage.setItem("formData", JSON.stringify(updatedFormData));
 
       setIngredientName("");
       setIngredientQuantity("");
@@ -141,13 +152,27 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
     const updatedIngredients = formData.ingredients.filter(
       (ingredient) => ingredient.name !== name
     );
+
+    const lastIngredientIsNonVegetarian = updatedIngredients.length > 0 &&
+      nonVegetarianIngredients.some(nonVegIngredient =>
+        updatedIngredients[updatedIngredients.length - 1].name.toLowerCase().includes(nonVegIngredient)
+      );
+
+    let newVegNonVegValue = "Vegetarian";
+    if (lastIngredientIsNonVegetarian) {
+      newVegNonVegValue = "Non-Vegetarian";
+    }
+
     setFormData((prevData) => ({
       ...prevData,
       ingredients: updatedIngredients,
+      veg_non_veg: newVegNonVegValue,
     }));
+
     localStorage.setItem("formData", JSON.stringify({
       ...formData,
       ingredients: updatedIngredients,
+      veg_non_veg: newVegNonVegValue,
     }));
   };
 
@@ -372,9 +397,11 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
                 <button
                   onClick={submitHandler}
                   disabled={disabled || isLoading}
-                  className={`${isLoading ? 'cursor-wait' : 'cursor-pointer'} bg-green-600 hover:bg-green-800 px-4 py-2 overflow-hidden font-medium rounded-xl text-xl md:text-2xl`}
+                  className={`${isLoading ? 'bg-gray-600 cursor-not-allowed' : 'cursor-pointer bg-green-600 hover:bg-green-800'} px-4 py-2 overflow-hidden font-medium rounded-xl text-xl md:text-2xl`}
                 >
-                  <span className="text-white">Submit</span>
+                  <span className="text-white">
+                    {isLoading ? "Creating" : "Submit"}
+                  </span>
                 </button>
               </div>
             </div>

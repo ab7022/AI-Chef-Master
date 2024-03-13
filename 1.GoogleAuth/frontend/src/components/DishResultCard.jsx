@@ -19,9 +19,9 @@ const DishResultCard = ({ dish, open, setOpen, setDishView }) => {
       <div className='text-base'>
         <p className='text-black ellipsis'>Created by- {dish.created_by}</p>
         {dish.cuisine && <p className='text-black'>Cuisine- {dish.cuisine}</p>}
-        <div className={`my-2 py-0.5 px-1 w-fit flex items-center gap-1 rounded-xl border capitalize ${dish.veg_non_veg === "vegetarian" ? "border-emerald-500" : "border-rose-500"}`}>
+        <div className={`my-2 py-0.5 px-1 w-fit flex items-center gap-1 rounded-xl border capitalize ${dish.veg_non_veg === "vegetarian" || dish.veg_non_veg === "Vegetarian" ? "border-emerald-500" : "border-rose-500"}`}>
           <p>{dish.veg_non_veg}</p>
-          <BiFoodTag size={22} color={`${dish.veg_non_veg === "vegetarian" ? "rgb(16 185 129)" : "rgb(244 63 94)"}`} />
+          <BiFoodTag size={22} color={`${dish.veg_non_veg === "vegetarian" || dish.veg_non_veg === "Vegetarian" ? "rgb(16 185 129)" : "rgb(244 63 94)"}`} />
         </div>
         {/* {dish.veg_non_veg === "vegetarian" ? <p className='rounded-xl bg-[#0f83059e] text-white my-1 text-center w-fit border p-0.5 border-emerald-500 capitalize'>{dish.veg_non_veg}</p> : <p className='rounded-xl bg-[#cd1d1d9c] p-0.5 text-center w-fit border my-1 text-white border-rose-500'>{dish.veg_non_veg}</p>} */}
       </div>

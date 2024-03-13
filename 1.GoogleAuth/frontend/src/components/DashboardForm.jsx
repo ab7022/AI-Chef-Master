@@ -1,18 +1,15 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { IoIosAdd, IoIosClose } from "react-icons/io";
 import toast from "react-hot-toast";
 import { statesData } from "../Data/statesData";
-import { nonVegetarianIngredients } from "../Data/nonVegetarianIngredients";
 
 const DashboardForm = ({ setTab, form, setForm }) => {
   const [courseName, setCourseName] = useState("");
 
   const { user } = useAuthContext()
-
-  const hasNonVegetarianIngredient = () => {
-    return form.ingredients.some(ingredient => nonVegetarianIngredients.includes(ingredient.name.toLowerCase()));
-  };
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (user && user.account_id) {
@@ -46,35 +43,75 @@ const DashboardForm = ({ setTab, form, setForm }) => {
       ...prevData,
       courses: updatedCourses,
     }));
-
-    // console.log('After update:', form.courses);
   };
 
   const saveFormDataToLocalStorage = (form) => {
     localStorage.setItem("formData", JSON.stringify(form));
   };
 
-  const inputHandler = (e) => {
+  useEffect(() => {
+    const checkDishExists = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/chef/checkDishExists?name=${form.name.toLowerCase()}`);
+        if (response.data.exists) {
+          setError('Dish already exists');
+        } else {
+          setError('');
+        }
+      } catch (error) {
+        console.log(error)
+        setError('Error checking dish existence');
+      }
+    }
+
+    if (form.name) {
+      checkDishExists();
+    }
+  }, [])
+
+  const inputHandler = async (e) => {
     const { name, value } = e.target;
     let updatedForm = { ...form };
 
-    if (name === "popularity_state" && value === "") {
-      updatedForm = {
-        ...updatedForm,
-        popularity_state: "",
-        cuisine: "",
-      };
-    } else if (name === "popularity_state" && value !== "") {
+    if (name === "name") {
       updatedForm = {
         ...updatedForm,
         [name]: value,
-        cuisine: "Indian",
       };
+
+      if (value.trim() === "") {
+        setError('');
+      } else {
+        try {
+          const response = await axios.get(`${import.meta.env.VITE_API_URL}/chef/checkDishExists?name=${value.toLowerCase()}`);
+          if (response.data.exists) {
+            setError('Dish already exists');
+          } else {
+            setError('');
+          }
+        } catch (error) {
+          setError('Error checking dish existence');
+        }
+      }
     } else {
-      updatedForm = {
-        ...updatedForm,
-        [name]: value,
-      };
+      if (name === "popularity_state" && value === "") {
+        updatedForm = {
+          ...updatedForm,
+          popularity_state: "",
+          cuisine: "",
+        };
+      } else if (name === "popularity_state" && value !== "") {
+        updatedForm = {
+          ...updatedForm,
+          [name]: value,
+          cuisine: "Indian",
+        };
+      } else {
+        updatedForm = {
+          ...updatedForm,
+          [name]: value,
+        };
+      }
     }
 
     setForm(updatedForm);
@@ -170,9 +207,11 @@ const DashboardForm = ({ setTab, form, setForm }) => {
                 placeholder="eg Birayni"
                 onChange={inputHandler}
                 value={form.name}
-                className="border px-2 py-1  text-lg  border-black rounded-md placeholder:italic outline-none focus:border-orange-400"
+                className={`border px-2 py-1  text-lg  border-black rounded-md placeholder:italic outline-none ${error ? "focus:border-red-500" : "focus:border-orange-400"}`}
                 required
               />
+
+              {error && <div className="text-red-500">{error}</div>}
             </div>
 
             <div className="flex flex-col pt-4">
@@ -183,7 +222,6 @@ const DashboardForm = ({ setTab, form, setForm }) => {
                 name="veg_non_veg"
                 value={form.veg_non_veg}
                 onChange={inputHandler}
-                disabled={hasNonVegetarianIngredient()}
                 className=" text-lg border rounded-md p-2   border-black outline-none placeholder:italic focus:border-orange-400"
               >
                 <option className="italic" value="">Please select</option>
@@ -335,7 +373,8 @@ const DashboardForm = ({ setTab, form, setForm }) => {
       <div className="flex items-center justify-center my-5">
         <button
           onClick={handleNextTab}
-          className="  bg-green-600 hover:bg-green-800 px-8 py-2 overflow-hidden font-medium rounded-xl border  text-xl md:text-2xl  "
+          disabled={error}
+          className={`${error ? "bg-gray-600 cursor-not-allowed" : "bg-green-600 hover:bg-green-800"} px-8 py-2 overflow-hidden font-medium rounded-xl border  text-xl md:text-2xl`}
         >
           <span className=" text-white">Next</span>
         </button>
