@@ -4,6 +4,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { IoIosAdd, IoIosClose } from "react-icons/io";
 import toast from "react-hot-toast";
 import { statesData } from "../Data/statesData";
+import { debounce } from "../utils/debounce";
 
 const DashboardForm = ({ setTab, form, setForm }) => {
   const [courseName, setCourseName] = useState("");
@@ -49,27 +50,20 @@ const DashboardForm = ({ setTab, form, setForm }) => {
     localStorage.setItem("formData", JSON.stringify(form));
   };
 
-  useEffect(() => {
-    const checkDishExists = async () => {
-      try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/chef/checkDishExists?name=${form.name.toLowerCase()}`);
-        if (response.data.exists) {
-          setError('Dish already exists');
-        } else {
-          setError('');
-        }
-      } catch (error) {
-        console.log(error)
-        setError('Error checking dish existence');
+  const debouncedCheckDishExists = debounce(async (value) => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/chef/checkDishExists?name=${value.toLowerCase()}`);
+      if (response.data.exists) {
+        setError('Dish already exists');
+      } else {
+        setError('');
       }
+    } catch (error) {
+      setError('Error checking dish existence');
     }
+  }, 500);
 
-    if (form.name) {
-      checkDishExists();
-    }
-  }, [])
-
-  const inputHandler = async (e) => {
+  const inputHandler = (e) => {
     const { name, value } = e.target;
     let updatedForm = { ...form };
 
@@ -82,16 +76,7 @@ const DashboardForm = ({ setTab, form, setForm }) => {
       if (value.trim() === "") {
         setError('');
       } else {
-        try {
-          const response = await axios.get(`${import.meta.env.VITE_API_URL}/chef/checkDishExists?name=${value.toLowerCase()}`);
-          if (response.data.exists) {
-            setError('Dish already exists');
-          } else {
-            setError('');
-          }
-        } catch (error) {
-          setError('Error checking dish existence');
-        }
+        debouncedCheckDishExists(value);
       }
     } else {
       if (name === "popularity_state" && value === "") {
@@ -118,7 +103,7 @@ const DashboardForm = ({ setTab, form, setForm }) => {
     saveFormDataToLocalStorage(updatedForm);
   };
 
-  const handleNextTab = () => {
+  const handleNextTab = async () => {
     const requiredFields = [
       { name: 'name', label: 'Dish Name' },
       { name: 'veg_non_veg', label: 'Veg or Non Veg' },
@@ -141,7 +126,13 @@ const DashboardForm = ({ setTab, form, setForm }) => {
       }
     }
 
-    setTab(1);
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/chef/checkDishExists?name=${form.name.toLowerCase()}`);
+    if (response.data.exists) {
+      setError('Dish already exists');
+    } else {
+      setError('');
+      setTab(1);
+    }
   };
 
   const [kitchenEquipmentName, setKitchenEquipmentName] = useState("");
@@ -207,7 +198,7 @@ const DashboardForm = ({ setTab, form, setForm }) => {
                 placeholder="eg Birayni"
                 onChange={inputHandler}
                 value={form.name}
-                className={`border px-2 py-1  text-lg  border-black rounded-md placeholder:italic outline-none ${error ? "focus:border-red-500" : "focus:border-orange-400"}`}
+                className={`border px-2 py-1  text-lg  border-black rounded-md placeholder:italic outline-none ${error ? "border-red-500 focus:border-red-500" : "focus:border-orange-400"}`}
                 required
               />
 
