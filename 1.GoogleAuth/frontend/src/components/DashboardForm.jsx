@@ -4,12 +4,13 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { IoIosAdd, IoIosClose } from "react-icons/io";
 import toast from "react-hot-toast";
 import { statesData } from "../Data/statesData";
-import { debounce } from "../utils/debounce";
+import { debounce } from "lodash";
 
 const DashboardForm = ({ setTab, form, setForm }) => {
   const [courseName, setCourseName] = useState("");
 
   const { user } = useAuthContext()
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -50,9 +51,9 @@ const DashboardForm = ({ setTab, form, setForm }) => {
     localStorage.setItem("formData", JSON.stringify(form));
   };
 
-  const debouncedCheckDishExists = debounce(async (value) => {
+  const debouncedCheckDishExists = debounce(async (dishName) => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/chef/checkDishExists?name=${value.toLowerCase()}`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/chef/checkDishExists?name=${dishName.toLowerCase()}`);
       if (response.data.exists) {
         setError('Dish already exists');
       } else {
@@ -60,6 +61,8 @@ const DashboardForm = ({ setTab, form, setForm }) => {
       }
     } catch (error) {
       setError('Error checking dish existence');
+    } finally {
+      setIsLoading(false);
     }
   }, 500);
 
@@ -103,38 +106,6 @@ const DashboardForm = ({ setTab, form, setForm }) => {
     saveFormDataToLocalStorage(updatedForm);
   };
 
-  const handleNextTab = async () => {
-    const requiredFields = [
-      { name: 'name', label: 'Dish Name' },
-      { name: 'veg_non_veg', label: 'Veg or Non Veg' },
-      { name: 'description', label: 'Dish Description' },
-      { name: 'cuisine', label: 'Cuisine' },
-      { name: 'kitchen_equipments', label: 'Kitchen Equipments' },
-      { name: 'courses', label: 'Course Type' }
-    ];
-
-    for (const field of requiredFields) {
-      if (field.name === 'courses' && form[field.name].length === 0) {
-        toast.error(`${field.label} is required.`);
-        return;
-      } else if (field.name === 'kitchen_equipments' && form[field.name].length === 0) {
-        toast.error(`${field.label} is required.`);
-        return;
-      } else if (field.name !== 'courses' && field.name !== 'kitchen_equipments' && form[field.name].trim() === '') {
-        toast.error(`${field.label} is required.`);
-        return;
-      }
-    }
-
-    const response = await axios.get(`${import.meta.env.VITE_API_URL}/chef/checkDishExists?name=${form.name.toLowerCase()}`);
-    if (response.data.exists) {
-      setError('Dish already exists');
-    } else {
-      setError('');
-      setTab(1);
-    }
-  };
-
   const [kitchenEquipmentName, setKitchenEquipmentName] = useState("");
 
   const handleKitchenEquipmentChange = (e) => {
@@ -170,8 +141,56 @@ const DashboardForm = ({ setTab, form, setForm }) => {
     }));
   };
 
+  const handleNextTab = async () => {
+    const requiredFields = [
+      { name: 'name', label: 'Dish Name' },
+      { name: 'veg_non_veg', label: 'Veg or Non Veg' },
+      { name: 'description', label: 'Dish Description' },
+      { name: 'cuisine', label: 'Cuisine' },
+      { name: 'kitchen_equipments', label: 'Kitchen Equipments' },
+      { name: 'courses', label: 'Course Type' }
+    ];
+
+    for (const field of requiredFields) {
+      if (field.name === 'courses' && form[field.name].length === 0) {
+        toast.error(`${field.label} is required.`);
+        return;
+      } else if (field.name === 'kitchen_equipments' && form[field.name].length === 0) {
+        toast.error(`${field.label} is required.`);
+        return;
+      } else if (field.name !== 'courses' && field.name !== 'kitchen_equipments' && form[field.name].trim() === '') {
+        toast.error(`${field.label} is required.`);
+        return;
+      }
+    }
+
+    setTab(1);
+  };
+
+  useEffect(() => {
+    const dishExists = async () => {
+      if (form.name.trim()) {
+        try {
+          setIsLoading(true);
+          const response = await axios.get(`${import.meta.env.VITE_API_URL}/chef/checkDishExists?name=${form.name.trim().toLowerCase()}`);
+          if (response.data.exists) {
+            setError('Dish already exists');
+          } else {
+            setError('');
+          }
+        } catch (error) {
+          console.log(error)
+          setError('Error checking dish existence');
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    }
+    dishExists();
+  }, []);
+
   return (
-    <div className="pt-0 w-[90%] lg:w-1/2">
+    <div className="pt-0 w-[90%] lg:w-[75%] xl:w-1/2">
       <div className=" py-6 text-center">
         <p className=" text-3xl font-medium ">
           Enter details of a new dish
@@ -184,7 +203,7 @@ const DashboardForm = ({ setTab, form, setForm }) => {
         <div className="bg-gradient-to-b  relative backdrop-filter backdrop-blur-xl rounded-lg items-center">
           {/* <div className='w-[400px] h-[400px]  rounded-full absolute top-[-40px] left-[-40px] blur-3xl z-[-10] bg-[#14318629]  '></div>  */}
           <div className="grid grid-cols-1 lg:grid-cols-2 p-4 pb-0 lg:px-8 lg:gap-8">
-            <div className="flex flex-col pt-4">
+            <div className="flex flex-col pt-4 relative">
               <label
                 htmlFor=""
                 className=" text-md font-medium pb-2"
@@ -196,13 +215,18 @@ const DashboardForm = ({ setTab, form, setForm }) => {
                 type="text"
                 name="name"
                 placeholder="eg Birayni"
-                onChange={inputHandler}
+                onChange={(e) => {
+                  setIsLoading(true);
+                  inputHandler(e);
+                }}
                 value={form.name}
                 className={`border px-2 py-1  text-lg  border-black rounded-md placeholder:italic outline-none ${error ? "border-red-500 focus:border-red-500" : "focus:border-orange-400"}`}
                 required
               />
 
-              {error && <div className="text-red-500">{error}</div>}
+              <div className={`${isLoading ? "text-orange-400" : "text-red-500"} absolute right-0`}>
+                {isLoading && form.name.trim() ? "Checking..." : error}
+              </div>
             </div>
 
             <div className="flex flex-col pt-4">
@@ -364,10 +388,12 @@ const DashboardForm = ({ setTab, form, setForm }) => {
       <div className="flex items-center justify-center my-5">
         <button
           onClick={handleNextTab}
-          disabled={error}
-          className={`${error ? "bg-gray-600 cursor-not-allowed" : "bg-green-600 hover:bg-green-800"} px-8 py-2 overflow-hidden font-medium rounded-xl border  text-xl md:text-2xl`}
+          disabled={isLoading || error}
+          className={`${isLoading || error ? "bg-gray-600 cursor-not-allowed" : "bg-green-600 hover:bg-green-800"} px-8 py-2 overflow-hidden font-medium rounded-xl border  text-xl md:text-2xl`}
         >
-          <span className=" text-white">Next</span>
+          <span className=" text-white">
+            {isLoading ? "..." : "Next"}
+          </span>
         </button>
       </div>
     </div>

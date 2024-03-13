@@ -27,6 +27,7 @@
     "dotenv": "^16.3.1",
     "framer-motion": "^10.16.4",
     "jwt-decode": "^4.0.0",
+    "lodash": "^4.17.21",
     "momnet": "^2.29.1",
     "next": "^14.0.4",
     "pdfjs": "^2.5.2",
