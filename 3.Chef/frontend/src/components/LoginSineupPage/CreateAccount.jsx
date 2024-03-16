@@ -14,8 +14,8 @@ function CreateAccount() {
 
   const [loading, setLoading] = useState(false);
 
-  const create =()=>{
-    let item = {fname,lname,phoneNumber,email,password,confirm}
+  const create = () => {
+    let item = { fname, lname, phoneNumber, email, password, confirm }
     console.warn(item)
   }
 
@@ -225,19 +225,19 @@ function CreateAccount() {
     Zimbabwe: "+263",
   };
 
-  const handleSubmit=(e)=>{
+  const handleSubmit = (e) => {
     e.preventDefault();
     console.log(email)
   }
 
   return (
-   <>
-      <div className='flex md:flex-row flex-col bg-[#00544f] h-full'>
+    <>
+      <div className='flex md:flex-row flex-col bg-[#00544f] h-[calc(100vh-64px)]'>
         <div className=' flex flex-col gap-5 justify-center py-8   items-center mx-auto md:w-2/5'>
           <img className='rounded-full h-[20vh]' src={CompanyLogo} alt="Logo" />
-            <h1 className='text-yellow-300 text-xl sm:text-xl md:text-2xl lg:text-3xl  font-medium'>Create Your Account</h1>
-            <h1 className='text-yellow-300  text-xl sm:text-xl md:text-2xl lg:text-3xl  font-medium'>Welcome To AI Chef Master</h1>
-            <h1 className='text-white text-center text-xl sm:text-xl md:text-2xl lg:text-3xl font-medium'>Where Taste Meets Technology - Experience AI Chef Master</h1>
+          <h1 className='text-yellow-300 text-xl sm:text-xl md:text-2xl lg:text-3xl  font-medium'>Create Your Account</h1>
+          <h1 className='text-yellow-300  text-xl sm:text-xl md:text-2xl lg:text-3xl  font-medium'>Welcome To AI Chef Master</h1>
+          <h1 className='text-white text-center text-xl sm:text-xl md:text-2xl lg:text-3xl font-medium'>Where Taste Meets Technology - Experience AI Chef Master</h1>
         </div>
         <div className='bg-[#f7f3cd] flex flex-col justify-center lg:px-28 p-12 md:py-8 sm:px-12 md:px-16 md:w-3/5 border-black md:rounded-l-3xl'>
           <h1 className='text-4xl font-medium flex justify-center items-center mb-8'>Create Your Account</h1>
@@ -323,13 +323,13 @@ function CreateAccount() {
               <button className='font-medium '>Signup With Google</button>
             </div>
             <div className='gap-2 border p-2 rounded-lg border-black flex justify-start items-center   hover:scale-110'>
-              <img  src={microsoft} alt="Microsoft" />
+              <img src={microsoft} alt="Microsoft" />
               <button className='font-medium '>Signup With Microsoft</button>
             </div>
           </div>
         </div>
       </div>
-   </>
+    </>
   )
 }
 

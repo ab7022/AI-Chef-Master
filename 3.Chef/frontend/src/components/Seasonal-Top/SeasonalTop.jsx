@@ -3,21 +3,21 @@ import Card2 from '../Card2';
 import SeasonalDishesData from '../../Data/SeasonalDishesData';
 import TopDishesData from '../../Data/TopDishesData';
 import Fade from 'react-reveal/Fade';
- import { useInView } from 'react-intersection-observer'; // Add this import statement
+import { useInView } from 'react-intersection-observer'; // Add this import statement
 import 'animate.css/animate.min.css';
- 
+
 const SeasonalTop = () => {
-   const [animate, setAnimate] = useState(false);
+  const [animate, setAnimate] = useState(false);
   const { ref, inView } = useInView();
 
   // Trigger animation when content is in view
   useEffect(() => {
-       if (inView) {
-        setAnimate(true);
-      } else {
-        setAnimate(false);
-      }
-   }, [inView]);
+    if (inView) {
+      setAnimate(true);
+    } else {
+      setAnimate(false);
+    }
+  }, [inView]);
 
 
   return (
@@ -28,11 +28,11 @@ const SeasonalTop = () => {
       </Fade>
       <Fade bottom cascade when={animate} duration={800}>
         <div className="flex hover:animate-fade flex-wrap items-center justify-center">
-            {SeasonalDishesData.map((item, index) => (
-                <div>
-                    <Card2 key={index} title={item.title} time={item.time} rating={item.rating} imageUrl={item.imageUrl} />
-                </div>
-            ))}
+          {SeasonalDishesData.map((item, index) => (
+            <div key={index}>
+              <Card2 key={index} title={item.title} time={item.time} rating={item.rating} imageUrl={item.imageUrl} />
+            </div>
+          ))}
         </div>
       </Fade>
 
@@ -43,9 +43,9 @@ const SeasonalTop = () => {
       <Fade bottom cascade when={animate}>
         <div className="flex flex-wrap items-center justify-center">
           {TopDishesData.map((item, index) => (
-              <div>
-                    <Card2 key={index} title={item.title} time={item.time} rating={item.rating} imageUrl={item.imageUrl} />
-              </div>
+            <div key={index}>
+              <Card2 key={index} title={item.title} time={item.time} rating={item.rating} imageUrl={item.imageUrl} />
+            </div>
           ))}
         </div>
       </Fade>

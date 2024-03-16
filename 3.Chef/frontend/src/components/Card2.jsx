@@ -9,13 +9,13 @@ const hasHalfStar = rating % 1 !== 0;
     <Link to={dishPath} onClick={() => window.scrollTo(0,0)}>
         <div className="cards-container flex justify-center items-center">
              <div className="card space-x-2 bg-[#00544f] ">
-                <div class="card-media">
+                <div className="card-media">
                     <img className="rounded-lg w-[100%] h-[200px] object-cover border-2 border-[#00544f] " src={imageUrl} alt={title} />
                 </div>
-                <div class="card-description ">
-                    <div class="about-place flex justify-between items-center">
-                        <div class="place">
-                            <p class="place-name text-white">{title}</p>
+                <div className="card-description ">
+                    <div className="about-place flex justify-between items-center">
+                        <div className="place">
+                            <p className="place-name text-white">{title}</p>
                             <p className="flex "> {[...Array(fullStars)].map((_, index) => (
                                 <FaStar className='text-yellow-500' key={ index } />
                                 ))}
@@ -29,9 +29,9 @@ const hasHalfStar = rating % 1 !== 0;
                                 ))}
                             </p>
                         </div>
-                        <div class="place-review">
+                        <div className="place-review">
                             <p className="text-white font-semibold">Prep Time</p>
-                            <p class="per-person text-white mt-2 mr-2 font-semibold"> {time} min</p>
+                            <p className="per-person text-white mt-2 mr-2 font-semibold"> {time} min</p>
                         </div>
                     </div>
                 </div>
