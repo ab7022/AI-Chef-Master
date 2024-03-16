@@ -4,28 +4,20 @@ from flask_jwt_extended import create_access_token ,jwt_required ,create_refresh
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS,cross_origin
 from flask_dance.contrib.google import make_google_blueprint, google
-import os 
+from msal import ConfidentialClientApplication
+import os
 from flask_session import Session
 import identity
 import identity.web
 import requests
-#from flask_dance.contrib.microsoft  import microsoft
-#from flask_oauthlib.client import OAuth
-
-#from werkzeug.urls import url_decode, url_encode
-#from werkzeug.urls import url_quote as unquote
-from datetime import datetime ,timedelta
-from dotenv import  load_dotenv
+from datetime import datetime, timedelta
+from dotenv import load_dotenv
 from pathlib import Path
 import json
-#import urllib.parse import quote
 import urllib
 import msal
 
-#rom urllib.parse import quote, url_decode, url_encode
-
 app = Flask(__name__)
-#CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
 CORS(app, origins="*", supports_credentials=True)
 
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
@@ -77,6 +69,84 @@ def google_callback():
     
     return redirect(f"{os.getenv('FRONTEND_URL')}/login?data={user_info_str}", code=302)
 
+# Microsoft Login
+app.config["MICROSOFT_OAUTH_CLIENT_ID"] = os.getenv('MICROSOFT_OAUTH_CLIENT_ID')
+app.config["MICROSOFT_OAUTH_CLIENT_SECRET"] = os.getenv('MICROSOFT_OAUTH_CLIENT_SECRET')
+app.config["MICROSOFT_OAUTH_REDIRECT_URI"] = os.getenv('MICROSOFT_OAUTH_REDIRECT_URI')
+
+@app.route("/microsoft")
+def microsoft_login():
+    msal_app = ConfidentialClientApplication(
+        app.config["MICROSOFT_OAUTH_CLIENT_ID"],
+        authority="https://login.microsoftonline.com/consumers",
+        client_credential=app.config["MICROSOFT_OAUTH_CLIENT_SECRET"]
+    )
+    auth_url = msal_app.get_authorization_request_url(
+        scopes=["User.Read"],
+        state=os.urandom(16),
+        redirect_uri=app.config["MICROSOFT_OAUTH_REDIRECT_URI"]
+    )
+    return redirect(auth_url)
+
+from flask import redirect, jsonify, request, url_for
+import urllib.parse
+
+@app.route("/microsoft/callback")
+def microsoft_callback():
+    code = request.args.get('code')
+    if not code:
+        return jsonify({"error": "Failed to log in."}), 400
+
+    msal_app = ConfidentialClientApplication(
+        app.config["MICROSOFT_OAUTH_CLIENT_ID"],
+        authority="https://login.microsoftonline.com/consumers",
+        client_credential=app.config["MICROSOFT_OAUTH_CLIENT_SECRET"]
+    )
+    result = msal_app.acquire_token_by_authorization_code(
+        code,
+        scopes=["User.Read"],
+        redirect_uri=app.config["MICROSOFT_OAUTH_REDIRECT_URI"]
+    )
+
+    if "error" in result:
+        return jsonify({"error": "Failed to log in.", "details": result["error_description"]}), 400
+
+    if "access_token" in result:
+        headers = {'Authorization': 'Bearer ' + result['access_token']}
+        graph_data = requests.get("https://graph.microsoft.com/v1.0/me", headers=headers).json()
+
+        exist_user = db.users.find_one({'email': graph_data["mail"]}, {'first_name': 1})
+
+        if not exist_user:
+            user_data = {
+                'first_name': graph_data.get("givenName", ""),
+                'last_name': graph_data.get("surname", ""),
+                'email': graph_data.get("mail", ""),
+                'phone': graph_data.get("mobilePhone", "")
+            }
+            db.users.insert_one(user_data)
+        else:
+            db.users.update_one({'email': graph_data["mail"]}, {'$set': {'phone': graph_data.get("mobilePhone", "")}})
+
+        user_info = {
+            'first_name': graph_data.get("givenName", ""),
+            'last_name': graph_data.get("surname", ""),
+            'email': graph_data.get("mail", ""),
+            'phone': graph_data.get("mobilePhone", "")
+        }
+
+        token = create_access_token(identity=user_info['email'])
+
+        user_info['access_token'] = token
+
+        user_info_str = urllib.parse.quote(json.dumps(user_info))
+
+        frontend_url = os.getenv('FRONTEND_URL') + "/login?data=" + user_info_str
+        return redirect(frontend_url, code=302)
+    else:
+        return jsonify({"error": "Failed to log in."}), 400
+
+# Manual Authentication
 @app.route('/auth/signup', methods =['POST'])
 def register():
     
@@ -87,25 +157,17 @@ def register():
     password = request.json.get('password')
     confirm = request.json.get('confirm')
     print(fname ,lname ,email,phoneNumber)
-    # Check if required fields are provided
+
     if not (  fname and lname and phoneNumber and email and password and confirm):
         return jsonify({'message': 'Missing required fields'}), 400
-
-    # Check if password matches confirmation password
     if password != confirm:
         return jsonify({'message': 'Password and confirm password do not match'}), 400
-
-    # Check if user already exists
     if db.users.find_one({'email': email}):
         return jsonify({'message': 'User already exists'}), 400
 
-    # Hash the password
     hashed_password = generate_password_hash(password)
 
-    # Insert user into the database
     db.users.insert_one({
-       
-        
         'first_name': fname,
         'last_name': lname,
         'phone_number': phoneNumber,
@@ -113,7 +175,6 @@ def register():
         'password': hashed_password,
         'confirm_password': confirm
     })
-    
     
     return jsonify({'message': 'User registered successfully'}), 201
 
@@ -124,14 +185,12 @@ def loginAuth():
     password = request.json['password']
    
     user = db.users.find_one({'email': email})
-
     if not user or not check_password_hash(user['password'], password):
         return jsonify({'message': 'Invalid credentials'}), 401
-    
     else:
         token  = create_access_token(identity= email)
 
-        return jsonify({'message': 'Login successful' ,'token':token})
+    return jsonify({'message': 'Login successful' ,'token':token})
 
 @app.route('/auth/forgetPassword',methods =['POST'])
 def forgetP():
@@ -149,64 +208,6 @@ def logoutAPP():
     # If you're using sessions, you would typically handle logout on the client-side by clearing the session.
 
     return jsonify({'message': 'Logout successful'}), 200
-
-
-#microsft login 
-import app_config
-from flask_session import Session
-app.config.from_object(app_config)
-from werkzeug.middleware.proxy_fix import ProxyFix
-app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
-Session(app)
-
-auth = identity.web.Auth(
-    session=session,
-    authority=app.config.get("AUTHORITY"),
-    client_id= os.getenv('MICROSOFT_CLIENT_ID'),
-    client_credential=os.getenv('MICROSOFT_CLIENT_SECRET'),
-)
-
-@app.route("/loginM")
-def loginM():
-    return render_template("login.html", version=identity.__version__, **auth.log_in(
-        scopes=app_config.SCOPE, # Have user consent to scopes during log-in
-        redirect_uri=url_for("auth_response", _external=True), # Optional. If present, this absolute URL must match your app's redirect_uri registered in Azure Portal
-    ))
-
-@app.route(app_config.REDIRECT_PATH)
-def auth_response():
-    result = auth.complete_log_in(request.args)
-    if "error" in result:
-        return render_template("auth_error.html", result=result)
-    return redirect(url_for("indexM"))
-
-@app.route("/logout")
-def logout():
-    return redirect(auth.log_out(url_for("index", _external=True)))
-
-@app.route("/login/microsoft")
-def indexM():
-    if not (app.config["MICROSOFT_CLIENT_ID"] and app.config["MICROSOFT_CLIENT_SECRET"]):
-        # This check is not strictly necessary.
-        # You can remove this check from your production code.
-        return render_template('config_error.html')
-    if not auth.get_user():
-        return redirect(url_for("loginM"))
-    return render_template('index.html', user=auth.get_user(), version=identity.__version__)
-
-@app.route("/call_downstream_api")
-def call_downstream_api():
-    token = auth.get_token_for_user(app_config.SCOPE)
-    if "error" in token:
-        return redirect(url_for("loginM"))
-    # Use access token to call downstream api
-    api_result = requests.get(
-        app_config.ENDPOINT,
-        headers={'Authorization': 'Bearer ' + token['access_token']},
-        timeout=30,
-    ).json()
-    return render_template('display.html', result=api_result)
-
 
 if __name__ == '__main__':
     app.run(debug=True)
