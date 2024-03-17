@@ -74,7 +74,7 @@ app.config["MICROSOFT_OAUTH_CLIENT_ID"] = os.getenv('MICROSOFT_OAUTH_CLIENT_ID')
 app.config["MICROSOFT_OAUTH_CLIENT_SECRET"] = os.getenv('MICROSOFT_OAUTH_CLIENT_SECRET')
 app.config["MICROSOFT_OAUTH_REDIRECT_URI"] = os.getenv('MICROSOFT_OAUTH_REDIRECT_URI')
 
-@app.route("/microsoft")
+@app.route("/login/microsoft")
 def microsoft_login():
     msal_app = ConfidentialClientApplication(
         app.config["MICROSOFT_OAUTH_CLIENT_ID"],

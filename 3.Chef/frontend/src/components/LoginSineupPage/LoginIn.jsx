@@ -1,24 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CompanyLogo from '/CompanyLogo.png';
 import { useState } from 'react';
 import google from './google.png';
 import microsoft from './microsoft.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../../hooks/useAuthContext';
+import { toast } from 'react-hot-toast';
 
 function LoginIn() {
+    const { dispatch } = useAuthContext();
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
     const [showResetModal, setShowResetModal] = useState(false);
     const [newPassword, setNewPassword] = useState('');
 
-    React.useEffect(() => {
+    useEffect(() => {
         const rememberedEmail = localStorage.getItem('rememberedEmail');
         const rememberedPassword = localStorage.getItem('rememberedPassword');
         if (rememberedEmail && rememberedPassword) {
             setEmail(rememberedEmail);
             setPassword(rememberedPassword);
             setRememberMe(true);
+        }
+    }, []);
+
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const userDataStr = urlParams.get('data');
+        if (userDataStr) {
+            const userData = JSON.parse(decodeURIComponent(userDataStr));
+            localStorage.setItem('user', JSON.stringify(userData));
+            dispatch({ type: 'LOGIN', payload: userData });
+            toast.success("Logged in Successfully");
+            navigate(window.location.pathname, { replace: true });
         }
     }, []);
 
@@ -54,6 +70,13 @@ function LoginIn() {
             console.error('Error resetting password:', error);
             alert('An error occurred while resetting password');
         }
+    };
+
+    const handleGoogleAuth = () => {
+        window.location.href = `${import.meta.env.VITE_API_URL}/login/google`;
+    };
+    const handleMicrosoftAuth = () => {
+        window.location.href = `${import.meta.env.VITE_API_URL}/login/microsoft`;
     };
 
     return (
@@ -111,18 +134,24 @@ function LoginIn() {
                     </form>
 
                     <p className='text-3xl font-medium  text-center'>Or</p>
-                    
+
                     <div className='flex justify-center'>
                         <p className='mb-5'> Create New Account <Link className="text-emerald-800 font-medium" to="/signup">Signup</Link></p>
                     </div>
                     <div className='flex flex-wrap gap-3 justify-center'>
-                        <div className='border gap-2 p-2 rounded-lg border-black flex justify-start items-center  hover:scale-110'>
+                        <div
+                            className='border gap-2 p-2 rounded-lg border-black flex justify-start items-center  hover:scale-110'
+                            onClick={handleGoogleAuth}
+                        >
                             <img src={google} alt="Google" />
-                            <button className='font-medium '>Signup With Google</button>
+                            <button className='font-medium'>Continue With Google</button>
                         </div>
-                        <div className='gap-2 border p-2 rounded-lg border-black flex justify-start items-center   hover:scale-110'>
+                        <div
+                            className='gap-2 border p-2 rounded-lg border-black flex justify-start items-center   hover:scale-110'
+                            onClick={handleMicrosoftAuth}
+                        >
                             <img src={microsoft} alt="Microsoft" />
-                            <button className='font-medium '>Signup With Microsoft</button>
+                            <button className='font-medium '>Continue With Microsoft</button>
                         </div>
                     </div>
                 </div>

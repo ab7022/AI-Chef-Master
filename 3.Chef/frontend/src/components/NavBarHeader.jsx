@@ -8,11 +8,17 @@ import { Link, useLocation } from "react-router-dom";
 import CompanyLogo from '/CompanyLogo.png';
 import { FiSearch } from "react-icons/fi";
 import { BsCart4 } from "react-icons/bs";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { useLogout } from "../hooks/useLogout";
+
 const Flag = ({ countryFlag }) => (
     <img src={`https://flagcdn.com/${countryFlag.toLowerCase()}.svg`} alt={countryFlag} className="w-8" />
 );
 
 export default function NavBarHeader() {
+    const { user } = useAuthContext();
+    const { logout } = useLogout();
+
     const [dish, setDish] = useState("");
     const [selectedLanguage, setSelectedLanguage] = useState("in");
     const [isLanguageDropdownOpen, setLanguageDropdownOpen] = useState(false);
@@ -53,12 +59,16 @@ export default function NavBarHeader() {
       }, [SearchDishes]);
     */
 
+    const handleLogout = () => {
+        logout();
+    }
+
     return (
         <>
             <Disclosure as="nav" className="shadow-lg bg-[#00544f] text-white sticky top-0 z-50">
                 {({ open }) => (
                     <>
-                        <div className="flex justify-between mx-1 items-center h-16">
+                        <div className="flex justify-between mx-1 md:ml-2 md:mr-4 items-center h-16">
                             <Link to='/'>
                                 <div className="flex items-center md:gap-1 lg:gap-3">
                                     <img className="h-14 rounded-lg w-auto navbar-logo" src={CompanyLogo} alt="LOGO" />
@@ -141,7 +151,13 @@ export default function NavBarHeader() {
                                             </div>
                                         </li>
                                     )}
-                                    <li className=" text-base md:text-md text-center"><Link to='/signup'> Create Account</Link></li>
+                                    <li className=" text-base md:text-md text-center">
+                                        {!user ? (
+                                            <Link to='/signup'>Create Account</Link>
+                                        ) : (
+                                            user.name
+                                        )}
+                                    </li>
                                     {location.pathname !== '/' && <li className="text-base md:text-md flex items-center"> Setting
                                         <IoSettingsSharp />
                                     </li>}
@@ -149,6 +165,11 @@ export default function NavBarHeader() {
                                         Bucket
                                         <BsCart4 size={23} />
                                     </li>
+                                    {user && (
+                                        <li className=" text-base md:text-md text-center">
+                                            <button onClick={handleLogout}>Logout</button>
+                                        </li>
+                                    )}
                                 </ul>
                             </div>
 
@@ -238,7 +259,13 @@ export default function NavBarHeader() {
                                             </div>
                                         </li>
                                     )}
-                                    <li className=" text-base md:text-md"><Link to='/signup'> Create Account</Link></li>
+                                    <li className=" text-base md:text-md">
+                                        {!user ? (
+                                            <Link to='/signup'>Create Account</Link>
+                                        ) : (
+                                            user.name
+                                        )}
+                                    </li>
                                     {location.pathname !== '/' && <li className="text-base md:text-md flex items-center"> Setting
                                         <IoSettingsSharp />
                                     </li>}
@@ -246,6 +273,11 @@ export default function NavBarHeader() {
                                         Bucket
                                         <BsCart4 size={23} />
                                     </li>
+                                    {user && (
+                                        <li className="text-base md:text-md">
+                                            <button onClick={handleLogout}>Logout</button>
+                                        </li>
+                                    )}
                                 </ul>
                             </div>
                         </Disclosure.Panel>

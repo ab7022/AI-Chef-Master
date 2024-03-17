@@ -230,6 +230,13 @@ function CreateAccount() {
     console.log(email)
   }
 
+  const handleGoogleAuth = () => {
+    window.location.href = `${import.meta.env.VITE_API_URL}/login/google`;
+  };
+  const handleMicrosoftAuth = () => {
+    window.location.href = `${import.meta.env.VITE_API_URL}/login/microsoft`;
+  };
+
   return (
     <>
       <div className='flex md:flex-row flex-col bg-[#00544f] h-[calc(100vh-64px)]'>
@@ -318,13 +325,19 @@ function CreateAccount() {
           <p className='text-3xl font-medium  text-center md:my-2'>Or</p>
 
           <div className='flex flex-wrap gap-3 justify-center'>
-            <div className='border gap-2 p-2 rounded-lg border-black flex justify-start items-center  hover:scale-110'>
+            <div
+              className='border gap-2 p-2 rounded-lg border-black flex justify-start items-center  hover:scale-110'
+              onClick={handleGoogleAuth}
+            >
               <img src={google} alt="Google" />
-              <button className='font-medium '>Signup With Google</button>
+              <button className='font-medium '>Continue With Google</button>
             </div>
-            <div className='gap-2 border p-2 rounded-lg border-black flex justify-start items-center   hover:scale-110'>
+            <div
+              className='gap-2 border p-2 rounded-lg border-black flex justify-start items-center   hover:scale-110'
+              onClick={handleMicrosoftAuth}
+            >
               <img src={microsoft} alt="Microsoft" />
-              <button className='font-medium '>Signup With Microsoft</button>
+              <button className='font-medium '>Continue With Microsoft</button>
             </div>
           </div>
         </div>

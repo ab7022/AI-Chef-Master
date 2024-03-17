@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import Home from './pages/Home';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { useAuthContext } from './hooks/useAuthContext';
 
 import SingleDish from './pages/SingleDish';
@@ -65,8 +65,8 @@ const App = () => {
                     <Route path='/choose-india' element={<ChooseIndia />} />
                     <Route path='/cooking' element={<Cooking />} />
                     <Route path='/teampage' element={<TeamPage />} />
-                    <Route path='/signup' element={<CreateAccount />} />
-                    <Route path='/login' element={<LoginIn />} />
+                    <Route path='/signup' element={!user ? <CreateAccount /> : <Navigate to='/' />} />
+                    <Route path='/login' element={!user ? <LoginIn /> : <Navigate to='/' />} />
                     <Route path='/Luxury-Dishes' element={<LuxuryDishes />} />
                     <Route path='/Luxury-Dishes/Spanish' element={<Spanish />} />
                     <Route path='/Luxury-Dishes/Spanish/SpanishLuxuryBreakFast' element={<SpanishLuxuryBreakFast />} />
