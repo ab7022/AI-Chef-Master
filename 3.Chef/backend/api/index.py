@@ -150,30 +150,27 @@ def microsoft_callback():
 @app.route('/auth/signup', methods =['POST'])
 def register():
     
-    fname = request.json.get('fname')
-    lname = request.json.get('lname')
-    phoneNumber = request.json.get('phoneNumber')
+    first_name = request.json.get('first_name')
+    last_name = request.json.get('last_name')
+    country_code = request.json.get('country_code')
+    phone = request.json.get('phone')
     email = request.json.get('email')
     password = request.json.get('password')
-    confirm = request.json.get('confirm')
-    print(fname ,lname ,email,phoneNumber)
 
-    if not (  fname and lname and phoneNumber and email and password and confirm):
+    if not (first_name and last_name and country_code and phone and email and password):
         return jsonify({'message': 'Missing required fields'}), 400
-    if password != confirm:
-        return jsonify({'message': 'Password and confirm password do not match'}), 400
     if db.users.find_one({'email': email}):
         return jsonify({'message': 'User already exists'}), 400
 
     hashed_password = generate_password_hash(password)
 
     db.users.insert_one({
-        'first_name': fname,
-        'last_name': lname,
-        'phone_number': phoneNumber,
+        'first_name': first_name,
+        'last_name': last_name,
+        'country_code': country_code,
+        'phone': phone,
         'email': email,
-        'password': hashed_password,
-        'confirm_password': confirm
+        'password': hashed_password
     })
     
     return jsonify({'message': 'User registered successfully'}), 201
@@ -190,7 +187,8 @@ def loginAuth():
     else:
         token  = create_access_token(identity= email)
 
-    return jsonify({'message': 'Login successful' ,'token':token})
+    name = user['first_name']+" "+user['last_name']
+    return jsonify(message = 'Login Successful', access_token = token, email = email, name = name)
 
 @app.route('/auth/forgetPassword',methods =['POST'])
 def forgetP():

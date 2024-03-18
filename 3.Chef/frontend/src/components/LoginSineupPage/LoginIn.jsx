@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react';
-import CompanyLogo from '/CompanyLogo.png';
-import { useState } from 'react';
-import google from './google.png';
-import microsoft from './microsoft.png';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import { useLogin } from '../../hooks/useLogin';
 import { toast } from 'react-hot-toast';
+import google from './google.png';
+import microsoft from './microsoft.png';
 
 function LoginIn() {
-    const { dispatch } = useAuthContext();
     const navigate = useNavigate();
+    const { dispatch } = useAuthContext();
+    const { login, isLoading } = useLogin();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
     const [showResetModal, setShowResetModal] = useState(false);
-    const [newPassword, setNewPassword] = useState('');
 
     useEffect(() => {
         const rememberedEmail = localStorage.getItem('rememberedEmail');
@@ -38,38 +38,16 @@ function LoginIn() {
         }
     }, []);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(email);
+        if (!email) return toast.error("Enter your email");
+        else if (!password) return toast.error("Enter your password");
+
+        await login(email, password);
     };
 
     const handleForgetPassword = () => {
         setShowResetModal(true);
-    };
-
-    const handleResetPassword = async () => {
-        try {
-            const response = await fetch('/api/reset-password', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, newPassword }),
-            });
-
-            if (response.ok) {
-                // Password reset successful, close the modal
-                setShowResetModal(false);
-                alert('Password reset successfully!');
-            } else {
-                // Handle password reset failure
-                const errorMessage = await response.text();
-                alert(`Password reset failed: ${errorMessage}`);
-            }
-        } catch (error) {
-            console.error('Error resetting password:', error);
-            alert('An error occurred while resetting password');
-        }
     };
 
     const handleGoogleAuth = () => {
@@ -83,7 +61,7 @@ function LoginIn() {
         <>
             <div className='flex md:flex-row flex-col bg-[#00544f] h-[calc(100vh-64px)]'>
                 <div className=' flex flex-col gap-5 justify-center items-center py-8 md:w-2/5'>
-                    <img className=" rounded-full h-[20vh]" src={CompanyLogo} alt="Logo" />
+                    <img className=" rounded-full h-[20vh]" src="/CompanyLogo.png" alt="Logo" />
                     <h1 className="text-yellow-300 text-xl sm:text-xl md:text-2xl lg:text-3xl  font-medium">Welcome Back</h1>
                     <h1 className="text-yellow-300 text-center text-xl sm:text-xl md:text-2xl lg:text-3xl font-medium">SIGN IN TO AI CHEF MASTER</h1>
                     <h1 className="text-white text-center text-xl sm:text-xl md:text-2xl lg:text-3xl ">Where Taste Meets Technology - Experience AI Chef Master</h1>
@@ -96,7 +74,7 @@ function LoginIn() {
                                 type="text"
                                 className="p-3 bg-[#f7f3cd] border border-black focus:outline-none w-full placeholder-black rounded-lg"
                                 value={email}
-                                required
+                                // required
                                 onChange={(e) => setEmail(e.target.value)}
                                 placeholder="Email Address"
                             />
@@ -106,7 +84,7 @@ function LoginIn() {
                                 type="password"
                                 className="p-3 bg-[#f7f3cd] border border-black focus:outline-none w-full placeholder-black rounded-lg"
                                 value={password}
-                                required
+                                // required
                                 onChange={(e) => setPassword(e.target.value)}
                                 placeholder="Password"
                             />
@@ -127,7 +105,10 @@ function LoginIn() {
                             </button>
                         </div>
                         <div className="flex justify-center items-center">
-                            <button type="submit" className="bg-[#00544f] p-3 my-3 w-full  md:max-w-sm text-white text-2xl rounded-lg hover:scale-110 sm:text-lg sm:w-2/3  lg:w-3/4">
+                            <button
+                                type="submit"
+                                className={`${isLoading ? "bg-gray-600 cursor-not-allowed" : "bg-[#00544f]"} p-3 my-3 w-full  md:max-w-sm text-white text-2xl rounded-lg hover:scale-110 sm:text-lg sm:w-2/3  lg:w-3/4`}
+                            >
                                 Login
                             </button>
                         </div>

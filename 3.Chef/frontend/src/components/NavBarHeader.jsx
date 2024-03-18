@@ -155,12 +155,12 @@ export default function NavBarHeader() {
                                         {!user ? (
                                             <Link to='/signup'>Create Account</Link>
                                         ) : (
-                                            user.name
+                                            user.name || `${user.first_name} ${user.last_name}`
                                         )}
                                     </li>
-                                    {location.pathname !== '/' && <li className="text-base md:text-md flex items-center"> Setting
+                                    {/* {location.pathname !== '/' && <li className="text-base md:text-md flex items-center"> Setting
                                         <IoSettingsSharp />
-                                    </li>}
+                                    </li>} */}
                                     <li className="text-base md:text-md flex items-center">
                                         Bucket
                                         <BsCart4 size={23} />
@@ -266,9 +266,9 @@ export default function NavBarHeader() {
                                             user.name
                                         )}
                                     </li>
-                                    {location.pathname !== '/' && <li className="text-base md:text-md flex items-center"> Setting
+                                    {/* {location.pathname !== '/' && <li className="text-base md:text-md flex items-center"> Setting
                                         <IoSettingsSharp />
-                                    </li>}
+                                    </li>} */}
                                     <li className="text-base md:text-md flex items-center">
                                         Bucket
                                         <BsCart4 size={23} />

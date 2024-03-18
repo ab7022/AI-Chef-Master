@@ -2,22 +2,27 @@ import { useState } from "react"
 import toast from "react-hot-toast"
 
 export const useSignup = () => {
-    const [pwError, setPwError] = useState(null)
-    const [emailError, setEmailError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
 
-    const signup = async (email, first_name, last_name, password, password_repeat, navigate) => {
+    const signup = async (
+        first_name,
+        last_name,
+        country_code,
+        phone,
+        email,
+        password,
+        navigate
+    ) => {
         setIsLoading(true);
-        setPwError(null)
-        setEmailError(null)
         const data = {
-            'email': email,
-            'first_name': first_name,
-            'last_name': last_name,
-            'password': password,
-            'password_repeat': password_repeat
+            first_name,
+            last_name,
+            country_code,
+            phone,
+            email,
+            password
         }
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/chef/signup`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/signup`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
@@ -26,17 +31,16 @@ export const useSignup = () => {
         const json = await response.json()
 
         if (!response.ok) {
-            setIsLoading(false)
-            setPwError(json.non_field_errors)
-            setEmailError(json.email)
+            setIsLoading(false);
+            toast.error(json.message);
         }
 
         if (response.ok) {
             setIsLoading(false);
-            toast.success("Signup successfull");
+            toast.success(json.message);
             navigate('/login');
         }
     }
 
-    return { signup, isLoading, pwError, emailError }
+    return { signup, isLoading }
 }

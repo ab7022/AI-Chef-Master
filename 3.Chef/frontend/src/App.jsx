@@ -1,15 +1,16 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import Home from './pages/Home';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { useAuthContext } from './hooks/useAuthContext';
 
-import SingleDish from './pages/SingleDish';
-import Cooking from './pages/Cooking';
+import NavBarHeader from './components/NavBarHeader';
+import Home from './pages/Home';
 import CreateAccount from './components/LoginSineupPage/CreateAccount';
 import LoginIn from './components/LoginSineupPage/LoginIn';
 
 // import Layout from './components/Layout';
+import SingleDish from './pages/SingleDish';
+import Cooking from './pages/Cooking';
 import TeamPage from './pages/TeamPage';
 import LuxuryDishes from './components/Dishes/Luxury-Dishes/LuxuryDishes';
 import Spanish from './components/Dishes/Luxury-Dishes/Spain/Spanish';
@@ -43,7 +44,6 @@ import ArunachalPradeshLuxuryDinner from './components/Dishes/All-NavItem/Arunac
 
 import QuickDishes from './components/Dishes/Quick-Dishes/QuickDishes';
 import HealthyDishes from './components/Dishes/Healthy-Dishes/HealthyDishes';
-import NavBarHeader from './components/NavBarHeader';
 import ChooseRegion from './components/Dishes/Create-Dishes/ChooseRegion';
 import ChooseWorldCountries from './components/Dishes/Create-Dishes/ChooseWorldCountries';
 import ChooseIndia from './components/Dishes/Create-Dishes/ChooseIndia';
@@ -59,14 +59,14 @@ const App = () => {
                 <NavBarHeader />
                 <Routes>
                     <Route path='/' element={<Home />} />
+                    <Route path='/signup' element={!user ? <CreateAccount /> : <Navigate to='/' />} />
+                    <Route path='/login' element={!user ? <LoginIn /> : <Navigate to='/' />} />
                     <Route path='/ChooseVegNonVeg' element={<ChooseVegNonVeg />} />
                     <Route path='/ChooseRegion' element={<ChooseRegion />} />
                     <Route path='/rest-of-the-world' element={<ChooseWorldCountries />} />
                     <Route path='/choose-india' element={<ChooseIndia />} />
                     <Route path='/cooking' element={<Cooking />} />
                     <Route path='/teampage' element={<TeamPage />} />
-                    <Route path='/signup' element={!user ? <CreateAccount /> : <Navigate to='/' />} />
-                    <Route path='/login' element={!user ? <LoginIn /> : <Navigate to='/' />} />
                     <Route path='/Luxury-Dishes' element={<LuxuryDishes />} />
                     <Route path='/Luxury-Dishes/Spanish' element={<Spanish />} />
                     <Route path='/Luxury-Dishes/Spanish/SpanishLuxuryBreakFast' element={<SpanishLuxuryBreakFast />} />
