@@ -392,7 +392,7 @@ const DashboardForm = ({ setTab, form, setForm }) => {
           className={`${isLoading || error ? "bg-gray-600 cursor-not-allowed" : "bg-green-600 hover:bg-green-800"} px-8 py-2 overflow-hidden font-medium rounded-xl border  text-xl md:text-2xl`}
         >
           <span className=" text-white">
-            {isLoading ? "..." : "Next"}
+            Next
           </span>
         </button>
       </div>

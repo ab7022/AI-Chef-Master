@@ -118,6 +118,11 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
         lowerCaseIngredientName.includes(ingredient.toLowerCase())
       );
 
+      if (formData.veg_non_veg === "Vegetarian" && isNonVegetarian) {
+        toast.error("Cannot add Non-Vegetarian ingredient to a Vegetarian recipe.");
+        return;
+      }
+
       let newVegNonVegValue = "Vegetarian";
       if (isNonVegetarian) {
         newVegNonVegValue = "Non-Vegetarian";
