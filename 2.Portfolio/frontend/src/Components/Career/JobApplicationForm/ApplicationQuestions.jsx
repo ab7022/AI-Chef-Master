@@ -16,7 +16,7 @@ const ApplicationQuestions = ({ allQuestions, setAllQuestions }) => {
         <div className="md:w-full text-sm flex flex-col md:flex-row md:items-center gap-y-4 md:gap-x-8">
           <label className="w-full md:w-2/5">
             Are you of legal age to work in the country in which this position will be based?
-            <span style={{ color: 'red', fontSize: '1.5rem' }}>*</span>:
+            {/* <span style={{ color: 'red', fontSize: '1.5rem' }}>*</span> */}
           </label>
           <select
             name="legalAge"
@@ -32,7 +32,8 @@ const ApplicationQuestions = ({ allQuestions, setAllQuestions }) => {
 
         <div className="md:w-full text-sm">
           <label>
-            <span style={{ color: 'red', fontSize: '1.5rem' }}>*</span>Have you been employed by AI Chefmaster in the past?
+            {/* <span style={{ color: 'red', fontSize: '1.5rem' }}>*</span> */}
+            Have you been employed by AI Chefmaster in the past?
           </label>
           <div className="my-2 flex flex-col">
             <div>
@@ -60,7 +61,8 @@ const ApplicationQuestions = ({ allQuestions, setAllQuestions }) => {
 
         <div className="md:w-full text-sm flex flex-col md:flex-row md:items-center gap-y-4 md:gap-x-8">
           <label>
-            <span style={{ color: 'red', fontSize: '1.5rem' }}>*</span>Will you now or in the future require sponsorship for employment visa status (e.g., H-1B visa status, spouse visa, etc)?
+            {/* <span style={{ color: 'red', fontSize: '1.5rem' }}>*</span> */}
+            Will you now or in the future require sponsorship for employment visa status (e.g., H-1B visa status, spouse visa, etc)?
           </label>
           <select
             name="visaSponsorship"

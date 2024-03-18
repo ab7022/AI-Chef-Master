@@ -33,7 +33,7 @@ export default function Unique() {
                 className="button-btn rounded-full shadow-2xl"
               >
                 <Link
-                  to="/SineUp"
+                  to="/signup"
                   className="no-underline text-white font-bold"
                 >
                   Try for Free ➪

@@ -5,7 +5,6 @@ import TeamMember from './TeamMember';
 import pp from './PP.jpg';
 import sg from './SG.jpg';
 import ss from './SS.jpg';
-import cc from './CC.jpg';
 
 const teamMembers = [
   {

@@ -88,6 +88,10 @@ const Application = () => {
 
   const nxtStep = async () => {
     if (count === 0) {
+      if (!fname || !lname || !address1 || !pincode || !city || !state || !country || !email || !phoneCode || !phoneNumber) {
+        return toast.error("Fill out all the required fields");
+      }
+
       setPersonal({
         first_name: fname,
         last_name: lname,

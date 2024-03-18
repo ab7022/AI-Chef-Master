@@ -27,7 +27,8 @@ const Education = ({ education, setEducation }) => {
                     <form className="mx-4 sm:mx-6 lg:mx-8 my-5 flex flex-col justify-start gap-y-7">
                         <div className="flex flex-col text-sm md:flex-row md:items-center md:gap-x-4">
                             <label className="w-full md:w-1/4 mb-2 md:mb-0">
-                                School<span style={{ color: "red", fontSize: "1.5rem" }}>*</span>:
+                                {/* School<span style={{ color: "red", fontSize: "1.5rem" }}>*</span>: */}
+                                School:
                             </label>
                             <input
                                 type="text"
@@ -45,7 +46,7 @@ const Education = ({ education, setEducation }) => {
 
                         <div className="flex flex-col text-sm md:flex-row md:items-center md:gap-x-4">
                             <label className="w-full md:w-1/4 mb-2 md:mb-0">
-                                Degree<span style={{ color: "red", fontSize: "1.5rem" }}>*</span>:
+                                Degree:
                             </label>
                             <select
                                 className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
@@ -68,7 +69,7 @@ const Education = ({ education, setEducation }) => {
 
                         <div className="flex flex-col text-sm md:flex-row md:items-center md:gap-x-4">
                             <label className="w-full md:w-1/4 mb-2 md:mb-0">
-                                Field<span style={{ color: "red", fontSize: "1.5rem" }}>*</span>:
+                                Field:
                             </label>
                             <select
                                 className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
@@ -94,7 +95,7 @@ const Education = ({ education, setEducation }) => {
 
                         <div className="flex flex-col text-sm md:flex-row md:items-center md:gap-x-4">
                             <label className="w-full md:w-1/4 mb-2 md:mb-0">
-                                From<span style={{ color: "red", fontSize: "1.5rem" }}>*</span>:
+                                From:
                             </label>
                             <DatePicker
                                 placeholderText='From Date'
@@ -111,7 +112,7 @@ const Education = ({ education, setEducation }) => {
 
                         <div className="flex flex-col text-sm md:flex-row md:items-center md:gap-x-4">
                             <label className="w-full md:w-1/4 mb-2 md:mb-0">
-                                To<span style={{ color: "red", fontSize: "1.5rem" }}>*</span>:
+                                To:
                             </label>
                             <DatePicker
                                 placeholderText='End Date'

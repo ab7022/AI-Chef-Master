@@ -5,9 +5,17 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import "../MyNavbar/index.css";
 import { Link, useLocation } from "react-router-dom";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import { useLogout } from "../../hooks/useLogout";
 
 export default function MyNavbar() {
   const location = useLocation();
+  const { user } = useAuthContext();
+  const { logout } = useLogout();
+
+  const handleLogout = () => {
+    logout();
+  }
 
   return (
     <>
@@ -18,9 +26,8 @@ export default function MyNavbar() {
               <div className="relative flex h-16 items-center">
                 <div className="flex items-center w-full justify-between">
                   <Link
-                    className={`  ${
-                      location.pathname === "/" ? "active" : ""
-                    } text-3xl font-semibold font-primary flex items-center justify-between gap-x-2`}
+                    className={`  ${location.pathname === "/" ? "active" : ""
+                      } text-3xl font-semibold font-primary flex items-center justify-between gap-x-2`}
                     to="/"
                   >
                     <img
@@ -35,39 +42,52 @@ export default function MyNavbar() {
                       <Link
                         onClick={() => window.scrollTo(0, 0)}
                         to="/"
-                        className={`nav-link ${
-                          location.pathname === "/" ? "active" : ""
-                        } rounded-md px-3 py-2 text-sm font-medium bg-[#00544f]`}
+                        className={`nav-link ${location.pathname === "/" ? "active" : ""
+                          } rounded-md px-3 py-2 text-sm font-medium bg-[#00544f]`}
                       >
                         Home
                       </Link>
                       <Link
                         onClick={() => window.scrollTo(0, 0)}
                         to="/product"
-                        className={`nav-link ${
-                          location.pathname === "/product" ? "active" : ""
-                        } rounded-md px-3 py-2 text-sm font-medium`}
+                        className={`nav-link ${location.pathname === "/product" ? "active" : ""
+                          } rounded-md px-3 py-2 text-sm font-medium`}
                       >
                         Product
                       </Link>
                       <Link
                         onClick={() => window.scrollTo(0, 0)}
                         to="/career"
-                        className={`nav-link ${
-                          location.pathname === "/career" ? "active" : ""
-                        } rounded-md px-3 py-2 text-sm font-medium`}
+                        className={`nav-link ${location.pathname === "/career" ? "active" : ""
+                          } rounded-md px-3 py-2 text-sm font-medium`}
                       >
                         Career
                       </Link>
                       <Link
                         onClick={() => window.scrollTo(0, 0)}
                         to="/company"
-                        className={`nav-link ${
-                          location.pathname === "/company" ? "active" : ""
-                        } rounded-md px-3 py-2 text-sm font-medium`}
+                        className={`nav-link ${location.pathname === "/company" ? "active" : ""
+                          } rounded-md px-3 py-2 text-sm font-medium`}
                       >
                         Company
                       </Link>
+                      {user ? (
+                        <button
+                          onClick={handleLogout}
+                          className={`nav-link rounded-md px-3 py-2 text-sm font-medium`}
+                        >
+                          Logout
+                        </button>
+                      ) : (
+                        <Link
+                          onClick={() => window.scrollTo(0, 0)}
+                          to="/login"
+                          className={`nav-link ${location.pathname === "/login" ? "active" : ""
+                            } rounded-md px-3 py-2 text-sm font-medium`}
+                        >
+                          Login
+                        </Link>
+                      )}
                     </div>
                   </div>
                   <div className="sm:hidden">
@@ -88,39 +108,43 @@ export default function MyNavbar() {
                 <Link
                   onClick={() => window.scrollTo(0, 0)}
                   to="/"
-                  className={`nav-link ${
-                    location.pathname === "/" ? "active" : ""
-                  } rounded-md px-3 py-2 text-sm font-medium bg-[#00544f]`}
+                  className={`nav-link ${location.pathname === "/" ? "active" : ""
+                    } rounded-md px-3 py-2 text-sm font-medium bg-[#00544f]`}
                 >
                   Home
                 </Link>
                 <Link
                   onClick={() => window.scrollTo(0, 0)}
                   to="/product"
-                  className={`nav-link ${
-                    location.pathname === "/product" ? "active" : ""
-                  } rounded-md px-3 py-2 text-sm font-medium`}
+                  className={`nav-link ${location.pathname === "/product" ? "active" : ""
+                    } rounded-md px-3 py-2 text-sm font-medium`}
                 >
                   Product
                 </Link>
                 <Link
                   onClick={() => window.scrollTo(0, 0)}
                   to="/career"
-                  className={`nav-link ${
-                    location.pathname === "/career" ? "active" : ""
-                  } rounded-md px-3 py-2 text-sm font-medium`}
+                  className={`nav-link ${location.pathname === "/career" ? "active" : ""
+                    } rounded-md px-3 py-2 text-sm font-medium`}
                 >
                   Career
                 </Link>
                 <Link
                   onClick={() => window.scrollTo(0, 0)}
                   to="/company"
-                  className={`nav-link ${
-                    location.pathname === "/company" ? "active" : ""
-                  } rounded-md px-3 py-2 text-sm font-medium`}
+                  className={`nav-link ${location.pathname === "/company" ? "active" : ""
+                    } rounded-md px-3 py-2 text-sm font-medium`}
                 >
                   Company
                 </Link>
+                {user && (
+                  <button
+                    onClick={handleLogout}
+                    className={`w-full nav-link rounded-md px-3 py-2 text-sm font-medium text-start`}
+                  >
+                    Logout
+                  </button>
+                )}
               </div>
             </Disclosure.Panel>
           </>

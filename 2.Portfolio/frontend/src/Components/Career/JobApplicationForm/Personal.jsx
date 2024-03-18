@@ -92,7 +92,7 @@ const Personal = ({
 
                         <div className="flex flex-col text-sm md:flex-row md:items-center md:gap-x-4">
                             <label className="w-full md:w-1/4 mb-2 md:mb-0">
-                                Address Line2<span style={{ color: "red", fontSize: "1.5rem" }}>*</span>:</label>
+                                Address Line2:</label>
                             <input
                                 required
                                 type="text"
@@ -206,8 +206,7 @@ const Personal = ({
 
                         <div className="flex flex-col text-sm md:flex-row md:items-center md:gap-x-4">
                             <label className="w-full md:w-1/4 mb-2 md:mb-0">
-                                Phone Device Type
-                                <span style={{ color: "red", fontSize: "1.5rem" }}>*</span> :</label>
+                                Phone Device Type:</label>
                             <select
                                 className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
                                 value={phoneDevice}
@@ -255,8 +254,7 @@ const Personal = ({
 
                         <div className="flex flex-col text-sm md:flex-row md:items-center md:gap-x-4">
                             <label className="w-full md:w-1/4 mb-2 md:mb-0">
-                                How Did You Hear About Us?
-                                <span style={{ color: "red", fontSize: "1.5rem" }}>*</span> :</label>
+                                How Did You Hear About Us?</label>
                             <select
                                 className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
                                 value={hear}

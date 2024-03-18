@@ -1,9 +1,11 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import './App.css'
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import { useAuthContext } from "./hooks/useAuthContext";
 import MyNavbar from "./Components/MyNavbar";
 import "bootstrap/dist/css/bootstrap.min.css";
-import './App.css'
 import Home from "./Components/Home";
+import LoginIn from "./Components/LoginSineupPage/LoginIn";
+import CreateAccount from "./Components/LoginSineupPage/CreateAccount";
 import Product from "./Components/Product";
 import CareerHomePage from "./Components/Career/CareerHomePage";
 import Company from "./Components/Company";
@@ -31,22 +33,22 @@ import Team from './Components/Team/Team';
 import AiAssistant from "./Components/AIChefPocketData/AiAssistant";
 import NutritionManager from "./Components/AIChefPocketData/NutritionManager";
 import NotFound from "./Components/NotFound";
-import CreateAccount from "./Components/LoginSineupPage/CreateAccount";
-import LoginIn from "./Components/LoginSineupPage/LoginIn";
- 
+
 const App = () => {
+  const { user } = useAuthContext();
+
   return (
     <Router>
       <MyNavbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path='/signup' element={!user ? <CreateAccount /> : <Navigate to='/' />} />
+        <Route path='/login' element={!user ? <LoginIn /> : <Navigate to='/' />} />
         <Route path="/product" element={<Product />} />
         <Route path="/career" element={<CareerHomePage />} />
         <Route path="/company" element={<Company />} />
-        <Route path="/SineUp" element={<CreateAccount />} />
-        <Route path="/Login" element={<LoginIn />} />
         <Route path="/R&D" element={<RD />} />
-         <Route path="/technology" element={<Technology />} />
+        <Route path="/technology" element={<Technology />} />
         <Route path="/application" element={<Application />} />
         <Route path="/searchJobCards" element={<SearchJobCards />} />
         <Route

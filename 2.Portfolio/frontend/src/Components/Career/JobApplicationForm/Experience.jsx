@@ -41,7 +41,8 @@ const Experience = ({ experiences, setExperiences }) => {
             <form className="mx-4 sm:mx-6 lg:mx-8 my-5 flex flex-col justify-start gap-y-7">
               <div className="flex flex-col text-sm md:flex-row md:items-center md:gap-x-4">
                 <label className="w-full md:w-1/4 mb-2 md:mb-0">
-                  Job Title<span style={{ color: "red", fontSize: "1.5rem" }}>*</span>:
+                  {/* Job Title<span style={{ color: "red", fontSize: "1.5rem" }}>*</span>: */}
+                  Job Title:
                 </label>
                 <input
                   placeholder='Job Title'
@@ -59,7 +60,7 @@ const Experience = ({ experiences, setExperiences }) => {
 
               <div className="flex flex-col text-sm md:flex-row md:items-center md:gap-x-4">
                 <label className="w-full md:w-1/4 mb-2 md:mb-0">
-                  Company<span style={{ color: "red", fontSize: "1.5rem" }}>*</span>:
+                  Company:
                 </label>
                 <input
                   type="text"
@@ -77,7 +78,7 @@ const Experience = ({ experiences, setExperiences }) => {
 
               <div className="flex flex-col text-sm md:flex-row md:items-center md:gap-x-4">
                 <label className="w-full md:w-1/4 mb-2 md:mb-0">
-                  Location<span style={{ color: "red", fontSize: "1.5rem" }}>*</span>:
+                  Location:
                 </label>
                 <input
                   type="text"
@@ -95,7 +96,7 @@ const Experience = ({ experiences, setExperiences }) => {
 
               <div className="flex flex-col text-sm md:flex-row md:items-center md:gap-x-4">
                 <label className="w-full md:w-1/4 mb-2 md:mb-0">
-                  From<span style={{ color: "red", fontSize: "1.5rem" }}>*</span>:
+                  From:
                 </label>
                 <DatePicker
                   placeholderText='From Date'
@@ -112,7 +113,7 @@ const Experience = ({ experiences, setExperiences }) => {
               {!experience.isCurrentlyPursuing && (
                 <div className="flex flex-col text-sm md:flex-row md:items-center md:gap-x-4">
                   <label className="w-full md:w-1/4 mb-2 md:mb-0">
-                    To<span style={{ color: "red", fontSize: "1.5rem" }}>*</span>:</label>
+                    To:</label>
                   <DatePicker
                     placeholderText='End Date'
                     className="p-2 bg-gray-300 focus:outline-none w-full sm:w-2/5 md:w-3/5"
@@ -128,7 +129,7 @@ const Experience = ({ experiences, setExperiences }) => {
 
               <div className="flex flex-col text-sm md:flex-row md:items-center md:gap-x-4">
                 <label className="w-full md:w-1/4 mb-2 md:mb-0">
-                  Role description:<span style={{ color: "red", fontSize: "1.5rem" }}>*</span>:</label>
+                  Role description:</label>
                 <input type="text"
                   placeholder='Description'
                   className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
