@@ -1,0 +1,26 @@
+ .my-navbar {
+   background-color: #ffffff;
+   font-family: 'Montserrat', sans-serif;
+   font-weight: 600;
+ }
+
+ .nav-link {
+   font-size: 1.2rem;
+   color: #010500;
+   font-weight: 500;
+
+   transition: color 0.3s ease;
+   background-color: #eaeaea !important;
+   position: relative;
+   transition: all 0.3s ease-in-out !important;
+ }
+
+ .nav-link:hover {
+   color: #ffffff !important;
+   background-color: #00544f !important;
+ }
+
+ .nav-link.active {
+   color: #ffffff !important;
+   background-color: #00544f !important;
+ }

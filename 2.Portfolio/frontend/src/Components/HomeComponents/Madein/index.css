@@ -1,0 +1,42 @@
+.made-in-india {
+  font-family: 'Arial', sans-serif;
+  font-size: 4rem;
+  font-weight: bold;
+  line-height: 1.2;
+  text-align: center;
+  background: linear-gradient(45deg, #ff9933, #138808);
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradientMove 8s linear infinite;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  transition: color 0.3s ease-in-out;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+/* Responsive Sizing */
+@media (max-width: 768px) {
+  .made-in-india {
+    font-size: 3rem;
+    line-height: 1.5;
+  }
+}
+
+.counter,
+.counter-name {
+  color: #000000;
+  /* color: #028090; */
+}
