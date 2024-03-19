@@ -6,9 +6,6 @@ from flask_cors import CORS,cross_origin
 from flask_dance.contrib.google import make_google_blueprint, google
 from msal import ConfidentialClientApplication
 import os
-from flask_session import Session
-import identity
-import identity.web
 import requests
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
