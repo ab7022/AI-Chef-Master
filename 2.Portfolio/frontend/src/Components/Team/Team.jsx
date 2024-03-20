@@ -12,7 +12,7 @@ const teamMembers = [
     heading: 'Prem Patil',
     pos: 'CEO',
     likedIn: 'https://www.linkedin.com/in/prem-patil143/',
-    edu: 'Education:- B.Sc (IT)',
+    edu: 'Education: Bachelor of Science (IT)',
     desc: 'The heart and Soul of the Company his Imagination brings this idea into reality',
   },
   {
@@ -20,7 +20,7 @@ const teamMembers = [
     heading: 'Shefali Goyal',
     pos: 'COO',
     linkedIn: 'https://www.linkedin.com/in/shefali-goyal-507a08211/',
-    edu: 'Education:- B.Tech (CSE)',
+    edu: 'Education:- Bachelor of Technology (CSE)',
     desc: 'Our COO handles the Operations activities just like a head of an Orchestra.',
   },
   {
@@ -28,7 +28,7 @@ const teamMembers = [
     heading: 'Saurabh Kadam',
     pos: 'CTO',
     linkedIn: 'https://www.linkedin.com/in/saurabh-kadam6998/',
-    edu: 'Education:- M.Sc (IT)',
+    edu: 'Education:- Master Of Science (IT)',
     desc: 'Our CTO is a Technology Wizard harmonizing innovation and strategy for the betterment of the Company.',
   },
  ];

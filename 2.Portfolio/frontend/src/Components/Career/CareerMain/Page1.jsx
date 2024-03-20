@@ -8,7 +8,7 @@ const Page1 = () => {
     <>
       <div className='bg-black flex flex-col items-center  justify-center text-center w-full' style={{ height: "90vh" }}>
         <img src="/assets/logo.jpeg" alt='logo' className='animate-pulse' />
-        <h1 className='text-6xl sm:text-8xl md:text-9xl text-center animate-pulse font-extrabold bg-gradient-to-r from-cyan-500 via-blue-500 to-pink-700 text-transparent bg-clip-text w-full'>
+        <h1 className='text-5xl sm:text-8xl md:text-9xl text-center animate-pulse font-extrabold bg-gradient-to-r from-cyan-500 via-blue-500 to-pink-700 text-transparent bg-clip-text w-full'>
           AI Chef Master
         </h1>
       </div>

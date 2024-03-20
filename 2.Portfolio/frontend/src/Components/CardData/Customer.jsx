@@ -30,7 +30,7 @@ const AnimatedCard = ({ imageUrl, imageAlt, heading, description, index }) => {
     </div>
   );
 };
- const sectionData = [
+const sectionData = [
   {
     heading: 'Customer-Centric Approach:',
     description: 'Our commitment is centered around putting customers first, ensuring their needs and satisfaction drive every decision we make.',
@@ -39,7 +39,7 @@ const AnimatedCard = ({ imageUrl, imageAlt, heading, description, index }) => {
   {
     heading: 'Seamless User Experience:',
     description: 'We prioritize creating a seamless and enjoyable user experience, aiming to exceed customer expectations at every touchpoint',
-    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrKaILV-CeeumdZj1go128gwCAszmRsg-nsQ&usqp=CAU',
+    imageUrl: 'https://www.ringcentral.com/gb/en/blog/wp-content/uploads/2020/03/omnichannel-seamless-retail-experience.jpg',
   },
   {
     heading: 'Responsive Customer Support:',
@@ -51,24 +51,24 @@ const AnimatedCard = ({ imageUrl, imageAlt, heading, description, index }) => {
     description: 'Quality and reliability are at the core of what we do. We strive to deliver products that not only meet but exceed your expectations in terms of performance and durability',
     imageUrl: 'https://media.istockphoto.com/id/683334642/photo/quality-assurance-mechanism-of-metal-cogwheels-3d.jpg?s=612x612&w=0&k=20&c=A5xcmoGaxDN8igsXSQhW1WdHMB1JtDStAOId2uI-sO4=',
   },
- ];
+];
 const Customer = () => {
   return (
     <>
       <div className="h-full min-h-screen w-full">
         <div style={{ backgroundColor: 'rgba(0, 84, 79, 0.5)' }} className="flex justify-center items-center h-28">
-          <h1 style={{textShadow: '2px 0.5px 0.5px rgba(0, 0, 0, 0.5)'}} className='bg-green-500 text-transparent bg-clip-text text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold font-serif py-4 px-6 md:px-8 lg:px-10 xl:px-12 text-center md:text-left'>
+          <h1 style={{ textShadow: '2px 0.5px 0.5px rgba(0, 0, 0, 0.5)' }} className='bg-green-500 text-transparent bg-clip-text text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold font-serif py-4 px-6 md:px-8 lg:px-10 xl:px-12 text-center md:text-left'>
             CUSTOMER PRIORITIES
           </h1>
         </div>
 
-      <div className="mt-6">
-        {sectionData.map((obj, index) => (
-          <AnimatedCard key={uuidv4()} index={index} {...obj} />
-        ))}
-      </div>
-
+        <div className="mt-6">
+          {sectionData.map((obj, index) => (
+            <AnimatedCard key={uuidv4()} index={index} {...obj} />
+          ))}
         </div>
+
+      </div>
     </>
   );
 };

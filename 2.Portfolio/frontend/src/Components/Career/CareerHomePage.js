@@ -10,7 +10,7 @@ import FooterItem from "../HomeComponents/FooterItem/index.js";
 
 function CareerHomePage() {
   return (
-    <>
+    <div className="overflow-x-hidden">
       <Page1 />
       <Page2 />
       <CareerPage />
@@ -19,7 +19,7 @@ function CareerHomePage() {
       <AiFacts />
       <AboutUs />
       <FooterItem />
-    </>
+    </div>
   );
 }
 

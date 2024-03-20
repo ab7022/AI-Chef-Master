@@ -24,8 +24,8 @@ const AnimatedCard = ({ imageUrl, imageAlt, heading, description1, description2,
         <Slide left={index % 2 === 0} right={index % 2 !== 0}>
           <div>
             <p className="text-lg sm:text-lg mb-3 box-border leading-6 md:text-xl text-center md:text-left  ">
-             {description1}  
-             </p>
+              {description1}
+            </p>
             <p className="text-lg sm:text-lg leading-6 md:text-xl text-center md:text-left ">
               {description2}
             </p>
@@ -39,11 +39,11 @@ const AnimatedCard = ({ imageUrl, imageAlt, heading, description1, description2,
 const Kitchen = () => {
   return (
     <div className="pb-12">
-        <div style={{ backgroundColor: 'rgba(0, 84, 79, 0.5)' }} className="flex justify-center items-center h-28">
-          <h1 style={{textShadow: '2px 0.5px 0.5px rgba(0, 0, 0, 0.5)'}} className='bg-green-500 text-transparent bg-clip-text text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold font-serif py-4 px-6 md:px-8 lg:px-10 xl:px-12 text-center md:text-left'>
-            What's in your kitchen?
-          </h1>
-        </div>
+      <div style={{ backgroundColor: 'rgba(0, 84, 79, 0.5)' }} className="flex justify-center items-center h-28">
+        <h1 style={{ textShadow: '2px 0.5px 0.5px rgba(0, 0, 0, 0.5)' }} className='bg-green-500 text-transparent bg-clip-text text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold font-serif py-4 px-6 md:px-8 lg:px-10 xl:px-12 text-center md:text-left'>
+          Chef Intelligence
+        </h1>
+      </div>
       <div className="px-6 md:px-20 pt-12 text-[1.3rem] flex justify-center">
         Welcome to "What's In Your Kitchen," your go-to platform for turning every day ingredients into delightful dishes! Our platform is designed to make your cooking experience not just convenient, but also creative and sustainable. Let's take a closer look at how it works:
       </div>
@@ -51,7 +51,7 @@ const Kitchen = () => {
       <div className="mt-6">
         {WhatIsInKitchenData.map((obj, index) => (
           <AnimatedCard key={uuidv4()} index={index} {...obj} />
-         ))}
+        ))}
       </div>
       <div className="flex px-6 md:px-20  mb-3 font-bold text-[2rem] justify-center items-center">
         <h1>Example:</h1>

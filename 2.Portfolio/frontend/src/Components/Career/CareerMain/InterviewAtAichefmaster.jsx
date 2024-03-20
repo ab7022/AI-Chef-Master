@@ -5,7 +5,7 @@ function InterviewAtAichefmaster() {
   return (
     <div className='flex pb-6 gap-y-3 flex-col px-9 pt-6 md:mt-12 mt-4  font-bold '>
       <Fade bottom> 
-        <div className='text-black xl:pl-[8rem]  md:pl-18 sm:text-5xl text-[1.5rem]'>Interviewing at AIChefMaster</div>
+        <div className='text-black xl:pl-[8rem]  md:pl-18 sm:text-5xl text-[1.5rem]'>Interviewing at AI Chef Master</div>
       </Fade>
       <Fade bottom>  
         <div className='flex xl:pl-36  md:pl-18  mt-3 flex-wrap max-w-[500px]'>

@@ -49,8 +49,8 @@ const AiAssistant = () => {
       <div
         className="flex flex-col md:flex-row w-full bg-[#031529] bg-no-repeat bg-cover items-center justify-center px-4 md:px-8 lg:px-20"
         style={{
-          backgroundImage:
-            "url('https://media.istockphoto.com/id/1318030894/vector/voice-automated-robot-assistant.jpg?s=612x612&w=0&k=20&c=sCWMGQz5JYdE2cQNjNEjbvlzdJD5OrSIRZ34y7ZJMFE=')",
+          // backgroundImage: "url('https://media.istockphoto.com/id/1318030894/vector/voice-automated-robot-assistant.jpg?s=612x612&w=0&k=20&c=sCWMGQz5JYdE2cQNjNEjbvlzdJD5OrSIRZ34y7ZJMFE=')",
+          backgroundImage: "url('https://www.zorang.com/wp-content/uploads/2024/01/ai-technology-brain-background-digital-transformation-concept-scaled-1.webp')",
           backgroundSize: "cover",
           height: '80vh',
           backgroundPosition: "center",

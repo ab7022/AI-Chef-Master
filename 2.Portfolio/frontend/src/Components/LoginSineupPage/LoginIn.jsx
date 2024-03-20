@@ -13,8 +13,8 @@ function LoginIn() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [rememberMe, setRememberMe] = useState(false);
-    const [showResetModal, setShowResetModal] = useState(false);
+    // const [rememberMe, setRememberMe] = useState(false);
+    // const [showResetModal, setShowResetModal] = useState(false);
 
     useEffect(() => {
         const rememberedEmail = localStorage.getItem('rememberedEmail');
@@ -22,7 +22,7 @@ function LoginIn() {
         if (rememberedEmail && rememberedPassword) {
             setEmail(rememberedEmail);
             setPassword(rememberedPassword);
-            setRememberMe(true);
+            // setRememberMe(true);
         }
     }, []);
 
@@ -47,7 +47,7 @@ function LoginIn() {
     };
 
     const handleForgetPassword = () => {
-        setShowResetModal(true);
+        // setShowResetModal(true);
     };
 
     const handleGoogleAuth = () => {
@@ -93,7 +93,7 @@ function LoginIn() {
                             <input
                                 type="checkbox"
                                 style={{ transform: 'scale(1.5)', marginRight: '5px' }}
-                                onChange={(e) => setRememberMe(e.target.checked)}
+                                // onChange={(e) => setRememberMe(e.target.checked)}
                             />
                             <span className="text-sm text-gray-700">Remember me</span>
                             <button

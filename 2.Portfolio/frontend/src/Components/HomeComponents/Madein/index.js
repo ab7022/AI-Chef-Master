@@ -54,7 +54,7 @@ function Madein() {
           <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
             <div className="mb-4 md:mb-0 text-center">
               <Counter
-                end={100}
+                end={0}
                 duration={2}
                 className="counter text-4xl md:text-7xl font-bold"
               />
@@ -64,7 +64,7 @@ function Madein() {
             </div>
             <div className="mb-4 md:mb-0 text-center">
               <Counter
-                end={20}
+                end={10}
                 duration={2}
                 className="counter text-4xl md:text-7xl font-bold"
               />
@@ -74,7 +74,7 @@ function Madein() {
             </div>
             <div className="mb-4 md:mb-0 text-center">
               <Counter
-                end={15}
+                end={3}
                 duration={2}
                 className="counter text-4xl md:text-7xl font-bold"
               />
@@ -84,7 +84,7 @@ function Madein() {
             </div>
             <div className="mb-4 md:mb-0 text-center">
               <Counter
-                end={10}
+                end={5}
                 duration={2}
                 className="counter text-4xl md:text-7xl font-bold"
               />
