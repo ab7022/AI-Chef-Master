@@ -1,5 +1,6 @@
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+// import DatePicker from 'react-datepicker';
+// import 'react-datepicker/dist/react-datepicker.css';
+import DateInput from './DateInput';
 
 const Education = ({ education, setEducation }) => {
     const addEducation = () => {
@@ -97,7 +98,7 @@ const Education = ({ education, setEducation }) => {
                             <label className="w-full md:w-1/4 mb-2 md:mb-0">
                                 From:
                             </label>
-                            <DatePicker
+                            {/* <DatePicker
                                 placeholderText='From Date'
                                 className="p-2 bg-gray-300 focus:outline-none w-full sm:w-2/5 md:w-3/5"
                                 selected={edu.from}
@@ -107,6 +108,15 @@ const Education = ({ education, setEducation }) => {
                                     setEducation(newEducation);
 
                                 }}
+                            /> */}
+                            <DateInput
+                                value={education[index]}
+                                setValue={(updatedEducation) => {
+                                    const newEducation = [...education];
+                                    newEducation[index] = updatedEducation;
+                                    setEducation(newEducation);
+                                }}
+                                keyName="from"
                             />
                         </div>
 
@@ -114,7 +124,7 @@ const Education = ({ education, setEducation }) => {
                             <label className="w-full md:w-1/4 mb-2 md:mb-0">
                                 To:
                             </label>
-                            <DatePicker
+                            {/* <DatePicker
                                 placeholderText='End Date'
                                 className="p-2 bg-gray-300 focus:outline-none w-full sm:w-2/5 md:w-3/5"
                                 selected={edu.to}
@@ -123,6 +133,15 @@ const Education = ({ education, setEducation }) => {
                                     newEducation[index].to = date ? date.toISOString() : null;
                                     setEducation(newEducation);
                                 }}
+                            /> */}
+                            <DateInput
+                                value={education[index]}
+                                setValue={(updatedEducation) => {
+                                    const newEducation = [...education];
+                                    newEducation[index] = updatedEducation;
+                                    setEducation(newEducation);
+                                }}
+                                keyName="to"
                             />
                         </div>
 

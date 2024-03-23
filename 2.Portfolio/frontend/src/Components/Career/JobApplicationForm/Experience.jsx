@@ -1,5 +1,6 @@
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+// import DatePicker from 'react-datepicker';
+// import 'react-datepicker/dist/react-datepicker.css';
+import DateInput from './DateInput';
 
 const Experience = ({ experiences, setExperiences }) => {
   const handleCurrentlyPursuingChange = (index, e) => {
@@ -98,7 +99,7 @@ const Experience = ({ experiences, setExperiences }) => {
                 <label className="w-full md:w-1/4 mb-2 md:mb-0">
                   From:
                 </label>
-                <DatePicker
+                {/* <DatePicker
                   placeholderText='From Date'
                   className="p-2 bg-gray-300 focus:outline-none w-full sm:w-2/5 md:w-3/5"
                   selected={experience.from}
@@ -107,6 +108,15 @@ const Experience = ({ experiences, setExperiences }) => {
                     newExperiences[index].from = date ? date.toISOString() : null;
                     setExperiences(newExperiences);
                   }}
+                /> */}
+                <DateInput
+                  value={experiences[index]}
+                  setValue={(updatedExperience) => {
+                    const newExperiences = [...experiences];
+                    newExperiences[index] = updatedExperience;
+                    setExperiences(newExperiences);
+                  }}
+                  keyName="from"
                 />
               </div>
 
@@ -114,7 +124,7 @@ const Experience = ({ experiences, setExperiences }) => {
                 <div className="flex flex-col text-sm md:flex-row md:items-center md:gap-x-4">
                   <label className="w-full md:w-1/4 mb-2 md:mb-0">
                     To:</label>
-                  <DatePicker
+                  {/* <DatePicker
                     placeholderText='End Date'
                     className="p-2 bg-gray-300 focus:outline-none w-full sm:w-2/5 md:w-3/5"
                     selected={experience.to}
@@ -123,6 +133,15 @@ const Experience = ({ experiences, setExperiences }) => {
                       newExperiences[index].to = date ? date.toISOString() : null;
                       setExperiences(newExperiences);
                     }}
+                  /> */}
+                  <DateInput
+                    value={experiences[index]}
+                    setValue={(updatedExperience) => {
+                      const newExperiences = [...experiences];
+                      newExperiences[index] = updatedExperience;
+                      setExperiences(newExperiences);
+                    }}
+                    keyName="to"
                   />
                 </div>
               )}
