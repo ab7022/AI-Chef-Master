@@ -30,15 +30,11 @@ const Ingredient = ({ formData, setFormData, portion }) => {
                 }, []);
 
                 if (missingPortions.length > 0) {
-                    const missingPortionsText = missingPortions.join(', ');
-                    toast.error(`Please complete adding the quantity for portion(s) ${missingPortionsText} before adding a new ingredient.`);
+                    const firstMissingPortionIndex = missingPortions[0];
+                    toast.error(`Please complete adding the quantity for portion ${firstMissingPortionIndex} before adding a new ingredient.`);
                     return;
                 }
             }
-
-            const existingIngredientIndex = formData.ingredients.findIndex(
-                (ingredient) => ingredient.name.toLowerCase() === ingredientName.toLowerCase()
-            );
 
             const newIngredient = {
                 name: ingredientName,
@@ -56,6 +52,10 @@ const Ingredient = ({ formData, setFormData, portion }) => {
                 toast.error("Cannot add Non-Vegetarian ingredient to a Vegetarian recipe.");
                 return;
             }
+
+            const existingIngredientIndex = formData.ingredients.findIndex(
+                (ingredient) => ingredient.name.toLowerCase() === ingredientName.toLowerCase()
+            );
 
             let updatedIngredients;
             if (existingIngredientIndex !== -1) {
@@ -139,7 +139,7 @@ const Ingredient = ({ formData, setFormData, portion }) => {
 
     return (
         <>
-            <p className="text-center text-sm italic font-semibold text-zinc-700">* Enter quantity for {portion}th portion</p>
+            <p className="text-center text-sm italic font-semibold text-zinc-700">* Enter quantity for {portion} portion</p>
             <div className="bg-transparent rounded-xl p-4 lg:p-8 py-4 lg:py-4 flex flex-col justify-center items-center">
                 <div className="w-full">
                     {portion === 1 || !isQuantityFilledForPortion(portion) ? (
@@ -154,7 +154,7 @@ const Ingredient = ({ formData, setFormData, portion }) => {
                                         value={ingredientName}
                                         onChange={(e) => setIngredientName(e.target.value)}
                                         placeholder="eg. Chicken"
-                                        className={`${portion !== 1 ? "cursor-not-allowed" : "cursor-text"} px-2 mt-2 py-1  text-lg w-full border border-black  rounded-md focus:border-orange-400 placeholder:italic outline-none`}
+                                        className={`${portion !== 1 ? "cursor-not-allowed bg-gray-200" : "cursor-text"} px-2 mt-2 py-1  text-lg w-full border border-black  rounded-md focus:border-orange-400 placeholder:italic outline-none`}
                                     />
                                 </div>
 
@@ -194,7 +194,7 @@ const Ingredient = ({ formData, setFormData, portion }) => {
                                     type="button"
                                     className="text-white border  bg-zinc-700 p-2 px-6 my-4 rounded-xl hover:bg-zinc-950 "
                                 >
-                                    Add Ingredient
+                                    Add {portion === 1 ? "Ingredient" : "Quantity"}
                                 </button>
                             </div>
                         </>
