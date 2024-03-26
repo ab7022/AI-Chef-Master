@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { IoIosAdd, IoIosClose, IoIosPaper, IoIosPie } from "react-icons/io";
+import { IoIosPaper, IoIosPie } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import Overview from "../components/Overview";
 import { AiOutlineClose } from "react-icons/ai";
@@ -124,28 +124,32 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
           <Ingredient
             formData={formData}
             setFormData={setFormData}
-            portion="1st"
+            portion={1}
           />
-          <Ingredient
-            formData={formData}
-            setFormData={setFormData}
-            portion="2nd"
-          />
-          <Ingredient
-            formData={formData}
-            setFormData={setFormData}
-            portion="3rd"
-          />
-          <Ingredient
-            formData={formData}
-            setFormData={setFormData}
-            portion="4th"
-          />
-          <Ingredient
-            formData={formData}
-            setFormData={setFormData}
-            portion="5th"
-          />
+          {formData.ingredients.length > 0 && (
+            <>
+              <Ingredient
+                formData={formData}
+                setFormData={setFormData}
+                portion={2}
+              />
+              <Ingredient
+                formData={formData}
+                setFormData={setFormData}
+                portion={3}
+              />
+              <Ingredient
+                formData={formData}
+                setFormData={setFormData}
+                portion={4}
+              />
+              <Ingredient
+                formData={formData}
+                setFormData={setFormData}
+                portion={5}
+              />
+            </>
+          )}
 
           <p className=" text-3xl text-center pt-4 flex items-center justify-center gap-2 font-medium">
             Instructions <IoIosPaper className="text-green-600" />
