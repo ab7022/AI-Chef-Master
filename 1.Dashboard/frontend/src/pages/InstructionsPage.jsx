@@ -5,7 +5,7 @@ import Overview from "../components/Overview";
 import { AiOutlineClose } from "react-icons/ai";
 import { useAuthContext } from "../hooks/useAuthContext";
 import toast from "react-hot-toast";
-import Ingredient from "./components/Ingredients";
+import Ingredient from "./components/Ingredient";
 import Instruction from "./components/Instruction";
 
 
