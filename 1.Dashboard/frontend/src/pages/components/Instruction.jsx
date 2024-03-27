@@ -73,25 +73,44 @@ const Instruction = ({ formData, setFormData, portion }) => {
         }
     };
 
-    const removeInstruction = (index) => {
-        const updatedInstructions = formData.instructions.filter(
-            (_, i) => i !== index
-        );
-
-        setFormData((prevForm) => ({
-            ...prevForm,
-            instructions: updatedInstructions,
-        }));
-
-        localStorage.setItem("formData", JSON.stringify({
-            ...formData,
-            instructions: updatedInstructions,
-        }));
+    const removeInstruction = (index, portionToRemove) => {
+        if (portionToRemove === 1) {
+            const updatedInstructions = formData.instructions.filter((_, i) => i !== index);
+            setFormData({
+                ...formData,
+                instructions: updatedInstructions,
+            });
+            localStorage.setItem("formData", JSON.stringify({
+                ...formData,
+                instructions: updatedInstructions,
+            }));
+        } else {
+            const updatedInstructions = formData.instructions.map((instruction, i) => {
+                if (i === index) {
+                    const updatedTime = [...instruction.time];
+                    updatedTime[portionToRemove - 1] = "";
+                    return {
+                        ...instruction,
+                        time: updatedTime,
+                    };
+                }
+                return instruction;
+            });
+            setFormData({
+                ...formData,
+                instructions: updatedInstructions,
+            });
+            localStorage.setItem("formData", JSON.stringify({
+                ...formData,
+                instructions: updatedInstructions,
+            }));
+        }
     };
 
     useEffect(() => {
         const totalTime = formData.instructions.reduce((acc, instruction) => {
-            return acc + instruction.time.reduce((timeAcc, time) => timeAcc + parseInt(time), 0);
+            const timeArray = Array.isArray(instruction.time) ? instruction.time : [];
+            return acc + timeArray.reduce((timeAcc, time) => timeAcc + parseInt(time), 0);
         }, 0);
 
         const updatedFormData = {
@@ -104,13 +123,14 @@ const Instruction = ({ formData, setFormData, portion }) => {
     }, [formData.instructions]);
 
     const isTimeFilledForPortion = (portion) => {
+        if (formData.instructions.length === 0) return false;
         const lastInstruction = formData.instructions[formData.instructions.length - 1];
-        return lastInstruction.time[portion - 1] !== "";
+        return lastInstruction && lastInstruction.time && lastInstruction.time[portion - 1] !== "";
     };
 
     return (
         <>
-            <p className="text-center text-sm italic font-semibold text-zinc-700">* Enter quantity for {portion} portion</p>
+            <p className="text-center text-sm italic font-semibold text-zinc-700">* Enter quantity for portion {portion}</p>
             <div className="p-1 pt-3 lg:p-8 lg:py-4">
                 <div className="flex full px-4 lg:px-0">
                     {portion === 1 || !isTimeFilledForPortion(portion) ? (
@@ -147,7 +167,7 @@ const Instruction = ({ formData, setFormData, portion }) => {
                                     type="button"
                                     className="text-white border  bg-zinc-700 p-2 px-6 my-4 rounded-xl hover:bg-zinc-950 "
                                 >
-                                    Add Instruction
+                                    Add {portion === 1 ? "Instruction" : "Time"}
                                 </button>
                             </div>
                         </div>
@@ -161,8 +181,7 @@ const Instruction = ({ formData, setFormData, portion }) => {
                                     <p>Step</p> <p>{index + 1} </p>  <p> -</p>
                                 </span>
                                 <p className="flex max-w-full break-all">{instruction.step} ({instruction.time[portion - 1] ? instruction.time[portion - 1] : "N/A"} min)</p>
-                                {/* <p className="flex max-w-full break-all">{instruction.step} ({instruction.time} min)</p> */}
-                                <button type="button" onClick={() => removeInstruction(index)} className=" mx-2">
+                                <button type="button" onClick={() => removeInstruction(index, portion)} className=" mx-2">
                                     <IoIosClose className="text-rose-600 border border-rose-600 rounded-full hover:bg-rose-200 text-3xl" />
                                 </button>
                             </div>

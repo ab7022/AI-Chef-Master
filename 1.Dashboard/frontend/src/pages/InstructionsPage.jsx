@@ -35,6 +35,37 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
   const [disabled, setDisabled] = useState(false);
 
   const btnHandler = () => {
+    if (formData.ingredients.length > 0) {
+      const lastIngredient = formData.ingredients[formData.ingredients.length - 1];
+      const missingPortions = lastIngredient.quantity.slice(1).reduce((acc, quantity, index) => {
+        if (quantity === "") {
+          acc.push(index + 2);
+        }
+        return acc;
+      }, []);
+
+      if (missingPortions.length > 0) {
+        const firstMissingPortionIndex = missingPortions[0];
+        toast.error(`Please complete adding the quantity for portion ${firstMissingPortionIndex} before overview.`);
+        return;
+      }
+    }
+    if (formData.instructions.length > 0) {
+      const lastInstruction = formData.instructions[formData.instructions.length - 1];
+      const missingPortions = lastInstruction.time.slice(1).reduce((acc, time, index) => {
+        if (time === "") {
+          acc.push(index + 2);
+        }
+        return acc;
+      }, []);
+
+      if (missingPortions.length > 0) {
+        const firstMissingPortionIndex = missingPortions[0];
+        toast.error(`Please complete adding the time for portion ${firstMissingPortionIndex} before overview.`);
+        return;
+      }
+    }
+
     if (!open) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "";
     setOpen((prev) => !prev);
@@ -101,6 +132,53 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
     }
   };
 
+  const getCurrentIngredientPortion = () => {
+    if (formData.ingredients.length === 0) return 1;
+    const lastIngredient = formData.ingredients[formData.ingredients.length - 1];
+    const isLastIngredientFilled = lastIngredient.quantity.every(quantity => quantity !== "");
+    return isLastIngredientFilled ? 5 : lastIngredient.quantity.findIndex(quantity => quantity === "") + 1;
+  };
+
+  const renderIngredients = () => {
+    const currentPortion = getCurrentIngredientPortion();
+    let components = [];
+    for (let i = 1; i <= currentPortion; i++) {
+      components.push(
+        <Ingredient
+          key={i}
+          formData={formData}
+          setFormData={setFormData}
+          portion={i}
+        />
+      );
+    }
+    return components;
+  };
+
+
+  const getCurrentInstructionPortion = () => {
+    if (formData.instructions.length === 0) return 1;
+    const lastInstruction = formData.instructions[formData.instructions.length - 1];
+    const isLastInstructionFilled = lastInstruction.time.every(time => time !== "");
+    return isLastInstructionFilled ? 5 : lastInstruction.time.findIndex(time => time === "") + 1;
+  };
+
+  const renderInstructions = () => {
+    const currentPortion = getCurrentInstructionPortion();
+    let components = [];
+    for (let i = 1; i <= currentPortion; i++) {
+      components.push(
+        <Instruction
+          key={i}
+          formData={formData}
+          setFormData={setFormData}
+          portion={i}
+        />
+      );
+    }
+    return components;
+  };
+
   return (
     <>
       <form action="" className="bg-white shadow-xl  p-0.5 w-[90%] lg:w-1/2 rounded-lg">
@@ -109,68 +187,12 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
           <p className=" text-3xl text-center flex justify-center items-center gap-2 font-medium pt-4">
             Ingredients <IoIosPie className="text-green-600" />
           </p>
-          <Ingredient
-            formData={formData}
-            setFormData={setFormData}
-            portion={1}
-          />
-          {formData.ingredients.length > 0 && (
-            <>
-              <Ingredient
-                formData={formData}
-                setFormData={setFormData}
-                portion={2}
-              />
-              <Ingredient
-                formData={formData}
-                setFormData={setFormData}
-                portion={3}
-              />
-              <Ingredient
-                formData={formData}
-                setFormData={setFormData}
-                portion={4}
-              />
-              <Ingredient
-                formData={formData}
-                setFormData={setFormData}
-                portion={5}
-              />
-            </>
-          )}
+          {renderIngredients()}
 
           <p className=" text-3xl text-center pt-4 flex items-center justify-center gap-2 font-medium">
             Instructions <IoIosPaper className="text-green-600" />
           </p>
-          <Instruction
-            formData={formData}
-            setFormData={setFormData}
-            portion={1}
-          />
-          {formData.instructions.length > 0 && (
-            <>
-              <Instruction
-                formData={formData}
-                setFormData={setFormData}
-                portion={2}
-              />
-              <Instruction
-                formData={formData}
-                setFormData={setFormData}
-                portion={3}
-              />
-              <Instruction
-                formData={formData}
-                setFormData={setFormData}
-                portion={4}
-              />
-              <Instruction
-                formData={formData}
-                setFormData={setFormData}
-                portion={5}
-              />
-            </>
-          )}
+          {renderInstructions()}
 
           <div>
             <div className="flex flex-col md:flex-row items-center justify-center gap-4 py-8">

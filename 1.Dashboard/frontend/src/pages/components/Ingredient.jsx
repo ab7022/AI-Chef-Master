@@ -104,32 +104,38 @@ const Ingredient = ({ formData, setFormData, portion }) => {
         }
     };
 
-    const removeIngredient = (name) => {
-        const updatedIngredients = formData.ingredients.filter(
-            (ingredient) => ingredient.name !== name
-        );
-
-        const lastIngredientIsNonVegetarian = updatedIngredients.length > 0 &&
-            nonVegetarianIngredients.some(nonVegIngredient =>
-                updatedIngredients[updatedIngredients.length - 1].name.toLowerCase().includes(nonVegIngredient)
-            );
-
-        let newVegNonVegValue = "Vegetarian";
-        if (lastIngredientIsNonVegetarian) {
-            newVegNonVegValue = "Non-Vegetarian";
+    const removeIngredient = (name, portionToRemove) => {
+        if (portionToRemove === 1) {
+            const updatedIngredients = formData.ingredients.filter((ingredient) => ingredient.name !== name);
+            setFormData({
+                ...formData,
+                ingredients: updatedIngredients,
+            });
+            localStorage.setItem("formData", JSON.stringify({
+                ...formData,
+                ingredients: updatedIngredients,
+            }));
+        } else {
+            const updatedIngredients = formData.ingredients.map((ingredient) => {
+                if (ingredient.name === name) {
+                    const updatedQuantity = [...ingredient.quantity];
+                    updatedQuantity[portionToRemove - 1] = "";
+                    return {
+                        ...ingredient,
+                        quantity: updatedQuantity,
+                    };
+                }
+                return ingredient;
+            });
+            setFormData({
+                ...formData,
+                ingredients: updatedIngredients,
+            });
+            localStorage.setItem("formData", JSON.stringify({
+                ...formData,
+                ingredients: updatedIngredients,
+            }));
         }
-
-        setFormData((prevData) => ({
-            ...prevData,
-            ingredients: updatedIngredients,
-            veg_non_veg: newVegNonVegValue,
-        }));
-
-        localStorage.setItem("formData", JSON.stringify({
-            ...formData,
-            ingredients: updatedIngredients,
-            veg_non_veg: newVegNonVegValue,
-        }));
     };
 
     const isQuantityFilledForPortion = (portion) => {
@@ -139,7 +145,7 @@ const Ingredient = ({ formData, setFormData, portion }) => {
 
     return (
         <>
-            <p className="text-center text-sm italic font-semibold text-zinc-700">* Enter quantity for {portion} portion</p>
+            <p className="text-center text-sm italic font-semibold text-zinc-700">* Enter quantity for portion {portion}</p>
             <div className="bg-transparent rounded-xl p-4 lg:p-8 py-4 lg:py-4 flex flex-col justify-center items-center">
                 <div className="w-full">
                     {portion === 1 || !isQuantityFilledForPortion(portion) ? (
@@ -209,7 +215,7 @@ const Ingredient = ({ formData, setFormData, portion }) => {
                                     {ingredient.name} - {ingredient.quantity[portion - 1] ? ingredient.quantity[portion - 1] : "N/A"} {ingredient.unit}
                                 </span>
                                 <IoIosClose
-                                    onClick={() => removeIngredient(ingredient.name)}
+                                    onClick={() => removeIngredient(ingredient.name, portion)}
                                     className="text-xl cursor-pointer  border  border-black hover:bg-amber-500 rounded-full"
                                 />
                             </li>
