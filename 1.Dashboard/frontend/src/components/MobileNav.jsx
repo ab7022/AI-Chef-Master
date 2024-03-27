@@ -39,17 +39,14 @@ const MobileNav = () => {
         variants={menuVariants}
         initial='hidden'
         animate={openMenu ? 'show' : ''}
-        className='bg-white shadow w-full absolute
-        top-0 right-0 max-w-xs h-screen z-20 text-black rounded-l-xl '>
-
+        className='bg-white shadow w-full absolute top-0 right-0 max-w-xs h-screen z-20 text-black rounded-l-xl '
+      >
         <div onClick={() => { setOpenMenu(false) }} className='text-4xl absolute z-30 left-4 top-14 cursor-pointer text-black'>
           <IoMdClose />
         </div>
-        
+
         {/* menu list */}
-        <ul className='h-full flex flex-col justify-center
-            items-center gap-y-6  font-primary first-letter:first
-            font-medium text-2xl '>
+        <ul className='h-[100dvh] flex flex-col justify-center items-center gap-y-6  font-primary first-letter:first font-medium text-2xl '>
           <li key='home' className=' text-base  py-1   transition-all duration-300 hover:text-amber-500'>
             <NavLink to='/' onClick={() => setOpenMenu(false)}>Home</NavLink>
           </li>

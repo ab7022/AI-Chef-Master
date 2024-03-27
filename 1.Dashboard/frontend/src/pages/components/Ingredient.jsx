@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { IoIosClose } from 'react-icons/io'
 import { nonVegetarianIngredients } from '../../Data/nonVegetarianIngredients';
 import { toast } from 'react-hot-toast';
+import { MdEdit } from 'react-icons/md';
 
 const Ingredient = ({ formData, setFormData, portion }) => {
     const [ingredientName, setIngredientName] = useState("");
@@ -205,21 +206,35 @@ const Ingredient = ({ formData, setFormData, portion }) => {
                             </div>
                         </>
                     ) : null}
+
                     <ul className="flex flex-wrap gap-2 lg:gap-4 w-full">
-                        {formData.ingredients.length > 0 && formData.ingredients.map((ingredient, index) => (
-                            <li
-                                key={index}
-                                className="bg-amber-300 font-medium flex rounded-md items-center gap-2 px-2 py-1"
-                            >
-                                <span>
-                                    {ingredient.name} - {ingredient.quantity[portion - 1] ? ingredient.quantity[portion - 1] : "N/A"} {ingredient.unit}
-                                </span>
-                                <IoIosClose
-                                    onClick={() => removeIngredient(ingredient.name, portion)}
-                                    className="text-xl cursor-pointer  border  border-black hover:bg-amber-500 rounded-full"
-                                />
-                            </li>
-                        ))}
+                        {formData.ingredients
+                            .filter(ingredient => ingredient.quantity[portion - 1] !== "")
+                            .map((ingredient, index) => (
+                                <li
+                                    key={index}
+                                    className="bg-amber-300 font-medium flex rounded-md items-center gap-2 px-2 py-1"
+                                >
+                                    <span>
+                                        {ingredient.name} -{" "}
+                                        {ingredient.quantity[portion - 1]
+                                            ? ingredient.quantity[portion - 1]
+                                            : "N/A"}{" "}
+                                        {ingredient.unit}
+                                    </span>
+                                    {portion === 1 ? (
+                                        <IoIosClose
+                                            onClick={() => removeIngredient(ingredient.name, portion)}
+                                            className="text-xl cursor-pointer border border-black hover:bg-amber-500 rounded-full"
+                                        />
+                                    ) : (
+                                        <MdEdit
+                                            onClick={() => removeIngredient(ingredient.name, portion)}
+                                            className="text-xl cursor-pointer rounded-full"
+                                        />
+                                    )}
+                                </li>
+                            ))}
                     </ul>
                 </div>
             </div>

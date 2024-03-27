@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { IoIosClose } from 'react-icons/io'
+import { MdEdit } from "react-icons/md";
 
 const Instruction = ({ formData, setFormData, portion }) => {
     const [newInstruction, setNewInstruction] = useState("");
@@ -173,21 +174,35 @@ const Instruction = ({ formData, setFormData, portion }) => {
                         </div>
                     ) : null}
                 </div>
-                {formData.instructions.map((instruction, index) => (
-                    <div key={index} className="w-full">
-                        <div className="items-center w-full">
-                            <div className=" font-medium text-md flex w-full ">
-                                <span className=" px-4 max-w-full flex gap-2">
-                                    <p>Step</p> <p>{index + 1} </p>  <p> -</p>
-                                </span>
-                                <p className="flex max-w-full break-all">{instruction.step} ({instruction.time[portion - 1] ? instruction.time[portion - 1] : "N/A"} min)</p>
-                                <button type="button" onClick={() => removeInstruction(index, portion)} className=" mx-2">
-                                    <IoIosClose className="text-rose-600 border border-rose-600 rounded-full hover:bg-rose-200 text-3xl" />
-                                </button>
+                
+                {formData.instructions
+                    .filter(instruction => instruction.time[portion - 1] !== "") // Filter out instructions without time
+                    .map((instruction, index) => (
+                        <div key={index} className="w-full">
+                            <div className="items-center w-full">
+                                <div className="font-medium text-md flex items-center w-full">
+                                    <span className="px-4 max-w-full flex gap-2">
+                                        <p>Step</p> <p>{index + 1} </p> <p> -</p>
+                                    </span>
+                                    <p className="flex max-w-full break-all">
+                                        {instruction.step} (
+                                        {instruction.time[portion - 1] ? instruction.time[portion - 1] : "N/A"} min)
+                                    </p>
+                                    <button
+                                        type="button"
+                                        onClick={() => removeInstruction(index, portion)}
+                                        className="mx-2"
+                                    >
+                                        {portion === 1 ? (
+                                            <IoIosClose className="text-rose-600 border border-rose-600 rounded-full hover:bg-rose-200 text-3xl" />
+                                        ) : (
+                                            <MdEdit className="text-emerald-600 rounded-full text-3xl" />
+                                        )}
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
             </div>
         </>
     )
