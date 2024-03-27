@@ -3,6 +3,7 @@ import { IoIosClose } from 'react-icons/io'
 import { nonVegetarianIngredients } from '../../Data/nonVegetarianIngredients';
 import { toast } from 'react-hot-toast';
 import { MdEdit } from 'react-icons/md';
+import './style.css'
 
 const Ingredient = ({ formData, setFormData, portion }) => {
     const [ingredientName, setIngredientName] = useState("");
@@ -20,7 +21,7 @@ const Ingredient = ({ formData, setFormData, portion }) => {
     const handleIngredientSubmit = (e) => {
         e.preventDefault();
 
-        if (ingredientName && ingredientQuantity && ingredientUnit) {
+        if (ingredientName && ingredientQuantity > 0 && ingredientUnit) {
             if (portion === 1 && formData.ingredients.length > 0) {
                 const lastIngredient = formData.ingredients[formData.ingredients.length - 1];
                 const missingPortions = lastIngredient.quantity.slice(1).reduce((acc, quantity, index) => {
@@ -172,8 +173,9 @@ const Ingredient = ({ formData, setFormData, portion }) => {
                                         name="ingredient_quantity"
                                         value={ingredientQuantity}
                                         onChange={(e) => setIngredientQuantity(e.target.value)}
+                                        onFocus={(e) => e.target.addEventListener("wheel", function (e) { e.preventDefault() }, { passive: false })}
                                         placeholder="eg. 200"
-                                        className="px-2 mt-2 py-1 text-black text-lg w-full border border-black  rounded-md placeholder:italic focus:border-orange-400 outline-none"
+                                        className="input-number px-2 mt-2 py-1 text-black text-lg w-full border border-black  rounded-md placeholder:italic focus:border-orange-400 outline-none"
                                     />
                                 </div>
                                 <div className="w-full lg:w-1/2 pt-4 lg:pt-0">

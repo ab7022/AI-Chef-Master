@@ -46,7 +46,7 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
 
       if (missingPortions.length > 0) {
         const firstMissingPortionIndex = missingPortions[0];
-        toast.error(`Please complete adding the quantity for portion ${firstMissingPortionIndex} before overview.`);
+        toast.error(`Please complete adding the quantity for portion ${firstMissingPortionIndex}`);
         return;
       }
     }
@@ -61,7 +61,7 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
 
       if (missingPortions.length > 0) {
         const firstMissingPortionIndex = missingPortions[0];
-        toast.error(`Please complete adding the time for portion ${firstMissingPortionIndex} before overview.`);
+        toast.error(`Please complete adding the time for portion ${firstMissingPortionIndex}`);
         return;
       }
     }

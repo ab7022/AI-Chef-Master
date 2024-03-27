@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { IoIosClose } from 'react-icons/io'
 import { MdEdit } from "react-icons/md";
+import './style.css'
 
 const Instruction = ({ formData, setFormData, portion }) => {
     const [newInstruction, setNewInstruction] = useState("");
@@ -16,7 +17,7 @@ const Instruction = ({ formData, setFormData, portion }) => {
     const addInstruction = (e) => {
         e.preventDefault();
 
-        if (newInstruction && instructionTime) {
+        if (newInstruction && instructionTime > 0) {
             if (portion === 1 && formData.instructions.length > 0) {
                 const lastInstruction = formData.instructions[formData.instructions.length - 1];
                 const missingPortions = lastInstruction.time.slice(1).reduce((acc, time, index) => {
@@ -155,9 +156,10 @@ const Instruction = ({ formData, setFormData, portion }) => {
                                         <input
                                             value={instructionTime}
                                             onChange={(e) => setInstructionTime(e.target.value)}
+                                            onFocus={(e) => e.target.addEventListener("wheel", function (e) { e.preventDefault() }, { passive: false })}
                                             type="number"
                                             placeholder="eg. 20"
-                                            className="border w-full  px-2 py-4 text-lg  focus:border-orange-400 border-black rounded-md placeholder:text-gray-400 outline-none placeholder:italic " />
+                                            className="input-number border w-full  px-2 py-4 text-lg  focus:border-orange-400 border-black rounded-md placeholder:text-gray-400 outline-none placeholder:italic " />
                                         <p>min</p>
                                     </div>
                                 </div>
@@ -174,7 +176,7 @@ const Instruction = ({ formData, setFormData, portion }) => {
                         </div>
                     ) : null}
                 </div>
-                
+
                 {formData.instructions
                     .filter(instruction => instruction.time[portion - 1] !== "") // Filter out instructions without time
                     .map((instruction, index) => (
