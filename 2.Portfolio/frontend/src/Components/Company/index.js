@@ -3,6 +3,7 @@ import "./index.css";
 import LongTerm from "../CardData/LongTerm";
 import RD from "../CardData/RD";
 import Customer from "../CardData/Customer";
+import FooterItem from "../HomeComponents/FooterItem";
 
 const Company = () => {
   return (
@@ -10,6 +11,7 @@ const Company = () => {
       <LongTerm />
       <RD />
       <Customer />
+      <FooterItem />
     </div>
   );
 };

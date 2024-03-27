@@ -7,6 +7,7 @@ import Threads from "../../Images/Threads.svg";
 import { Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import "../FooterItem/index.css";
+
 const FooterItem = () => {
   return (
     // <div className="footer rounded-0 card bg-black shadow-lg mt-0 golden-text">

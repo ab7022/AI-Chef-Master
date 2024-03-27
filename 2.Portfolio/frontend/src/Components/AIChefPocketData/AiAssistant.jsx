@@ -47,16 +47,27 @@ const AiAssistant = () => {
         </h1>
       </div>
       <div
-        className="flex flex-col md:flex-row w-full bg-[#031529] bg-no-repeat bg-cover items-center justify-center px-4 md:px-8 lg:px-20"
-        style={{
-          // backgroundImage: "url('https://media.istockphoto.com/id/1318030894/vector/voice-automated-robot-assistant.jpg?s=612x612&w=0&k=20&c=sCWMGQz5JYdE2cQNjNEjbvlzdJD5OrSIRZ34y7ZJMFE=')",
-          backgroundImage: "url('https://www.zorang.com/wp-content/uploads/2024/01/ai-technology-brain-background-digital-transformation-concept-scaled-1.webp')",
-          backgroundSize: "cover",
-          height: '80vh',
-          backgroundPosition: "center",
-        }}
+        className="relative h-[calc(100vh-7rem-72px)] flex flex-col md:flex-row w-full bg-[#031529] bg-no-repeat bg-cover items-center justify-center px-4 md:px-8 lg:px-20"
+      // style={{
+      //   backgroundImage: "url('https://www.zorang.com/wp-content/uploads/2024/01/ai-technology-brain-background-digital-transformation-concept-scaled-1.webp')",
+      //   backgroundSize: "cover",
+      //   height: '80vh',
+      //   backgroundPosition: "center",
+      // }}
       >
-        <p className="w-full md:w-1/2 text-[#FFFFFF] text-base md:text-2xl lg:text-3xl font-bold md:pr-4 lg:pr-8 md:text-center">
+        <video autoPlay loop muted
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100%",
+            objectFit: "cover"
+          }}
+        >
+          <source src="/assets/Electricity.mp4" type="video/mp4" />
+        </video>
+        <p className="relative z-10 w-full md:w-1/2 text-[#FFFFFF] text-base md:text-2xl lg:text-3xl font-bold md:pr-4 lg:pr-8 md:text-center">
           With our AI Assistant, cooking becomes a personalized adventure. Choose, customize, and enjoy a delicious meal crafted to your taste.
           <br />
           Happy cooking!

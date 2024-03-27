@@ -10,21 +10,22 @@ import "../Unique/index.css";
 import "tailwindcss/tailwind.css"; // Import Tailwind CSS first
 import { Link } from "react-router-dom";
 import { Fade } from "react-reveal"; // Import Fade effect from react-reveal
+import Typewriter from "./Typewriter";
 
 export default function Unique() {
   return (
     <div className="background-main-page h-full break-words ">
       <div className=" flex flex-col md:flex-row justify-evenly items-center px-6 md:px-10 py-8 md:py-20">
         <div className="lg:w-7/12 sm:w-full md:w-full mb-8 sm:mb-0 ">
-          <Fade top>
-            <h1
-              style={{ lineHeight: "3rem" }}
-              className="main-heading relative text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4 md:text-start"
-            >
-              Welcome to AI Chef Master
-              <div class="w-[300px] h-[300px] z-1 rounded-full absolute top-[-125px] left-[-40px] blur-3xl bg-[#8bfb451c]" />
-            </h1>
-          </Fade>
+          {/* <Fade top> */}
+          <h1
+            style={{ lineHeight: "3rem" }}
+            className="main-heading relative text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4 md:text-start"
+          >
+            <Typewriter text="Welcome to AI Chef Master" delay={100} />
+            <div class="w-[300px] h-[300px] z-1 rounded-full absolute top-[-125px] left-[-40px] blur-3xl bg-[#8bfb451c]" />
+          </h1>
+          {/* </Fade> */}
           <div className="md:text-start">
             <Fade bottom>
               <p className="sub-heading mb-4 text-base sm:text-xl md:text-xl lg:text-2xl">

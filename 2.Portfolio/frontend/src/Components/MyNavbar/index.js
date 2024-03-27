@@ -1,5 +1,4 @@
-// MyNavbar.jsx
-// import { Fragment } from "react";
+import { useState } from "react";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -13,8 +12,11 @@ export default function MyNavbar() {
   const { user } = useAuthContext();
   const { logout } = useLogout();
 
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleLogout = () => {
     logout();
+    setIsOpen(false);
   }
 
   return (
@@ -91,8 +93,8 @@ export default function MyNavbar() {
                     </div>
                   </div>
                   <div className="sm:hidden">
-                    <Disclosure.Button className="text-black font-extrabold p-2">
-                      {open ? (
+                    <Disclosure.Button className="text-black font-extrabold p-2" onClick={() => setIsOpen(!open)}>
+                      {isOpen ? (
                         <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                       ) : (
                         <Bars3Icon className="h-6 w-6" aria-hidden="true" />
@@ -103,50 +105,64 @@ export default function MyNavbar() {
               </div>
             </div>
 
-            <Disclosure.Panel className="sm:hidden">
-              <div className="space-y-1 px-2 pb-3 pt-2">
-                <Link
-                  onClick={() => window.scrollTo(0, 0)}
-                  to="/"
-                  className={`nav-link ${location.pathname === "/" ? "active" : ""
-                    } rounded-md px-3 py-2 text-sm font-medium bg-[#00544f]`}
-                >
-                  Home
-                </Link>
-                <Link
-                  onClick={() => window.scrollTo(0, 0)}
-                  to="/product"
-                  className={`nav-link ${location.pathname === "/product" ? "active" : ""
-                    } rounded-md px-3 py-2 text-sm font-medium`}
-                >
-                  Product
-                </Link>
-                <Link
-                  onClick={() => window.scrollTo(0, 0)}
-                  to="/career"
-                  className={`nav-link ${location.pathname === "/career" ? "active" : ""
-                    } rounded-md px-3 py-2 text-sm font-medium`}
-                >
-                  Career
-                </Link>
-                <Link
-                  onClick={() => window.scrollTo(0, 0)}
-                  to="/company"
-                  className={`nav-link ${location.pathname === "/company" ? "active" : ""
-                    } rounded-md px-3 py-2 text-sm font-medium`}
-                >
-                  Company
-                </Link>
-                {user && (
-                  <button
-                    onClick={handleLogout}
-                    className={`w-full nav-link rounded-md px-3 py-2 text-sm font-medium text-start`}
+            {isOpen && (
+              <Disclosure.Panel className="sm:hidden">
+                <div className="space-y-1 px-2 pb-3 pt-2">
+                  <Link
+                    onClick={() => {
+                      window.scrollTo(0, 0);
+                      setIsOpen(false);
+                    }}
+                    to="/"
+                    className={`nav-link ${location.pathname === "/" ? "active" : ""
+                      } rounded-md px-3 py-2 text-sm font-medium bg-[#00544f]`}
                   >
-                    Logout
-                  </button>
-                )}
-              </div>
-            </Disclosure.Panel>
+                    Home
+                  </Link>
+                  <Link
+                    onClick={() => {
+                      window.scrollTo(0, 0);
+                      setIsOpen(false);
+                    }}
+                    to="/product"
+                    className={`nav-link ${location.pathname === "/product" ? "active" : ""
+                      } rounded-md px-3 py-2 text-sm font-medium`}
+                  >
+                    Product
+                  </Link>
+                  <Link
+                    onClick={() => {
+                      window.scrollTo(0, 0);
+                      setIsOpen(false);
+                    }}
+                    to="/career"
+                    className={`nav-link ${location.pathname === "/career" ? "active" : ""
+                      } rounded-md px-3 py-2 text-sm font-medium`}
+                  >
+                    Career
+                  </Link>
+                  <Link
+                    onClick={() => {
+                      window.scrollTo(0, 0);
+                      setIsOpen(false);
+                    }}
+                    to="/company"
+                    className={`nav-link ${location.pathname === "/company" ? "active" : ""
+                      } rounded-md px-3 py-2 text-sm font-medium`}
+                  >
+                    Company
+                  </Link>
+                  {user && (
+                    <button
+                      onClick={handleLogout}
+                      className={`w-full nav-link rounded-md px-3 py-2 text-sm font-medium text-start`}
+                    >
+                      Logout
+                    </button>
+                  )}
+                </div>
+              </Disclosure.Panel>
+            )}
           </>
         )}
       </Disclosure>
