@@ -11,6 +11,8 @@ const Instruction = ({ formData, setFormData, portion }) => {
         if (portion !== 1 && formData.instructions.length > 0) {
             const firstInstruction = formData.instructions[formData.instructions.length - 1];
             setNewInstruction(firstInstruction.step);
+        } else {
+            setNewInstruction("");
         }
     }, [portion, formData.instructions]);
 
@@ -108,21 +110,6 @@ const Instruction = ({ formData, setFormData, portion }) => {
             }));
         }
     };
-
-    useEffect(() => {
-        const totalTime = formData.instructions.reduce((acc, instruction) => {
-            const timeArray = Array.isArray(instruction.time) ? instruction.time : [];
-            return acc + timeArray.reduce((timeAcc, time) => timeAcc + parseInt(time), 0);
-        }, 0);
-
-        const updatedFormData = {
-            ...formData,
-            cooking_time: totalTime,
-        };
-
-        setFormData(updatedFormData);
-        localStorage.setItem("formData", JSON.stringify(updatedFormData));
-    }, [formData.instructions]);
 
     const isTimeFilledForPortion = (portion) => {
         if (formData.instructions.length === 0) return false;

@@ -15,6 +15,9 @@ const Ingredient = ({ formData, setFormData, portion }) => {
             const firstIngredient = formData.ingredients[formData.ingredients.length - 1];
             setIngredientName(firstIngredient.name);
             setIngredientUnit(firstIngredient.unit);
+        } else {
+            setIngredientName("");
+            setIngredientUnit("gram");
         }
     }, [portion, formData.ingredients]);
 
@@ -140,8 +143,14 @@ const Ingredient = ({ formData, setFormData, portion }) => {
         }
     };
 
+    // const isQuantityFilledForPortion = (portion) => {
+    //     const lastIngredient = formData.ingredients[formData.ingredients.length - 1];
+    //     return lastIngredient.quantity[portion - 1] !== "";
+    // };
     const isQuantityFilledForPortion = (portion) => {
+        if (formData.ingredients.length === 0) return false;
         const lastIngredient = formData.ingredients[formData.ingredients.length - 1];
+        if (!lastIngredient) return false;
         return lastIngredient.quantity[portion - 1] !== "";
     };
 

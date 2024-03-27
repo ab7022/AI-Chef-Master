@@ -6,7 +6,7 @@ import InstructionsPage from "./InstructionsPage";
 
 
 const DashboardPage = () => {
-  const [tab, setTab] = useState(0);
+  const [tab, setTab] = useState(1);
 
   const initialFormState = JSON.parse(localStorage.getItem("formData")) || {
     chef: "",

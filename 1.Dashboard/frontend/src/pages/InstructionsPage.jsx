@@ -132,100 +132,200 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
     }
   };
 
-  const getCurrentIngredientPortion = () => {
-    if (formData.ingredients.length === 0) return 1;
-    const lastIngredient = formData.ingredients[formData.ingredients.length - 1];
-    const isLastIngredientFilled = lastIngredient.quantity.every(quantity => quantity !== "");
-    return isLastIngredientFilled ? 5 : lastIngredient.quantity.findIndex(quantity => quantity === "") + 1;
-  };
+  // const getCurrentIngredientPortion = () => {
+  //   if (formData.ingredients.length === 0) return 1;
+  //   const lastIngredient = formData.ingredients[formData.ingredients.length - 1];
+  //   const isLastIngredientFilled = lastIngredient.quantity.every(quantity => quantity !== "");
+  //   return isLastIngredientFilled ? 5 : lastIngredient.quantity.findIndex(quantity => quantity === "") + 1;
+  // };
+  // const renderIngredients = () => {
+  //   const currentPortion = getCurrentIngredientPortion();
+  //   let components = [];
+  //   for (let i = 1; i <= currentPortion; i++) {
+  //     components.push(
+  //       <Ingredient
+  //         key={i}
+  //         formData={formData}
+  //         setFormData={setFormData}
+  //         portion={i}
+  //       />
+  //     );
+  //   }
+  //   return components;
+  // };
 
-  const renderIngredients = () => {
-    const currentPortion = getCurrentIngredientPortion();
-    let components = [];
-    for (let i = 1; i <= currentPortion; i++) {
-      components.push(
-        <Ingredient
-          key={i}
-          formData={formData}
-          setFormData={setFormData}
-          portion={i}
-        />
-      );
-    }
-    return components;
-  };
+  // const getCurrentInstructionPortion = () => {
+  //   if (formData.instructions.length === 0) return 1;
+  //   const lastInstruction = formData.instructions[formData.instructions.length - 1];
+  //   const isLastInstructionFilled = lastInstruction.time.every(time => time !== "");
+  //   return isLastInstructionFilled ? 5 : lastInstruction.time.findIndex(time => time === "") + 1;
+  // };
+  // const renderInstructions = () => {
+  //   const currentPortion = getCurrentInstructionPortion();
+  //   let components = [];
+  //   for (let i = 1; i <= currentPortion; i++) {
+  //     components.push(
+  //       <Instruction
+  //         key={i}
+  //         formData={formData}
+  //         setFormData={setFormData}
+  //         portion={i}
+  //       />
+  //     );
+  //   }
+  //   return components;
+  // };
 
+  useEffect(() => {
+    const totalTime = formData.instructions.reduce((acc, instruction) => {
+      const timeArray = Array.isArray(instruction.time) ? instruction.time : [];
+      return acc + timeArray.reduce((timeAcc, time) => timeAcc + parseInt(time), 0);
+    }, 0);
 
-  const getCurrentInstructionPortion = () => {
-    if (formData.instructions.length === 0) return 1;
-    const lastInstruction = formData.instructions[formData.instructions.length - 1];
-    const isLastInstructionFilled = lastInstruction.time.every(time => time !== "");
-    return isLastInstructionFilled ? 5 : lastInstruction.time.findIndex(time => time === "") + 1;
-  };
+    const updatedFormData = {
+      ...formData,
+      cooking_time: totalTime,
+    };
 
-  const renderInstructions = () => {
-    const currentPortion = getCurrentInstructionPortion();
-    let components = [];
-    for (let i = 1; i <= currentPortion; i++) {
-      components.push(
-        <Instruction
-          key={i}
-          formData={formData}
-          setFormData={setFormData}
-          portion={i}
-        />
-      );
-    }
-    return components;
-  };
+    setFormData(updatedFormData);
+    localStorage.setItem("formData", JSON.stringify(updatedFormData));
+  }, [formData.instructions]);
 
   return (
     <>
-      <form action="" className="bg-white shadow-xl  p-0.5 w-[90%] lg:w-1/2 rounded-lg">
+      <div className="bg-white shadow-xl  p-0.5 w-[90%] lg:w-1/2 rounded-lg">
         <div className=" items-center relative backdrop-filter backdrop-blur-xl rounded-lg">
-
           <p className=" text-3xl text-center flex justify-center items-center gap-2 font-medium pt-4">
             Ingredients <IoIosPie className="text-green-600" />
           </p>
-          {renderIngredients()}
-
+          <Ingredient
+            formData={formData}
+            setFormData={setFormData}
+            portion={1}
+          />
           <p className=" text-3xl text-center pt-4 flex items-center justify-center gap-2 font-medium">
             Instructions <IoIosPaper className="text-green-600" />
           </p>
-          {renderInstructions()}
-
-          <div>
-            <div className="flex flex-col md:flex-row items-center justify-center gap-4 py-8">
-              <div className="flex gap-4">
-                <button
-                  type="button"
-                  onClick={btnHandler}
-                  className="bg-blue-800 hover:bg-blue-900 px-4 py-2 overflow-hidden font-medium rounded-xl text-xl md:text-2xl"
-                >
-                  <span className="text-white">Overview</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setTab(0)}
-                  className="bg-zinc-800 hover:bg-zinc-900 group relative px-4 py-2 overflow-hidden font-medium rounded-xl text-xl md:text-2xl"
-                >
-                  <span className="text-white">Back</span>
-                </button>
-              </div>
-              <button
-                onClick={submitHandler}
-                disabled={disabled || isLoading}
-                className={`${isLoading ? 'bg-gray-600 cursor-not-allowed' : 'cursor-pointer bg-green-600 hover:bg-green-800'} px-4 py-2 overflow-hidden font-medium rounded-xl text-xl md:text-2xl`}
-              >
-                <span className="text-white">
-                  {isLoading ? "Creating" : "Submit"}
-                </span>
-              </button>
-            </div>
-          </div>
+          <Instruction
+            formData={formData}
+            setFormData={setFormData}
+            portion={1}
+          />
         </div>
-      </form>
+      </div>
+
+      <div className="bg-white shadow-xl  p-0.5 w-[90%] lg:w-1/2 rounded-lg mt-5">
+        <div className=" items-center relative backdrop-filter backdrop-blur-xl rounded-lg">
+          <p className=" text-3xl text-center flex justify-center items-center gap-2 font-medium pt-4">
+            Ingredients <IoIosPie className="text-green-600" />
+          </p>
+          <Ingredient
+            formData={formData}
+            setFormData={setFormData}
+            portion={2}
+          />
+          <p className=" text-3xl text-center pt-4 flex items-center justify-center gap-2 font-medium">
+            Instructions <IoIosPaper className="text-green-600" />
+          </p>
+          <Instruction
+            formData={formData}
+            setFormData={setFormData}
+            portion={2}
+          />
+        </div>
+      </div>
+
+      <div className="bg-white shadow-xl  p-0.5 w-[90%] lg:w-1/2 rounded-lg mt-5">
+        <div className=" items-center relative backdrop-filter backdrop-blur-xl rounded-lg">
+          <p className=" text-3xl text-center flex justify-center items-center gap-2 font-medium pt-4">
+            Ingredients <IoIosPie className="text-green-600" />
+          </p>
+          <Ingredient
+            formData={formData}
+            setFormData={setFormData}
+            portion={3}
+          />
+          <p className=" text-3xl text-center pt-4 flex items-center justify-center gap-2 font-medium">
+            Instructions <IoIosPaper className="text-green-600" />
+          </p>
+          <Instruction
+            formData={formData}
+            setFormData={setFormData}
+            portion={3}
+          />
+        </div>
+      </div>
+
+      <div className="bg-white shadow-xl  p-0.5 w-[90%] lg:w-1/2 rounded-lg mt-5">
+        <div className=" items-center relative backdrop-filter backdrop-blur-xl rounded-lg">
+          <p className=" text-3xl text-center flex justify-center items-center gap-2 font-medium pt-4">
+            Ingredients <IoIosPie className="text-green-600" />
+          </p>
+          <Ingredient
+            formData={formData}
+            setFormData={setFormData}
+            portion={4}
+          />
+          <p className=" text-3xl text-center pt-4 flex items-center justify-center gap-2 font-medium">
+            Instructions <IoIosPaper className="text-green-600" />
+          </p>
+          <Instruction
+            formData={formData}
+            setFormData={setFormData}
+            portion={4}
+          />
+        </div>
+      </div>
+
+      <div className="bg-white shadow-xl  p-0.5 w-[90%] lg:w-1/2 rounded-lg mt-5">
+        <div className=" items-center relative backdrop-filter backdrop-blur-xl rounded-lg">
+          <p className=" text-3xl text-center flex justify-center items-center gap-2 font-medium pt-4">
+            Ingredients <IoIosPie className="text-green-600" />
+          </p>
+          <Ingredient
+            formData={formData}
+            setFormData={setFormData}
+            portion={5}
+          />
+          <p className=" text-3xl text-center pt-4 flex items-center justify-center gap-2 font-medium">
+            Instructions <IoIosPaper className="text-green-600" />
+          </p>
+          <Instruction
+            formData={formData}
+            setFormData={setFormData}
+            portion={5}
+          />
+        </div>
+      </div>
+
+      <div className="flex flex-col md:flex-row items-center justify-center gap-4 py-8">
+        <div className="flex gap-4">
+          <button
+            type="button"
+            onClick={btnHandler}
+            className="bg-blue-800 hover:bg-blue-900 px-4 py-2 overflow-hidden font-medium rounded-xl text-xl md:text-2xl"
+          >
+            <span className="text-white">Overview</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setTab(0)}
+            className="bg-zinc-800 hover:bg-zinc-900 group relative px-4 py-2 overflow-hidden font-medium rounded-xl text-xl md:text-2xl"
+          >
+            <span className="text-white">Back</span>
+          </button>
+        </div>
+        <button
+          onClick={submitHandler}
+          disabled={disabled || isLoading}
+          className={`${isLoading ? 'bg-gray-600 cursor-not-allowed' : 'cursor-pointer bg-green-600 hover:bg-green-800'} px-4 py-2 overflow-hidden font-medium rounded-xl text-xl md:text-2xl`}
+        >
+          <span className="text-white">
+            {isLoading ? "Creating" : "Submit"}
+          </span>
+        </button>
+      </div>
 
       {open && (
         <div className="fixed z-[3000] left-0 top-0 w-full h-[100dvh] flex items-center justify-center">
