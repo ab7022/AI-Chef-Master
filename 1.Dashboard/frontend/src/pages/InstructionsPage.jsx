@@ -80,6 +80,38 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    if (formData.ingredients.length > 0) {
+      const lastIngredient = formData.ingredients[formData.ingredients.length - 1];
+      const missingPortions = lastIngredient.quantity.slice(1).reduce((acc, quantity, index) => {
+        if (quantity === "") {
+          acc.push(index + 2);
+        }
+        return acc;
+      }, []);
+
+      if (missingPortions.length > 0) {
+        const firstMissingPortionIndex = missingPortions[0];
+        toast.error(`Please complete adding the quantity for portion ${firstMissingPortionIndex}`);
+        return;
+      }
+    }
+    if (formData.instructions.length > 0) {
+      const lastInstruction = formData.instructions[formData.instructions.length - 1];
+      const missingPortions = lastInstruction.time.slice(1).reduce((acc, time, index) => {
+        if (time === "") {
+          acc.push(index + 2);
+        }
+        return acc;
+      }, []);
+
+      if (missingPortions.length > 0) {
+        const firstMissingPortionIndex = missingPortions[0];
+        toast.error(`Please complete adding the time for portion ${firstMissingPortionIndex}`);
+        return;
+      }
+    }
+
     setisLoading(true);
 
     const requiredFields = ["name", "veg_non_veg", "cuisine"];
