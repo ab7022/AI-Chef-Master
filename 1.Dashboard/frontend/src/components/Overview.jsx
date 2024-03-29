@@ -69,44 +69,46 @@ const Overview = ({ form, color, value, open, setOpen, page }) => {
           </div>
         </div>
 
-        <div className="flex items-center gap-4 border-b border-zinc-500">
-          <p className="p-1 py-2 font-semibold lg:text-xl">Cooking time - </p>
-          <span className=" text-lg">{form.cooking_time} min</span>
-        </div>
+        {form?.instructions.length > 0 && (
+          <div className="flex items-center gap-4 border-b border-zinc-500">
+            <p className="p-1 py-2 font-semibold lg:text-xl">Cooking time - </p>
+            <span className=" text-lg">{form.cooking_time} min</span>
+          </div>
+        )}
 
-        {/* {form.ingredients.length > 0 && ( */}
-        <div className="p-1 border-b border-zinc-500 py-2  gap-4">
-          <p className=" font-semibold lg:text-xl pt-2">Ingredients - </p>
-          <ul className="lg:w-full pb-2">
-            {form?.ingredients?.map((ingredient, index) => (
-              <li className="text-lg" key={index}>
-                {index + 1}. {ingredient.name}-
-                ({ingredient?.quantity?.map((item, i) => (
-                  <span key={i}>{item}{ingredient?.quantity?.length !== i + 1 && ", "}</span>
-                ))}) {ingredient.unit}
-                {form?.ingredients?.length !== index + 1 && ","}
-              </li>
+        {form?.ingredients.length > 0 || form?.instructions.length > 0 ? (
+          <div className="p-1 border-b border-zinc-500 py-2  gap-4">
+            {Array.from({ length: 5 }, (_, portion) => (
+              <div key={portion} className="portion">
+                <h3 className="font-bold text-xl pt-2 underline">Portion {portion + 1}</h3>
+                {form?.ingredients.length > 0 && (
+                  <>
+                    <p className="font-semibold text-lg">Ingredient</p>
+                    <ul>
+                      {form?.ingredients?.map((ingredient, ingredientIndex) => (
+                        <li key={ingredientIndex} className="text-lg">
+                          {ingredientIndex + 1}. {ingredient.name}- {ingredient.quantity[portion]} {ingredient.unit}
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+                {form?.instructions.length > 0 && (
+                  <>
+                    <p className="font-semibold text-lg">Instruction</p>
+                    <ol>
+                      {form?.instructions?.map((instruction, instructionIndex) => (
+                        <li key={instructionIndex} className="text-lg">
+                          {instructionIndex + 1}. {instruction.step}- {instruction.time[portion]} min
+                        </li>
+                      ))}
+                    </ol>
+                  </>
+                )}
+              </div>
             ))}
-          </ul>
-        </div>
-        {/* )} */}
-
-        {/* {form.instructions.length > 0 && ( */}
-        <div className="p-1 py-2">
-          <p className=" font-semibold lg:text-xl">Instructions - </p>
-          <ul className="flex flex-col gap-1 py-4 lg:py-0">
-            {form?.instructions?.map((instruction, index) => (
-              <li className="text-lg break-all" key={index}>
-                {index + 1}. {instruction.step}
-                {" "}
-                ({instruction?.time?.map((item, i) => (
-                  <span key={i}>{item}{instruction?.time?.length !== i + 1 && ", "}</span>
-                ))}) min
-              </li>
-            ))}
-          </ul>
-        </div>
-        {/* )} */}
+          </div>
+        ) : null}
       </div>
     </div>
   );

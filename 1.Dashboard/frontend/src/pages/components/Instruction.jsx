@@ -23,6 +23,8 @@ const Instruction = ({ formData, setFormData, portion }) => {
     const addInstruction = (e) => {
         e.preventDefault();
 
+        if (portion != 1 && !instructionTime) return toast.error(`Enter Instruction time for portion ${portion}`);
+
         if (newInstruction && instructionTime > 0) {
             if (portion === 1 && formData.instructions.length > 0) {
                 const lastInstruction = formData.instructions[formData.instructions.length - 1];

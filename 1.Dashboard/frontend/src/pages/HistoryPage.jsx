@@ -43,7 +43,7 @@ const History = () => {
 
   });
   const handleClick = async (id) => {
-    setId(id);
+    // setId(id);
     try {
       const apiUrl = `${import.meta.env.VITE_API_URL}/api/dish/${id}`;
       // let textDecoder = new TextDecoder("utf-8");
@@ -69,6 +69,7 @@ const History = () => {
             ingredients: response.data.ingredients,
           });
           setisLoading(false);
+          setOpen(true);
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -119,7 +120,8 @@ const History = () => {
 
   return (
     <>
-      {!open ? (<MantineProvider>
+      {!open ? (
+        // <MantineProvider>
         <div className="min-h-screen w-screen flex flex-col pt-32 items-center font-primary text-black">
           <div className="bg-white p-6 rounded-xl shadow-xl">
             <div className="flex flex-col items-center gap-1 text-2xl">
@@ -177,15 +179,12 @@ const History = () => {
                               <p className="font-medium">{dish.cuisine}</p>
                             </div>
                             <button
-                              onClick={() => {
-                                handleClick(dish.id), setId(dish.id);
-                                // document.body.style.overflow = "hidden";
-                                setOpen(true);
-                              }}
-                              className={`${isLoading ? "cursor-wait" : "cursor-pointer"
-                                } text-left font-semibold text-zinc-500 flex items-center gap-2 `}
+                              disabled={isLoading}
+                              onClick={() => handleClick(dish.id)}
+                              // onClick={() => handleClick(dish.id); setId(dish.id)}
+                              className={`${isLoading ? "cursor-wait" : "cursor-pointer"} text-left font-semibold text-zinc-500 flex items-center gap-2 `}
                             >
-                              <p>see more</p> <BsFillArrowUpRightSquareFill />
+                              <p>{isLoading ? "fetching dish" : "see more"}</p> <BsFillArrowUpRightSquareFill />
                             </button>
                           </div>
 
@@ -230,18 +229,18 @@ const History = () => {
             </span>
           </div>
         </div>
-      </MantineProvider>)
-        : (
-          <div className="pt-20 min-h-[100dvh] bg-white">
-            <Overview
-              open={open}
-              setOpen={setOpen}
-              form={dishData}
-              value="searchPage"
-              color={"text-black"}
-            />
-          </div>
-        )}
+        // </MantineProvider>
+      ) : (
+        <div className="pt-20 min-h-[100dvh] bg-white">
+          <Overview
+            open={open}
+            setOpen={setOpen}
+            form={dishData}
+            value="searchPage"
+            color={"text-black"}
+          />
+        </div>
+      )}
     </>
   );
 };

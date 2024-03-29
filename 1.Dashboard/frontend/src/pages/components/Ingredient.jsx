@@ -8,7 +8,7 @@ import './style.css'
 const Ingredient = ({ formData, setFormData, portion }) => {
     const [ingredientName, setIngredientName] = useState("");
     const [ingredientQuantity, setIngredientQuantity] = useState("");
-    const [ingredientUnit, setIngredientUnit] = useState("gram");
+    const [ingredientUnit, setIngredientUnit] = useState("");
     const [isQuantityDisabled, setIsQuantityDisabled] = useState(false);
 
     useEffect(() => {
@@ -19,13 +19,15 @@ const Ingredient = ({ formData, setFormData, portion }) => {
             setIsQuantityDisabled(false);
         } else {
             if (portion !== 1) setIngredientName("");
-            setIngredientUnit("gram");
+            setIngredientUnit("");
             setIsQuantityDisabled(true);
         }
     }, [portion, formData.ingredients]);
 
     const handleIngredientSubmit = (e) => {
         e.preventDefault();
+
+        if (portion != 1 && !ingredientQuantity) return toast.error(`Enter Ingredient quanitity for portion ${portion}`);
 
         if (ingredientName && ingredientQuantity > 0 && ingredientUnit) {
             if (portion === 1 && formData.ingredients.length > 0) {
