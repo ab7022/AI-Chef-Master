@@ -1,18 +1,22 @@
 import { useEffect, useState } from 'react'
 import { IoIosClose } from 'react-icons/io'
 import { MdEdit } from "react-icons/md";
+import { toast } from 'react-hot-toast';
 import './style.css'
 
 const Instruction = ({ formData, setFormData, portion }) => {
     const [newInstruction, setNewInstruction] = useState("");
     const [instructionTime, setInstructionTime] = useState("");
+    const [isTimeDisabled, setIsTimeDisabled] = useState(false);
 
     useEffect(() => {
         if (portion !== 1 && formData.instructions.length > 0) {
             const firstInstruction = formData.instructions[formData.instructions.length - 1];
             setNewInstruction(firstInstruction.step);
+            setIsTimeDisabled(false);
         } else {
-            setNewInstruction("");
+            if (portion !== 1) setNewInstruction("");
+            setIsTimeDisabled(true);
         }
     }, [portion, formData.instructions]);
 
@@ -141,24 +145,35 @@ const Instruction = ({ formData, setFormData, portion }) => {
                                     <label className="text-black font-medium text-md">Enter Time <span className="text-rose-600">*</span> </label>
                                     <div className="flex items-center gap-2">
                                         <input
+                                            disabled={portion !== 1 && isTimeDisabled}
                                             value={instructionTime}
                                             onChange={(e) => setInstructionTime(e.target.value)}
                                             onFocus={(e) => e.target.addEventListener("wheel", function (e) { e.preventDefault() }, { passive: false })}
                                             type="number"
                                             placeholder="eg. 20"
-                                            className="input-number border w-full  px-2 py-4 text-lg  focus:border-orange-400 border-black rounded-md placeholder:text-gray-400 outline-none placeholder:italic " />
+                                            className={`${portion !== 1 && isTimeDisabled ? "cursor-not-allowed bg-gray-200" : "cursor-text"} input-number border w-full  px-2 py-4 text-lg  focus:border-orange-400 border-black rounded-md placeholder:text-gray-400 outline-none placeholder:italic`} />
                                         <p>min</p>
                                     </div>
                                 </div>
                             </div>
                             <div className="flex w-full items-center justify-center">
-                                <button
-                                    onClick={addInstruction}
-                                    type="button"
-                                    className="text-white border  bg-zinc-700 p-2 px-6 my-4 rounded-xl hover:bg-zinc-950 "
-                                >
-                                    Add {portion === 1 ? "Instruction" : "Time"}
-                                </button>
+                                {portion === 1 ? (
+                                    <button
+                                        onClick={addInstruction}
+                                        type="button"
+                                        className="text-white border  bg-zinc-700 p-2 px-6 my-4 rounded-xl hover:bg-zinc-950 "
+                                    >
+                                        Add Instruction
+                                    </button>
+                                ) : portion !== 1 && !isTimeDisabled && (
+                                    <button
+                                        onClick={addInstruction}
+                                        type="button"
+                                        className="text-white border  bg-zinc-700 p-2 px-6 my-4 rounded-xl hover:bg-zinc-950 "
+                                    >
+                                        Add Time
+                                    </button>
+                                )}
                             </div>
                         </div>
                     ) : null}

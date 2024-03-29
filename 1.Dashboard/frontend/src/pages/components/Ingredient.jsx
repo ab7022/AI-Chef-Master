@@ -9,15 +9,18 @@ const Ingredient = ({ formData, setFormData, portion }) => {
     const [ingredientName, setIngredientName] = useState("");
     const [ingredientQuantity, setIngredientQuantity] = useState("");
     const [ingredientUnit, setIngredientUnit] = useState("gram");
+    const [isQuantityDisabled, setIsQuantityDisabled] = useState(false);
 
     useEffect(() => {
         if (portion !== 1 && formData.ingredients.length > 0) {
             const firstIngredient = formData.ingredients[formData.ingredients.length - 1];
             setIngredientName(firstIngredient.name);
             setIngredientUnit(firstIngredient.unit);
+            setIsQuantityDisabled(false);
         } else {
-            setIngredientName("");
+            if (portion !== 1) setIngredientName("");
             setIngredientUnit("gram");
+            setIsQuantityDisabled(true);
         }
     }, [portion, formData.ingredients]);
 
@@ -178,13 +181,14 @@ const Ingredient = ({ formData, setFormData, portion }) => {
                                 <div className="w-full lg:w-1/2 pt-4 lg:pt-0">
                                     <label className=" block">Quantity <span className="text-rose-600">*</span></label>
                                     <input
+                                        disabled={portion !== 1 && isQuantityDisabled}
                                         type="number"
                                         name="ingredient_quantity"
                                         value={ingredientQuantity}
                                         onChange={(e) => setIngredientQuantity(e.target.value)}
                                         onFocus={(e) => e.target.addEventListener("wheel", function (e) { e.preventDefault() }, { passive: false })}
                                         placeholder="eg. 200"
-                                        className="input-number px-2 mt-2 py-1 text-black text-lg w-full border border-black  rounded-md placeholder:italic focus:border-orange-400 outline-none"
+                                        className={`${portion !== 1 && isQuantityDisabled ? "cursor-not-allowed bg-gray-200" : "cursor-text"} input-number px-2 mt-2 py-1 text-black text-lg w-full border border-black  rounded-md placeholder:italic focus:border-orange-400 outline-none`}
                                     />
                                 </div>
                                 <div className="w-full lg:w-1/2 pt-4 lg:pt-0">
@@ -207,13 +211,23 @@ const Ingredient = ({ formData, setFormData, portion }) => {
                                 </div>
                             </div>
                             <div className="flex w-full items-center justify-center">
-                                <button
-                                    onClick={handleIngredientSubmit}
-                                    type="button"
-                                    className="text-white border  bg-zinc-700 p-2 px-6 my-4 rounded-xl hover:bg-zinc-950 "
-                                >
-                                    Add {portion === 1 ? "Ingredient" : "Quantity"}
-                                </button>
+                                {portion === 1 ? (
+                                    <button
+                                        onClick={handleIngredientSubmit}
+                                        type="button"
+                                        className={`text-white border  bg-zinc-700 p-2 px-6 my-4 rounded-xl hover:bg-zinc-950`}
+                                    >
+                                        Add Ingredient
+                                    </button>
+                                ) : portion !== 1 && !isQuantityDisabled && (
+                                    <button
+                                        onClick={handleIngredientSubmit}
+                                        type="button"
+                                        className={`text-white border  bg-zinc-700 p-2 px-6 my-4 rounded-xl hover:bg-zinc-950`}
+                                    >
+                                        Add Quantity
+                                    </button>
+                                )}
                             </div>
                         </>
                     ) : null}
