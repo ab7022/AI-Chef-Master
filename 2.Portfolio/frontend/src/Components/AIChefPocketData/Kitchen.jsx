@@ -45,7 +45,7 @@ const Kitchen = () => {
         </h1>
       </div>
       <div className="px-6 md:px-20 pt-12 text-[1.3rem] flex justify-center">
-        Welcome to "What's In Your Kitchen," your go-to platform for turning every day ingredients into delightful dishes! Our platform is designed to make your cooking experience not just convenient, but also creative and sustainable. Let's take a closer look at how it works:
+        Welcome to "Chef Intelligence", your go-to platform for turning every day ingredients into delightful dishes! Our platform is designed to make your cooking experience not just convenient, but also creative and sustainable. Let's take a closer look at how it works:
       </div>
 
       <div className="mt-6">
@@ -60,7 +60,7 @@ const Kitchen = () => {
         Let's say you have some chicken, tomatoes, and pasta in your kitchen. Enter these ingredients, and our platform might suggest a mouthwatering Chicken Tomato Pasta recipe. Our platform will guide you through the process, helping you create a restaurant-quality dish right at home.
       </div>
       <div className="px-6 md:px-20 pt-6 text-lg sm:text-lg  md:text-xl flex text-justify justify-center">
-        Unlock a world of culinary possibilities with "What's In Your Kitchen." Whether you're a seasoned chef or a kitchen novice, our platform is here to inspire and assist you on your cooking journey. Say goodbye to food waste and hello to delicious, personalized meals!
+        Unlock a world of culinary possibilities with "Chef Intelligence". Whether you're a seasoned chef or a kitchen novice, our platform is here to inspire and assist you on your cooking journey. Say goodbye to food waste and hello to delicious, personalized meals!
       </div>
     </div>
   );
