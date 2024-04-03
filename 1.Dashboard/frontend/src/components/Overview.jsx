@@ -24,7 +24,7 @@ const Overview = ({ form, color, value, open, setOpen, page }) => {
       <div className="w-full">
         <div className="flex items-center gap-4 border-b border-zinc-500">
           <p className="p-1  py-2 font-semibold lg:text-xl">Dish Name - </p>{" "}
-          <span className="text-lg ">{form.name}</span>
+          <span className="text-lg capitalize">{form.name}</span>
         </div>
         <div className="flex items-center gap-4 border-b border-zinc-500">
           <p className="p-1  py-2 font-semibold lg:text-xl">

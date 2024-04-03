@@ -162,7 +162,7 @@ const History = () => {
                       >
                         <div className="flex items-center gap-2 py-2 px-4">
                           <p className="text-zinc-800"></p>
-                          <p className="text-xl md:text-2xl font-medium -ml-2">
+                          <p className="text-xl md:text-2xl font-medium -ml-2 capitalize">
                             {dish.name}
                           </p>
                         </div>

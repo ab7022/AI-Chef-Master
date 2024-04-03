@@ -5,6 +5,7 @@ import { IoIosAdd, IoIosClose } from "react-icons/io";
 import toast from "react-hot-toast";
 import { statesData } from "../Data/statesData";
 import { debounce } from "lodash";
+import { nonVegetarianIngredients } from "../Data/nonVegetarianIngredients";
 
 const DashboardForm = ({ setTab, form, setForm }) => {
   const [courseName, setCourseName] = useState("");
@@ -141,6 +142,11 @@ const DashboardForm = ({ setTab, form, setForm }) => {
     }));
   };
 
+  const isNonVegIngredient = (ingredientName) => {
+    const lowerCaseName = ingredientName.toLowerCase();
+    return nonVegetarianIngredients.some(nonVeg => nonVeg.toLowerCase() === lowerCaseName);
+  };
+
   const handleNextTab = async () => {
     const requiredFields = [
       { name: 'name', label: 'Dish Name' },
@@ -162,6 +168,20 @@ const DashboardForm = ({ setTab, form, setForm }) => {
         toast.error(`${field.label} is required.`);
         return;
       }
+    }
+
+    if (form.veg_non_veg === 'Vegetarian' && form.ingredients.length > 0) {
+      const filteredIngredients = form.ingredients.filter(ingredient => !isNonVegIngredient(ingredient.name));
+
+      setForm({
+        ...form,
+        ingredients: filteredIngredients,
+      });
+
+      localStorage.setItem('formData', JSON.stringify({
+        ...form,
+        ingredients: filteredIngredients,
+      }));
     }
 
     setTab(1);

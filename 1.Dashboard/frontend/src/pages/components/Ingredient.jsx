@@ -84,25 +84,9 @@ const Ingredient = ({ formData, setFormData, portion }) => {
                 updatedIngredients = [...formData.ingredients, newIngredient];
             }
 
-            let newVegNonVegValue = "Vegetarian";
-            if (isNonVegetarian) {
-                newVegNonVegValue = "Non-Vegetarian";
-            } else {
-                const isExistingNonVegetarian = updatedIngredients.some(existingIngredient =>
-                    nonVegetarianIngredients.some(nonVegIngredient =>
-                        existingIngredient.name.toLowerCase().includes(nonVegIngredient.toLowerCase())
-                    )
-                );
-
-                if (!isExistingNonVegetarian) {
-                    newVegNonVegValue = "Vegetarian";
-                }
-            }
-
             const updatedFormData = {
                 ...formData,
-                ingredients: updatedIngredients,
-                veg_non_veg: newVegNonVegValue,
+                ingredients: updatedIngredients
             };
 
             setFormData(updatedFormData);
