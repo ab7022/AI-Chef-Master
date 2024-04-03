@@ -11,7 +11,7 @@ import img2 from './img2.png'
 import operations from './operations.png'
 import { Link } from 'react-router-dom';
 import { Fade } from 'react-reveal';
- 
+
 const data = [
   { image: operations, label: 'Operations', link: '/operations' },
   { image: RD, label: 'R & D', link: '/R&D' },
@@ -68,43 +68,43 @@ const Page2 = () => {
         </div>
       </div>
 
-    <div className='h-full py-2'>
-      <Fade>
-        <h1 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-center py-5'>Browse categories.</h1>
-      </Fade>
-      <Fade delay={300}>
-        <p className='text-lg sm:text-2xl md:text-3xl lg:text-4xl text-center py-4'>
-          Take your career to the <GredientText className='ml-2 sm:ml-3'> next level</GredientText>
-           Discover the perfect job for you.
-        </p>
-      </Fade>
-      <div className='gap-4 mt-8 flex flex-wrap justify-center'>
+      <div className='h-full py-2'>
+        <Fade>
+          <h1 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-center py-5'>Browse categories.</h1>
+        </Fade>
+        <Fade delay={300}>
+          <p className='text-lg sm:text-2xl md:text-3xl lg:text-4xl text-center py-4'>
+            Take your career to the <GredientText className='ml-2 sm:ml-3'> next level</GredientText>
+            Discover the perfect job for you.
+          </p>
+        </Fade>
+        <div className='gap-4 mt-8 flex flex-wrap justify-center'>
           {data.map((item, index) => (
-          <div className='transform transition-transform hover:scale-105'>
-          <Fade key={index} delay={index * 100}>
-            <div className="w-80  flex-shrink h-80 bg-[#d1e3fa] hover:shadow-lg rounded-md border-2 ">
-              <div className='flex justify-center items-center'>
-                <img className='h-64 mt-1' src={item.image} alt={item.label} />
-              </div>
-              <div className="flex gap-4 justify-center">
-                <Button
-                  className='relative bg-[#87CEEB] w-full h-16 text-black text-2xl transition duration-300 transform hover:scale-105'
-                >
-                  <Link
-                    to={item.link}
-                    onClick={() => window.scrollTo(0, 0)}
-                    className="flex items-center justify-center h-full"
-                  >
-                    {item.label} 🡪
-                  </Link>
-                </Button>
-              </div>
+            <div className='transform transition-transform hover:scale-105'>
+              <Fade key={index} delay={index * 100}>
+                <div className="w-64 h-64 sm:w-80 sm:h-80 flex-shrink bg-[#d1e3fa] hover:shadow-lg rounded-md border-2 ">
+                  <div className='p-2 flex justify-center items-center'>
+                    <img className='h-40 sm:h-64 mt-1' src={item.image} alt={item.label} />
+                  </div>
+                  <div className="flex gap-4 justify-center">
+                    <Button
+                      className='relative bg-[#87CEEB] w-full h-16 text-black text-lg sm:text-2xl transition duration-300 transform hover:scale-105'
+                    >
+                      <Link
+                        to={item.link}
+                        onClick={() => window.scrollTo(0, 0)}
+                        className="flex items-center justify-center h-full"
+                      >
+                        {item.label} 🡪
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              </Fade>
             </div>
-          </Fade>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
 
     </>
   )
