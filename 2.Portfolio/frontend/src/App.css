@@ -2,24 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --body__bg: rgb(240, 240, 240);
+    --body__color: black;
+    --dot-color: lightslategray;
+    --image__color: invert(0);
+    --footer__bg: #0a0a0a;
+}
+
+[data-theme='dark'] {
+    --body__bg: #0a0a0a;
+    --body__color: white;
+    --dot-color: #1c1c1c;
+    --image__color: invert(100%);
+    --footer__bg: #ffffff;
+}
+
 body {
-    /* background-color: #ffffff;
-    --dot-bg: rgb(240, 240, 240);
-    --dot-color: rgb(1, 1, 1);
+    --dot-bg: var(--body__bg);
     --dot-size: 1px;
-    --dot-space: 10px;
+    --dot-space: 15px;
     background:
         linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
         linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
-        linear-gradient(to top, #fafafa, rgba(91, 91, 91, 0.99)); */
-    --body_background: #f0f0f0;
-    --body_color: rgba(1, 1, 1, 0.5);
-    --dot-bg: var(--body_background);
-    --dot-color: var(--body_color);
-    --dot-size: 1px;
-    --dot-space: 10px;
-    background:
-        linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
-        linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
-        var(--dot-color);
+        linear-gradient(to top, var(--dot-color), var(--dot-color));
+}
+
+.custom-text {
+    color: var(--body__color);
+}
+
+.custom-image {
+    -webkit-filter: var(--image__color);
+    filter: var(--image__color);
+}
+
+.custom-footer {
+    background-color: var(--footer__bg) !important;
+    color: var(--body__bg) !important;
 }

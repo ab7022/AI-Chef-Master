@@ -1,4 +1,5 @@
 import './App.css'
+import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext";
 import MyNavbar from "./Components/MyNavbar";
@@ -37,10 +38,15 @@ import NotFound from "./Components/NotFound";
 
 const App = () => {
   const { user } = useAuthContext();
+  const [theme, setTheme] = useState('light');
+
+  useEffect(() => {
+    document.body.setAttribute('data-theme', localStorage.getItem('theme') || theme);
+  }, [theme]);
 
   return (
     <Router>
-      <MyNavbar />
+      <MyNavbar theme={theme} setTheme={setTheme} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path='/signup' element={!user ? <CreateAccount /> : <Navigate to='/' />} />

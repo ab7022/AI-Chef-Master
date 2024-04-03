@@ -37,6 +37,5 @@
 
 .counter,
 .counter-name {
-  color: #000000;
-  /* color: #028090; */
+  color: var(--body__color);
 }

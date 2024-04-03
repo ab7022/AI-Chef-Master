@@ -19,13 +19,13 @@ const AnimatedCard = ({ imageUrl, imageAlt, header, description }) => {
             <img
               src={imageUrl}
               alt={imageAlt}
-              className="object-scale-down h-48 w-full md:w-96 animate-pulse"
+              className="custom-image object-scale-down h-48 w-full md:w-96 animate-pulse"
             />
           </div>
-          <h1 className="mb-2 text-center text-xl md:text-3xl text-black">
+          <h1 className="custom-text mb-2 text-center text-xl md:text-3xl">
             {header}
           </h1>
-          <div className="mb-2 text-md md:text-lg text-justify text-black">
+          <div className="custom-text mb-2 text-md md:text-lg text-justify">
             {description}
           </div>
         </Zoom>
@@ -67,7 +67,7 @@ function Pocket() {
       <h1 className="main-heading text-4xl md:text-5xl mb-6">
         THE AI CHEF IN YOUR POCKET
       </h1>
-      <p className="text-xl md:text-2xl mb-8">
+      <p className="custom-text text-xl md:text-2xl mb-8">
         Create and customize your favorite AI CHEF
       </p>
 

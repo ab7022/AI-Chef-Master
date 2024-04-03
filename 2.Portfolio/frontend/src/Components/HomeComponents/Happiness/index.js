@@ -8,20 +8,20 @@ function Happiness() {
     <div className="flex flex-col md:flex-row justify-center break-words items-center px-6 md:px-10  ">
       <div className="sm:text-left lg:w-7/12 sm:w-full md:w-full mb-8 sm:mb-0">
         <Fade left>
-           <h1
+          <h1
             style={{ lineHeight: "3rem" }}
             className="main-head text-4xl font-bold mb-4 md:mb-6"
           >
             Your Happiness is Our Responsibility
           </h1>
         </Fade>
-        <Fade left>
-           <p className="text-xl text-muted mb-2 md:mb-4">
-            Empowering smiles because your happiness is our mission
+        {/* <Fade left>
+          <p className="text-xl text-muted mb-2 md:mb-4">
+            <span style={{ color: 'var(--body__color) !important' }}> Empowering smiles because your happiness is our mission</span>
           </p>
-        </Fade>
+        </Fade> */}
         <Fade left>
-           <p className="text-xl mb-4 text-justify">
+          <p className="custom-text text-xl mb-4 text-justify">
             To ensure customer happiness, we prioritize open communication,
             actively listen to their needs, and swiftly address any concerns.
             Our commitment extends to delivering high-quality products/services
@@ -34,7 +34,7 @@ function Happiness() {
           </p>
         </Fade>
         <Fade left>
-           <Button
+          <Button
             style={{ backgroundColor: "#00544f" }}
             className="text-white animate-pulse rounded-md font-sans font-medium text-lg sm:text-xl md:text-2xl lg:text-3xl"
           >
@@ -44,7 +44,7 @@ function Happiness() {
       </div>
       <div className="lg:w-5/12 sm:w-full md:w-full">
         <Fade right>
-           <div className="w-full h-auto">
+          <div className="w-full h-auto">
             <img
               className="object-cover w-full h-full"
               src="/assets/jump.png"

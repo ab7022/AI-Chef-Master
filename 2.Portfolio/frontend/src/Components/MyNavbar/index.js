@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { IoIosLogIn, IoIosLogOut } from "react-icons/io";
+import { MdDarkMode, MdLightMode } from "react-icons/md";
 
 import "../MyNavbar/index.css";
 import { Link, useLocation } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { useLogout } from "../../hooks/useLogout";
 
-export default function MyNavbar() {
+export default function MyNavbar({ theme, setTheme }) {
   const location = useLocation();
   const { user } = useAuthContext();
   const { logout } = useLogout();
@@ -17,6 +19,15 @@ export default function MyNavbar() {
   const handleLogout = () => {
     logout();
     setIsOpen(false);
+  }
+
+  const handleThemeChange = () => {
+    if (theme === 'light') {
+      setTheme('dark');
+    }
+    else {
+      setTheme('light');
+    }
   }
 
   return (
@@ -73,21 +84,32 @@ export default function MyNavbar() {
                       >
                         Company
                       </Link>
+
+                      {theme === 'light' ? (
+                        <button title="Dark Mode" onClick={handleThemeChange} className={`nav-link flex items-center justify-center rounded-md px-2 py-2 text-sm font-medium`}>
+                          <MdDarkMode size={20} />
+                        </button>
+                      ) : (
+                        <button title="Light Mode" onClick={handleThemeChange} className={`nav-link flex items-center justify-center rounded-md px-2 py-2 text-sm font-medium`}>
+                          <MdLightMode size={20} />
+                        </button>
+                      )}
+
                       {user ? (
                         <button
                           onClick={handleLogout}
-                          className={`nav-link rounded-md px-3 py-2 text-sm font-medium`}
+                          className={`nav-link flex items-center justify-center rounded-md px-2 py-2 text-sm font-medium`}
                         >
-                          Logout
+                          <IoIosLogOut size={20} />
                         </button>
                       ) : (
                         <Link
                           onClick={() => window.scrollTo(0, 0)}
                           to="/login"
-                          className={`nav-link ${location.pathname === "/login" ? "active" : ""
-                            } rounded-md px-3 py-2 text-sm font-medium`}
+                          className={`nav-link flex items-center justify-center ${location.pathname === "/login" ? "active" : ""
+                            } rounded-md px-2 py-2 text-sm font-medium`}
                         >
-                          Login
+                          <IoIosLogIn size={20} />
                         </Link>
                       )}
                     </div>
@@ -152,13 +174,32 @@ export default function MyNavbar() {
                   >
                     Company
                   </Link>
-                  {user && (
+
+                  {theme === 'light' ? (
+                    <button onClick={handleThemeChange} className={`w-full nav-link rounded-md px-3 py-2 text-sm font-medium text-start`}>
+                      Dark Mode
+                    </button>
+                  ) : (
+                    <button onClick={handleThemeChange} className={`w-full nav-link rounded-md px-3 py-2 text-sm font-medium text-start`}>
+                      Light Mode
+                    </button>
+                  )}
+
+                  {user ? (
                     <button
                       onClick={handleLogout}
                       className={`w-full nav-link rounded-md px-3 py-2 text-sm font-medium text-start`}
                     >
                       Logout
                     </button>
+                  ) : (
+                    <Link
+                      onClick={() => window.scrollTo(0, 0)}
+                      to="/login"
+                      className={`w-full nav-link rounded-md px-3 py-2 text-sm font-medium text-start`}
+                    >
+                      Login
+                    </Link>
                   )}
                 </div>
               </Disclosure.Panel>

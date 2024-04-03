@@ -23,7 +23,7 @@ export default function Unique() {
             className="main-heading relative text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4 md:text-start"
           >
             <Typewriter text="Welcome to AI Chef Master" delay={100} />
-            <div class="w-[300px] h-[300px] z-1 rounded-full absolute top-[-125px] left-[-40px] blur-3xl bg-[#8bfb451c]" />
+            <div className="w-[300px] h-[300px] z-1 rounded-full absolute top-[-125px] left-[-40px] blur-3xl bg-[#8bfb451c]" />
           </h1>
           {/* </Fade> */}
           <div className="md:text-start">

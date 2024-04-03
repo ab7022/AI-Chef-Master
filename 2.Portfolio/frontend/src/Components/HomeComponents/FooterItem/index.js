@@ -11,7 +11,7 @@ import "../FooterItem/index.css";
 const FooterItem = () => {
   return (
     // <div className="footer rounded-0 card bg-black shadow-lg mt-0 golden-text">
-    <div className="footer rounded-0 card bg-black text-white shadow-lg mt-0">
+    <div className="custom-footer footer rounded-0 card shadow-lg mt-0">
       <div className="text-center my-5">
         <h1 className="footer-heading mb-3">Ready to do your best work? </h1>
         <h5 className="text-2xl font-bold mb-4">Let's get you started.</h5>
