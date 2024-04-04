@@ -58,6 +58,21 @@ const Instruction = ({ formData, setFormData, portion }) => {
                 updatedInstructions = formData.instructions.map((instruction, index) => {
                     if (index === existingInstructionIndex) {
                         const updatedTime = [...instruction.time];
+
+                        const newTimeValue = Number(instructionTime);
+
+                        const isGreaterThanOrEqualToPrevious = updatedTime.slice(0, portion - 1).every(t => t === "" || newTimeValue >= Number(t));
+                        if (!isGreaterThanOrEqualToPrevious) {
+                            toast.error("The current time value is less than the previous time value.");
+                            return instruction;
+                        }
+
+                        const isLessThanOrEqualToNext = updatedTime.slice(portion).every(t => t === "" || newTimeValue <= Number(t));
+                        if (!isLessThanOrEqualToNext) {
+                            toast.error("The current time value is greater than the next time value.");
+                            return instruction;
+                        }
+
                         updatedTime[portion - 1] = instructionTime;
                         return {
                             ...instruction,

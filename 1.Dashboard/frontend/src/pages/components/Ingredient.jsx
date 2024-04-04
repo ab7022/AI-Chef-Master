@@ -72,6 +72,21 @@ const Ingredient = ({ formData, setFormData, portion }) => {
                 updatedIngredients = formData.ingredients.map((ingredient, index) => {
                     if (index === existingIngredientIndex) {
                         const updatedQuantity = [...ingredient.quantity];
+
+                        const newQuantityValue = Number(ingredientQuantity);
+
+                        const isGreaterThanOrEqualToPrevious = updatedQuantity.slice(0, portion - 1).every(q => q === "" || newQuantityValue >= Number(q));
+                        if (!isGreaterThanOrEqualToPrevious) {
+                            toast.error("The current quantity value is less than the previous quantity value.");
+                            return ingredient;
+                        }
+
+                        const isLessThanOrEqualToNext = updatedQuantity.slice(portion).every(q => q === "" || newQuantityValue <= Number(q));
+                        if (!isLessThanOrEqualToNext) {
+                            toast.error("The current quantity value is greater than the next quantity value.");
+                            return ingredient;
+                        }
+
                         updatedQuantity[portion - 1] = ingredientQuantity;
                         return {
                             ...ingredient,
