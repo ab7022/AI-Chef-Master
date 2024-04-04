@@ -2,6 +2,8 @@ import React from "react";
 import { Button } from "@material-tailwind/react";
 import { Fade } from "react-reveal"; // Import Fade effect from react-reveal
 import "../Happiness/index.css";
+import Lottie from "react-lottie";
+import runAnimation from "../../../lottie/RunAnimation.json";
 
 function Happiness() {
   return (
@@ -45,10 +47,24 @@ function Happiness() {
       <div className="lg:w-5/12 sm:w-full md:w-full">
         <Fade right>
           <div className="w-full h-auto">
-            <img
+            {/* <img
               className="object-cover w-full h-full"
               src="/assets/jump.png"
               alt=""
+            /> */}
+            <Lottie
+              options={{
+                loop: true,
+                autoplay: true,
+                animationData: runAnimation,
+                rendererSettings: {
+                  preserveAspectRatio: "xMidYMid slice"
+                },
+              }}
+              style={{
+                width: '75%',
+                height: '75%'
+              }}
             />
           </div>
         </Fade>
