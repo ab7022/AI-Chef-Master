@@ -20,14 +20,15 @@ const AnimatedCard = ({ imageUrl, imageAlt, heading, description, index }) => {
           alt={imageAlt}
         />
       </Fade>
-      <div className="flex flex-col justify-center gap-6 md:gap-12 md:pt-0 items-center max-w-md md:max-w-[400px]">
+      <div className="relative flex flex-col justify-center gap-6 md:gap-12 md:pt-0 items-center max-w-md md:max-w-[400px]">
         <Slide left={index % 2 === 0} right={index % 2 !== 0}>
-          <h3 className="text-xl sm:text-lg md:text-2xl lg:text-3xl font-bold text-center md:text-left">
+          <h3 className="custom-text text-xl sm:text-lg md:text-2xl lg:text-3xl font-bold text-center md:text-left">
             {heading}
           </h3>
         </Slide>
+        <div className="w-[300px] h-[300px] z-1 rounded-full absolute top-[-25px] blur-3xl bg-[#8bfb451c]" />
         <Slide left={index % 2 === 0} right={index % 2 !== 0}>
-          <p className="text-lg sm:text-lg md:text-xl text-center md:text-left">
+          <p className="custom-text-secondary text-lg sm:text-lg md:text-xl text-center md:text-left">
             {description}
           </p>
         </Slide>
@@ -79,17 +80,17 @@ const RD = () => {
   return (
     <>
       <div className="h-full min-h-screen w-full mb-12">
-      <div style={{ backgroundColor: 'rgba(0, 84, 79, 0.5)' }} className="flex mb-5 justify-center items-center h-28">
-          <h1 style={{textShadow: '2px 0.5px 0.5px rgba(0, 0, 0, 0.5)'}} className='bg-green-500 text-transparent bg-clip-text text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold font-serif py-4 px-6 md:px-8 lg:px-10 xl:px-12 text-center md:text-left'>
-          R&D (Research and Development)
-        </h1>
-      </div>
+        <div style={{ backgroundColor: 'rgba(0, 84, 79, 0.5)' }} className="flex mb-5 justify-center items-center h-28">
+          <h1 style={{ textShadow: '2px 0.5px 0.5px rgba(0, 0, 0, 0.5)' }} className='bg-green-500 text-transparent bg-clip-text text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold font-serif py-4 px-6 md:px-8 lg:px-10 xl:px-12 text-center md:text-left'>
+            R&D (Research and Development)
+          </h1>
+        </div>
 
-      <div className="mt-6">
-        {rdSections.map((obj, index) => (
-          <AnimatedCard key={uuidv4()} index={index} {...obj} />
-        ))}
-      </div>
+        <div className="mt-6">
+          {rdSections.map((obj, index) => (
+            <AnimatedCard key={uuidv4()} index={index} {...obj} />
+          ))}
+        </div>
 
       </div>
     </>

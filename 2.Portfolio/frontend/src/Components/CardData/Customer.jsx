@@ -15,14 +15,15 @@ const AnimatedCard = ({ imageUrl, imageAlt, heading, description, index }) => {
           alt={imageAlt}
         />
       </Fade>
-      <div className="flex flex-col justify-center gap-6 md:gap-12 md:pt-0 items-center max-w-md md:max-w-[400px]">
+      <div className="relative flex flex-col justify-center gap-6 md:gap-12 md:pt-0 items-center max-w-md md:max-w-[400px]">
         <Slide left={index % 2 === 0} right={index % 2 !== 0}>
-          <h3 className="text-xl sm:text-lg md:text-2xl lg:text-3xl font-bold text-center md:text-left">
+          <h3 className="custom-text text-xl sm:text-lg md:text-2xl lg:text-3xl font-bold text-center md:text-left">
             {heading}
           </h3>
         </Slide>
+        <div className="w-[300px] h-[300px] z-1 rounded-full absolute top-[-25px] blur-3xl bg-[#8bfb451c]" />
         <Slide left={index % 2 === 0} right={index % 2 !== 0}>
-          <p className="text-lg sm:text-lg md:text-xl text-center md:text-left">
+          <p className="custom-text-secondary text-lg sm:text-lg md:text-xl text-center md:text-left">
             {description}
           </p>
         </Slide>
