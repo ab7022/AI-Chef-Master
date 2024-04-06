@@ -292,7 +292,7 @@ const Application = () => {
 
   if (selectedJob === null || selectedJob === undefined || !selectedJob) {
     return (
-      <div className="h-[calc(100vh-80px)] grid place-items-center">
+      <div className="custom-text h-[calc(100vh-80px)] grid place-items-center">
         <p>Please select job from <Link to='/Job' className="underline">here</Link></p>
       </div>
     )

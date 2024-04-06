@@ -4,12 +4,12 @@ import { SiLinkedin } from "react-icons/si";
 import { FaXTwitter } from "react-icons/fa6";
 import { Zoom, Fade, Bounce, Slide } from 'react-reveal';
 const TeamMember = ({ imageSrc, heading, pos, linkedIn, edu, desc }) => {
-    
+
     return (
-        <div className='p-4 mt-28 bg-gray-200 team-member rounded-lg transition duration-300 ease-in-out transform hover:scale-105'>
+        <div className='p-4 mt-28 custom-team-bg border-2 custom-border team-member rounded-lg transition duration-300 ease-in-out transform hover:scale-105'>
             <Fade>
                 <Bounce >
-                    <div className='bg-gray-200 ml-3 mt-[-6rem] p-[1rem] h-[10rem w-[10rem] rounded-full shadow-md hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-105'>
+                    <div className='custom-team-bg border-2 custom-border ml-3 mt-[-6rem] p-[1rem] h-[10rem w-[10rem] rounded-full shadow-md hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-105'>
                         <Zoom>
                             <img src={imageSrc} className='h-[8rem] w-[8rem] rounded-full' alt='' />
                         </Zoom>
@@ -17,10 +17,10 @@ const TeamMember = ({ imageSrc, heading, pos, linkedIn, edu, desc }) => {
                 </Bounce>
                 <div className='p-4'>
                     <Slide bottom>
-                        <h3 className='text-2xl mb-2'>{heading}</h3>
-                         <h5 className="h6 font-normal mb-3">{pos}</h5>
+                        <h3 className='custom-text text-2xl mb-2'>{heading}</h3>
+                        <h5 className="custom-text-secondary font-normal mb-3">{pos}</h5>
                     </Slide>
-                    <ul className="flex gap-2 mb-3">
+                    <ul className="flex gap-2 mb-3 pl-0">
                         <Zoom>
                             <li>
                                 <a href="/" target="_blank" rel="noreferrer" className='text-[#316FF6] hover:text-[#254e9a] transition-all duration-300 ease-in-out transform hover:scale-105'>
@@ -50,13 +50,13 @@ const TeamMember = ({ imageSrc, heading, pos, linkedIn, edu, desc }) => {
                         </Zoom>
                     </ul>
                     <Slide bottom>
-                        <p className='text-base'>{edu}</p>
-                        <p className='text-base'>{desc}</p>
+                        <p className='custom-text text-base'>{edu}</p>
+                        <p className='custom-text text-base'>{desc}</p>
                     </Slide>
                 </div>
-             </Fade>
+            </Fade>
         </div>
-     );
+    );
 };
 
 export default TeamMember;

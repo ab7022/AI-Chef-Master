@@ -137,9 +137,9 @@ function JobCard({ job }) {
       }}
       onMouseOver={() => setHovered(true)}
       onMouseOut={() => setHovered(false)}
-      className="bg-white border flex-grow  border-green-300 p-4 rounded-lg shadow-lg max-w-sm"
+      className="custom-bg border-2 custom-border flex-grow p-4 rounded-lg shadow-lg max-w-sm"
     >
-      <div className="flex flex-col sm:flex-row justify-between mb-3 text-gray-500 items-center">
+      <div className="custom-text-secondary flex flex-col sm:flex-row justify-between mb-3 text-gray-500 items-center">
         <div className="flex font-semibold items-center">
           <span className="mr-2 text-lg">
             <ImLocation />
@@ -155,12 +155,12 @@ function JobCard({ job }) {
       <h1 className="mb-3 text-2xl font-semibold text-green-800">
         {job.jobTitle}
       </h1>
-      <p className="text-gray-700 overflow-hidden line-clamp-3">
+      <p className="custom-text text-gray-700 overflow-hidden line-clamp-3">
         {job.jobDescription}
       </p>
       <div className="flex flex-col gap-2 md:gap-0 sm:flex-row justify-between items-center mt-3">
         <div>
-          <strong className="text-green-800">Job Type:</strong> {job.jobType}
+          <strong className="text-green-800">Job Type:</strong> <span className="custom-text">{job.jobType}</span>
         </div>
         {isJobOpen ? (
           <Link onClick={() => window.scrollTo(0, 0)} to={job.jobPath}>
@@ -198,7 +198,7 @@ function SearchJobCards() {
             <input
               type="search"
               placeholder="Search by Job Title"
-              className="border-0 p-3 pl-10 w-full max-w-md text-lg shadow-xl bg-white focus:outline-none focus:ring-2 focus:ring-green-300 focus:border-transparent"
+              className="custom-bg border-2 custom-border p-3 pl-10 w-full max-w-md text-lg shadow-xl focus:outline-none focus:ring-2 focus:ring-green-300 focus:border-transparent"
               value={searchJob}
               onChange={(e) => setSearchJob(e.target.value)}
             />

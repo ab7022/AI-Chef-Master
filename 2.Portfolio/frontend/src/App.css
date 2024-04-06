@@ -8,6 +8,9 @@
     --dot-color: lightslategray;
     --image__color: invert(0);
     --footer__bg: #0a0a0a;
+    --body__job__bg: rgb(241 245 249);
+    --body__team__bg: rgb(229 231 235);
+    --border-color: rgb(229 231 235);
 }
 
 [data-theme='dark'] {
@@ -16,6 +19,9 @@
     --dot-color: #1c1c1c;
     --image__color: invert(100%);
     --footer__bg: #ffffff;
+    --body__job__bg: var(--body__bg);
+    --body__team__bg: var(--body__bg);
+    --border-color: #1c1c1c;
 }
 
 body {
@@ -32,6 +38,14 @@ body {
     background-color: var(--body__bg);
 }
 
+.custom-job-bg {
+    background-color: var(--body__job__bg);
+}
+
+.custom-team-bg {
+    background-color: var(--body__team__bg);
+}
+
 .custom-text {
     color: var(--body__color);
 }
@@ -43,6 +57,10 @@ body {
 .custom-image {
     -webkit-filter: var(--image__color);
     filter: var(--image__color);
+}
+
+.custom-border {
+    border-color: var(--border-color);
 }
 
 .custom-footer {

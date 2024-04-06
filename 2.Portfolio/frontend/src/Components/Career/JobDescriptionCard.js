@@ -19,15 +19,15 @@ function JobDescriptionCard({ jobData }) {
   } = jobData;
 
   return (
-    <div className="bg-slate-100">
-      <div className="px-8 py-3 w-full sticky top-0 z-50 flex shadow-sm bg-slate-100 border-l-amber-50 justify-between flex-wrap">
+    <div className="custom-job-bg">
+      <div className="px-8 py-3 w-full sticky top-0 z-50 flex shadow-sm custom-job-bg border-l-amber-50 justify-between flex-wrap">
         <div className="mb-3">
-          <h1 className="text-xl font-bold md:text-2xl lg:text-4xl mb-3">
+          <h1 className="custom-text-secondary text-xl font-bold md:text-2xl lg:text-4xl mb-3">
             Job Title
           </h1>
-          <p className="text-lg md:text-xl lg:text-2xl mb-2">{title}</p>
-          <p>Location: {location}</p>
-          <p>End Date: {endDate}</p>
+          <p className="custom-text text-lg md:text-xl lg:text-2xl mb-2">{title}</p>
+          <p className="custom-text">Location: {location}</p>
+          <p className="custom-text">End Date: {endDate}</p>
         </div>
         <div className="flex flex-col gap-3 justify-around md:items-center">
           <div>
@@ -38,7 +38,7 @@ function JobDescriptionCard({ jobData }) {
             </Link>
           </div>
           <div className="flex items-center">
-            <BsShare size={30} className="mr-8" />
+            <BsShare size={30} className="custom-text-secondary mr-8" />
             <FaWhatsapp
               size={30}
               className="rounded-md text-green-500 mr-2 hover:text-green-700 transition ease-in-out"
@@ -56,18 +56,18 @@ function JobDescriptionCard({ jobData }) {
       </div>
 
       <div className="overflow-y-auto p-4 md:p-6 lg:p-8 mx-auto">
-        <div  className="container-lg py-8">
-          <div className="">
-            <h1 className="text-3xl font-semibold mb-4">Job Description</h1>
+        <div className="container-lg py-8">
+          <div>
+            <h1 className="custom-text-secondary text-3xl font-semibold mb-4">Job Description</h1>
 
             <div className="mt-3">
-              <h2 className="text-2xl font-semibold mb-2 break-words">
+              <h2 className="custom-text text-2xl font-semibold mb-2 break-words">
                 Position Overview
               </h2>
-              <p className="mb-3">{description}</p>
+              <p className="custom-text mb-3">{description}</p>
             </div>
 
-            <div className="mt-3">
+            <div className="custom-text mt-3">
               <h3 className="text-2xl font-semibold mb-2">Requirements:</h3>
               <ul className="list-disc pl-6 mb-6">
                 {requirements.map((requirement, index) => (

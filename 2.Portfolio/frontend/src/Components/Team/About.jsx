@@ -14,7 +14,7 @@ const About = () => {
           </h1>
         </div>
         <div className="text-center text-4xl justify-center">
-          <h1 className="text-center font-bold font-sans mx-10 md:mx-40 px-4 md:px-12 py-5 pb-12 tracking-widest">
+          <h1 className="custom-text text-center font-bold font-sans mx-10 md:mx-40 px-4 md:px-12 py-5 pb-12 tracking-widest">
             WELCOME TO AI CHEF MASTER, WHERE CULINARY CREATIVITY MEETS
             CUTTING-EDGE TECHNOLOGY.
           </h1>
@@ -28,7 +28,8 @@ const About = () => {
           />
         </div>
         <div className="flex flex-col md:flex-row justify-around">
-          <p className="tracking-widest font-normal w-full md:w-96 text-3xl .text-left mb-8 md:mb-0">
+          <p className="relative custom-text tracking-widest font-normal w-full md:w-96 text-3xl .text-left mb-8 md:mb-0">
+            <div className="w-[300px] h-[300px] z-1 rounded-full absolute top-[-25px] blur-3xl bg-[#8bfb451c]" />
             "At AI Chef Master, We're Revolutionizing The Culinary Landscape By
             Harnessing The Power Of Artificial Intelligence To Inspire And
             Innovate In The Kitchen."
@@ -36,7 +37,8 @@ const About = () => {
           <img className="h-72 w-full md:w-96 border rounded-3xl" src={img2} alt="about" />
         </div>
         <div className="flex flex-col md:flex-row-reverse justify-around py-24">
-          <p className="tracking-widest font-normal w-full md:w-96 text-3xl .text-right mb-8 md:mb-0">
+          <p className="relative custom-text tracking-widest font-normal w-full md:w-96 text-3xl .text-right mb-8 md:mb-0">
+            <div className="w-[300px] h-[300px] z-1 rounded-full absolute top-[-25px] blur-3xl bg-[#8bfb451c]" />
             "Our Team Of Experts Combines A Passion For Gastronomy With
             Expertise In machine Learning And Data Analysis To Create A
             One-Of-A-Kind Cooking Experience."
@@ -44,7 +46,8 @@ const About = () => {
           <img className="h-72 w-full md:w-96 border rounded-3xl" src={img3} alt="about" />
         </div>
         <div className="flex flex-col md:flex-row justify-around py-24">
-          <p className="tracking-widest font-normal w-full md:w-96 text-3xl .text-left mb-8 md:mb-0">
+          <p className="relative custom-text tracking-widest font-normal w-full md:w-96 text-3xl .text-left mb-8 md:mb-0">
+            <div className="w-[300px] h-[300px] z-1 rounded-full absolute top-[-25px] blur-3xl bg-[#8bfb451c]" />
             "Whether You're A Seasoned Chef Or A Novice in The kitchen, Our
             AI-Driven Platform Is Designed To Elevate Your Cooking Skills,
             Unleash Your Creativity, And Delight Your Taste Buds."
@@ -52,11 +55,11 @@ const About = () => {
           <img className="h-72 w-full md:w-96 border rounded-3xl" src={img4} alt="about" />
         </div>
         <div className="text-center text-3xl justify-center py-24">
-          <h1 className="text-center font-medium font-sans .text-center mx-10 md:mx-24 py-5 pb-12 tracking-widest">
+          <h1 className="custom-text text-center font-medium font-sans .text-center mx-10 md:mx-24 py-5 pb-12 tracking-widest">
             Join Us On A Journey Where Tradition Meets Innovations, And Discover
             The Future Of Cooking With AI Chef Master.
           </h1>
-          <button className="bg-white p-5 w-1/2 md:w-1/5 border rounded-2xl font-bold transform transition duration-500 hover:scale-110 shadow-2xl shadow-black">
+          <button className="bg-white p-5 w-1/5 border rounded-2xl font-bold transform transition duration-500 hover:scale-110 shadow-2xl shadow-black">
             JOIN US
           </button>
         </div>
