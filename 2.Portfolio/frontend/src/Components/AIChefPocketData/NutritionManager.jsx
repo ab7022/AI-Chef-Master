@@ -13,28 +13,28 @@ const NutritionManager = () => {
       <div>
         <img src={ChefImg} className="w-full h-auto md:h-screen" alt="" />
       </div>
-      <div className="px-6 sm:text-lg text-lg   md:text-xl md:px-20 pt-12 text-[1.3rem] text-justify flex justify-center">
+      <div className="custom-text px-6 sm:text-lg text-lg   md:text-xl md:px-20 pt-12 text-[1.3rem] text-justify flex justify-center">
         Welcome to Nutrition Manager, a reliable solution for achieving your health and fitness goals through personalized nutrition plans. We understand that every individual is unique, and so are their dietary and fitness needs. Our platform empowers you to take control of your well-being by providing tailored guidance based on your personal details and preferences.
       </div>
       <div className="flex justify-center">
-        <p className="font-bold text-[2rem] mt-6 font-serif">
+        <p className="custom-text font-bold text-[2rem] mt-6 font-serif">
           Key Features
         </p>
       </div>
       {KeyFeaturesData.map((obj, index) => (
         <div key={index} className={`flex flex-col ${index % 2 === 0 ? 'md:flex-row-reverse' : 'md:flex-row'} items-center justify-center w-full mx-auto py-6 px-4 sm:px-6 lg:px-8`}>
           <div className="flex flex-col justify-center max-w-md md:max-w-none px-6 md:px-20">
-            <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6">{obj.heading}</h3>
-            <p className="text-lg sm:text-lg md:text-xl">{obj.description}</p>
+            <h3 className="custom-text text-xl md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6">{obj.heading}</h3>
+            <p className="custom-text-secondary text-lg sm:text-lg md:text-xl">{obj.description}</p>
           </div>
         </div>
       ))}
       <div className="flex justify-center items-center">
-        <p className="font-bold text-[2rem] mt-6 font-serif">
+        <p className="custom-text font-bold text-[2rem] mt-6 font-serif">
           How It Works:
         </p>
       </div>
-      <div className="flex flex-col text-justify text-lg sm:text-lg md:text-xl gap-6 text-[1.2rem] py-3 px-6 md:px-20">
+      <div className="custom-text flex flex-col text-justify text-lg sm:text-lg md:text-xl gap-6 text-[1.2rem] py-3 px-6 md:px-20">
         <p>
           Imagine you're a busy professional looking to maintain a healthy lifestyle. After entering your details into Nutrition Manager, the system analyzes your BMI, understands your daily routine, and takes note of your food preferences. Let's say you're aiming to lose weight.
         </p>

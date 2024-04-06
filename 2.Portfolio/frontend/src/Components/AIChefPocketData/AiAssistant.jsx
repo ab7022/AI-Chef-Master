@@ -18,12 +18,13 @@ const AnimatedCard = ({ imageUrl, imageAlt, heading, description, index }) => {
       </Fade>
       <div className="flex flex-col justify-center gap-6 md:gap-12 md:pt-0 items-center max-w-md md:max-w-[400px]">
         <Slide left={index % 2 === 0} right={index % 2 !== 0}>
-          <h3 className="text-xl sm:text-lg md:text-2xl lg:text-3xl font-bold text-center md:text-left">
+          <h3 className="relative custom-text text-xl sm:text-lg md:text-2xl lg:text-3xl font-bold text-center md:text-left">
             {heading}
+            <div className="w-[300px] h-[300px] z-1 rounded-full absolute left-[-40px] blur-3xl bg-[#8bfb451c]" />
           </h3>
         </Slide>
         <Slide left={index % 2 === 0} right={index % 2 !== 0}>
-          <p className="text-lg sm:text-lg md:text-xl text-center md:text-left">
+          <p className="custom-text-secondary text-lg sm:text-lg md:text-xl text-center md:text-left">
             {description}
           </p>
         </Slide>
