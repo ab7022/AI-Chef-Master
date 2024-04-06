@@ -23,7 +23,7 @@ function Happiness() {
           </p>
         </Fade> */}
         <Fade left>
-          <p className="custom-text text-xl mb-4 text-justify">
+          <p className="custom-text-secondary text-xl mb-4 text-justify">
             To ensure customer happiness, we prioritize open communication,
             actively listen to their needs, and swiftly address any concerns.
             Our commitment extends to delivering high-quality products/services
@@ -52,6 +52,7 @@ function Happiness() {
               src="/assets/jump.png"
               alt=""
             /> */}
+            <div style={{width: '65%',height: '65%', margin: 'auto'}}>
             <Lottie
               options={{
                 loop: true,
@@ -61,11 +62,8 @@ function Happiness() {
                   preserveAspectRatio: "xMidYMid slice"
                 },
               }}
-              style={{
-                width: '75%',
-                height: '75%'
-              }}
             />
+            </div>
           </div>
         </Fade>
       </div>

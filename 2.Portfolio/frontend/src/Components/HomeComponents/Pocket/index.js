@@ -15,17 +15,18 @@ const AnimatedCard = ({ imageUrl, imageAlt, header, description }) => {
     >
       <Fade>
         <Zoom>
-          <div className="flex justify-center">
+          <div className="relative flex justify-center">
             <img
               src={imageUrl}
               alt={imageAlt}
               className="custom-image object-scale-down h-48 w-full md:w-96 animate-pulse"
             />
+            <div className="w-[200px] h-[200px] z-1 rounded-full absolute blur-3xl bg-[#8bfb451c]" />
           </div>
           <h1 className="custom-text mb-2 text-center text-xl md:text-3xl">
             {header}
           </h1>
-          <div className="custom-text mb-2 text-md md:text-lg text-justify">
+          <div className="custom-text-secondary mb-2 text-md md:text-lg text-justify">
             {description}
           </div>
         </Zoom>
@@ -71,7 +72,7 @@ function Pocket() {
         Create and customize your favorite AI CHEF
       </p>
 
-      <div className="grid grid-cols-1 items-center">
+      <div className="grid grid-cols-1 gap-[25px] items-center">
         {CardList.map((card) => (
           <AnimatedCard key={uuidv4()} {...card} />
         ))}

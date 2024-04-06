@@ -69,7 +69,7 @@
 }
 
 .list-items-styles li:hover {
-  color: rgb(249, 249, 249);
+  /* color: rgb(249, 249, 249); */
   text-shadow: 2px 2px 4px rgba(149, 143, 143, 0);
 }
 

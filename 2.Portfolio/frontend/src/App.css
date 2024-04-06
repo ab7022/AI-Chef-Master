@@ -32,6 +32,10 @@ body {
     color: var(--body__color);
 }
 
+.custom-text-secondary {
+    color: gray;
+}
+
 .custom-image {
     -webkit-filter: var(--image__color);
     filter: var(--image__color);

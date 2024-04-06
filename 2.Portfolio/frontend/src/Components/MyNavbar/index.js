@@ -114,7 +114,16 @@ export default function MyNavbar({ theme, setTheme }) {
                       )}
                     </div>
                   </div>
-                  <div className="sm:hidden">
+                  <div className="sm:hidden flex items-center">
+                    {theme === 'light' ? (
+                      <button title="Dark Mode" onClick={handleThemeChange} className={`nav-link flex items-center justify-center rounded-md px-2 py-2 text-sm font-medium`}>
+                        <MdDarkMode size={20} />
+                      </button>
+                    ) : (
+                      <button title="Light Mode" onClick={handleThemeChange} className={`nav-link flex items-center justify-center rounded-md px-2 py-2 text-sm font-medium`}>
+                        <MdLightMode size={20} />
+                      </button>
+                    )}
                     <Disclosure.Button className="text-black font-extrabold p-2" onClick={() => setIsOpen(!open)}>
                       {isOpen ? (
                         <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -174,16 +183,6 @@ export default function MyNavbar({ theme, setTheme }) {
                   >
                     Company
                   </Link>
-
-                  {theme === 'light' ? (
-                    <button onClick={handleThemeChange} className={`w-full nav-link rounded-md px-3 py-2 text-sm font-medium text-start`}>
-                      Dark Mode
-                    </button>
-                  ) : (
-                    <button onClick={handleThemeChange} className={`w-full nav-link rounded-md px-3 py-2 text-sm font-medium text-start`}>
-                      Light Mode
-                    </button>
-                  )}
 
                   {user ? (
                     <button
