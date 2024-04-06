@@ -25,7 +25,7 @@ const Page2 = () => {
   return (
     <>
       {/* <div className='min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-100 to-gray-200'> */}
-      <div className='md:py-32 py-14 flex flex-col items-center justify-center'>
+      <div className='custom-text md:py-32 py-14 flex flex-col items-center justify-center'>
         <h1 className='font-medium text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center font-sans mb-4'>Life at AI Chef Master</h1>
 
         <div className="text-2xl sm:text-4xl md:text-5xl mb-3">
@@ -68,7 +68,7 @@ const Page2 = () => {
         </div>
       </div>
 
-      <div className='h-full py-2'>
+      <div className='custom-text h-full py-2'>
         <Fade>
           <h1 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-center py-5'>Browse categories.</h1>
         </Fade>

@@ -17,7 +17,7 @@ const Page1 = () => {
 
       {/* <div className='bg-gradient-to-b from-[#D3D3D3] to-[#FFFFFF] py-16 sm:py-24 md:py-32 lg:py-40 xl:py-56 w-full'> */}
       <div className='py-16 flex flex-col justify-center items-center sm:py-24 md:py-32 lg:py-40 w-full h-[90vh]'>
-        <div className='text-center'>
+        <div className='custom-text text-center'>
           <p className='text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl my-2 font-semibold'>Bring your talents to   <span className=" text-green-700 font-extrabold"> AI CHEF MASTER</span>
           </p>
           <p className='text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl my-2 font-semibold'>and help us create the future of</p>

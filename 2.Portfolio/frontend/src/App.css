@@ -28,6 +28,10 @@ body {
         linear-gradient(to top, var(--dot-color), var(--dot-color));
 }
 
+.custom-bg {
+    background-color: var(--body__bg);
+}
+
 .custom-text {
     color: var(--body__color);
 }

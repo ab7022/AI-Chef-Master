@@ -10,7 +10,7 @@ function CareerPage() {
         </Fade>
       </div>
       <Fade bottom>
-        <h1 className='w-full flex justify-center my-2 md:text-3xl text-xl'>Interviewing at AI Chef Master</h1>
+        <h1 className='custom-text w-full flex justify-center my-2 md:text-3xl text-xl'>Interviewing at AI Chef Master</h1>
       </Fade>
       <Fade bottom>
         <h1 className='w-full flex justify-center'>
