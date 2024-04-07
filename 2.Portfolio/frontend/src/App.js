@@ -11,8 +11,9 @@ import CreateAccount from "./Components/LoginSineupPage/CreateAccount";
 import Product from "./Components/Product";
 import CareerHomePage from "./Components/Career/CareerHomePage";
 import Company from "./Components/Company";
-import RD from './Components/CardData/RD'
-import Technology from "./Components/Career/Technology";
+import JobRoles from "./Components/Career/searchJobCards";
+import AboutUs from './Components/Team/About';
+import Team from './Components/Team/Team';
 import Application from "./Components/Career/JobApplicationForm/Application";
 import FrontendDeveloperEngineer from "./Components/Career/ListOfCareerJobs/FrontendDeveloperEngineer";
 import BackendDeveloperEngineer from "./Components/Career/ListOfCareerJobs/BackendDeveloperEngineer";
@@ -25,15 +26,6 @@ import FullStackDeveloperEngineer from "./Components/Career/ListOfCareerJobs/Ful
 import CustomerSupportAssociate from "./Components/Career/ListOfCareerJobs/CustomerSupportAssociate";
 import ResearchDevelopmentEngineer from "./Components/Career/ListOfCareerJobs/ResearchDevelopmentEngineer";
 import SearchJobCards from "./Components/Career/searchJobCards";
-import Hiring from "./Components/Career/CareerMain/HiringProcess";
-import JobRoles from "./Components/Career/searchJobCards";
-import Kitchen from "./Components/AIChefPocketData/Kitchen";
-import LongTerm from './Components/CardData/LongTerm';
-import Customer from './Components/CardData/Customer';
-import AboutUs from './Components/Team/About';
-import Team from './Components/Team/Team';
-import AiAssistant from "./Components/AIChefPocketData/AiAssistant";
-import NutritionManager from "./Components/AIChefPocketData/NutritionManager";
 import NotFound from "./Components/NotFound";
 
 const App = () => {
@@ -49,13 +41,14 @@ const App = () => {
       <MyNavbar theme={theme} setTheme={setTheme} />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path='/signup' element={!user ? <CreateAccount /> : <Navigate to='/' />} />
         <Route path='/login' element={!user ? <LoginIn /> : <Navigate to='/' />} />
+        <Route path='/signup' element={!user ? <CreateAccount /> : <Navigate to='/' />} />
         <Route path="/product" element={<Product />} />
         <Route path="/career" element={<CareerHomePage />} />
         <Route path="/company" element={<Company />} />
-        <Route path="/R&D" element={<RD />} />
-        <Route path="/technology" element={<Technology />} />
+        <Route path="/Job" element={<JobRoles />} />
+        <Route path="/AboutUs" element={<AboutUs />} />
+        <Route path="/Team" element={<Team />} />
         <Route path="/application" element={<Application />} />
         <Route
           path="/Frontend-Developer-Engineer"
@@ -98,15 +91,6 @@ const App = () => {
           element={<ResearchDevelopmentEngineer />}
         />
         <Route path="/searchJobCards" element={<SearchJobCards />} />
-        <Route path="/Hiring" element={<Hiring />} />
-        <Route path="/Job" element={<JobRoles />} />
-        <Route path="/aikitchen" element={<Kitchen />} />
-        <Route path="/LongTerm" element={<LongTerm />} />
-        <Route path="/Customer" element={<Customer />} />
-        <Route path="/AboutUs" element={<AboutUs />} />
-        <Route path="/Team" element={<Team />} />
-        <Route path="/AiAssistant" element={<AiAssistant />} />
-        <Route path="/ainutritionmanager" element={<NutritionManager />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

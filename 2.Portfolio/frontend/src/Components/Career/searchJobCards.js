@@ -155,7 +155,7 @@ function JobCard({ job }) {
       <h1 className="mb-3 text-2xl font-semibold text-green-800">
         {job.jobTitle}
       </h1>
-      <p className="custom-text text-gray-700 overflow-hidden line-clamp-3">
+      <p className="custom-text overflow-hidden line-clamp-3">
         {job.jobDescription}
       </p>
       <div className="flex flex-col gap-2 md:gap-0 sm:flex-row justify-between items-center mt-3">

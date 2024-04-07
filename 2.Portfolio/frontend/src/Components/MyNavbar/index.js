@@ -22,7 +22,7 @@ export default function MyNavbar({ theme, setTheme }) {
   }
 
   const handleThemeChange = () => {
-    if (theme === 'light') {
+    if (localStorage.getItem('theme') === 'light' || theme === 'light') {
       setTheme('dark');
       localStorage.setItem('theme', 'dark');
     }
@@ -87,12 +87,12 @@ export default function MyNavbar({ theme, setTheme }) {
                         Company
                       </Link>
 
-                      {theme === 'light' ? (
-                        <button title="Dark Mode" onClick={handleThemeChange} className={`nav-link flex items-center justify-center rounded-md px-2 py-2 text-sm font-medium`}>
+                      {localStorage.getItem('theme') === 'light' ? (
+                        <button title="Switch to Dark Mode" onClick={handleThemeChange} className={`nav-link flex items-center justify-center rounded-md px-2 py-2 text-sm font-medium`}>
                           <MdDarkMode size={20} />
                         </button>
                       ) : (
-                        <button title="Light Mode" onClick={handleThemeChange} className={`nav-link flex items-center justify-center rounded-md px-2 py-2 text-sm font-medium`}>
+                        <button title="Switch to Light Mode" onClick={handleThemeChange} className={`nav-link flex items-center justify-center rounded-md px-2 py-2 text-sm font-medium`}>
                           <MdLightMode size={20} />
                         </button>
                       )}
@@ -117,12 +117,12 @@ export default function MyNavbar({ theme, setTheme }) {
                     </div>
                   </div>
                   <div className="sm:hidden flex items-center">
-                    {theme === 'light' ? (
-                      <button title="Dark Mode" onClick={handleThemeChange} className={`nav-link flex items-center justify-center rounded-md px-2 py-2 text-sm font-medium`}>
+                    {localStorage.getItem('theme') === 'light' ? (
+                      <button title="Switch to Dark Mode" onClick={handleThemeChange} className={`nav-link flex items-center justify-center rounded-md px-2 py-2 text-sm font-medium`}>
                         <MdDarkMode size={20} />
                       </button>
                     ) : (
-                      <button title="Light Mode" onClick={handleThemeChange} className={`nav-link flex items-center justify-center rounded-md px-2 py-2 text-sm font-medium`}>
+                      <button title="Switch to Light Mode" onClick={handleThemeChange} className={`nav-link flex items-center justify-center rounded-md px-2 py-2 text-sm font-medium`}>
                         <MdLightMode size={20} />
                       </button>
                     )}
