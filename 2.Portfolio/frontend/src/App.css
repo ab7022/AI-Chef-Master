@@ -11,6 +11,7 @@
     --body__job__bg: rgb(241 245 249);
     --body__team__bg: rgb(229 231 235);
     --border-color: rgb(229 231 235);
+    --input__bg: #d1d5db;
 }
 
 [data-theme='dark'] {
@@ -22,6 +23,7 @@
     --body__job__bg: var(--body__bg);
     --body__team__bg: var(--body__bg);
     --border-color: #1c1c1c;
+    --input__bg: #1c1c1c;
 }
 
 body {
@@ -61,6 +63,10 @@ body {
 
 .custom-border {
     border-color: var(--border-color);
+}
+
+.custom-input {
+    background-color: var(--input__bg);
 }
 
 .custom-footer {

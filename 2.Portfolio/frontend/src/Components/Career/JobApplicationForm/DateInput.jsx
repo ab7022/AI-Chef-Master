@@ -24,7 +24,7 @@ const DateInput = ({ value, setValue, keyName }) => {
     return (
         <div className='flex gap-2'>
             <input
-                className='input-num p-2 bg-gray-300 focus:outline-none w-[50px] text-center'
+                className='input-num p-2 custom-input focus:outline-none w-[50px] text-center'
                 type="number"
                 min="1"
                 max="31"
@@ -32,7 +32,7 @@ const DateInput = ({ value, setValue, keyName }) => {
                 placeholder="Date"
             />
             <select
-                className=' p-2 bg-gray-300 focus:outline-none'
+                className=' p-2 custom-input focus:outline-none'
                 onChange={handleMonthChange}
             >
                 <option value="">Month</option>
@@ -41,7 +41,7 @@ const DateInput = ({ value, setValue, keyName }) => {
                 ))}
             </select>
             <input
-                className='input-num p-2 bg-gray-300 focus:outline-none w-[75px] text-center'
+                className='input-num p-2 custom-input focus:outline-none w-[75px] text-center'
                 type="number"
                 min="1990"
                 max={new Date().getFullYear()}

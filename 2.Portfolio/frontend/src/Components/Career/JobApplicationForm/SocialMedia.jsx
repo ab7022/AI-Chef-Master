@@ -31,7 +31,7 @@ function SocialMedia({ linkedinInput, setLinkedinInput, githubInput, setGithubIn
         <input
           type="text"
           placeholder='LinkedIn Profile'
-          className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+          className="p-2 custom-input focus:outline-none w-full md:w-2/5"
           value={linkedinInput}
           onChange={handleLinkedinInputChange}
         />
@@ -42,7 +42,7 @@ function SocialMedia({ linkedinInput, setLinkedinInput, githubInput, setGithubIn
         <input
           type="text"
           placeholder='GitHub Profile'
-          className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+          className="p-2 custom-input focus:outline-none w-full md:w-2/5"
           value={githubInput}
           onChange={handleGithubInputChange}
         />

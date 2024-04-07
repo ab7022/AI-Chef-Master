@@ -20,7 +20,7 @@ const ApplicationQuestions = ({ allQuestions, setAllQuestions }) => {
           </label>
           <select
             name="legalAge"
-            className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+            className="p-2 custom-input focus:outline-none w-full md:w-2/5"
             value={allQuestions.legalAge}
             onChange={handleInputChange}
           >
@@ -66,7 +66,7 @@ const ApplicationQuestions = ({ allQuestions, setAllQuestions }) => {
           </label>
           <select
             name="visaSponsorship"
-            className="bg-gray-300 my-2 px-7 py-2 w-full md:w-2/5"
+            className="custom-input my-2 px-7 py-2 w-full md:w-2/5"
             value={allQuestions.visaSponsorship}
             onChange={handleInputChange}
           >

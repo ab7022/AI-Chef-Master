@@ -20,7 +20,7 @@ const VoluntaryDisclosures = ({ voluntaryDisclosures, setVoluntaryDisclosures })
           </label>
           <select
             name="veteranStatus"
-            className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+            className="p-2 custom-input focus:outline-none w-full md:w-2/5"
             value={voluntaryDisclosures.veteranStatus}
             onChange={handleInputChange}
           >
@@ -40,7 +40,7 @@ const VoluntaryDisclosures = ({ voluntaryDisclosures, setVoluntaryDisclosures })
           </label>
           <select
             name="gender"
-            className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+            className="p-2 custom-input focus:outline-none w-full md:w-2/5"
             value={voluntaryDisclosures.gender}
             onChange={handleInputChange}
           >
@@ -58,7 +58,7 @@ const VoluntaryDisclosures = ({ voluntaryDisclosures, setVoluntaryDisclosures })
           </label>
           <select
             name="ethnicity"
-            className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+            className="p-2 custom-input focus:outline-none w-full md:w-2/5"
             value={voluntaryDisclosures.ethnicity}
             onChange={handleInputChange}
           >

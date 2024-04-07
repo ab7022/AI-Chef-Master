@@ -22,7 +22,7 @@ const Education = ({ education, setEducation }) => {
 
     return (
         <>
-            <h2 className='custom-textsecondary font-bold text-3xl my-6' style={{ marginRight: '1000px', fontSize: '20px' }}>Education</h2>
+            <h2 className='custom-text-secondary font-bold text-3xl my-6' style={{ marginRight: '1000px', fontSize: '20px' }}>Education</h2>
             {education.map((edu, index) => (
                 <div key={index}>
                     <form className="custom-text mx-4 sm:mx-6 lg:mx-8 my-5 flex flex-col justify-start gap-y-7">
@@ -34,7 +34,7 @@ const Education = ({ education, setEducation }) => {
                             <input
                                 type="text"
                                 placeholder='School Name'
-                                className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+                                className="p-2 custom-input focus:outline-none w-full md:w-2/5"
                                 value={edu.school}
                                 required
                                 onChange={(e) => {
@@ -50,7 +50,7 @@ const Education = ({ education, setEducation }) => {
                                 Degree:
                             </label>
                             <select
-                                className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+                                className="p-2 custom-input focus:outline-none w-full md:w-2/5"
                                 value={edu.degree}
                                 onChange={e => {
                                     const newEducation = [...education];
@@ -73,7 +73,7 @@ const Education = ({ education, setEducation }) => {
                                 Field:
                             </label>
                             <select
-                                className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+                                className="p-2 custom-input focus:outline-none w-full md:w-2/5"
                                 value={edu.field}
                                 onChange={e => {
                                     const newEducation = [...education];

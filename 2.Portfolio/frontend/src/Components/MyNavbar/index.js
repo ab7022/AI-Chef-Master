@@ -24,9 +24,11 @@ export default function MyNavbar({ theme, setTheme }) {
   const handleThemeChange = () => {
     if (theme === 'light') {
       setTheme('dark');
+      localStorage.setItem('theme', 'dark');
     }
     else {
       setTheme('light');
+      localStorage.setItem('theme', 'light');
     }
   }
 

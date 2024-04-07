@@ -14,7 +14,6 @@ import Company from "./Components/Company";
 import RD from './Components/CardData/RD'
 import Technology from "./Components/Career/Technology";
 import Application from "./Components/Career/JobApplicationForm/Application";
-import SearchJobCards from "./Components/Career/searchJobCards";
 import FrontendDeveloperEngineer from "./Components/Career/ListOfCareerJobs/FrontendDeveloperEngineer";
 import BackendDeveloperEngineer from "./Components/Career/ListOfCareerJobs/BackendDeveloperEngineer";
 import AIEngineer from "./Components/Career/ListOfCareerJobs/AIEngineer";
@@ -25,6 +24,7 @@ import IOSApplicationDeveloperEngineer from "./Components/Career/ListOfCareerJob
 import FullStackDeveloperEngineer from "./Components/Career/ListOfCareerJobs/FullStackDeveloperEngineer";
 import CustomerSupportAssociate from "./Components/Career/ListOfCareerJobs/CustomerSupportAssociate";
 import ResearchDevelopmentEngineer from "./Components/Career/ListOfCareerJobs/ResearchDevelopmentEngineer";
+import SearchJobCards from "./Components/Career/searchJobCards";
 import Hiring from "./Components/Career/CareerMain/HiringProcess";
 import JobRoles from "./Components/Career/searchJobCards";
 import Kitchen from "./Components/AIChefPocketData/Kitchen";
@@ -57,7 +57,6 @@ const App = () => {
         <Route path="/R&D" element={<RD />} />
         <Route path="/technology" element={<Technology />} />
         <Route path="/application" element={<Application />} />
-        <Route path="/searchJobCards" element={<SearchJobCards />} />
         <Route
           path="/Frontend-Developer-Engineer"
           element={<FrontendDeveloperEngineer />}
@@ -98,6 +97,7 @@ const App = () => {
           path="/Research-And-Development-Engineer"
           element={<ResearchDevelopmentEngineer />}
         />
+        <Route path="/searchJobCards" element={<SearchJobCards />} />
         <Route path="/Hiring" element={<Hiring />} />
         <Route path="/Job" element={<JobRoles />} />
         <Route path="/aikitchen" element={<Kitchen />} />

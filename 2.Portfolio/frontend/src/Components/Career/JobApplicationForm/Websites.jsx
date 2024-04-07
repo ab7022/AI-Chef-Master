@@ -22,7 +22,7 @@ function Websites({ links, setLinks }) {
       <div className="mx-4 sm:mx-6 lg:mx-8">
         <div className="flex items-center flex-wrap gap-2">
           <input
-            className="p-2 bg-gray-300 focus:outline-none w-full md:w-3/5"
+            className="p-2 custom-input focus:outline-none w-full md:w-3/5"
             type="text"
             value={linkInput}
             onChange={handleInputChange}

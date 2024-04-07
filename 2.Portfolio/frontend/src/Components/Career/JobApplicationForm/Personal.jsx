@@ -58,7 +58,7 @@ const Personal = ({
                                 required
                                 type="text"
                                 placeholder="First Name"
-                                className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+                                className="p-2 custom-input focus:outline-none w-full md:w-2/5"
                                 value={fname}
                                 onChange={(e) => setfName(e.target.value)}
                             />
@@ -70,7 +70,7 @@ const Personal = ({
                                 required
                                 type="text"
                                 placeholder="Last Name"
-                                className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+                                className="p-2 custom-input focus:outline-none w-full md:w-2/5"
                                 value={lname}
                                 onChange={(e) => setlName(e.target.value)}
                             />
@@ -83,7 +83,7 @@ const Personal = ({
                                 required
                                 type="text"
                                 placeholder="Address Line1"
-                                className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+                                className="p-2 custom-input focus:outline-none w-full md:w-2/5"
                                 value={address1}
                                 onChange={(e) => setAddress1(e.target.value)}
                             />
@@ -96,7 +96,7 @@ const Personal = ({
                                 required
                                 type="text"
                                 placeholder="Address Line2"
-                                className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+                                className="p-2 custom-input focus:outline-none w-full md:w-2/5"
                                 value={address2}
                                 onChange={(e) => setAddress2(e.target.value)}
                             />
@@ -109,7 +109,7 @@ const Personal = ({
                                 required
                                 type="number"
                                 placeholder="Pincode"
-                                className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+                                className="p-2 custom-input focus:outline-none w-full md:w-2/5"
                                 value={pincode}
                                 onChange={handlePincodeChange}
                             />
@@ -122,7 +122,7 @@ const Personal = ({
                                 required
                                 type="text"
                                 placeholder="City"
-                                className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+                                className="p-2 custom-input focus:outline-none w-full md:w-2/5"
                                 value={city}
                                 onChange={(e) => setCity(e.target.value)}
                             />
@@ -132,7 +132,7 @@ const Personal = ({
                             <label className="w-full md:w-1/4 mb-2 md:mb-0">
                                 State<span style={{ color: "red", fontSize: "1.5rem" }}>*</span>:</label>
                             <select
-                                className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+                                className="p-2 custom-input focus:outline-none w-full md:w-2/5"
                                 value={state}
                                 onChange={e => setState(e.target.value)}
                             >
@@ -174,7 +174,7 @@ const Personal = ({
                             <label className="w-full md:w-1/4 mb-2 md:mb-0">
                                 Country<span style={{ color: "red", fontSize: "1.5rem" }}>*</span>:</label>
                             <select
-                                className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+                                className="p-2 custom-input focus:outline-none w-full md:w-2/5"
                                 value={country}
                                 onChange={e => setCountry(e.target.value)}
                             >
@@ -197,7 +197,7 @@ const Personal = ({
                                 required
                                 type="email"
                                 placeholder="Email"
-                                className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+                                className="p-2 custom-input focus:outline-none w-full md:w-2/5"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
@@ -207,7 +207,7 @@ const Personal = ({
                             <label className="w-full md:w-1/4 mb-2 md:mb-0">
                                 Phone Device Type:</label>
                             <select
-                                className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+                                className="p-2 custom-input focus:outline-none w-full md:w-2/5"
                                 value={phoneDevice}
                                 onChange={e => setPhoneDevice(e.target.value)}
                             >
@@ -224,7 +224,7 @@ const Personal = ({
                                 Country Phone Code
                                 <span style={{ color: "red", fontSize: "1.5rem" }}>*</span>:</label>
                             <select
-                                className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+                                className="p-2 custom-input focus:outline-none w-full md:w-2/5"
                                 value={phoneCode}
                                 onChange={e => setPhoneCode(e.target.value)}
                             >
@@ -245,7 +245,7 @@ const Personal = ({
                                 required
                                 type="text"
                                 placeholder="Phone Number"
-                                className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+                                className="p-2 custom-input focus:outline-none w-full md:w-2/5"
                                 value={phoneNumber}
                                 onChange={(e) => setPhoneNumber(e.target.value)}
                             />
@@ -255,7 +255,7 @@ const Personal = ({
                             <label className="w-full md:w-1/4 mb-2 md:mb-0">
                                 How Did You Hear About Us?</label>
                             <select
-                                className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+                                className="p-2 custom-input focus:outline-none w-full md:w-2/5"
                                 value={hear}
                                 onChange={e => setHear(e.target.value)}
                             >

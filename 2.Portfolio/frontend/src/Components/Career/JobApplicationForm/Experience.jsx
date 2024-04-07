@@ -48,7 +48,7 @@ const Experience = ({ experiences, setExperiences }) => {
                 <input
                   placeholder='Job Title'
                   type="text"
-                  className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+                  className="p-2 custom-input focus:outline-none w-full md:w-2/5"
                   value={experience.jobTitle}
                   required
                   onChange={(e) => {
@@ -66,7 +66,7 @@ const Experience = ({ experiences, setExperiences }) => {
                 <input
                   type="text"
                   placeholder='Company Name'
-                  className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+                  className="p-2 custom-input focus:outline-none w-full md:w-2/5"
                   value={experience.company}
                   required
                   onChange={(e) => {
@@ -84,7 +84,7 @@ const Experience = ({ experiences, setExperiences }) => {
                 <input
                   type="text"
                   placeholder='Location'
-                  className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+                  className="p-2 custom-input focus:outline-none w-full md:w-2/5"
                   value={experience.location}
                   required
                   onChange={(e) => {
@@ -151,7 +151,7 @@ const Experience = ({ experiences, setExperiences }) => {
                   Role description:</label>
                 <input type="text"
                   placeholder='Description'
-                  className="p-2 bg-gray-300 focus:outline-none w-full md:w-2/5"
+                  className="p-2 custom-input focus:outline-none w-full md:w-2/5"
                   value={experience.role}
                   required
                   onChange={(e) => {
