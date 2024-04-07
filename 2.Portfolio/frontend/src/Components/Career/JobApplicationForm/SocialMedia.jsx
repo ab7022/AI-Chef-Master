@@ -25,9 +25,9 @@ function SocialMedia({ linkedinInput, setLinkedinInput, githubInput, setGithubIn
 
   return (
     <>
-      <h1 className='font-bold text-3xl my-6' style={{ fontSize: '20px' }}>Social Media URL</h1>
+      <h1 className='custom-text-secondary font-bold text-3xl my-6' style={{ fontSize: '20px' }}>Social Media URL</h1>
       <div className="flex flex-col mb-3 md:flex-row">
-        <label onClick={handleAddLinkedinUrl} className='w-full md:w-1/4 mb-2 md:mb-0'>LinkedIn Profile URL</label>
+        <label onClick={handleAddLinkedinUrl} className='custom-text w-full md:w-1/4 mb-2 md:mb-0'>LinkedIn Profile URL</label>
         <input
           type="text"
           placeholder='LinkedIn Profile'
@@ -38,7 +38,7 @@ function SocialMedia({ linkedinInput, setLinkedinInput, githubInput, setGithubIn
       </div>
 
       <div className="flex flex-col mb-3 md:flex-row">
-        <label onClick={handleAddGithubUrl} className='w-full md:w-1/4 mb-2 md:mb-0'>GitHub Profile URL</label>
+        <label onClick={handleAddGithubUrl} className='custom-text w-full md:w-1/4 mb-2 md:mb-0'>GitHub Profile URL</label>
         <input
           type="text"
           placeholder='GitHub Profile'

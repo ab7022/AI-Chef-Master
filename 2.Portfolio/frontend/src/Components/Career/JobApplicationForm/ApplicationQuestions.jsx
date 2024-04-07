@@ -9,10 +9,10 @@ const ApplicationQuestions = ({ allQuestions, setAllQuestions }) => {
 
   return (
     <div className="mx-auto">
-      <h1 className="font-bold text-2xl mb-6">
+      <h1 className="custom-text-secondary font-bold text-2xl mb-6">
         Application Questions
       </h1>
-      <form className="mx-4 sm:mx-6 lg:mx-8 my-5 flex flex-col justify-start gap-y-7">
+      <form className="custom-text mx-4 sm:mx-6 lg:mx-8 my-5 flex flex-col justify-start gap-y-7">
         <div className="md:w-full text-sm flex flex-col md:flex-row md:items-center gap-y-4 md:gap-x-8">
           <label className="w-full md:w-2/5">
             Are you of legal age to work in the country in which this position will be based?

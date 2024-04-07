@@ -22,10 +22,10 @@ const Education = ({ education, setEducation }) => {
 
     return (
         <>
-            <h2 className='font-bold text-3xl my-6' style={{ marginRight: '1000px', fontSize: '20px' }}>Education</h2>
+            <h2 className='custom-textsecondary font-bold text-3xl my-6' style={{ marginRight: '1000px', fontSize: '20px' }}>Education</h2>
             {education.map((edu, index) => (
                 <div key={index}>
-                    <form className="mx-4 sm:mx-6 lg:mx-8 my-5 flex flex-col justify-start gap-y-7">
+                    <form className="custom-text mx-4 sm:mx-6 lg:mx-8 my-5 flex flex-col justify-start gap-y-7">
                         <div className="flex flex-col text-sm md:flex-row md:items-center md:gap-x-4">
                             <label className="w-full md:w-1/4 mb-2 md:mb-0">
                                 {/* School<span style={{ color: "red", fontSize: "1.5rem" }}>*</span>: */}

@@ -9,10 +9,10 @@ const VoluntaryDisclosures = ({ voluntaryDisclosures, setVoluntaryDisclosures })
 
   return (
     <>
-      <h1 className="mx-4 sm:mx-6 lg:mx-8 font-bold text-2xl">
+      <h1 className="custom-text-secondary mx-4 sm:mx-6 lg:mx-8 font-bold text-2xl">
         Voluntary Disclosures
       </h1>
-      <form className="mx-4 sm:mx-6 lg:mx-8 my-5 flex flex-col justify-start gap-y-7">
+      <form className="custom-text mx-4 sm:mx-6 lg:mx-8 my-5 flex flex-col justify-start gap-y-7">
         <div className="md:w-full text-sm flex flex-col md:flex-row md:items-center gap-y-4 md:gap-x-8">
           <label className="w-full md:w-1/4 mb-2 md:mb-0">
             Please select your veteran status:

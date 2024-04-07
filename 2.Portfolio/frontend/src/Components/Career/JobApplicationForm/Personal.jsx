@@ -46,12 +46,11 @@ const Personal = ({
         <div className="  ">
             <div className="w-full h-full">
                 <div>
-                    <h1 className="font-bold text-3xl my-6" style={{ fontSize: "20px" }}>
+                    <h1 className="custom-text-secondary font-bold text-3xl my-6" style={{ fontSize: "20px" }}>
                         My Information
                     </h1>
 
-                    <form className="mx-4 sm:mx-6 lg:mx-8 my-5 flex flex-col justify-start gap-y-7">
-
+                    <form className="custom-text mx-4 sm:mx-6 lg:mx-8 my-5 flex flex-col justify-start gap-y-7">
                         <div className="flex flex-col text-sm md:flex-row md:items-center md:gap-x-4">
                             <label className="w-full md:w-1/4 mb-2 md:mb-0">
                                 First Name<span style={{ color: "red", fontSize: "1.5rem" }}>*</span>:</label>

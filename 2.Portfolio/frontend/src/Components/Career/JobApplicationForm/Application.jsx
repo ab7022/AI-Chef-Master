@@ -298,7 +298,7 @@ const Application = () => {
     )
   }
   return (
-    <div className="bg-slate-100">
+    <div className="custom-job-bg">
       <Toaster
         duration={3000}
         position="top-center"
@@ -308,7 +308,7 @@ const Application = () => {
         <div className="container-lg bg-[rgb(241 245 249)] shadow-lg px-12 py-12 mx-auto  sm:px-6 lg:px-8">
           {count <= 5 && (
             <>
-              <h1 className="text-xl sm:text-lg md:text-3xl font-medium font-sans mb-3">
+              <h1 className="custom-text text-xl sm:text-lg md:text-3xl font-medium font-sans mb-3">
                 You are applying for-
                 <span className="text-blue-500">{selectedJob}</span>
               </h1>

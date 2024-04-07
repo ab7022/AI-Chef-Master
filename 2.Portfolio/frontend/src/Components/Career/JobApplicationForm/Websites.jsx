@@ -18,7 +18,7 @@ function Websites({ links, setLinks }) {
 
   return (
     <>
-      <h1 className='font-bold text-3xl my-6' style={{ fontSize: '20px' }}>Websites</h1>
+      <h1 className='custom-text-secondary font-bold text-3xl my-6' style={{ fontSize: '20px' }}>Websites</h1>
       <div className="mx-4 sm:mx-6 lg:mx-8">
         <div className="flex items-center flex-wrap gap-2">
           <input

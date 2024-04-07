@@ -94,10 +94,10 @@ export default function Modal({
   return (
     <>
       <div className="text-lg sm:text-lg md:text-xl font-sans flex flex-col items-center">
-        <p className="pt-2 md:pt-3 lg:pt-4">
+        <p className="custom-text pt-2 md:pt-3 lg:pt-4">
           Please upload your resume, and we will do our best to complete as much of the application as we can for you!
         </p>
-        <p className="pt-0 pb-3 md:pb-4 lg:pb-5">
+        <p className="custom-text-secondary pt-0 pb-3 md:pb-4 lg:pb-5">
           Upload PDF file only
         </p>
         <div className="flex justify-center items-center flex-wrap">
