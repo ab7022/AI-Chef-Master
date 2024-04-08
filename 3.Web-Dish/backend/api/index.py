@@ -1,11 +1,14 @@
 from flask import Flask, request, jsonify,url_for,redirect,session,render_template
 from pymongo import MongoClient
-from flask_jwt_extended import create_access_token ,jwt_required ,create_refresh_token ,JWTManager
+from flask_jwt_extended import create_access_token ,jwt_required ,create_refresh_token ,JWTManager,get_jwt_identity
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS,cross_origin
 from flask_dance.contrib.google import make_google_blueprint, google
 from msal import ConfidentialClientApplication
 import os
+from flask_session import Session
+import identity
+import identity.web
 import requests
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
@@ -13,6 +16,13 @@ from pathlib import Path
 import json
 import urllib
 import msal
+import random
+import string 
+import base64
+from flask_apscheduler import APScheduler
+from email.message import EmailMessage
+from flask_mail import Mail ,Message
+
 
 app = Flask(__name__)
 CORS(app, origins="*", supports_credentials=True)
@@ -23,14 +33,27 @@ app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
 jwt = JWTManager(app)
+scheduler = APScheduler()
+scheduler.init_app(app)
+scheduler.start()
 
 
 client = MongoClient(os.getenv('MONGODB_URL'))
-db = client['AI_PORTFOLIO']
+db = client['AI_database']
 
 # google login 
 app.config["GOOGLE_OAUTH_CLIENT_ID"] = os.getenv('GOOGLE_OAUTH_CLIENT_ID')
 app.config["GOOGLE_OAUTH_CLIENT_SECRET"] = os.getenv('GOOGLE_OAUTH_CLIENT_SECRET')
+
+
+# email configuration 
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = os.getenv('YOUR_EMAIL_ADDRESS')
+app.config['MAIL_PASSWORD'] = os.getenv('YOUR_EMAIL_PASSWORD')
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app) 
 
 google_blueprint = make_google_blueprint(
     client_id=os.getenv('GOOGLE_OAUTH_CLIENT_ID'),
@@ -160,14 +183,15 @@ def register():
         return jsonify({'message': 'User already exists'}), 400
 
     hashed_password = generate_password_hash(password)
-
+    user_id = "AiChef"+ first_name.upper() + "-" + round((datetime.datetime.now().timestamp())*1000000)
     db.users.insert_one({
         'first_name': first_name,
         'last_name': last_name,
         'country_code': country_code,
         'phone': phone,
         'email': email,
-        'password': hashed_password
+        'password': hashed_password,
+        'user_id':user_id
     })
     
     return jsonify({'message': 'User registered successfully'}), 201
@@ -204,5 +228,317 @@ def logoutAPP():
 
     return jsonify({'message': 'Logout successful'}), 200
 
+
+@app.route('/api/dishCreateProcess',methods = ['POST','GET'])
+def  dishCreateProcess():
+    data = request.get_json()
+    dishN = data['dish_name']
+    people = data['people']
+    Dish_detail = db.Dish.find_one({'dish_name':dishN})
+    #already_person = #Dish_detail['person'] 
+    already_person = 1 
+    if Dish_detail is None:
+        return jsonify({'Message':"Dish is not Found"}),404
+    else:   
+        Inde =[]
+        for it in Dish_detail['indegrients']:
+            temp = it['name'] +" " +str((int(it['quantity'])//(already_person))*people) +"-" +it['unit']
+            Inde.append(temp)
+            #Inde.append(it['name'])
+            #Inde.append(str(int(it['quantity'])//(already_person))*people) +" " + it['unit'])
+        return jsonify({"Kitchen_equi":Dish_detail['kitchen_equipments'].split(","),"Indegrients":Inde}),201
+
+@app.route('/api/luxuryDishes/',methods =['GET','POST'])
+def luxuryDishes():
+    data = request.get_json()
+    dishN = data['dish_name']
+    people = data['people']
+    Dish_detail = db.Dish.find_one({'dish_name':dishN})
+    #already_person = #Dish_detail['person'] 
+    already_person = 1 
+    if Dish_detail is None:
+        return jsonify({'Message':"Dish is not Found"}),404
+    else:   
+        Inde =[]
+        for it in Dish_detail['indegrients']:
+            temp = it['name'] +" " + str((int(it['quantity'])//(already_person))*people) +"-" +it['unit']
+            Inde.append(temp)
+            #Inde.append(it['name'])
+            #Inde.append(str(int(it['quantity'])//(already_person))*people) +" " + it['unit'])
+        return jsonify({"Kitchen_equi":Dish_detail['kitchen_equipments'].split(","),"Indegrients":Inde}),201
+
+@app.route('/api/quickDishes',methods =['POST','GET'])
+def quickDishes():
+    data = request.get_json()
+    dishN = data['dish_name']
+    people = data['people']
+    Dish_detail = db.Dish.find_one({'dish_name':dishN})
+    #already_person = #Dish_detail['person'] 
+    already_person = 1 
+    if Dish_detail is None:
+        return jsonify({'Message':"Dish is not Found"}),404
+    else:   
+        Inde =[]
+        for it in Dish_detail['indegrients']:
+            temp = it['name'] +" " + str((int(it['quantity'])//(already_person))*people) +"-" +it['unit']
+            Inde.append(temp)
+            #Inde.append(it['name'])
+            #Inde.append(str(int(it['quantity'])//(already_person))*people) +" " + it['unit'])
+        return jsonify({"Kitchen_equi":Dish_detail['kitchen_equipments'].split(","),"Indegrients":Inde}),201
+    
+
+@app.route('/api/healtyDishes',methods =['POST','GET'])
+def healtyDishes():
+    data = request.get_json()
+    dishN = data['dish_name']
+    people = data['people']
+    Dish_detail = db.Dish.find_one({'dish_name':dishN})
+    #already_person = #Dish_detail['person'] 
+    already_person = 1 
+    if Dish_detail is None:
+        return jsonify({'Message':"Dish is not Found"}),404
+    else:   
+        Inde =[]
+        for it in Dish_detail['indegrients']:
+            temp = it['name'] +" " + str((int(it['quantity'])//(already_person))*people) +"-" +it['unit']
+            Inde.append(temp)
+            #Inde.append(it['name'])
+            #Inde.append(str(int(it['quantity'])//(already_person))*people) +" " + it['unit'])
+        return jsonify({"Kitchen_equi":Dish_detail['kitchen_equipments'].split(","),"Indegrients":Inde}),201
+    
+
+
+
+@app.route('/userDetials',methods =['GET','POST'])
+@jwt_required()
+def  userDetials():
+    temp = get_jwt_identity()
+    UserData = db.users.find_one({'email':temp})
+    first_name = UserData['first_name']
+    last_name =UserData['last_name']
+    email = UserData['email']
+
+    name = first_name +" " +last_name
+
+    data = request.get_json()
+    country = data['country']
+    state = data['state']
+    dish_type = data['Dish_category']
+    
+
+    db.AllDetails.insert_one({'name':name,'email':email,'country':country,'state':state ,'dish_type':dish_type })
+
+
+    return jsonify({"message":"User details saved successfully"}),201 
+
+
+
+@app.route('/api/chef_id',methods =['POST','GET'])
+@jwt_required()
+def create_id():
+
+    user_email = get_jwt_identity()
+    user = db.users.find_one({'email':user_email})
+
+    chef_id = "AiChef"+user['first_name']+ str(random.randint(1000,10000))
+    print(chef_id)
+
+    db.users.update_one({'email':user_email},{"$set" :{"chef_id":chef_id}})
+
+    return jsonify({"message":"chef id created succesffuly"}),200
+
+
+@app.route('/api/saveMenu',methods =['GET','POST'])
+
+def saveMenu():
+    
+    user_email = get_jwt_identity()
+    user =db.users.find_one({'email':user_email})
+    name = user['first_name'] +" " +user['last_name']
+    
+
+
+    data = request.get_json()
+    print(data)
+    meal = data['meal']
+    numberOfPeople = data['numberOfPeople']
+    mainDishes = data['mainDishes']
+    sideDishes = data['sideDishes']
+    cookingTime = data['cookingTime']
+    selectedEquipments = data['selectedEquipments']
+    selectedIngredients = data['selectedIngredients']
+    reminder = data['selectedDateTime']
+    newMainDish = data['newMainDish']
+    newSideDish = data['newSideDish']
+    skill = data['skill'],
+    beverages = data['beverages']
+    cuisine = data['cuisine']
+    desserts = data['desserts']
+    appetizers = data['appetizers']
+
+
+    
+    if meal =='dinner':
+        db.Menu.insert_one({
+            'meal':meal,
+            'mainDish':mainDishes,
+            'ingredients':selectedIngredients,
+            'sideDish':sideDishes,
+            'kitchen_equipements':selectedEquipments,
+            'no_of_people':numberOfPeople,
+            'cooking_time':cookingTime,
+            'reminder':reminder,
+            'newMainDish':newMainDish,
+            'newSideDish':newSideDish,
+            'skill':skill,
+            'beverages':beverages,
+            'cuisine':cuisine, 
+            'desserts' :desserts,
+            'appetizers':appetizers
+
+        })    
+    else:
+        db.Menu.insert_one({
+            'meal':meal,
+            'mainDish':mainDishes,
+            'ingredients':selectedIngredients,
+            'sideDish':sideDishes,
+            'kitchen_equipements':selectedEquipments,
+            'no_of_people':numberOfPeople,
+            'cooking_time':cookingTime,
+            'reminder':reminder,
+            'newMainDish':newMainDish,
+            'newSideDish':newSideDish,
+            'skill':skill,
+            'beverages':beverages,
+            'cuisine':cuisine
+        
+        })
+
+
+    reminder_time = reminder -timedelta(minutes =10)
+    scheduler.add_job(
+        id ='reminder',
+        func= send_reminder,
+        args = [user_email,meal,mainDishes,reminder],
+        trigger = 'date',
+        run_date = reminder_time
+
+    )
+ 
+    return jsonify({'Message':"Menu saved successfully "}),201
+
+def send_reminder(user_email,meal,mainDishes,reminder):
+    msg = Message(
+        'Hello',
+        sender = os.getenv('YOUR_EMAIL_ADDRESS'),
+        recipients =[user_email]
+
+    )
+    msg.body =f"Your Dish {meal} with main Dishes {mainDishes} is ready to cook in {reminder} minutes"
+    mail.send(msg)
+
+    
+
+
+
+
+# pipeline of data
+'''
+redirect_uri = 'http://localhost:3000/callback'
+
+def generate_random_string(length):
+    
+    rand_Str = string.ascii_letters + string.digits
+    return ''.join(random.choice(rand_Str) for _ in range(length))
+
+@app.route('/login')
+def login():
+    state = generate_random_string(16)
+    scope = 'user-read-private user-read-email user-read-recently-played playlist-read-private playlist-read-private user-top-read user-library-read user-follow-read'
+    params = {
+        'response_type': '',
+        'client_id': '',
+        'scope': scope,
+        'redirect_uri': '',
+        'state': ''
+    }
+    redirect_url = 'https://accounts.spotify.com/authorize?' + urllib.parse.urlencode(params)
+    return redirect(redirect_url)
+
+@app.route('/callback')
+def callback():
+    code = request.args.get('code', None)
+    state = request.args.get('state', None)
+
+    if state is None:
+        return jsonify({'error': 'state_mismatch'}), 400
+    else:
+        auth_options = {
+            'url': 'https://accounts.spotify.com/api/token',
+            'data': {
+                'code': code,
+                'redirect_uri': redirect_uri,
+                'grant_type': 'authorization_code'
+            },
+            'headers': {
+                'content-type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Basic ' + base64.b64encode(f'{os.getenv('CLIENT_ID')}:{os.getenv('CLIENT_SECRET')}'.encode('utf-8')).decode('utf-8')
+            }
+        }
+
+        response = requests.post(auth_options['url'], data=auth_options['data'], headers=auth_options['headers'])
+        token_info = response.json()
+        
+        # Store the token_info for further analysis
+        with open('token_info.json', 'w') as json_file:
+            json_file.write(json.dumps(token_info, indent=4))
+        
+        # Return a response
+        return jsonify({'message': 'Authentication successful'})
+
+@app.route('/refresh_token')
+def refresh_token():
+    refresh_token = request.args.get('refresh_token', None)
+
+    if refresh_token is None:
+        return jsonify({'error': 'missing_refresh_token'}), 400
+
+    auth_options = {
+        'url': 'https://accounts.spotify.com/api/token',
+        'data': {
+            'grant_type': 'refresh_token',
+            'refresh_token': refresh_token
+        },
+        'headers': {
+            'content-type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + base64.b64encode(f'{os.getenv('CLIENT_ID')}:{os.getenv('CLIENT_SECRET')}'.encode('utf-8')).decode('utf-8')
+        }
+    }
+
+    response = requests.post(auth_options['url'], data=auth_options['data'], headers=auth_options['headers'])
+    token_info = response.json()
+    # Write the modified token_info back to the file
+    with open('token_info_refreshed.json', 'w') as json_file:
+        json.dump(token_info, json_file, indent=4)
+        
+    # Load existing token_info from the file
+    with open('token_info.json', 'r') as json_file:
+        token_info = json.load(json_file)
+
+    # Load refreshed token_info from the file
+    with open('token_info_refreshed.json', 'r') as refreshed_json_file:
+        refreshed_token_info = json.load(refreshed_json_file)
+
+    # Update the original token_info with the refreshed access_token
+    token_info['access_token'] = refreshed_token_info['access_token']
+
+    # Write the modified token_info back to the file
+    with open('token_info.json', 'w') as json_file:
+        json.dump(token_info, json_file, indent=4)
+        
+    return jsonify({'message': 'Token have been successfully refreshed'})
+
+'''
 if __name__ == '__main__':
     app.run(debug=True)
