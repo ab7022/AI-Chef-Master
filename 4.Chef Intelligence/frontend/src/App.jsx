@@ -18,5 +18,4 @@ function App() {
     </>
   );
 }
-//heye
 export default App;
