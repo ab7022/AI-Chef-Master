@@ -4,14 +4,15 @@ import { MdMenu } from "react-icons/md";
 import { MdArrowDropDown } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
 import CompanyLogo from "../assets/CompanyLogo.png";
-import {  FiUser, FiLogOut ,FiSun, FiMoon,FiLogIn} from "react-icons/fi";
-;
+import { FiUser, FiLogOut, FiSun, FiMoon, FiLogIn } from "react-icons/fi";
+import { MdAccountCircle } from "react-icons/md";
+
 import { HiOutlineX } from "react-icons/hi";
 
 export default function NavBar({ toggleSideBar, toggleMode, lightMode }) {
- 
   const location = useLocation();
   const [selectedLanguage, setSelectedLanguage] = useState("English");
+  const [profileOpen, setProfileOpen] = useState(false);
 
   const indianLanguages = ["Hindi", "Bengali", "Telugu", "Marathi", "Tamil"];
 
@@ -28,34 +29,58 @@ export default function NavBar({ toggleSideBar, toggleMode, lightMode }) {
     text: "text-white",
     hoverBackground: "hover:bg-gray-800",
     hoverText: "hover:text-gray-200",
+    dialogbg: "bg-gray-950",
+    textdialog: "text-white",
   };
 
   const lightColors = {
     background: "bg-[#00544f]",
     text: "text-white",
+    textdialog: "text-black",
     hoverBackground: "hover:bg-[#022a28]",
     hoverText: "hover:text-gray-200",
+    dialogbg: "bg-white",
   };
 
   const colors = lightMode ? lightColors : darkColors;
 
   return (
-    <Disclosure as="nav" className={`${colors.background} ${colors.text} sticky top-0 z-50`}>
+    <Disclosure
+      as="nav"
+      className={`${colors.background} ${colors.text} sticky top-0 z-50`}
+    >
       {({ open }) => (
         <div className="flex flex-col md:flex-row justify-between mx-1 md:mx-2 md:mr-4 items-center h-16">
           {/* Company Logo and Name */}
           <div className="flex flex-row justify-center">
             <div className="flex items-center md:gap-1 justify-start lg:gap-3">
-              <Disclosure.Button className="text-white font-extrabold p-2" onClick={toggleSideBar}>
-                {open ? <HiOutlineX className="h-6 w-6" aria-hidden="true" /> : <MdMenu className="h-6 w-6" aria-hidden="true" />}
+              <Disclosure.Button
+                className="text-white font-extrabold p-2"
+                onClick={toggleSideBar}
+              >
+                {open ? (
+                  <HiOutlineX className="h-6 w-6" aria-hidden="true" />
+                ) : (
+                  <MdMenu className="h-6 w-6" aria-hidden="true" />
+                )}
               </Disclosure.Button>
-              <img className="h-14 rounded-lg w-auto navbar-logo" src={CompanyLogo} alt="LOGO" />
-              <p className="text-lg font-bold md:text-sm lg:text-lg">AI CHEF MASTER</p>
+              <img
+                className="h-14 rounded-lg w-auto navbar-logo"
+                src={CompanyLogo}
+                alt="LOGO"
+              />
+              <p className="text-lg font-bold md:text-sm lg:text-lg">
+                AI CHEF MASTER
+              </p>
 
               {/* Mobile Menu Button */}
               <div className="md:hidden justify-end items-center align-middle">
                 <Disclosure.Button className="text-white font-extrabold p-2">
-                  {open ? <HiOutlineX className="h-6 w-6" aria-hidden="true" /> : <MdMenu className="h-6 w-6" aria-hidden="true" />}
+                  {open ? (
+                    <HiOutlineX className="h-6 w-6" aria-hidden="true" />
+                  ) : (
+                    <MdMenu className="h-6 w-6" aria-hidden="true" />
+                  )}
                 </Disclosure.Button>
               </div>
             </div>
@@ -69,7 +94,11 @@ export default function NavBar({ toggleSideBar, toggleMode, lightMode }) {
                 <div className="flex items-center gap-1 ml-2 md:ml-0">
                   <div
                     className="flex ml-2 md:ml-0"
-                    onClick={() => setSelectedLanguage((prev) => (prev === "Hindi" ? "Bengali" : "Hindi"))}
+                    onClick={() =>
+                      setSelectedLanguage((prev) =>
+                        prev === "Hindi" ? "Bengali" : "Hindi"
+                      )
+                    }
                   >
                     {selectedLanguage}
                     <MdArrowDropDown size={23} />
@@ -90,13 +119,36 @@ export default function NavBar({ toggleSideBar, toggleMode, lightMode }) {
 
               {/* User Profile and Logout */}
               <div className="p-3 flex flex-col text-lg text-center hover:bg-green-900 border-b border-green-900">
-                  <Link to="/signup" className="text-lg text-center">Login</Link>
+                <Link to="/signup" className="text-lg text-center">
+                  Login
+                </Link>
               </div>
-
+              <div className="p-3 flex flex-col text-lg text-center hover:bg-green-900 border-b border-green-900">
+                <Link to="/signup" className="text-lg text-center">
+                  Dashboard
+                </Link>
+              </div>
+              <div className="p-3 flex flex-col text-lg text-center hover:bg-green-900 border-b border-green-900">
+                <Link to="/signup" className="text-lg text-center">
+                  Subscription
+                </Link>
+              </div>
+              <div className="p-3 flex flex-col text-lg text-center hover:bg-green-900 border-b border-green-900">
+                <Link to="/signup" className="text-lg text-center">
+                  My Account
+                </Link>
+              </div>
               {/* Dark/Light Mode Switch (Placeholder) */}
               <div className="p-3 flex flex-col items-center justify-center hover:bg-green-900 border-b border-green-900">
-                <button onClick={toggleMode} className="text-lg text-center flex items-center flex-row">
-                  {lightMode ? <FiSun className="mr-2 flex flex-row" /> : <FiMoon className="mr-2" />}
+                <button
+                  onClick={toggleMode}
+                  className="text-lg text-center flex items-center flex-row"
+                >
+                  {lightMode ? (
+                    <FiSun className="mr-2 flex flex-row" />
+                  ) : (
+                    <FiMoon className="mr-2" />
+                  )}
                   {lightMode ? "Light Mode" : "Dark Mode"}
                 </button>
               </div>
@@ -105,11 +157,21 @@ export default function NavBar({ toggleSideBar, toggleMode, lightMode }) {
 
           {/* Desktop Menu Items */}
           <div className="hidden md:flex justify-center items-center gap-8">
+            <Link
+              to="/signup"
+              className={`p-2 ${colors.hoverBackground} hover:rounded flex-row flex`}
+            >
+              Dashboard
+            </Link>
             <div className="group cursor-pointer py-2 text-base md:text-md">
               <div className="flex items-center gap-4">
                 <div
                   className="flex"
-                  onClick={() => setSelectedLanguage((prev) => (prev === "Hindi" ? "Bengali" : "Hindi"))}
+                  onClick={() =>
+                    setSelectedLanguage((prev) =>
+                      prev === "Hindi" ? "Bengali" : "Hindi"
+                    )
+                  }
                 >
                   {selectedLanguage}
                   <MdArrowDropDown size={23} />
@@ -122,23 +184,69 @@ export default function NavBar({ toggleSideBar, toggleMode, lightMode }) {
                     className="flex  text-white pt-1 items-center gap-2 cursor-pointer"
                     onClick={() => selectLanguage(language)}
                   >
-                    <span className="hover:bg-[#022a28] p-1 hover:rounded">{language}</span>
+                    <span className="hover:bg-[#022a28] p-1 hover:rounded">
+                      {language}
+                    </span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <button className={`p-2 ${colors.hoverBackground} hover:rounded flex flex-row`} onClick={toggleMode}>
-              {lightMode ? <FiSun className="mr-2 mt-1" /> : <FiMoon className="mr-2 mt-1" />}
+            <button
+              className={`p-2 ${colors.hoverBackground} hover:rounded flex flex-row`}
+              onClick={toggleMode}
+            >
+              {lightMode ? (
+                <FiSun className="mr-2 mt-1" />
+              ) : (
+                <FiMoon className="mr-2 mt-1" />
+              )}
               {lightMode ? "Light Mode" : "Dark Mode"}
             </button>
 
-          
-              <Link to="/signup" className={`p-2 ${colors.hoverBackground} hover:rounded flex-row flex`}>
-                <FiLogIn className="mr-1 mt-1"/>
-                Login
-              </Link>
-         
+            <Link
+              to="/signup"
+              className={`p-2 ${colors.hoverBackground} hover:rounded flex-row flex`}
+            >
+              <FiLogIn className="mr-1 mt-1" />
+              Login
+            </Link>
+            <div
+              className={`relative group cursor-pointer`}
+              onClick={() => setProfileOpen(!profileOpen)}
+            >
+              <MdAccountCircle
+                className={`text-4xl mr-4 ${colors.hoverText}`}
+              />
+              {/* Profile Information */}
+              {profileOpen && (
+                <div
+                  className={`absolute right-10 flex-col mt-10 w-60  ${colors.textdialog} shadow-md rounded-md p-4 text-sm z-10 flex ${colors.dialogbg} `}
+                >
+                  <div className="flex flex-row items-center justify-center">
+                    <MdAccountCircle
+                      className={`text-5xl flex flex-row justify-center text-center  align-center items-center ${colors.hoverText}`}
+                    />
+                  </div>
+
+                  <div className="py-1  border-b text-center">
+                    bayees1@gmai.com
+                  </div>
+                  <div className="py-2">My Account</div>
+
+                  <div className="py-2">Archives</div>
+                  <div className="py-2">History</div>
+
+                  <div className="pt-2">Subscription</div>
+                  <button
+                    onClick={handleLogout}
+                    className={`mt-2 p-2 ${colors.hoverBackground} ${colors.background} text-white rounded`}
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
