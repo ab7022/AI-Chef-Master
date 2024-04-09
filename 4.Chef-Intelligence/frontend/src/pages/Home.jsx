@@ -84,18 +84,19 @@ export default function Home() {
 
   return (
     <div
-      className={`${colors.backgroundOfBody} ${colors.text} min-h-screen w-screen`}
+      className={`${colors.backgroundOfBody} ${colors.text}`}
     >
       <NavBar
+        sideBarOpen={sideBarOpen}
         toggleSideBar={toggleSideBar}
         toggleMode={toggleMode}
         lightMode={lightMode}
         colos={colors}
       />
-      <div className="flex flex-row items-center justify-center">
+      <div className="relative flex flex-row">
         {sideBarOpen && <SideBar isOpen={sideBarOpen} lightMode={lightMode} />}
-        <div className="flex flex-col w-5/6 items-center justify-center ">
-          <h1 className="font-extrabold text-6xl md:text-7xl text-orange-400 text-center mb-8 mt-24 md:mt-24 justify-center">
+        <div className="flex flex-col w-full md:w-5/6 mx-auto min-h-[calc(100dvh-56px)] items-center justify-center px-2">
+          <h1 className="font-extrabold text-6xl md:text-7xl text-orange-400 text-center mt-8 xl:mt-0 mb-8 justify-center">
             Chef Intelligence
           </h1>
           <p
@@ -111,10 +112,10 @@ export default function Home() {
             Start your culinary adventure today with AI Chef Master!
           </p>
           <div
-            className={`${colors.backgroundOfDiv} shadow-xl rounded-xl p-3 justify-center md:mt-2 mt-12`}
+            className={`${colors.backgroundOfDiv} w-full md:w-auto shadow-xl rounded-xl p-3 justify-center md:mt-2 mt-12`}
           >
             {rows.map((row, index) => (
-              <div key={index} className="gap-2 mb-2 px-2">
+              <div key={index} className="gap-2 mb-2">
                 <div className="flex-col flex gap-3 md:flex-row mt-4">
                   <input
                     className={`flex p-2 border border-gray-300 rounded placeholder-gray-400 focus:outline-none focus:border-yellow-500 ${colors.inputBackground} ${colors.inputText}`}
@@ -165,7 +166,7 @@ export default function Home() {
             {rows.map((row, index) => (
               <div key={index} className="my-4">
                 <div className="border border-gray-300 p-4 rounded-md shadow-md">
-                  
+
                   <ul>
                     <li>
                       <strong>Ingredient:</strong> {row.ingredient}
@@ -191,7 +192,7 @@ export default function Home() {
             </div>
           </div>
           <button
-            className={`${colors.button} ${colors.buttonHoverBackground} ${colors.buttonTextColor} ${colors.buttonHoverTextColor} text-white font-bold py-3 px-4 rounded-xl focus:outline-none focus:ring-2 mt-12 focus:ring-gray-500 focus:ring-opacity-50 mb-4 md:mb-12 ${colors.buttonHoverTextColor}`}
+            className={`${colors.button} ${colors.buttonHoverBackground} ${colors.buttonTextColor} ${colors.buttonHoverTextColor} w-fit mx-auto text-white font-bold py-3 px-4 rounded-xl focus:outline-none focus:ring-2 mt-12 focus:ring-gray-500 focus:ring-opacity-50 my-4 ${colors.buttonHoverTextColor}`}
           >
             Start To Process
           </button>

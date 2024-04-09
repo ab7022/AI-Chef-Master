@@ -1,16 +1,13 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Disclosure } from "@headlessui/react";
-import { MdMenu } from "react-icons/md";
-import { MdArrowDropDown } from "react-icons/md";
-import { Link, useLocation } from "react-router-dom";
+import { MdMenu, MdArrowDropDown, MdAccountCircle } from "react-icons/md";
+import { FiSun, FiMoon, FiLogIn } from "react-icons/fi";
 import CompanyLogo from "../assets/CompanyLogo.png";
-import { FiUser, FiLogOut, FiSun, FiMoon, FiLogIn } from "react-icons/fi";
-import { MdAccountCircle } from "react-icons/md";
 
 import { HiOutlineX } from "react-icons/hi";
 
-export default function NavBar({ toggleSideBar, toggleMode, lightMode }) {
-  const location = useLocation();
+export default function NavBar({ sideBarOpen, toggleSideBar, toggleMode, lightMode }) {
   const [selectedLanguage, setSelectedLanguage] = useState("English");
   const [profileOpen, setProfileOpen] = useState(false);
 
@@ -50,39 +47,40 @@ export default function NavBar({ toggleSideBar, toggleMode, lightMode }) {
       className={`${colors.background} ${colors.text} sticky top-0 z-50`}
     >
       {({ open }) => (
-        <div className="flex flex-col md:flex-row justify-between mx-1 md:mx-2 md:mr-4 items-center h-16">
-          {/* Company Logo and Name */}
-          <div className="flex flex-row justify-center">
-            <div className="flex items-center md:gap-1 justify-start lg:gap-3">
-              <Disclosure.Button
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="w-full md:w-auto flex items-center justify-between md:gap-1 lg:gap-3">
+            <div className="flex items-center">
+              <div
                 className="text-white font-extrabold p-2"
                 onClick={toggleSideBar}
               >
+                {sideBarOpen ? (
+                  <HiOutlineX className="h-6 w-6" aria-hidden="true" />
+                ) : (
+                  <MdMenu className="h-6 w-6" aria-hidden="true" />
+                )}
+              </div>
+              <div className="flex items-center">
+                <img
+                  className="h-14 rounded-lg w-auto navbar-logo"
+                  src={CompanyLogo}
+                  alt="LOGO"
+                />
+                <p className="text-lg font-bold md:text-sm lg:text-lg">
+                  AI CHEF MASTER
+                </p>
+              </div>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden justify-end items-center align-middle">
+              <Disclosure.Button className="text-white font-extrabold p-2">
                 {open ? (
                   <HiOutlineX className="h-6 w-6" aria-hidden="true" />
                 ) : (
                   <MdMenu className="h-6 w-6" aria-hidden="true" />
                 )}
               </Disclosure.Button>
-              <img
-                className="h-14 rounded-lg w-auto navbar-logo"
-                src={CompanyLogo}
-                alt="LOGO"
-              />
-              <p className="text-lg font-bold md:text-sm lg:text-lg">
-                AI CHEF MASTER
-              </p>
-
-              {/* Mobile Menu Button */}
-              <div className="md:hidden justify-end items-center align-middle">
-                <Disclosure.Button className="text-white font-extrabold p-2">
-                  {open ? (
-                    <HiOutlineX className="h-6 w-6" aria-hidden="true" />
-                  ) : (
-                    <MdMenu className="h-6 w-6" aria-hidden="true" />
-                  )}
-                </Disclosure.Button>
-              </div>
             </div>
           </div>
 
