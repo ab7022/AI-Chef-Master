@@ -12,7 +12,7 @@ export default function Home() {
   const [suggestionsOfEquipment, setSuggestionsOfEquipment] = useState([]);
   const [sideBarOpen, setSideBarOpen] = useState(false);
   const [lightMode, setLightMode] = useState(true);
-  console.log(rows);
+  
   const toggleSideBar = () => {
     setSideBarOpen(!sideBarOpen);
   };
@@ -96,27 +96,27 @@ export default function Home() {
       <div className="relative flex flex-row">
         {sideBarOpen && <SideBar isOpen={sideBarOpen} lightMode={lightMode} />}
         <div className="flex flex-col w-full md:w-5/6 mx-auto min-h-[calc(100dvh-56px)] items-center justify-center px-2">
-          <h1 className="font-extrabold text-6xl md:text-7xl text-orange-400 text-center mt-8 xl:mt-0 mb-8 justify-center">
+          <h1 className="font-extrabold text-6xl lg:text-7xl text-orange-400 text-center mt-8 lg:mt-0 mb-8 justify-center">
             Chef Intelligence
           </h1>
           <p
-            className={`${colors.textParagraph} text-base md:text-lg  mt-4 mb-0 text-center font-semibold max-w-2xl`}
+            className={`${colors.textParagraph} text-base lg:text-lg  mt-4 mb-0 text-center font-semibold max-w-2xl`}
           >
             Elevate your culinary skills with the power of AI. Search for
             ingredients and equipment effortlessly to create masterful dishes.
           </p>
 
           <p
-            className={`${colors.textParagraph} text-lg mb-12 md:mb-4 text-center hidden md:block font-semibold`}
+            className={`${colors.textParagraph} text-lg mb-12 lg:mb-4 text-center hidden lg:block font-semibold`}
           >
             Start your culinary adventure today with AI Chef Master!
           </p>
           <div
-            className={`${colors.backgroundOfDiv} w-full md:w-auto shadow-xl rounded-xl p-3 justify-center md:mt-2 mt-12`}
+            className={`${colors.backgroundOfDiv} w-full lg:w-auto shadow-xl rounded-xl p-3 justify-center lg:mt-2 mt-12`}
           >
             {rows.map((row, index) => (
               <div key={index} className="gap-2 mb-2">
-                <div className="flex-col flex gap-3 md:flex-row mt-4">
+                <div className="flex-col flex gap-3 lg:flex-row mt-4">
                   <input
                     className={`flex p-2 border border-gray-300 rounded placeholder-gray-400 focus:outline-none focus:border-yellow-500 ${colors.inputBackground} ${colors.inputText}`}
                     type="text"
@@ -182,7 +182,7 @@ export default function Home() {
               </div>
             ))}
 
-            <div className="flex justify-center gap-2 mt-4 md:mt-6 items-center align-middle">
+            <div className="flex justify-center gap-2 mt-4 lg:mt-6 items-center align-middle">
               <button
                 className={`py-2 px-4 ${colors.buttonBackground} ${colors.buttonHoverBackground} ${colors.buttonTextColor} ${colors.buttonHoverTextColor} font-bold rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50`}
                 onClick={handleAddRow}
