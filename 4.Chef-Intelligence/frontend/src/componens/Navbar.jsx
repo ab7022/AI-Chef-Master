@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { darkColors, lightColors } from "../data/Navbar";
 import { Disclosure } from "@headlessui/react";
+import CompanyLogo from "../assets/CompanyLogo.png";
 import { MdMenu, MdArrowDropDown, MdAccountCircle } from "react-icons/md";
 import { FiSun, FiMoon, FiLogIn } from "react-icons/fi";
-import CompanyLogo from "../assets/CompanyLogo.png";
-
 import { HiOutlineX } from "react-icons/hi";
 
-export default function NavBar({ sideBarOpen, toggleSideBar, toggleMode, lightMode }) {
+export default function NavBar({ sideBarOpen, setSideBarOpen, setLightMode, lightMode }) {
   const [selectedLanguage, setSelectedLanguage] = useState("English");
   const [profileOpen, setProfileOpen] = useState(false);
 
@@ -17,42 +17,20 @@ export default function NavBar({ sideBarOpen, toggleSideBar, toggleMode, lightMo
     setSelectedLanguage(language);
   };
 
-  const handleLogout = () => {
-    // logout();
-  };
-
-  const darkColors = {
-    background: "bg-gray-800",
-    text: "text-white",
-    hoverBackground: "hover:bg-gray-800",
-    hoverText: "hover:text-gray-200",
-    dialogbg: "bg-gray-950",
-    textdialog: "text-white",
-  };
-
-  const lightColors = {
-    background: "bg-[#00544f]",
-    text: "text-white",
-    textdialog: "text-black",
-    hoverBackground: "hover:bg-[#022a28]",
-    hoverText: "hover:text-gray-200",
-    dialogbg: "bg-white",
-  };
-
   const colors = lightMode ? lightColors : darkColors;
 
   return (
     <Disclosure
       as="nav"
-      className={`${colors.background} ${colors.text} sticky top-0 z-50`}
+      className={`${colors.text} bg-[#00544f] sticky top-0 z-50`}
     >
       {({ open }) => (
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="w-full md:w-auto flex items-center justify-between md:gap-1 lg:gap-3">
             <div className="flex items-center">
               <div
-                className="text-white font-extrabold p-2"
-                onClick={toggleSideBar}
+                className="text-white font-extrabold p-2 cursor-pointer"
+                onClick={() => setSideBarOpen(!sideBarOpen)}
               >
                 {sideBarOpen ? (
                   <HiOutlineX className="h-6 w-6" aria-hidden="true" />
@@ -139,7 +117,7 @@ export default function NavBar({ sideBarOpen, toggleSideBar, toggleMode, lightMo
               {/* Dark/Light Mode Switch (Placeholder) */}
               <div className="p-3 flex flex-col items-center justify-center hover:bg-green-900 border-b border-green-900">
                 <button
-                  onClick={toggleMode}
+                  onClick={() => setLightMode(!lightMode)}
                   className="text-lg text-center flex items-center flex-row"
                 >
                   {lightMode ? (
@@ -192,7 +170,7 @@ export default function NavBar({ sideBarOpen, toggleSideBar, toggleMode, lightMo
 
             <button
               className={`p-2 ${colors.hoverBackground} hover:rounded flex flex-row`}
-              onClick={toggleMode}
+              onClick={() => setLightMode(!lightMode)}
             >
               {lightMode ? (
                 <FiSun className="mr-2 mt-1" />
@@ -210,7 +188,7 @@ export default function NavBar({ sideBarOpen, toggleSideBar, toggleMode, lightMo
               Login
             </Link>
             <div
-              className={`relative group cursor-pointer`}
+              className={`group cursor-pointer`}
               onClick={() => setProfileOpen(!profileOpen)}
             >
               <MdAccountCircle
@@ -219,7 +197,7 @@ export default function NavBar({ sideBarOpen, toggleSideBar, toggleMode, lightMo
               {/* Profile Information */}
               {profileOpen && (
                 <div
-                  className={`absolute right-10 flex-col mt-10 w-60  ${colors.textdialog} shadow-md rounded-md p-4 text-sm z-10 flex ${colors.dialogbg} `}
+                  className={`absolute top-4 right-4 flex-col mt-[56px] w-60  ${colors.textdialog} shadow-md rounded-md p-4 text-sm z-10 flex ${colors.dialogbg} `}
                 >
                   <div className="flex flex-row items-center justify-center">
                     <MdAccountCircle
@@ -237,7 +215,7 @@ export default function NavBar({ sideBarOpen, toggleSideBar, toggleMode, lightMo
 
                   <div className="pt-2">Subscription</div>
                   <button
-                    onClick={handleLogout}
+                    onClick={() => { }}
                     className={`mt-2 p-2 ${colors.hoverBackground} ${colors.background} text-white rounded`}
                   >
                     Logout

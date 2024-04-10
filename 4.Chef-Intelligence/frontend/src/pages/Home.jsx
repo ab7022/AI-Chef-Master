@@ -1,26 +1,20 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { darkColors, lightColors } from "../data/Home";
 import SideBar from "../componens/SideBar";
 import ingredients from "../Data/ingredients";
 import NavBar from "../componens/Navbar";
 import equipments from "../Data/equipment";
 
 export default function Home() {
+  const [lightMode, setLightMode] = useState(true);
+  const [sideBarOpen, setSideBarOpen] = useState(false);
+
   const [rows, setRows] = useState([
     { ingredient: "", quantity: "", equipment: "" },
   ]);
   const [suggestionsOfIngredient, setSuggestionsOfIngredient] = useState([]);
   const [suggestionsOfEquipment, setSuggestionsOfEquipment] = useState([]);
-  const [sideBarOpen, setSideBarOpen] = useState(false);
-  const [lightMode, setLightMode] = useState(true);
-
-  const toggleSideBar = () => {
-    setSideBarOpen(!sideBarOpen);
-  };
-
-  const toggleMode = () => {
-    setLightMode(!lightMode);
-  };
 
   const handleInputChange = (index, event) => {
     const { name, value } = event.target;
@@ -53,34 +47,6 @@ export default function Home() {
     handleInputChange(index, event);
   };
 
-  const lightColors = {
-    backgroundOfBody: "bg-[#f7f3cd]",
-    text: "text-[#333]",
-    inputBackground: "",
-    inputText: "",
-    buttonBackground: "bg-orange-600",
-    buttonHoverBackground: "hover:bg-yellow-600",
-    buttonTextColor: "text-white",
-    buttonHoverTextColor: "hover:text-gray-200",
-    textParagraph: "text-[#00544f]",
-    backgroundOfDiv: "bg-white",
-    button: "bg-[#00544f]",
-  };
-
-  const darkColors = {
-    backgroundOfBody: "bg-gray-900",
-    text: "text-[#f7f3cd]",
-    button: "bg-gray-700",
-    inputBackground: "bg-gray-800",
-    inputText: "text-white",
-    buttonBackground: "bg-gray-900",
-    buttonHoverBackground: "hover:bg-gray-800",
-    buttonTextColor: "text-white",
-    buttonHoverTextColor: "hover:text-gray-200",
-    textParagraph: "text-gray-300",
-    backgroundOfDiv: "bg-gray-700",
-  };
-
   const colors = lightMode ? lightColors : darkColors;
 
   const handleStartProcess = async (e) => {
@@ -88,41 +54,29 @@ export default function Home() {
 
     for (let i = 0; i < rows.length; i++) {
       const row = rows[i];
-
       if (!row.ingredient || !row.quantity || !row.equipment) {
         let missingData = [];
-        if (!row.ingredient) missingData.push("ingredient");
-        if (!row.quantity) missingData.push("quantity");
-        if (!row.equipment) missingData.push("equipment");
-
+        if (!row.ingredient) missingData.push("Ingredient");
+        if (!row.quantity) missingData.push("Quantity");
+        if (!row.equipment) missingData.push("Equipment");
         return toast.error(`Row ${i + 1} is missing: ${missingData.join(", ")}`);
       }
     }
 
     await fetch(`${import.meta.env.VITE_API_URL}/start-process`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(rows),
-    })
-      .then(() => {
-        toast.success('Started processing...');
-      })
-      .catch(() => {
-        toast.error('Something went wrong.');
-      });
+    }).then(() => toast.success('Started processing...')).catch(() => toast.error('Something went wrong.'));
   }
 
   return (
-    <div
-      className={`${colors.backgroundOfBody} ${colors.text}`}
-    >
+    <div className={`${colors.backgroundOfBody} ${colors.text}`}>
       <NavBar
         sideBarOpen={sideBarOpen}
-        toggleSideBar={toggleSideBar}
-        toggleMode={toggleMode}
+        setSideBarOpen={setSideBarOpen}
         lightMode={lightMode}
+        setLightMode={setLightMode}
         colos={colors}
       />
       <div className="relative flex flex-row">
@@ -131,21 +85,15 @@ export default function Home() {
           <h1 className="font-extrabold text-6xl lg:text-7xl text-orange-400 text-center mt-8 lg:mt-0 mb-8 justify-center">
             Chef Intelligence
           </h1>
-          <p
-            className={`${colors.textParagraph} text-base lg:text-lg  mt-4 mb-0 text-center font-semibold max-w-2xl`}
-          >
+          <p className={`${colors.textParagraph} text-base lg:text-lg  mt-4 mb-0 text-center font-semibold max-w-2xl`}>
             Elevate your culinary skills with the power of AI. Search for
             ingredients and equipment effortlessly to create masterful dishes.
           </p>
 
-          <p
-            className={`${colors.textParagraph} text-lg mb-12 lg:mb-4 text-center hidden lg:block font-semibold`}
-          >
+          <p className={`${colors.textParagraph} text-lg mb-12 lg:mb-4 text-center hidden lg:block font-semibold`}>
             Start your culinary adventure today with AI Chef Master!
           </p>
-          <div
-            className={`${colors.backgroundOfDiv} w-full lg:w-auto shadow-xl rounded-xl p-3 justify-center lg:mt-2 mt-12`}
-          >
+          <div className={`${colors.backgroundOfDiv} w-full lg:w-auto shadow-xl rounded-xl p-3 justify-center lg:mt-2 mt-12`}>
             {rows.map((row, index) => (
               <div key={index} className="gap-2 mb-2">
                 <div className="flex-col flex gap-3 lg:flex-row mt-4">
@@ -198,7 +146,6 @@ export default function Home() {
             {rows.map((row, index) => (
               <div key={index} className="my-4">
                 <div className="border border-gray-300 p-4 rounded-md shadow-md">
-
                   <ul>
                     <li>
                       <strong>Ingredient:</strong> {row.ingredient}
@@ -216,8 +163,8 @@ export default function Home() {
 
             <div className="flex justify-center gap-2 mt-4 lg:mt-6 items-center align-middle">
               <button
-                className={`py-2 px-4 ${colors.buttonBackground} ${colors.buttonHoverBackground} ${colors.buttonTextColor} ${colors.buttonHoverTextColor} font-bold rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50`}
                 onClick={handleAddRow}
+                className={`py-2 px-4 ${colors.buttonBackground} ${colors.buttonHoverBackground} ${colors.buttonTextColor} ${colors.buttonHoverTextColor} font-bold rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50`}
               >
                 Add More
               </button>
