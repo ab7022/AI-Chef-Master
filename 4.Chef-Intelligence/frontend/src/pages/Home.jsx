@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { toast } from "react-toastify";
 import SideBar from "../componens/SideBar";
 import ingredients from "../Data/ingredients";
 import NavBar from "../componens/Navbar";
@@ -12,7 +13,7 @@ export default function Home() {
   const [suggestionsOfEquipment, setSuggestionsOfEquipment] = useState([]);
   const [sideBarOpen, setSideBarOpen] = useState(false);
   const [lightMode, setLightMode] = useState(true);
-  
+
   const toggleSideBar = () => {
     setSideBarOpen(!sideBarOpen);
   };
@@ -81,6 +82,37 @@ export default function Home() {
   };
 
   const colors = lightMode ? lightColors : darkColors;
+
+  const handleStartProcess = async (e) => {
+    e.preventDefault();
+
+    for (let i = 0; i < rows.length; i++) {
+      const row = rows[i];
+
+      if (!row.ingredient || !row.quantity || !row.equipment) {
+        let missingData = [];
+        if (!row.ingredient) missingData.push("ingredient");
+        if (!row.quantity) missingData.push("quantity");
+        if (!row.equipment) missingData.push("equipment");
+
+        return toast.error(`Row ${i + 1} is missing: ${missingData.join(", ")}`);
+      }
+    }
+
+    await fetch(`${import.meta.env.VITE_API_URL}/start-process`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(rows),
+    })
+      .then(() => {
+        toast.success('Started processing...');
+      })
+      .catch(() => {
+        toast.error('Something went wrong.');
+      });
+  }
 
   return (
     <div
@@ -192,6 +224,7 @@ export default function Home() {
             </div>
           </div>
           <button
+            onClick={handleStartProcess}
             className={`${colors.button} ${colors.buttonHoverBackground} ${colors.buttonTextColor} ${colors.buttonHoverTextColor} w-fit mx-auto text-white font-bold py-3 px-4 rounded-xl focus:outline-none focus:ring-2 mt-12 focus:ring-gray-500 focus:ring-opacity-50 my-4 ${colors.buttonHoverTextColor}`}
           >
             Start To Process
