@@ -72,7 +72,8 @@ export default function Home({ lightMode, sideBarOpen }) {
                 {sideBarOpen && <SideBar lightMode={lightMode} />}
 
                 <div className="flex flex-col w-full md:w-5/6 mx-auto min-h-[calc(100dvh-56px)] items-center justify-center px-2">
-                    <h1 className="font-extrabold text-6xl lg:text-7xl text-orange-400 text-center mt-8 lg:mt-0 mb-8 justify-center">
+                    <img src='/CompanyLogo.png' alt="" className="w-36 h-36" />
+                    <h1 className="font-extrabold text-6xl md:text-7xl text-orange-400 text-center mb-8 justify-center">
                         Chef Intelligence
                     </h1>
                     <p className={`${colors.textParagraph} text-base lg:text-lg  mt-4 mb-0 text-center font-semibold max-w-2xl`}>
