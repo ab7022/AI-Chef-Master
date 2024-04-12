@@ -24,12 +24,12 @@ const DashboardPage = () => {
   const [form, setForm] = useState(initialFormState);
 
   return (
-    <div className="w-screen mt-32  overflow-x-hidden font-primary flex flex-col justify-center items-center">
+    <div className="w-screen mt-32 overflow-x-hidden font-primary flex flex-col justify-center items-center">
 
       {tab === 0 ? (
         <>
           <div className="flex items-center justify-center gap-3">
-            <p className=" font-semibold text-4xl">Welcome Chef</p>
+            <p className="custom-text font-semibold text-4xl">Welcome Chef</p>
             <p className="text-green-600 text-3xl ">
               <LuChefHat />
             </p>

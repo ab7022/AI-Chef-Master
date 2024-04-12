@@ -1,49 +1,52 @@
-
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import HomePage from './pages/HomePage'
-import DashboardPage from './pages/DashboardPage'
-import SignupPage from './pages/SignupPage'
-import LoginPage from './pages/LoginPage'
-import ContactPage from './pages/ContactPage'
-// import CareerPage from './pages/CareerPage'
 import './App.css'
-import Navbar from './components/Navbar'
+import { useState, useEffect } from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast'
 import { useAuthContext } from './hooks/useAuthContext'
-import JobsPage from './pages/JobsPage'
-import JobDataPage from './pages/JobDataPage'
+import Navbar from './components/Navbar'
+import HomePage from './pages/HomePage'
+import LoginPage from './pages/LoginPage'
+import SignupPage from './pages/SignupPage'
+import DashboardPage from './pages/DashboardPage'
+import SearchPage from './pages/SearchPage'
+import HistoryPage from './pages/HistoryPage'
+import ContactPage from './pages/ContactPage'
+// import JobsPage from './pages/JobsPage'
+// import CareerPage from './pages/CareerPage'
+// import JobForm from './components/JobForm'
+// import JobDataPage from './pages/JobDataPage'
 // import JobOpening from './pages/JobOpening'
-import JobForm from './components/JobForm'
-import ApplicationPage from './components/ApplicationPage'
-import Page from "../src/resume-parser/page"
-// import InstructionsPage from "./pages/InstructionsPage"
-import HistoryPage from "./pages/HistoryPage"
-import SearchPage from "./pages/SearchPage"
-import { Toaster } from "react-hot-toast"
+// import ApplicationPage from './components/ApplicationPage'
+// import Page from '../src/resume-parser/page'
 
 function App() {
   const { user } = useAuthContext();
+  const [theme, setTheme] = useState('light');
+
+  useEffect(() => {
+    document.body.setAttribute('data-theme', localStorage.getItem('theme') || theme);
+    setTheme(localStorage.getItem('theme') || theme);
+  }, [theme]);
 
   return (
     <div>
       <BrowserRouter>
-        <Navbar />
+        <Navbar theme={theme} setTheme={setTheme} />
         <div className='pages'>
           <Routes>
             <Route path='/' element={<HomePage />} />
-            <Route path='/dashboard' element={user ? <DashboardPage /> : <Navigate to='/login' />} />
-            <Route path='/contact' element={<ContactPage />} />
-            <Route path='/signup' element={<SignupPage />} />
-            {/* <Route path='/career' element={<CareerPage/>}/> */}
-            <Route path='/jobs' element={!user ? <JobsPage /> : <Navigate to='/login' />} />
             <Route path='/login' element={!user ? <LoginPage /> : <Navigate to='/dashboard' />} />
-            {/* <Route path='/dashboard/instruction' element={<InstructionsPage />} /> */}
-            <Route path='/reset' element={!user ? <LoginPage /> : <Navigate to='/reset' />} />
+            <Route path='/signup' element={<SignupPage />} />
+            <Route path='/dashboard' element={user ? <DashboardPage /> : <Navigate to='/login' />} />
+            <Route path='/search' element={!user ? <LoginPage /> : <SearchPage theme={theme} />} />
+            <Route path='/history' element={!user ? <LoginPage /> : <HistoryPage />} />
+            <Route path='/contact' element={<ContactPage />} />
+            {/* <Route path='/jobs' element={!user ? <JobsPage /> : <Navigate to='/login' />} />
+            <Route path='/career' element={<CareerPage/>}/>
             <Route path='/jobform' element={!user ? <JobForm /> : <Navigate to='/login' />} />
             <Route path='/jobapplication' element={!user ? <JobDataPage /> : <Navigate to='/login' />} />
             <Route path='/jobopenings' element={!user ? <ApplicationPage /> : <Navigate to='/login' />} />
-            <Route path='/resume-parser' element={!user ? <Page /> : <Navigate to='/login' />} />
-            <Route path='/history' element={!user ? <LoginPage /> : <HistoryPage />} />
-            <Route path='/search' element={!user ? <LoginPage /> : <SearchPage />} />
+            <Route path='/resume-parser' element={!user ? <Page /> : <Navigate to='/login' />} /> */}
           </Routes>
         </div>
       </BrowserRouter>

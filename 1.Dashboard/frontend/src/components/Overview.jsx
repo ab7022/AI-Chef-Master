@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-import React from "react";
 import { BiDish } from "react-icons/bi";
 
 const Overview = ({ form, color, value, open, setOpen, page }) => {
@@ -7,7 +5,7 @@ const Overview = ({ form, color, value, open, setOpen, page }) => {
     <div className={`lg:max-w-[75%] mx-auto flex flex-col justify-center items-center font-primary ${color} py-10 px-1 lg:px-8`}>
       {value == "searchPage" ? (
         <button
-          className="bg-black text-white p-1 rounded-xl"
+          className="custom-btn px-4 py-1 rounded-md text-xl"
           onClick={() => {
             document.body.style.overflow = "";
             setOpen(false);
@@ -21,7 +19,7 @@ const Overview = ({ form, color, value, open, setOpen, page }) => {
       <p className="text-3xl text-center font-semibold text-amber-500 pb-4 flex items-center justify-center gap-4">
         Dish Overview <BiDish />
       </p>
-      <div className="w-full">
+      <div className="custom-text w-full">
         <div className="flex items-center gap-4 border-b border-zinc-500">
           <p className="p-1  py-2 font-semibold lg:text-xl">Dish Name - </p>{" "}
           <span className="text-lg capitalize">{form.name}</span>

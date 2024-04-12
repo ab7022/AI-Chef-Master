@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { IoIosClose } from 'react-icons/io'
+import { IoIosClose, IoIosPaper } from 'react-icons/io'
 import { MdEdit } from "react-icons/md";
 import { toast } from 'react-hot-toast';
 import './style.css'
@@ -140,14 +140,17 @@ const Instruction = ({ formData, setFormData, portion }) => {
 
     return (
         <>
-            <p className="text-center text-sm italic font-semibold text-zinc-700">* Enter quantity for portion {portion}</p>
+            <p className="custom-text text-3xl text-center pt-4 flex items-center justify-center gap-2 font-medium">
+                Instructions <IoIosPaper className="text-green-600" />
+            </p>
+            <p className="custom-text-secondary text-center text-sm italic font-semibold">* Enter quantity for portion {portion}</p>
             <div className="p-1 pt-3 lg:p-8 lg:py-4">
                 <div className="flex full px-4 lg:px-0">
                     {portion === 1 || !isTimeFilledForPortion(portion) ? (
                         <div className="items center w-full ">
                             <div className="flex flex-col lg:flex-row gap-4">
                                 <div className="w-full">
-                                    <label className=" font-medium text-md">Enter a new Step  <span className="text-rose-600">*</span></label>
+                                    <label className="custom-text font-medium text-md">Enter a new Step  <span className="text-rose-600">*</span></label>
                                     <textarea
                                         disabled={portion !== 1}
                                         type="text"
@@ -155,11 +158,11 @@ const Instruction = ({ formData, setFormData, portion }) => {
                                         value={newInstruction}
                                         onChange={(e) => setNewInstruction(e.target.value)}
                                         placeholder={`Enter a new step`}
-                                        className={`${portion !== 1 ? "cursor-not-allowed bg-gray-200" : "cursor-text"} border border-black w-full px-4 py-4 focus:border-orange-400  text-lg  rounded-md placeholder:italic placeholder-text-sm outline-none focus-border-orange-400`}
+                                        className={`custom-input custom-text ${portion !== 1 ? "cursor-not-allowed" : "cursor-text"} border border-black w-full px-4 py-4 focus:border-orange-400 text-lg rounded-md placeholder:italic placeholder-text-sm outline-none focus-border-orange-400`}
                                     />
                                 </div>
                                 <div className="w-full lg:w-auto flex flex-col">
-                                    <label className="text-black font-medium text-md">Enter Time <span className="text-rose-600">*</span> </label>
+                                    <label className="custom-text font-medium text-md">Enter Time <span className="text-rose-600">*</span> </label>
                                     <div className="flex items-center gap-2">
                                         <input
                                             disabled={portion !== 1 && isTimeDisabled}
@@ -168,7 +171,7 @@ const Instruction = ({ formData, setFormData, portion }) => {
                                             onFocus={(e) => e.target.addEventListener("wheel", function (e) { e.preventDefault() }, { passive: false })}
                                             type="number"
                                             placeholder="eg. 20"
-                                            className={`${portion !== 1 && isTimeDisabled ? "cursor-not-allowed bg-gray-200" : "cursor-text"} input-number border w-full  px-2 py-4 text-lg  focus:border-orange-400 border-black rounded-md placeholder:text-gray-400 outline-none placeholder:italic`} />
+                                            className={`custom-input custom-text ${portion !== 1 && isTimeDisabled ? "cursor-not-allowed" : "cursor-text"} input-number border w-full  px-2 py-4 text-lg  focus:border-orange-400 border-black rounded-md placeholder:text-gray-400 outline-none placeholder:italic`} />
                                         <p>min</p>
                                     </div>
                                 </div>
@@ -201,7 +204,7 @@ const Instruction = ({ formData, setFormData, portion }) => {
                     .map((instruction, index) => (
                         <div key={index} className="w-full">
                             <div className="items-center w-full">
-                                <div className="font-medium text-md flex items-center w-full">
+                                <div className="custom-text font-medium text-md flex items-center w-full">
                                     <span className="px-4 max-w-full flex gap-2">
                                         <p>Step</p> <p>{index + 1} </p> <p> -</p>
                                     </span>
