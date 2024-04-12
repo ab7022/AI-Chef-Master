@@ -5,10 +5,7 @@ import ingredients from "../data/ingredientsData";
 import equipments from "../data/equipmentData";
 import SideBar from "../components/Sidebar";
 
-export default function Home({ lightMode, sideBarOpen }) {
-    const [rows, setRows] = useState([
-        { ingredient: "", quantity: "", equipment: "" },
-    ]);
+export default function Home({ lightMode, sideBarOpen, rows, setRows }) {
     const [suggestionsOfIngredient, setSuggestionsOfIngredient] = useState([]);
     const [suggestionsOfEquipment, setSuggestionsOfEquipment] = useState([]);
 

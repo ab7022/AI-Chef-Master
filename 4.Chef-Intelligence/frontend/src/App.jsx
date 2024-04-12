@@ -10,6 +10,10 @@ function App() {
   const [lightMode, setLightMode] = useState(true);
   const [sideBarOpen, setSideBarOpen] = useState(false);
 
+  const [rows, setRows] = useState([
+    { ingredient: "", quantity: "", equipment: "" },
+  ]);
+
   return (
     <>
       <BrowserRouter>
@@ -20,7 +24,14 @@ function App() {
           setSideBarOpen={setSideBarOpen}
         />
         <Routes>
-          <Route path="/" element={<Home lightMode={lightMode} sideBarOpen={sideBarOpen} />} />
+          <Route path="/" element={(
+            <Home
+              lightMode={lightMode}
+              sideBarOpen={sideBarOpen}
+              rows={rows}
+              setRows={setRows}
+            />
+          )} />
         </Routes>
       </BrowserRouter>
       <ToastContainer position="top-center" />
