@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { IoIosLogIn, IoIosLogOut } from "react-icons/io";
+import { TbLogin, TbLogout } from "react-icons/tb";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 
 import "../MyNavbar/index.css";
@@ -103,7 +103,7 @@ export default function MyNavbar({ theme, setTheme }) {
                           onClick={handleLogout}
                           className={`nav-link flex items-center justify-center rounded-md px-2 py-2 text-sm font-medium`}
                         >
-                          <IoIosLogOut size={20} />
+                          <TbLogout size={20} />
                         </button>
                       ) : (
                         <Link
@@ -113,7 +113,7 @@ export default function MyNavbar({ theme, setTheme }) {
                           className={`nav-link flex items-center justify-center ${location.pathname === "/login" ? "active" : ""
                             } rounded-md px-2 py-2 text-sm font-medium`}
                         >
-                          <IoIosLogIn size={20} />
+                          <TbLogin size={20} />
                         </Link>
                       )}
                     </div>

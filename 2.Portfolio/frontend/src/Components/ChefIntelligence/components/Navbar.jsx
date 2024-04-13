@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import { darkColors, lightColors } from "../data/navbarTheme";
 import { Disclosure } from "@headlessui/react";
 import { MdMenu, MdArrowDropDown, MdAccountCircle } from "react-icons/md";
-import { FiSun, FiMoon, FiLogIn } from "react-icons/fi";
+import { FiSun, FiMoon } from "react-icons/fi";
 import { HiOutlineX } from "react-icons/hi";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { useLogout } from "../../../hooks/useLogout";
+import { TbLogin } from "react-icons/tb";
 
 const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
     const { user } = useAuthContext();
@@ -238,10 +239,10 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
                         ) : (
                             <Link
                                 to="/login"
-                                className={`mr-2 p-2 ${colors.hoverBackground} hover:rounded flex-row flex`}
+                                className={`mr-2 p-2 ${colors.hoverBackground} hover:rounded flex-row flex items-center`}
                             >
-                                <FiLogIn className="mr-1 mt-1" />
-                                Login
+                                <TbLogin size={20} className="mr-1" />
+                                <span>Login</span>
                             </Link>
                         )}
                     </div>

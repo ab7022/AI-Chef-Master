@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../../hooks/useAuthContext";
-import { toast } from "react-hot-toast";
 import { darkColors, lightColors } from "../data/sidebarTheme";
+import { toast } from "react-hot-toast";
 
 const SideBar = ({ lightMode }) => {
     const { user } = useAuthContext();
@@ -17,17 +17,18 @@ const SideBar = ({ lightMode }) => {
             await fetch(`${process.env.REACT_APP_API_URL}/get-rows/${user.user_id}`, {
                 method: "GET",
                 headers: {
-                    Authorization: `Bearer ${user.access_token}`,
+                    Authorization: `Bearer ${userData.access_token}`,
                     "Content-Type": "application/json",
                 }
             })
                 .then(res => res.json())
                 .then((data) => setRows(data.rows))
-                .catch(() => toast.error('Something went wrong.'));
+                .catch(() => toast.error('Login again. Session expired!'));
         }
 
-        if (user.access_token) getRows();
-    }, [user.access_token, user.user_id]);
+        const userData = JSON.parse(localStorage.getItem('user'));
+        if (user && userData && userData.access_token) getRows();
+    }, [user]);
 
     return (
         <div className={`fixed top-[56px] left-0 lg:relative flex flex-col lg:w-1/5 h-[calc(100dvh-56px)] lg:h-auto lg:mt-[-56px] overflow-y-auto ${colors.background} ${colors.text} text-white shadow-2xl`}>
@@ -49,7 +50,11 @@ const SideBar = ({ lightMode }) => {
                         {!loading && rows.map((item, i) => (
                             <li key={i} className={`tracking-wider ${colors.hoverBackground} p-2 border-b border-gray-700 cursor-pointer`}>{item.ingredient}</li>
                         ))}
-                        <li className="text-center mt-4">End Of List</li>
+                        {rows.length > 0 ? (
+                            <li className="text-center mt-4">End Of List</li>
+                        ) : (
+                            <li className="text-center mt-4">Nothing added yet</li>
+                        )}
                     </ul>
                 </>
             )}

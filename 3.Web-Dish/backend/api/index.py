@@ -214,6 +214,18 @@ def loginAuth():
     user_id = user['user_id']
     return jsonify(message = 'Login Successful', access_token = token, email = email, name = name, user_id = user_id)
 
+@app.route('/auth/validate-token', methods=['GET'])
+@jwt_required()
+def validate_token():
+    current_user = get_jwt_identity()
+    user = db.users.find_one({'email': current_user})
+    if user:
+        name = user['first_name'] + " " + user['last_name']
+        user_id = user['user_id']
+        return jsonify(message='Token is valid', email=current_user, name=name, user_id=user_id)
+    else:
+        return jsonify({'message': 'Invalid token'}), 401
+
 @app.route('/auth/forgetPassword',methods =['POST'])
 def forgetP():
     email = request.json.get('email')

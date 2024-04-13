@@ -1,11 +1,14 @@
 import './style.css'
 import { useState } from 'react';
 import { Routes, Route } from "react-router-dom";
+import { darkColors, lightColors } from "./data/homeTheme";
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
+import SideBar from './components/Sidebar';
 
 const ChefIntelligence = () => {
     const [lightMode, setLightMode] = useState(true);
+    const colors = lightMode ? lightColors : darkColors;
     const [sideBarOpen, setSideBarOpen] = useState(false);
 
     const [rows, setRows] = useState([
@@ -20,20 +23,24 @@ const ChefIntelligence = () => {
                 sideBarOpen={sideBarOpen}
                 setSideBarOpen={setSideBarOpen}
             />
-            <Routes>
-                <Route
-                    exact
-                    path="/"
-                    element={
-                        <Home
-                            lightMode={lightMode}
-                            sideBarOpen={sideBarOpen}
-                            rows={rows}
-                            setRows={setRows}
+            <div className={`${colors.backgroundOfBody} ${colors.text}`}>
+                <div className="relative flex flex-row">
+                    {sideBarOpen && <SideBar lightMode={lightMode} />}
+                    <Routes>
+                        <Route
+                            exact
+                            path="/"
+                            element={
+                                <Home
+                                    lightMode={lightMode}
+                                    rows={rows}
+                                    setRows={setRows}
+                                />
+                            }
                         />
-                    }
-                />
-            </Routes>
+                    </Routes>
+                </div>
+            </div>
         </>
     )
 }
