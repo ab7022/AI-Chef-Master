@@ -1,9 +1,11 @@
-import './App.css'
+import './App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext";
+
+import LocationListener from "./hooks/LocationListener";
 import MyNavbar from "./Components/MyNavbar";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 import Home from "./Components/Home";
 import LoginIn from "./Components/LoginSineupPage/LoginIn";
@@ -11,6 +13,7 @@ import CreateAccount from "./Components/LoginSineupPage/CreateAccount";
 import Product from "./Components/Product";
 import CareerHomePage from "./Components/Career/CareerHomePage";
 import Company from "./Components/Company";
+import ChefIntelligence from './Components/ChefIntelligence';
 import JobRoles from "./Components/Career/searchJobCards";
 import AboutUs from './Components/Team/About';
 import Team from './Components/Team/Team';
@@ -31,6 +34,7 @@ import NotFound from "./Components/NotFound";
 const App = () => {
   const { user } = useAuthContext();
   const [theme, setTheme] = useState('light');
+  const [location, setLocation] = useState({ pathname: '' });
 
   useEffect(() => {
     document.body.setAttribute('data-theme', localStorage.getItem('theme') || theme);
@@ -38,7 +42,12 @@ const App = () => {
 
   return (
     <Router>
-      <MyNavbar theme={theme} setTheme={setTheme} />
+      <LocationListener setLocation={setLocation} />
+
+      {location.pathname !== '/chef-intelligence' && (
+        <MyNavbar theme={theme} setTheme={setTheme} />
+      )}
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path='/login' element={!user ? <LoginIn /> : <Navigate to='/' />} />
@@ -46,6 +55,7 @@ const App = () => {
         <Route path="/product" element={<Product />} />
         <Route path="/career" element={<CareerHomePage />} />
         <Route path="/company" element={<Company />} />
+        <Route path="chef-intelligence/*" element={<ChefIntelligence />} />
         <Route path="/Job" element={<JobRoles />} />
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/Team" element={<Team />} />
