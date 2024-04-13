@@ -127,7 +127,7 @@ const Application = () => {
       formData.append('allQuestions', JSON.stringify(allQuestions));
       formData.append('voluntaryDisclosures', JSON.stringify(voluntaryDisclosures));
 
-      certificates.map((certificate) => formData.append('certificates[]', certificate));
+      // certificates.map((certificate) => formData.append('certificates[]', certificate));
 
       const config = {
         method: 'POST',

@@ -108,9 +108,6 @@ def microsoft_login():
     )
     return redirect(auth_url)
 
-from flask import redirect, jsonify, request, url_for
-import urllib.parse
-
 @app.route("/microsoft/callback")
 def microsoft_callback():
     code = request.args.get('code')
@@ -169,7 +166,6 @@ def microsoft_callback():
 # Manual Authentication
 @app.route('/auth/signup', methods =['POST'])
 def register():
-    
     first_name = request.json.get('first_name')
     last_name = request.json.get('last_name')
     country_code = request.json.get('country_code')
@@ -198,7 +194,6 @@ def register():
 
 @app.route('/auth/login', methods=['POST'])
 def loginAuth():
-    
     email = request.json['email']
     password = request.json['password']
    
@@ -207,28 +202,18 @@ def loginAuth():
         return jsonify({'message': 'Invalid credentials'}), 401
     else:
         token  = create_access_token(identity= email)
-
     name = user['first_name']+" "+user['last_name']
     return jsonify(message = 'Login Successful', access_token = token, email = email, name = name)
 
 @app.route('/auth/forgetPassword',methods =['POST'])
 def forgetP():
-
     email = request.json.get('email')
     newPassword = request.json.get('newPassword')
 
     db.users.update_one({ "email": email },{"$set": { "password": generate_password_hash(newPassword) }})
     return jsonify({'message':"password updates succesfully"})
 
-@app.route('/logoutAPP', methods=['POST'])
-def logoutAPP():
-    # TODO: Implement logout logic
-    # This route could be a placeholder if you're using token-based authentication.
-    # If you're using sessions, you would typically handle logout on the client-side by clearing the session.
-
-    return jsonify({'message': 'Logout successful'}), 200
-
-app.config['UPLOAD_FOLDER'] = 'files'
+# app.config['UPLOAD_FOLDER'] = 'files'
 @app.route('/career' ,methods = ['POST'])
 def carrer():
     if request.method =="POST":
@@ -242,28 +227,28 @@ def carrer():
         all_questions = request.form.get("allQuestions")
         voluntary_questions = request.form.get("voluntaryDisclosures")
 
-        ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'doc', 'docx'}
-        certificates = request.files.getlist("certificates[]")
-        certificate_paths = []
-        saved_files = []
+        # ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'doc', 'docx'}
+        # certificates = request.files.getlist("certificates[]")
+        # certificate_paths = []
+        # saved_files = []
 
-        for certificate in certificates:
-            filename = certificate.filename
-            timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-            new_filename = f"{timestamp}-{filename}"
+        # for certificate in certificates:
+        #     filename = certificate.filename
+        #     timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+        #     new_filename = f"{timestamp}-{filename}"
 
-            if '.' in new_filename and new_filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS:
-                file_path = os.path.join(app.config['UPLOAD_FOLDER'], new_filename)
-                certificate.save(file_path)
-                certificate_paths.append(file_path)
-                saved_files.append(file_path)
-            else:
-                for file in saved_files:
-                    try:
-                        os.remove(file)
-                    except OSError as e:
-                        print(f"Error: {file} : {e.strerror}")
-                return jsonify({'message': 'Invalid file format'}), 400
+        #     if '.' in new_filename and new_filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS:
+        #         file_path = os.path.join(app.config['UPLOAD_FOLDER'], new_filename)
+        #         certificate.save(file_path)
+        #         certificate_paths.append(file_path)
+        #         saved_files.append(file_path)
+        #     else:
+        #         for file in saved_files:
+        #             try:
+        #                 os.remove(file)
+        #             except OSError as e:
+        #                 print(f"Error: {file} : {e.strerror}")
+        #         return jsonify({'message': 'Invalid file format'}), 400
 
         db.carrers.insert_one({
             'applied_for': applied_for,
@@ -274,9 +259,8 @@ def carrer():
             'socials': socials,
             'all_questions': all_questions,
             'voluntary_questions': voluntary_questions,
-            'certificates': certificate_paths
+            # 'certificates': certificate_paths
         })
-
         return jsonify({'message':'Application submitted successfully'}), 201
 
 @app.route('/api/dishCreateProcess',methods = ['POST','GET'])
@@ -336,7 +320,6 @@ def quickDishes():
             #Inde.append(str(int(it['quantity'])//(already_person))*people) +" " + it['unit'])
         return jsonify({"Kitchen_equi":Dish_detail['kitchen_equipments'].split(","),"Indegrients":Inde}),201
     
-
 @app.route('/api/healtyDishes',methods =['POST','GET'])
 def healtyDishes():
     data = request.get_json()
@@ -356,9 +339,6 @@ def healtyDishes():
             #Inde.append(str(int(it['quantity'])//(already_person))*people) +" " + it['unit'])
         return jsonify({"Kitchen_equi":Dish_detail['kitchen_equipments'].split(","),"Indegrients":Inde}),201
     
-
-
-
 @app.route('/userDetials',methods =['GET','POST'])
 @jwt_required()
 def  userDetials():
@@ -367,47 +347,32 @@ def  userDetials():
     first_name = UserData['first_name']
     last_name =UserData['last_name']
     email = UserData['email']
-
     name = first_name +" " +last_name
-
     data = request.get_json()
     country = data['country']
     state = data['state']
     dish_type = data['Dish_category']
-    
 
     db.AllDetails.insert_one({'name':name,'email':email,'country':country,'state':state ,'dish_type':dish_type })
-
-
     return jsonify({"message":"User details saved successfully"}),201 
-
-
 
 @app.route('/api/chef_id',methods =['POST','GET'])
 @jwt_required()
 def create_id():
-
     user_email = get_jwt_identity()
     user = db.users.find_one({'email':user_email})
 
     chef_id = "AiChef"+user['first_name']+ str(random.randint(1000,10000))
-    print(chef_id)
 
     db.users.update_one({'email':user_email},{"$set" :{"chef_id":chef_id}})
-
     return jsonify({"message":"chef id created succesffuly"}),200
 
-
 @app.route('/api/saveMenu',methods =['GET','POST'])
-
 def saveMenu():
-    
     user_email = get_jwt_identity()
     user =db.users.find_one({'email':user_email})
     name = user['first_name'] +" " +user['last_name']
     
-
-
     data = request.get_json()
     print(data)
     meal = data['meal']
@@ -425,8 +390,6 @@ def saveMenu():
     cuisine = data['cuisine']
     desserts = data['desserts']
     appetizers = data['appetizers']
-
-
     
     if meal =='dinner':
         db.Menu.insert_one({
@@ -445,7 +408,6 @@ def saveMenu():
             'cuisine':cuisine, 
             'desserts' :desserts,
             'appetizers':appetizers
-
         })    
     else:
         db.Menu.insert_one({
@@ -462,9 +424,7 @@ def saveMenu():
             'skill':skill,
             'beverages':beverages,
             'cuisine':cuisine
-        
         })
-
 
     reminder_time = reminder -timedelta(minutes =10)
     scheduler.add_job(
@@ -473,9 +433,7 @@ def saveMenu():
         args = [user_email,meal,mainDishes,reminder],
         trigger = 'date',
         run_date = reminder_time
-
     )
- 
     return jsonify({'Message':"Menu saved successfully "}),201
 
 def send_reminder(user_email,meal,mainDishes,reminder):
@@ -487,11 +445,6 @@ def send_reminder(user_email,meal,mainDishes,reminder):
     )
     msg.body =f"Your Dish {meal} with main Dishes {mainDishes} is ready to cook in {reminder} minutes"
     mail.send(msg)
-
-    
-
-
-
 
 # pipeline of data
 '''
