@@ -222,6 +222,13 @@ def forgetP():
     db.users.update_one({ "email": email },{"$set": { "password": generate_password_hash(newPassword) }})
     return jsonify({'message':"password updates succesfully"})
 
+@app.route('/start-process', methods =['POST'])
+def process():
+    data = request.get_json()
+    # document = {user: data.user, 'rows': data.rows}
+    result = db.Process.insert_one(data)
+    return jsonify({'message': 'Data inserted successfully'}), 201
+
 # app.config['UPLOAD_FOLDER'] = 'files'
 @app.route('/career' ,methods = ['POST'])
 def carrer():

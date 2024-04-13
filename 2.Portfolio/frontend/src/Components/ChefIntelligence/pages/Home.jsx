@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAuthContext } from "../../../hooks/useAuthContext";
 import { toast } from "react-hot-toast";
 import { darkColors, lightColors } from "../data/homeTheme";
 import ingredients from "../data/ingredientsData";
@@ -6,10 +7,13 @@ import equipments from "../data/equipmentData";
 import SideBar from "../components/Sidebar";
 
 export default function Home({ lightMode, sideBarOpen, rows, setRows }) {
+    const { user } = useAuthContext();
+
     const [suggestionsOfIngredient, setSuggestionsOfIngredient] = useState([]);
     const [suggestionsOfEquipment, setSuggestionsOfEquipment] = useState([]);
 
     const handleInputChange = (index, event) => {
+        if (!user) return toast.error('Please login to proceed!');
         const { name, value } = event.target;
         const updatedRows = [...rows];
         updatedRows[index][name] = value;
@@ -17,10 +21,12 @@ export default function Home({ lightMode, sideBarOpen, rows, setRows }) {
     };
 
     const handleAddRow = () => {
+        if (!user) return toast.error('Please login to proceed!');
         setRows([...rows, { ingredient: "", quantity: "", equipment: "" }]);
     };
 
     const handleInputChangeOfIngredient = (index, event) => {
+        if (!user) return toast.error('Please login to proceed!');
         const value = event.target.value;
         const filteredIngredients = ingredients.filter((ingredient) =>
             ingredient.toLowerCase().startsWith(value.toLowerCase())
@@ -31,6 +37,7 @@ export default function Home({ lightMode, sideBarOpen, rows, setRows }) {
     };
 
     const handleInputChangeOfEquipment = (index, event) => {
+        if (!user) return toast.error('Please login to proceed!');
         const value = event.target.value;
         const filteredEquipments = equipments.filter((equipment) =>
             equipment.toLowerCase().startsWith(value.toLowerCase())
@@ -45,6 +52,7 @@ export default function Home({ lightMode, sideBarOpen, rows, setRows }) {
     const handleStartProcess = async (e) => {
         e.preventDefault();
 
+        if (!user) return toast.error('Please login to proceed!');
         for (let i = 0; i < rows.length; i++) {
             const row = rows[i];
             if (!row.ingredient || !row.quantity || !row.equipment) {
@@ -56,10 +64,19 @@ export default function Home({ lightMode, sideBarOpen, rows, setRows }) {
             }
         }
 
-        await fetch(`${import.meta.env.VITE_API_URL}/start-process`, {
+        const data = {
+            user: {
+                email: user.email,
+                name: user.name,
+                user_id: user.user_id
+            },
+            rows
+        }
+
+        await fetch(`${process.env.REACT_APP_API_URL}/start-process`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(rows),
+            body: JSON.stringify(data),
         }).then(() => toast.success('Started processing...')).catch(() => toast.error('Something went wrong.'));
     }
 
