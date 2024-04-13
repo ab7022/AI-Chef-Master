@@ -7,29 +7,29 @@ import { useAuthContext } from "./hooks/useAuthContext";
 import LocationListener from "./hooks/LocationListener";
 import MyNavbar from "./Components/MyNavbar";
 
-import Home from "./Components/Home";
+// import Home from "./Components/Home";
 import LoginIn from "./Components/LoginSineupPage/LoginIn";
-import CreateAccount from "./Components/LoginSineupPage/CreateAccount";
-import Product from "./Components/Product";
-import CareerHomePage from "./Components/Career/CareerHomePage";
-import Company from "./Components/Company";
+// import CreateAccount from "./Components/LoginSineupPage/CreateAccount";
+// import Product from "./Components/Product";
+// import CareerHomePage from "./Components/Career/CareerHomePage";
+// import Company from "./Components/Company";
 import ChefIntelligence from './Components/ChefIntelligence';
-import JobRoles from "./Components/Career/searchJobCards";
-import AboutUs from './Components/Team/About';
-import Team from './Components/Team/Team';
-import Application from "./Components/Career/JobApplicationForm/Application";
-import FrontendDeveloperEngineer from "./Components/Career/ListOfCareerJobs/FrontendDeveloperEngineer";
-import BackendDeveloperEngineer from "./Components/Career/ListOfCareerJobs/BackendDeveloperEngineer";
-import AIEngineer from "./Components/Career/ListOfCareerJobs/AIEngineer";
-import ServerEngineer from "./Components/Career/ListOfCareerJobs/ServerEngineer";
-import UiUxDesigner from "./Components/Career/ListOfCareerJobs/UiUxDesigner";
-import AndroidApplicationDeveloperEngineer from "./Components/Career/ListOfCareerJobs/AndroidApplicationDeveloperEngineer";
-import IOSApplicationDeveloperEngineer from "./Components/Career/ListOfCareerJobs/IOSApplicationDeveloperEngineer";
-import FullStackDeveloperEngineer from "./Components/Career/ListOfCareerJobs/FullStackDeveloperEngineer";
-import CustomerSupportAssociate from "./Components/Career/ListOfCareerJobs/CustomerSupportAssociate";
-import ResearchDevelopmentEngineer from "./Components/Career/ListOfCareerJobs/ResearchDevelopmentEngineer";
-import SearchJobCards from "./Components/Career/searchJobCards";
-import NotFound from "./Components/NotFound";
+// import JobRoles from "./Components/Career/searchJobCards";
+// import AboutUs from './Components/Team/About';
+// import Team from './Components/Team/Team';
+// import Application from "./Components/Career/JobApplicationForm/Application";
+// import FrontendDeveloperEngineer from "./Components/Career/ListOfCareerJobs/FrontendDeveloperEngineer";
+// import BackendDeveloperEngineer from "./Components/Career/ListOfCareerJobs/BackendDeveloperEngineer";
+// import AIEngineer from "./Components/Career/ListOfCareerJobs/AIEngineer";
+// import ServerEngineer from "./Components/Career/ListOfCareerJobs/ServerEngineer";
+// import UiUxDesigner from "./Components/Career/ListOfCareerJobs/UiUxDesigner";
+// import AndroidApplicationDeveloperEngineer from "./Components/Career/ListOfCareerJobs/AndroidApplicationDeveloperEngineer";
+// import IOSApplicationDeveloperEngineer from "./Components/Career/ListOfCareerJobs/IOSApplicationDeveloperEngineer";
+// import FullStackDeveloperEngineer from "./Components/Career/ListOfCareerJobs/FullStackDeveloperEngineer";
+// import CustomerSupportAssociate from "./Components/Career/ListOfCareerJobs/CustomerSupportAssociate";
+// import ResearchDevelopmentEngineer from "./Components/Career/ListOfCareerJobs/ResearchDevelopmentEngineer";
+// import SearchJobCards from "./Components/Career/searchJobCards";
+// import NotFound from "./Components/NotFound";
 
 const App = () => {
   const { user } = useAuthContext();
@@ -49,14 +49,15 @@ const App = () => {
       )}
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path='/login' element={!user ? <LoginIn /> : <Navigate to='/' />} />
+        {/* <Route path="/" element={<Home />} />
         <Route path='/login' element={!user ? <LoginIn /> : <Navigate to='/' />} />
         <Route path='/signup' element={!user ? <CreateAccount /> : <Navigate to='/' />} />
         <Route path="/product" element={<Product />} />
         <Route path="/career" element={<CareerHomePage />} />
-        <Route path="/company" element={<Company />} />
+        <Route path="/company" element={<Company />} /> */}
         <Route path="chef-intelligence/*" element={<ChefIntelligence />} />
-        <Route path="/Job" element={<JobRoles />} />
+        {/* <Route path="/Job" element={<JobRoles />} />
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/Team" element={<Team />} />
         <Route path="/application" element={<Application />} />
@@ -102,7 +103,7 @@ const App = () => {
         />
         <Route path="/searchJobCards" element={<SearchJobCards />} />
 
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </Router>
   );

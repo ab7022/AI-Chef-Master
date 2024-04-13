@@ -223,11 +223,22 @@ def forgetP():
     return jsonify({'message':"password updates succesfully"})
 
 @app.route('/start-process', methods =['POST'])
+@jwt_required()
 def process():
     data = request.get_json()
-    # document = {user: data.user, 'rows': data.rows}
     result = db.Process.insert_one(data)
     return jsonify({'message': 'Data inserted successfully'}), 201
+
+@app.route('/get-rows/<user_id>', methods=['GET'])
+@jwt_required()
+def get_rows(user_id):
+    user_processes = db.Process.find({"user.user_id": user_id})
+    
+    all_rows = []
+    for process in user_processes:
+        all_rows.extend(process['rows'])
+    
+    return jsonify({'rows': all_rows}), 201
 
 # app.config['UPLOAD_FOLDER'] = 'files'
 @app.route('/career' ,methods = ['POST'])

@@ -99,6 +99,7 @@ export default function MyNavbar({ theme, setTheme }) {
 
                       {user ? (
                         <button
+                          title="Logout"
                           onClick={handleLogout}
                           className={`nav-link flex items-center justify-center rounded-md px-2 py-2 text-sm font-medium`}
                         >
@@ -106,6 +107,7 @@ export default function MyNavbar({ theme, setTheme }) {
                         </button>
                       ) : (
                         <Link
+                          title="Login"
                           onClick={() => window.scrollTo(0, 0)}
                           to="/login"
                           className={`nav-link flex items-center justify-center ${location.pathname === "/login" ? "active" : ""
@@ -188,6 +190,7 @@ export default function MyNavbar({ theme, setTheme }) {
 
                   {user ? (
                     <button
+                      title="Logout"
                       onClick={handleLogout}
                       className={`w-full nav-link rounded-md px-3 py-2 text-sm font-medium text-start`}
                     >
@@ -195,6 +198,7 @@ export default function MyNavbar({ theme, setTheme }) {
                     </button>
                   ) : (
                     <Link
+                      title="Login"
                       onClick={() => window.scrollTo(0, 0)}
                       to="/login"
                       className={`w-full nav-link rounded-md px-3 py-2 text-sm font-medium text-start`}

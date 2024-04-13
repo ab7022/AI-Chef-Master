@@ -75,7 +75,10 @@ export default function Home({ lightMode, sideBarOpen, rows, setRows }) {
 
         await fetch(`${process.env.REACT_APP_API_URL}/start-process`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                Authorization: `Bearer ${user.access_token}`,
+                "Content-Type": "application/json",
+            },
             body: JSON.stringify(data),
         }).then(() => toast.success('Started processing...')).catch(() => toast.error('Something went wrong.'));
     }
