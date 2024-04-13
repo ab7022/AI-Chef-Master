@@ -71,20 +71,27 @@ def index():
 @app.route("/callback")
 def google_callback():
     if not google.authorized:
-        return jsonify({"error": "Failed to log in."}),400
+        return jsonify({"error": "Failed to log in."}), 400
     resp = google.get("/oauth2/v1/userinfo")
     assert resp.ok, resp.text
 
     user_info = resp.json()
-    exist_user = db.users.find_one({'email':user_info['email']},{'first_name':1})
+    exist_user = db.users.find_one({'email': user_info['email']}, {'first_name': 1, 'user_id': 1})
 
     if not exist_user:
-        db.users.insert_one({'first_name':user_info['given_name'] ,'last_name': user_info['family_name'],'email':user_info['email']})
+        user_id = "AiChef" + user_info['given_name'].upper() + "-" + str(round((datetime.now().timestamp())*1000000))
+        db.users.insert_one({
+            'first_name': user_info['given_name'],
+            'last_name': user_info['family_name'],
+            'email': user_info['email'],
+            'user_id': user_id
+        })
+    else:
+        user_id = exist_user['user_id']
 
+    user_info['user_id'] = user_id
     token = create_access_token(identity=user_info['email'])
-    
     user_info['access_token'] = token
-    
     user_info_str = urllib.parse.quote(json.dumps(user_info))
     
     return redirect(f"{os.getenv('FRONTEND_URL')}/login?data={user_info_str}", code=302)
@@ -132,30 +139,31 @@ def microsoft_callback():
         headers = {'Authorization': 'Bearer ' + result['access_token']}
         graph_data = requests.get("https://graph.microsoft.com/v1.0/me", headers=headers).json()
 
-        exist_user = db.users.find_one({'email': graph_data["mail"]}, {'first_name': 1})
-
+        exist_user = db.users.find_one({'email': graph_data["mail"]}, {'first_name': 1, 'user_id': 1})
         if not exist_user:
+            user_id = "AiChef"+ graph_data.get("givenName").upper() + "-" + str(round((datetime.now().timestamp())*1000000))
             user_data = {
                 'first_name': graph_data.get("givenName", ""),
                 'last_name': graph_data.get("surname", ""),
                 'email': graph_data.get("mail", ""),
-                'phone': graph_data.get("mobilePhone", "")
+                'phone': graph_data.get("mobilePhone", ""),
+                'user_id': user_id
             }
             db.users.insert_one(user_data)
         else:
             db.users.update_one({'email': graph_data["mail"]}, {'$set': {'phone': graph_data.get("mobilePhone", "")}})
+            user_id = exist_user['user_id']
 
         user_info = {
             'first_name': graph_data.get("givenName", ""),
             'last_name': graph_data.get("surname", ""),
             'email': graph_data.get("mail", ""),
-            'phone': graph_data.get("mobilePhone", "")
+            'phone': graph_data.get("mobilePhone", ""),
+            'user_id': user_id
         }
 
         token = create_access_token(identity=user_info['email'])
-
         user_info['access_token'] = token
-
         user_info_str = urllib.parse.quote(json.dumps(user_info))
 
         frontend_url = os.getenv('FRONTEND_URL') + "/login?data=" + user_info_str
@@ -179,7 +187,7 @@ def register():
         return jsonify({'message': 'User already exists'}), 400
 
     hashed_password = generate_password_hash(password)
-    user_id = "AiChef"+ first_name.upper() + "-" + round((datetime.datetime.now().timestamp())*1000000)
+    user_id = "AiChef"+ first_name.upper() + "-" + str(round((datetime.now().timestamp())*1000000))
     db.users.insert_one({
         'first_name': first_name,
         'last_name': last_name,
@@ -187,7 +195,7 @@ def register():
         'phone': phone,
         'email': email,
         'password': hashed_password,
-        'user_id':user_id
+        'user_id': user_id
     })
     
     return jsonify({'message': 'User registered successfully'}), 201
@@ -203,7 +211,8 @@ def loginAuth():
     else:
         token  = create_access_token(identity= email)
     name = user['first_name']+" "+user['last_name']
-    return jsonify(message = 'Login Successful', access_token = token, email = email, name = name)
+    user_id = user['user_id']
+    return jsonify(message = 'Login Successful', access_token = token, email = email, name = name, user_id = user_id)
 
 @app.route('/auth/forgetPassword',methods =['POST'])
 def forgetP():
