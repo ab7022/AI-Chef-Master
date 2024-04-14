@@ -2,6 +2,7 @@
     --dot-color: lightslategray;
     --body__bg: rgb(240, 240, 240);
     --body__bg-secondary: white;
+    --body__bg-reverse: black;
     --body__color: black;
     --body__color-secondary: #747474;
     --input__bg: white;
@@ -13,6 +14,7 @@
     --dot-color: #1c1c1c;
     --body__bg: #0a0a0a;
     --body__bg-secondary: black;
+    --body__bg-reverse: white;
     --body__color: white;
     --body__color-secondary: #9d9d9d;
     --input__bg: #1c1c1c;
@@ -33,6 +35,10 @@ body {
 
 .custom-bg {
     background-color: var(--body__bg-secondary);
+}
+
+.custom-bg-reverse {
+    background-color: var(--body__bg-reverse);
 }
 
 .custom-text {

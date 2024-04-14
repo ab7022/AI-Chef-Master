@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import Link from "next/link";
-import logoSrc from "public/logo.svg";
+// import logoSrc from "public/logo.svg";
 import { cx } from "lib/cx";
 
 export const TopNavBar = () => {
@@ -16,7 +16,7 @@ export const TopNavBar = () => {
       )}
     >
       <div className="flex h-10 w-full items-center justify-between">
-        <Link href="/">
+        {/* <Link href="/">
           <span className="sr-only">OpenResume</span>
           <img
             src={logoSrc}
@@ -24,7 +24,7 @@ export const TopNavBar = () => {
             className="h-8 w-full"
             priority
           />
-        </Link>
+        </Link> */}
         <nav
           aria-label="Site Nav Bar"
           className="flex items-center gap-2 text-sm font-medium"
