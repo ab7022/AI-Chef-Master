@@ -33,7 +33,7 @@ const SideBar = ({ lightMode }) => {
     return (
         <div className={`fixed top-[56px] left-0 lg:relative flex flex-col lg:w-1/5 h-[calc(100dvh-56px)] lg:h-auto lg:mt-[-56px] overflow-y-auto ${colors.background} ${colors.text} text-white shadow-2xl`}>
             {!user ? (
-                <div className="w-[100%] h-[100%] flex items-center justify-center">
+                <div className="w-[250px] h-[100%] flex items-center justify-center">
                     <Link to='/login' className="w-fit bg-orange-600 px-4 py-2 rounded-md text-lg">Login</Link>
                 </div>
             ) : loading ? (

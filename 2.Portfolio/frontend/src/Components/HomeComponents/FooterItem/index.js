@@ -1,7 +1,7 @@
 import React from "react";
 // import { FaInstagramSquare } from "react-icons/fa";
 import Instagram from "../../Images/Instagram.svg";
-import Twitter from "../../Images/Twitter.svg";
+import X from "../../Images/x.svg";
 import LinkedIn from "../../Images/LinkedIn.svg";
 import Threads from "../../Images/Threads.svg";
 import { Button } from "@material-tailwind/react";
@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 import "../FooterItem/index.css";
 
 const FooterItem = () => {
+  const theme = localStorage.getItem('theme');
+
   return (
     // <div className="footer rounded-0 card bg-black shadow-lg mt-0 golden-text">
     <div className="custom-footer footer rounded-0 card shadow-lg mt-0">
@@ -35,7 +37,7 @@ const FooterItem = () => {
               <h2 className="footer-heading">Company</h2>
               <Link to="/aboutUs">About Us</Link>
               <Link to="/Team">Team</Link>
-              <li>Career</li>
+              <Link to="/career">Career</Link>
               <li>Blogs</li>
               <li>News</li>
             </ul>
@@ -44,7 +46,7 @@ const FooterItem = () => {
           <div className="w-full lg:w-3/12 md:w-4/12 sm:w-6/12 flex justify-center mb-5">
             <ul className="list-items-styles">
               <h2 className="footer-heading">Contact</h2>
-              <li>Help & Support</li>
+              <a href="mailto:info@aichefmaster.com?subject=Can%20you%20help%20">Help & Support</a>
             </ul>
           </div>
 
@@ -62,14 +64,14 @@ const FooterItem = () => {
                 Instagram
               </li>
               <li className="flex items-center cursor-pointer" onClick={() => {
-                window.location.href = "https://twitter.com"
+                window.location.href = "https://x.com"
               }}>
                 <img
-                  src={Twitter}
-                  alt="ig"
-                  className="w-[25px] h-[25px] object-cover mr-2"
+                  src={theme === 'light' ? X : "https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg"}
+                  alt="x"
+                  className="ml-1 w-[15px] h-[15px] object-cover mr-3"
                 />
-                Twitter
+                X
               </li>
               <li className="flex items-center cursor-pointer" onClick={() => {
                 window.location.href = "https://www.linkedin.com/company/aichefmaster"
@@ -100,7 +102,7 @@ const FooterItem = () => {
               <li>Privacy Policy</li>
               <li>Terms & Refund</li>
               <li>About Us</li>
-              <li>Contact</li>
+              <Link to='http://aichefrecipe.com/contact'>Contact</Link>
             </ul>
           </div>
 
@@ -108,12 +110,12 @@ const FooterItem = () => {
 
           <div className="w-full my-4">
             <p className="font-bold text-center">
-              © 2023 All rights reserved by Premali Kitchen Pvt Ltd
+              © 2024 All rights reserved by Premali Kitchen Pvt Ltd
             </p>
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 export default FooterItem;
