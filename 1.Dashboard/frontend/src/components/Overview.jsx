@@ -49,7 +49,7 @@ const Overview = ({ form, color, value, open, setOpen, page }) => {
           <div>
             {form.kitchen_equipments && form.kitchen_equipments.map((equipment, index) => (
               <span className="text-lg" key={index}>
-                {equipment}{form.kitchen_equipments.length !== index + 1 && ", "}
+                {equipment}{form?.kitchen_equipments?.length !== index + 1 && ", "}
               </span>
             ))}
           </div>
@@ -67,19 +67,19 @@ const Overview = ({ form, color, value, open, setOpen, page }) => {
           </div>
         </div>
 
-        {form?.instructions.length > 0 && (
+        {form?.instructions?.length > 0 && (
           <div className="flex items-center gap-4 border-b border-zinc-500">
             <p className="p-1 py-2 font-semibold lg:text-xl">Cooking time - </p>
             <span className=" text-lg">{form.cooking_time} min</span>
           </div>
         )}
 
-        {form?.ingredients.length > 0 || form?.instructions.length > 0 ? (
+        {form?.ingredients?.length > 0 || form?.instructions?.length > 0 ? (
           <div className="p-1 border-b border-zinc-500 py-2  gap-4">
             {Array.from({ length: 5 }, (_, portion) => (
               <div key={portion} className="portion">
                 <h3 className="font-bold text-xl pt-2 underline">Portion {portion + 1}</h3>
-                {form?.ingredients.length > 0 && (
+                {form?.ingredients?.length > 0 && (
                   <>
                     <p className="font-semibold text-lg">Ingredient</p>
                     <ul>
@@ -91,7 +91,7 @@ const Overview = ({ form, color, value, open, setOpen, page }) => {
                     </ul>
                   </>
                 )}
-                {form?.instructions.length > 0 && (
+                {form?.instructions?.length > 0 && (
                   <>
                     <p className="font-semibold text-lg">Instruction</p>
                     <ol>
