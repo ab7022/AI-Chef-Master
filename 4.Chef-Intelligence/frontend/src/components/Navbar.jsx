@@ -67,115 +67,115 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
             </div>
           </div>
 
-          <Disclosure.Panel className="md:hidden flex flex-col gap-4 mt-2 w-full text-white font-semibold">
-            <div className="flex flex-row items-center justify-center">
-              <MdAccountCircle
-                className={`text-5xl flex flex-row justify-center text-center  align-center items-center ${colors.hoverText}`}
-              />
-            </div>
+          <Disclosure.Panel className={`md:hidden flex flex-col gap-4 mt-2 w-full text-white font-semibold ${colors.background} ${colors.text}`}>
+  <div className="flex flex-row items-center justify-center">
+    <MdAccountCircle
+      className={`text-6xl mt-2 flex flex-row  justify-center text-center align-center items-center ${colors.hoverText}`}
+    />
 
-            <div className="py-1 max-w-lg border-b text-center inline-block">
-              bayees1@gmail.com
-            </div>
+  <div className="py-1 ml-2 text-lg text-center inline-block">
+    bayees1@gmail.com
+  </div>
+  </div>
 
-            <div className="pt-1 flex flex-col text-lg text-center hover:bg-green-900">
-              <p className="text-3xl text-center">Account</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="p-2 flex flex-col text-center hover:bg-green-900 border-b border-green-900">
-                <Link to="/custom-instructions" className="text-sm text-center">
-                  Custom Instructions
-                </Link>
-              </div>
-              <div className="p-2 flex flex-col text-center hover:bg-green-900 border-b border-green-900">
-                <Link to="/voice-assistance" className="text-sm text-center">
-                  Voice Assistance
-                </Link>
-              </div>
-              <div className="p-2 flex flex-col text-center hover:bg-green-900 border-b border-green-900">
-                <Link to="/custom-language" className="text-sm text-center">
-                  Custom Language
-                </Link>
-              </div>
-              <div className="pt-2 flex flex-col text-lg text-center hover:bg-green-900 border-b border-green-900">
-                <Link to="/signup" className="text-sm text-center">
-                  Subscription
-                </Link>
-              </div>
-              <div className="pt-2 flex flex-col text-lg text-center hover:bg-green-900 border-b border-green-900">
-                <Link to="/signup" className="text-sm text-center">
-                  Archives
-                </Link>
-              </div>
-            </div>
+  <div className="pt-1 flex flex-col text-lg ml-2 ">
+    <p className="text-3xl ">Account</p>
+  </div>
 
-            {/* Language Section */}
-            <div className="pt-3 flex flex-col text-lg text-center hover:bg-green-900 ">
-              <p className="text-3xl text-center">Language</p>
-            </div>
-            <div className="group cursor-pointer py-2 text-lg text-center md:text-md gap-4 pt-1 mx-auto md:ml-0">
-              <div className="flex items-center text-center gap-1 ml-2 md:ml-0">
-                <div
-                  className="flex ml-2 md:ml-0 text-base text-center"
-                  onClick={() =>
-                    setSelectedLanguage((prev) =>
-                      prev === "Hindi" ? "Bengali" : "Hindi"
-                    )
-                  }
-                >
-                  {selectedLanguage}
-                  <MdArrowDropDown size={23} />
-                </div>
-              </div>
-              <div className="invisible absolute z-50 text-center flex flex-col mt-2 py-1 px-4 text-white shadow-xl group-hover:visible">
-                {indianLanguages.map((language) => (
-                  <div
-                    key={language}
-                    className="flex text-white pt-1 bg-green-900 items-center gap-2 cursor-pointer text-center hover:bg-green-900"
-                    onClick={() => selectLanguage(language)}
-                  >
-                    <span className="px-2 py-1">{language}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            {/* Settings Section */}
-            <div className="pt-0 flex flex-col text-lg text-center hover:bg-green-900 ">
-              <p className="text-3xl text-center">Settings</p>
-            </div>
-            <div className="pt-1 flex flex-col text-center hover:bg-green-900 ">
-              <a
-                href="mailto:?to=info@aichefmaster.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-lg text-center"
-              >
-                Help Center
-              </a>
-            </div>
-            <div className="pt-1 flex flex-col text-center hover:bg-green-900 ">
-              <Link
-                to="https://www.aichefmaster.com"
-                className="text-base text-center"
-              >
-                Home
-              </Link>
-            </div>
-            {/* Theme Section */}
-            <div className="pt-0 mb-4 flex flex-col text-lg text-center hover:bg-green-900 ">
-              <button
-                onClick={() => setLightMode(!lightMode)}
-                className="text-base text-center flex items-center flex-row justify-center"
-              >
-                {lightMode ? (
-                  <FiSun className="mr-2 flex flex-row" />
-                ) : (
-                  <FiMoon className="mr-2" />
-                )}
-                {lightMode ? "Light Mode" : "Dark Mode"}
-              </button>
-            </div>
-          </Disclosure.Panel>
+  <div className="flex flex-col ml-6">
+
+    <div className="p-2 flex flex-col text-lg border-b border-green-900">
+      <Link to="/signup" className="text-sm text-gray-200">
+        Subscription
+      </Link>
+    </div>
+    <div className="p-2 flex flex-col text-lg  border-b border-green-900">
+      <Link to="/signup" className="text-sm text-gray-200">
+        Archives
+      </Link>
+    </div>
+  </div>
+  <div className="pt-1 flex flex-col text-lg ml-2 ">
+    <p className="text-3xl ">Custom</p>
+  </div>
+  <div className="flex flex-col ml-6">
+    <div className="p-2 flex flex-col  border-b border-green-900">
+      <Link to="/custom-instructions" className="text-sm text-gray-200">
+        Custom Instructions
+      </Link>
+    </div>
+    <div className="p-2 flex flex-col  border-b border-green-900">
+      <Link to="/voice-assistance" className="text-sm text-gray-200">
+        Voice Assistance
+      </Link>
+    </div>
+
+
+  </div>
+
+  {/* Settings Section */}
+  <div className="pt-0 flex flex-col text-lg  ml-2">
+    <p className="text-3xl">Settings</p>
+  </div>
+  
+  <div className="flex flex-col ml-6 text-lg">
+
+
+    <div className="p-2 flex flex-col text-lg  border-b border-green-900">
+      <a href="https://www.aichefmaster.com" className="text-sm text-gray-200">
+        Home
+      </a>
+    </div>
+
+  {/* Theme Section */}
+  <div className="p-2 flex flex-col text-lg  border-b border-green-900">
+    <button
+      onClick={() => setLightMode(!lightMode)}
+      className=" flex items-center flex-row text-sm text-gray-200"
+    >
+      
+      {lightMode ? "Light Mode" : "Dark Mode"}
+    </button>
+  </div>
+  <div className="p-2 flex flex-col text-lg  border-b border-green-900">
+    <div className="flex items-center  gap-1 md:ml-0">
+      <div
+        className="flex  md:ml-0 text-sm text-gray-200"
+        onClick={() =>
+          setSelectedLanguage((prev) =>
+            prev === "Hindi" ? "Bengali" : "Hindi"
+          )
+        }
+      >
+        {selectedLanguage}
+        <MdArrowDropDown size={23} />
+      </div>
+    </div>
+    <div className="invisible absolute z-50 flex flex-col mt-2 py-1 px-4 text-white shadow-xl group-hover:visible">
+      {indianLanguages.map((language) => (
+        <div
+          key={language}
+          className="flex text-white pt-1 bg-green-900 items-center gap-2 cursor-pointer text-center "
+          onClick={() => selectLanguage(language)}
+        >
+          <span className="px-2 py-1">{language}</span>
+        </div>
+      ))}
+    </div>
+    
+  </div>
+  <div className="p-2 flex flex-col text-lg  border-b border-green-900">
+  <a
+      href="mailto:?to=info@aichefmaster.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-sm text-gray-200"  >
+      Help Center
+    </a>
+    </div>
+  </div>
+</Disclosure.Panel>
+
 
           <div className="hidden md:flex justify-center items-center gap-8">
             <Link
@@ -290,12 +290,7 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
                       Voice Assistance
                     </Link>
                   </div>
-                  <div className="p-2 flex flex-col text-center hover:bg-green-600 border-b border-green-900">
-                    <Link to="/custom-language" className="text-lg text-center">
-                      Custom Language
-                    </Link>
-                  </div>
-
+        
                   <div className="pt-2 flex items-center justify-center">
                     <button
                       onClick={() => {}}

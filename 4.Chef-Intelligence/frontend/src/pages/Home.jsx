@@ -5,8 +5,11 @@ import ingredients from "../data/ingredientsData";
 import equipments from "../data/equipmentData";
 import SideBar from "../components/Sidebar";
 import Typewriter from "../components/Typewriter";
-
+import RecipeDetails from "../components/RecipeDetails";
+import biryani from '../data/biryani.jpeg'
 export default function Home({ lightMode, sideBarOpen }) {
+    const [recipeDetails, setRecipeDetails] = useState(null); 
+
     const [rows, setRows] = useState([
         { ingredient: "", quantity: "", equipment: "" },
     ]);
@@ -59,16 +62,23 @@ export default function Home({ lightMode, sideBarOpen }) {
                 return toast.error(`Row ${i + 1} is missing: ${missingData.join(", ")}`);
             }
         }
+        const recipe = {
+            name: "Chicken Biryani",
+            image: biryani,
+            ingredients: ["Rice", "Chicken", "Onion", "Potato"],
+            steps: [
+              "Cook rice and keep aside.",
+              "Marinate chicken with spices and fry.",
+              "Layer rice and chicken in a pot and cook.",
+            ],
+          };
+          
+          setRecipeDetails(recipe);
 
-        await fetch(`${import.meta.env.VITE_API_URL}/start-process`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(rows),
-        }).then(() => toast.success('Started processing...')).catch(() => toast.error('Something went wrong.'));
     }
 
     return (
-        <div className={`${colors.backgroundOfBody} ${colors.text}`}>
+        <div className={`${colors.backgroundOfBody} ${colors.text} `}>
             <div className="relative flex flex-row">
                 {sideBarOpen && <SideBar lightMode={lightMode} />}
 
@@ -170,7 +180,10 @@ export default function Home({ lightMode, sideBarOpen }) {
                         Start To Process
                     </button>
                 </div>
+
             </div>
+            {recipeDetails && <RecipeDetails recipe={recipeDetails} />}
+
         </div>
     );
 }
