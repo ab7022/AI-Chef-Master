@@ -2,7 +2,7 @@ import React from "react";
 
 const RecipeDetails = ({ recipe }) => {
   return (
-    <div className="flex flex-col items-center justify-center mt-8 bg-white rounded-lg shadow-xl p-8 max-w-4xl mx-auto">
+    <div className="flex flex-col items-center justify-center mt-8 bg-white rounded-lg shadow-xl p-8 max-w-4xl mx-4 md:mx-auto">
       <h2 className="text-4xl font-bold mb-6">{recipe.name}</h2>
 
       <div className="overflow-hidden rounded-lg w-full max-w-3xl">

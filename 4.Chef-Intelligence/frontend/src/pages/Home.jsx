@@ -80,7 +80,10 @@ export default function Home({ lightMode, sideBarOpen }) {
     return (
         <div className={`${colors.backgroundOfBody} ${colors.text} `}>
             <div className="relative flex flex-row">
-                {sideBarOpen && <SideBar lightMode={lightMode} />}
+                <div className="fixed w-full">
+                                    {sideBarOpen && <SideBar lightMode={lightMode} />}
+
+                </div>
 
                 <div className="flex flex-col w-full md:w-5/6 mx-auto min-h-[calc(100dvh-56px)] items-center justify-center px-2">
                     <img src='/CompanyLogo.png' alt="" className="w-52 h-52 " />
