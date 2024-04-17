@@ -96,8 +96,8 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
                             </div>
 
                             <div className="p-3 flex flex-col text-lg text-center hover:bg-green-900 border-b border-green-900">
-                                <Link to="https://aichefrecipe.com" className="text-lg text-center">
-                                    Dashboard
+                                <Link to="/" className="text-lg text-center">
+                                    Home
                                 </Link>
                             </div>
                             <div className="p-3 flex flex-col text-lg text-center hover:bg-green-900 border-b border-green-900">
@@ -145,10 +145,10 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
 
                     <div className="hidden md:flex justify-center items-center gap-8">
                         <Link
-                            to="https://aichefrecipe.com"
+                            to="/"
                             className={`p-2 ${colors.hoverBackground} hover:rounded flex-row flex`}
                         >
-                            Dashboard
+                            Home
                         </Link>
                         <div className="group cursor-pointer py-2 text-base md:text-md">
                             <div className="flex items-center gap-4">

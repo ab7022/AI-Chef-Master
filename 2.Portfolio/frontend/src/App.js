@@ -14,6 +14,8 @@ import Product from "./Components/Product";
 import CareerHomePage from "./Components/Career/CareerHomePage";
 import Company from "./Components/Company";
 import ChefIntelligence from './Components/ChefIntelligence';
+import Blogs from './Components/Blogs';
+import News from './Components/News';
 import JobRoles from "./Components/Career/searchJobCards";
 import AboutUs from './Components/Team/About';
 import Team from './Components/Team/Team';
@@ -56,6 +58,8 @@ const App = () => {
         <Route path="/career" element={<CareerHomePage />} />
         <Route path="/company" element={<Company />} />
         <Route path="chef-intelligence/*" element={<ChefIntelligence />} />
+        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/news" element={<News />} />
         <Route path="/Job" element={<JobRoles />} />
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/Team" element={<Team />} />

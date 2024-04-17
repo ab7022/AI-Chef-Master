@@ -38,8 +38,8 @@ const FooterItem = () => {
               <Link to="/aboutUs">About Us</Link>
               <Link to="/Team">Team</Link>
               <Link to="/career">Career</Link>
-              <li>Blogs</li>
-              <li>News</li>
+              <Link to="/blogs">Blogs</Link>
+              <Link to="/news">News</Link>
             </ul>
           </div>
 
