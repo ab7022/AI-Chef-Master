@@ -9,7 +9,16 @@ import { HiOutlineX } from "react-icons/hi";
 const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
   const [selectedLanguage, setSelectedLanguage] = useState("English");
   const [profileOpen, setProfileOpen] = useState(false);
+  const [voiceAssistantOpen, setVoiceAssistantOpen] = useState(false); // State for dropdown menu
+  const [soundEnabled, setSoundEnabled] = useState(true); // State for sound option
 
+  const toggleVoiceAssistant = () => {
+    setVoiceAssistantOpen(!voiceAssistantOpen);
+  };
+
+  const toggleSoundOption = () => {
+    setSoundEnabled(!soundEnabled);
+  };
   const indianLanguages = ["Hindi", "Bengali", "Telugu", "Marathi", "Tamil"];
 
   const selectLanguage = (language) => {
@@ -67,115 +76,143 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
             </div>
           </div>
 
-          <Disclosure.Panel className={`md:hidden flex flex-col gap-4 mt-2 w-full text-white font-semibold ${colors.background} ${colors.text}`}>
-  <div className="flex flex-row items-center justify-center">
-    <MdAccountCircle
-      className={`text-6xl mt-2 flex flex-row  justify-center text-center align-center items-center ${colors.hoverText}`}
-    />
+          <Disclosure.Panel
+            className={`md:hidden flex flex-col gap-4 mt-2 w-full text-white font-semibold ${colors.background} ${colors.text}`}
+          >
+            <div className="flex flex-row items-center justify-center">
+              <MdAccountCircle
+                className={`text-6xl mt-2 flex flex-row  justify-center text-center align-center items-center ${colors.hoverText}`}
+              />
 
-  <div className="py-1 ml-2 text-lg text-center inline-block">
-    bayees1@gmail.com
-  </div>
-  </div>
+              <div className="py-1 ml-2 text-lg text-center inline-block">
+                bayees1@gmail.com
+              </div>
+            </div>
 
-  <div className="pt-1 flex flex-col text-lg ml-2 ">
-    <p className="text-3xl ">Account</p>
-  </div>
+            <div className="pt-1 flex flex-col text-lg ml-2 ">
+              <p className="text-2xl ">Account</p>
+            </div>
 
-  <div className="flex flex-col ml-6">
+            <div className="flex flex-col ml-6">
+              <div className="p-2 flex flex-col text-lg border-b border-green-900">
+                <Link to="/signup" className="text-sm text-gray-200">
+                  Subscription
+                </Link>
+              </div>
+              <div className="p-2 flex flex-col text-lg  border-b border-green-900">
+                <Link to="/signup" className="text-sm text-gray-200">
+                  Archives
+                </Link>
+              </div>
+            </div>
+            <div className="pt-1 flex flex-col text-lg ml-2 ">
+              <p className="text-2xl ">Custom</p>
+            </div>
+            <div
+              className="p-2 ml-6 flex flex-row text-lg  border-b border-green-900"
+              onClick={toggleVoiceAssistant}
+            >
+              <p className="text-sm text-gray-200">Custom Instructions</p>
+              <svg
+                className={`ml-auto h-5 w-5  justify-center flex align-center transform-${
+                  voiceAssistantOpen ? "rotate-180" : ""
+                }`}
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 12a1 1 0 01-.707-.293l-4-4a1 1 0 111.414-1.414L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4A1 1 0 0110 12z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
 
-    <div className="p-2 flex flex-col text-lg border-b border-green-900">
-      <Link to="/signup" className="text-sm text-gray-200">
-        Subscription
-      </Link>
-    </div>
-    <div className="p-2 flex flex-col text-lg  border-b border-green-900">
-      <Link to="/signup" className="text-sm text-gray-200">
-        Archives
-      </Link>
-    </div>
-  </div>
-  <div className="pt-1 flex flex-col text-lg ml-2 ">
-    <p className="text-3xl ">Custom</p>
-  </div>
-  <div className="flex flex-col ml-6">
-    <div className="p-2 flex flex-col  border-b border-green-900">
-      <Link to="/custom-instructions" className="text-sm text-gray-200">
-        Custom Instructions
-      </Link>
-    </div>
-    <div className="p-2 flex flex-col  border-b border-green-900">
-      <Link to="/voice-assistance" className="text-sm text-gray-200">
-        Voice Assistance
-      </Link>
-    </div>
+            {/* Voice Assistance */}
+            {voiceAssistantOpen && (
+              <div               className="p-2 ml-6 flex flex-col text-lg  border-b border-green-900"
+              >
+                <p className="text-sm pb-2  text-gray-200">Voice Assistance</p>
 
+                {/* Sound Option */}
+                <div className="flex items-center  text-center mt-4">
+                  <input
+                    type="checkbox"
+                    id="soundOption"
+                    checked={soundEnabled}
+                    onChange={toggleSoundOption}
+                    className="mr-2"
+                  />
+                  <label htmlFor="soundOption" className="text-sm">
+                    Audible Output
+                  </label>
+                </div>
+              </div>
+            )}
 
-  </div>
+            {/* Settings Section */}
+            <div className="pt-0 flex flex-col text-lg  ml-2">
+              <p className="text-2xl">Settings</p>
+            </div>
 
-  {/* Settings Section */}
-  <div className="pt-0 flex flex-col text-lg  ml-2">
-    <p className="text-3xl">Settings</p>
-  </div>
-  
-  <div className="flex flex-col ml-6 text-lg">
+            <div className="flex flex-col ml-6 text-lg">
+              <div className="p-2 flex flex-col text-lg  border-b border-green-900">
+                <a
+                  href="https://www.aichefmaster.com"
+                  className="text-sm text-gray-200"
+                >
+                  Home
+                </a>
+              </div>
 
-
-    <div className="p-2 flex flex-col text-lg  border-b border-green-900">
-      <a href="https://www.aichefmaster.com" className="text-sm text-gray-200">
-        Home
-      </a>
-    </div>
-
-  {/* Theme Section */}
-  <div className="p-2 flex flex-col text-lg  border-b border-green-900">
-    <button
-      onClick={() => setLightMode(!lightMode)}
-      className=" flex items-center flex-row text-sm text-gray-200"
-    >
-      
-      {lightMode ? "Light Mode" : "Dark Mode"}
-    </button>
-  </div>
-  <div className="p-2 flex flex-col text-lg  border-b border-green-900">
-    <div className="flex items-center  gap-1 md:ml-0">
-      <div
-        className="flex  md:ml-0 text-sm text-gray-200"
-        onClick={() =>
-          setSelectedLanguage((prev) =>
-            prev === "Hindi" ? "Bengali" : "Hindi"
-          )
-        }
-      >
-        {selectedLanguage}
-        <MdArrowDropDown size={23} />
-      </div>
-    </div>
-    <div className="invisible absolute z-50 flex flex-col mt-2 py-1 px-4 text-white shadow-xl group-hover:visible">
-      {indianLanguages.map((language) => (
-        <div
-          key={language}
-          className="flex text-white pt-1 bg-green-900 items-center gap-2 cursor-pointer text-center "
-          onClick={() => selectLanguage(language)}
-        >
-          <span className="px-2 py-1">{language}</span>
-        </div>
-      ))}
-    </div>
-    
-  </div>
-  <div className="p-2 flex flex-col text-lg  border-b border-green-900">
-  <a
-      href="mailto:?to=info@aichefmaster.com"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-sm text-gray-200"  >
-      Help Center
-    </a>
-    </div>
-  </div>
-</Disclosure.Panel>
-
+              {/* Theme Section */}
+              <div className="p-2 flex flex-col text-lg  border-b border-green-900">
+                <button
+                  onClick={() => setLightMode(!lightMode)}
+                  className=" flex items-center flex-row text-sm text-gray-200"
+                >
+                  {lightMode ? "Light Mode" : "Dark Mode"}
+                </button>
+              </div>
+              <div className="p-2 flex flex-col text-lg  border-b border-green-900">
+                <div className="flex items-center  gap-1 md:ml-0">
+                  <div
+                    className="flex  md:ml-0 text-sm text-gray-200"
+                    onClick={() =>
+                      setSelectedLanguage((prev) =>
+                        prev === "Hindi" ? "Bengali" : "Hindi"
+                      )
+                    }
+                  >
+                    {selectedLanguage}
+                    <MdArrowDropDown size={23} />
+                  </div>
+                </div>
+                <div className="invisible absolute z-50 flex flex-col mt-2 py-1 px-4 text-white shadow-xl group-hover:visible">
+                  {indianLanguages.map((language) => (
+                    <div
+                      key={language}
+                      className="flex text-white pt-1 bg-green-900 items-center gap-2 cursor-pointer text-center "
+                      onClick={() => selectLanguage(language)}
+                    >
+                      <span className="px-2 py-1">{language}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="p-2 flex flex-col text-lg  border-b border-green-900">
+                <a
+                  href="mailto:?to=info@aichefmaster.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-gray-200"
+                >
+                  Help Center
+                </a>
+              </div>
+            </div>
+          </Disclosure.Panel>
 
           <div className="hidden md:flex justify-center items-center gap-8">
             <Link
@@ -232,17 +269,15 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
               <FiLogIn className="mr-1 mt-1" />
               Login
             </Link>
-            <div
-              className={`group cursor-pointer`}
-              onClick={() => setProfileOpen(!profileOpen)}
-            >
+            <div className={`group cursor-pointer`}>
               <MdAccountCircle
                 className={`text-4xl mr-4 ${colors.hoverText}`}
+                onClick={() => setProfileOpen(!profileOpen)}
               />
               {profileOpen && (
                 <div
                   className={`absolute top-4 right-4 flex-col mt-[56px] w-60  ${colors.textdialog} shadow-md rounded-md p-4 text-sm z-10 flex ${colors.dialogbg} `}
-                >
+                >$
                   <div className="flex flex-row items-center justify-center">
                     <MdAccountCircle
                       className={`text-5xl flex flex-row justify-center text-center  align-center items-center ${colors.hoverText}`}
@@ -274,23 +309,48 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
                       Archives
                     </a>
                   </div>
-                  <div className="p-2 flex flex-col text-center hover:bg-green-600 border-b border-green-900">
-                    <Link
-                      to="/custom-instructions"
-                      className="text-lg text-center"
+                  <div
+                    className="p-2 flex flex-row text-center hover:bg-green-600 border-b border-green-900"
+                    onClick={toggleVoiceAssistant}
+                  >
+                    <p className="text-lg text-center">Custom Instructions</p>
+                    <svg
+                      className={`ml-auto h-5 w-5 mt-2 justify-center flex align-center ${
+                        voiceAssistantOpen ? "rotate-180" : ""
+                      }`}
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
                     >
-                      Custom Instructions
-                    </Link>
+                      <path
+                        fillRule="evenodd"
+                        d="M10 12a1 1 0 01-.707-.293l-4-4a1 1 0 111.414-1.414L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4A1 1 0 0110 12z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
                   </div>
-                  <div className="p-2 flex flex-col text-center hover:bg-green-600 border-b border-green-900">
-                    <Link
-                      to="/voice-assistance"
-                      className="text-lg text-center"
-                    >
-                      Voice Assistance
-                    </Link>
-                  </div>
-        
+
+                  {/* Voice Assistance */}
+                  {voiceAssistantOpen && (
+                    <div className="p-2 flex flex-col text-center hover:bg-green-600 border-b border-green-900">
+                      <p className="text-lg text-center">Voice Assistance</p>
+
+                      {/* Sound Option */}
+                      <div className="flex items-center mt-2 text-center ">
+                        <input
+                          type="checkbox"
+                          id="soundOption"
+                          checked={soundEnabled}
+                          onChange={toggleSoundOption}
+                          className="mr-2"
+                        />
+                        <label htmlFor="soundOption" className="text-sm">
+                          Audible Output
+                        </label>
+                      </div>
+                    </div>
+                  )}
+
                   <div className="pt-2 flex items-center justify-center">
                     <button
                       onClick={() => {}}

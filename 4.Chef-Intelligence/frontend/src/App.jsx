@@ -5,11 +5,11 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
-
+import Dish from './pages/Dish';
 function App() {
   const [lightMode, setLightMode] = useState(true);
   const [sideBarOpen, setSideBarOpen] = useState(false);
-
+console.log(lightMode);
   return (
     <>
       <BrowserRouter>
@@ -21,6 +21,8 @@ function App() {
         />
         <Routes>
           <Route path="/" element={<Home lightMode={lightMode} sideBarOpen={sideBarOpen} />} />
+          <Route path="/generatedDish" element={<Dish lightMode={lightMode} sideBarOpen={sideBarOpen} />} />
+
         </Routes>
       </BrowserRouter>
       <ToastContainer position="top-center" />

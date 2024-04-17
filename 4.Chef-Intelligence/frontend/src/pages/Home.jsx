@@ -7,8 +7,10 @@ import SideBar from "../components/Sidebar";
 import Typewriter from "../components/Typewriter";
 import RecipeDetails from "../components/RecipeDetails";
 import biryani from '../data/biryani.jpeg'
+import { useNavigate } from "react-router-dom";
 export default function Home({ lightMode, sideBarOpen }) {
     const [recipeDetails, setRecipeDetails] = useState(null); 
+    const navigate = useNavigate();
 
     const [rows, setRows] = useState([
         { ingredient: "", quantity: "", equipment: "" },
@@ -61,6 +63,8 @@ export default function Home({ lightMode, sideBarOpen }) {
                 if (!row.equipment) missingData.push("Equipment");
                 return toast.error(`Row ${i + 1} is missing: ${missingData.join(", ")}`);
             }
+            navigate("/generatedDish");
+
         }
         const recipe = {
             name: "Chicken Biryani",
