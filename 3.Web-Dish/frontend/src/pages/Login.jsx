@@ -91,7 +91,7 @@ const encodedState = encodeURIComponent(state);
             <div className="text-white text-center text-4xl font-extrabold">
               House of Dishes
             </div>
-            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            <h2 className="mt-10 text-center text-white text-2xl font-bold leading-9 tracking-tight text-gray-900">
               Sign in to your account
             </h2>
           </div>
@@ -101,7 +101,7 @@ const encodedState = encodeURIComponent(state);
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-white text-sm font-medium leading-6 text-gray-900"
                 >
                   Email address
                 </label>
@@ -122,7 +122,7 @@ const encodedState = encodeURIComponent(state);
                 <div className="flex items-center justify-between">
                   <label
                     htmlFor="password"
-                    className="block text-sm font-medium leading-6 text-gray-900"
+                    className="block text-white text-sm font-medium leading-6 text-gray-900"
                   >
                     Password
                   </label>

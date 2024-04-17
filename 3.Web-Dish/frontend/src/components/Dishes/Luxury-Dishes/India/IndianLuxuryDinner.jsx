@@ -1,5 +1,8 @@
+// Inside IndianLuxuryDinner.js
+
 import React, { useState } from 'react';
 import { IndianDinner } from '../../../../Data/LuxuryDishesData/IndianDishes/IndianDinner';
+import SeeMoreDescription from '../../SeeMoreDescription'; // corrected import
 import SeeMoreDishes from '../../SeeMoreDishes';
 
 const IndianLuxuryDinner = () => {
@@ -7,8 +10,6 @@ const IndianLuxuryDinner = () => {
   const [filteredDish, setFilteredDish] = useState(IndianDinner);
 
   const handleSearch = (searchTerm) => {
-    // Implement your search logic here and update the filteredDish state
-    // For now, let's filter based on dish name containing the search term
     const updatedFilteredDish = IndianDinner.filter((dish) =>
       dish.dishName.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -18,10 +19,13 @@ const IndianLuxuryDinner = () => {
 
   return (
     <div className="bg-[#f7f3cd]">
+      {/* Pass filteredDish instead of filteredItems */}
+      <SeeMoreDescription searchTerm={searchTerm} setSearchTerm={setSearchTerm} filteredDish={filteredDish} />
       <div>
         <h1 className='py-12 text-xl sm:text-3xl md:text-5xl text-center font-bold'>Indian Dinner Dishes</h1>
-      </div>
       <SeeMoreDishes searchTerm={searchTerm} setSearchTerm={setSearchTerm} filteredDish={filteredDish} />
+
+      </div>
     </div>
   );
 };

@@ -20,17 +20,17 @@ const BannerCard = ({ slides, title, subtitle }) => {
             <img
               src={slide.imageUrl}
               alt={`Food ${index + 1}`}
-              className="w-full h-[90vh] object-cover"
+              className="w-full h-[90vh]  object-cover"
             />
             <div className="absolute top-0 left-0 right-0 bottom-0" style={{ backgroundImage: "linear-gradient(0deg, rgba(0, 0, 0, 0.40) 20%, rgba(0, 0, 0, 0.40) 100%)" }}></div>
           </div>
         ))}
       </Slider>
 
-      <div className="text-white absolute top-0 left-0 right-0 bottom-0 flex flex-col items-center justify-center">
+      <div className="text-white px-4 absolute top-0 left-0 right-0 bottom-0 flex flex-col items-center justify-center">
         <Slide bottom cascade>
-        <div className="text-4xl font-bold mb-8">{title}</div>
-        <div className="text-2xl font-semibold mb-5">{subtitle}</div>
+          <div className="text-4xl mb-8">{title}</div>
+          <div className="text-2xl font-semibold mb-5">{subtitle}</div>
         </Slide >
       </div>
     </div>

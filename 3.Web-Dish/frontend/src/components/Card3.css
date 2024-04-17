@@ -1,0 +1,8 @@
+          /* CustomScrollbar.css */
+.smooth-scroll {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+          .smooth-scroll::-webkit-scrollbar {
+              display: none;
+          }

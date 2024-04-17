@@ -8,14 +8,18 @@ export default function NavBarDishes({ onCategoryClick }) {
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
     onCategoryClick(category);
-  };
+  };    
 
   const categories = [
     { path: "/All-Indian-Dishes", label: "Indian Dishes" },
     { path: "/Luxury-Dishes", label: "Luxury Dishes" },
     { path: "/Quick-Dishes", label: "Quick Dishes" },
     { path: "/Healthy-Dishes", label: "Healthy Dishes" },
-    { path: "/ChooseVegNonVeg", label: "Create Dishes" },
+   //{ path: "/ChooseVegNonVeg", label: "Create Dishes" },
+    { path: "/Create-Menu", label: "Create Menu" },
+
+   // { path: "/UserProfile", label: "Profile" },
+
   ];
 
   return (
@@ -25,7 +29,7 @@ export default function NavBarDishes({ onCategoryClick }) {
           <Link
             key={path}
             to={path}
-            className={`nav-link ${selectedCategory === label ? "active" : ""}  rounded-md px-3 py-2 text-lg font-medium`}
+            className={`nav-link ${selectedCategory === label ? "active" : ""} leading-4  px-3 py-2 text-lg font-medium`}
             onClick={() => handleCategoryClick(label)}
           >
             {label}

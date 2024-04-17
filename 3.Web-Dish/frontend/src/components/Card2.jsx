@@ -1,44 +1,44 @@
-import { FaStar,FaStarHalfAlt } from "react-icons/fa";
- import "./Card2.css"
+// Card2.js
+import React from "react";
+import { FaStar } from "react-icons/fa";
+import "./Card2.css";
 import { Link } from "react-router-dom";
-const Card2 = ({ title, imageUrl, time, rating,dishPath  }) => {
-const fullStars = Math.floor(rating);
-const hasHalfStar = rating % 1 !== 0;
- return (
-<div className="rounded-lg items-center h-[325px] flex flex-1 justify-center  flex-row md:flex-col  w-[325px]  transform hover:scale-105 transition duration-300 ">
-    <Link to={dishPath} onClick={() => window.scrollTo(0,0)}>
-        <div className="cards-container flex justify-center items-center">
-             <div className="card space-x-2 bg-[#00544f] ">
-                <div className="card-media">
-                    <img className="rounded-lg w-[100%] h-[200px] object-cover border-2 border-[#00544f] " src={imageUrl} alt={title} />
-                </div>
-                <div className="card-description ">
-                    <div className="about-place flex justify-between items-center">
-                        <div className="place">
-                            <p className="place-name text-white">{title}</p>
-                            <p className="flex "> {[...Array(fullStars)].map((_, index) => (
-                                <FaStar className='text-yellow-500' key={ index } />
-                                ))}
 
-                                {hasHalfStar && (
-                                <FaStarHalfAlt className='text-yellow-500' />
-
-                                )}
-                                {[...Array(5 - Math.ceil(rating))].map((_, index) => (
-                                <FaStar key={ index } className='text-zinc-800' />
-                                ))}
-                            </p>
-                        </div>
-                        <div className="place-review">
-                            <p className="text-white font-semibold">Prep Time</p>
-                            <p className="per-person text-white mt-2 mr-2 font-semibold"> {time} min</p>
-                        </div>
-                    </div>
-                </div>
+const Card2 = ({ title, imageUrl, time, rating, dishPath }) => {
+  return (
+    <Link to={dishPath} onClick={() => window.scrollTo(0, 0)} className="flex justify-center h-full">
+      <div className="card bg-[#00544f] rounded-lg overflow-hidden h-full card-hover-effect relative">
+        {/* Image */}
+        <div className="image-container relative">
+          <img  
+            className="w-full h-48 object-cover rounded-t-lg border-2 border-[#00544f]"
+            src={imageUrl}
+            alt={title} 
+          />   
+          {/* Rating */}
+          <div className="rating-container absolute top-0 right-0 p-2">
+            <div className="rating-content">
+              <FaStar className="star-icon" />
+              <p className="rating-text">{rating}/5</p>
             </div>
-         </div>
+          </div>
+        </div>
+        {/* Details */}
+        <div className="flex flex-col flex-grow py-4">
+          <p className="text-white text-center font-semibold">{title}</p>
+          <div className="">
+            {/*}  <div className="hidden md:block">
+                  <div className="rating-content">
+                    <FaStar className="star-icon" />
+                    <p className="rating-text">{rating}/5</p>
+                  </div>
+  </div>*/}
+                <p className="text-white text-center font-semibold">Prep Time: {time} min</p>
+              </div>
+            </div>
+          </div>
     </Link>
-</div>
-);
+  );
 };
+
 export default Card2;

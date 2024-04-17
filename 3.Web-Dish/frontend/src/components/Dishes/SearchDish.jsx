@@ -1,5 +1,5 @@
 import React from "react";
-import { FaMicrophone } from "react-icons/fa";
+import { FaMicrophone } from "react-icons/fa"; 
 import { FiSearch } from "react-icons/fi";
 
 function SearchDish({ setSearchTerm }) {
@@ -10,8 +10,8 @@ function SearchDish({ setSearchTerm }) {
   return (
     <>
       <div className="flex justify-center">
-        <div className="relative w-full sm:w-1/2 md:w-1/2 lg:w-1/4">
-          <div className="absolute inset-y-0   flex items-center px-3 pointer-events-none">
+        <div className="relative w-full sm:w-1/2  ">
+          <div className="absolute inset-y-0 flex items-center px-3 pointer-events-none">
             <FiSearch size={25} className=' text-gray-500 dark:text-gray-400' />
           </div>
           <input
