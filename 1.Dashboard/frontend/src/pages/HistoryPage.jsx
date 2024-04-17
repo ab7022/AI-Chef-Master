@@ -122,8 +122,8 @@ const History = () => {
     <>
       {!open ? (
         // <MantineProvider>
-        <div className="min-h-screen w-screen flex flex-col pt-32 items-center font-primary text-black">
-          <div className="bg-white p-6 rounded-xl shadow-xl">
+        <div className="min-h-screen w-screen flex flex-col pt-32 items-center font-primary">
+          <div className="custom-bg custom-text p-6 rounded-xl shadow-xl">
             <div className="flex flex-col items-center gap-1 text-2xl">
               <MdAccountCircle className="text-zinc-600" size={100} />
               <div className="flex gap-1 items-center text-xl font-medium">
@@ -137,58 +137,52 @@ const History = () => {
               </div>
             </div>
           </div>
-          <div className="py-8 text-center flex gap-4 flex-col  items-center">
+          <div className="py-8 text-center flex gap-4 flex-col items-center">
             <p className="text-3xl font-semibold flex text-green-600 items-center gap-4">
               <AiOutlineHistory />
               History
             </p>
-            <p className="text-xl trxt-center font-medium border-b border-black ">
+            <p className="custom-text text-xl text-center font-medium">
               List of dishes created by you
             </p>
           </div>
-          {/* Filter select input */}
-          <p className="py-2 text-xl">Cuisine</p>
 
-          <div className="  flex w-screen justify-center ">
-            <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center rounded-xl  p-2 lg:p-6 ">
+          {/* <p className="custom-text py-2 text-xl">Cuisine</p> */}
+
+          <div className="flex w-screen justify-center ">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-center rounded-xl p-2 lg:p-6 ">
               {userDishes.length > 0 && isLoading == false ? (
                 userDishes.map((dish, index) => {
                   if (filterCuisine === "all" || dish?.cuisine === filterCuisine) {
                     return (
                       <div
                         index={index}
-                        className={` border min-w-[350px] lg:min-w-[25rem] w-[100%] shadow-xl bg-white rounded-xl border-zinc-200`}
+                        className={`custom-bg border min-w-[350px] lg:min-w-[25rem] w-[100%] shadow-xl rounded-xl border-zinc-200`}
                         key={index}
                       >
                         <div className="flex items-center gap-2 py-2 px-4">
                           <p className="text-zinc-800"></p>
-                          <p className="text-xl md:text-2xl font-medium -ml-2 capitalize">
+                          <p className="custom-text text-xl md:text-2xl font-medium -ml-2 capitalize">
                             {dish.name}
                           </p>
                         </div>
 
                         <div className="flex flex-row gap-4 justify-between items-center">
                           <div className="flex flex-col w-full p-4">
-                            {/* <div className="flex items-center gap-2 py-2">
-                          <p className="text-zinc-800"></p>
-                          <p className="text-xl md:text-2xl font-medium -ml-2">
-                            {dish.name}
-                          </p>
-                        </div> */}
-                            <div className=" ">
-                              <p className="font-medium">{dish.cuisine}</p>
+                            <div>
+                              <p className="custom-text font-medium">{dish.cuisine}</p>
                             </div>
                             <button
                               disabled={isLoading}
                               onClick={() => handleClick(dish.id)}
                               // onClick={() => handleClick(dish.id); setId(dish.id)}
-                              className={`${isLoading ? "cursor-wait" : "cursor-pointer"} text-left font-semibold text-zinc-500 flex items-center gap-2 `}
+                              className={`custom-text-secondary ${isLoading ? "cursor-wait" : "cursor-pointer"} text-left font-semibold flex items-center gap-2 `}
                             >
-                              <p>{isLoading ? "fetching dish" : "see more"}</p> <BsFillArrowUpRightSquareFill />
+                              <p>{isLoading ? "Fetching dish" : "See more"}</p><BsFillArrowUpRightSquareFill />
                             </button>
                           </div>
 
-                          <div className="flex flex-col  w-full ">
+                          <div className="custom-text-secondary flex flex-col w-full ">
                             <div className="flex justify-between px-4 items-center ">
                               <p>{dish.created_date}</p>
                               <AiOutlineClockCircle className="text-amber-500" />
@@ -231,7 +225,7 @@ const History = () => {
         </div>
         // </MantineProvider>
       ) : (
-        <div className="pt-20 min-h-[100dvh] bg-white">
+        <div className="pt-10 w-full lg:w-1/2 mx-auto min-h-[100dvh]">
           <Overview
             open={open}
             setOpen={setOpen}

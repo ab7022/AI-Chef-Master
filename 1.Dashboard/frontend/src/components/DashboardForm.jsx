@@ -211,22 +211,22 @@ const DashboardForm = ({ setTab, form, setForm }) => {
 
   return (
     <div className="pt-0 w-[90%] lg:w-[75%] xl:w-1/2">
-      <div className=" py-6 text-center">
-        <p className=" text-3xl font-medium ">
+      <div className="py-6 text-center">
+        <p className="custom-text text-3xl font-medium ">
           Enter details of a new dish
         </p>
-        <p className="text-sm italic font-semibold text-zinc-700 py-1">*Before creating a new dish, please use our word search feature to check if it already exists in our database</p>
+        <p className="custom-text-secondary text-sm italic font-semibold py-1">*Before creating a new dish, please use our word search feature to check if it already exists in our database</p>
       </div>
 
       {/* form  */}
-      <div className="bg-white p-1 md:p-2 lg:p-4 w-full  rounded-lg shadow-xl">
+      <div className="custom-bg p-1 md:p-2 lg:p-4 w-full  rounded-lg shadow-xl">
         <div className="bg-gradient-to-b  relative backdrop-filter backdrop-blur-xl rounded-lg items-center">
           {/* <div className='w-[400px] h-[400px]  rounded-full absolute top-[-40px] left-[-40px] blur-3xl z-[-10] bg-[#14318629]  '></div>  */}
           <div className="grid grid-cols-1 lg:grid-cols-2 p-4 pb-0 lg:px-8 lg:gap-8">
             <div className="flex flex-col pt-4 relative">
               <label
                 htmlFor=""
-                className=" text-md font-medium pb-2"
+                className="custom-text text-md font-medium pb-2"
               >
                 Dish Name <span className="text-rose-600">*</span>
               </label>
@@ -240,7 +240,7 @@ const DashboardForm = ({ setTab, form, setForm }) => {
                   inputHandler(e);
                 }}
                 value={form.name}
-                className={`border px-2 py-1  text-lg  border-black rounded-md placeholder:italic outline-none ${error ? "border-red-500 focus:border-red-500" : "focus:border-orange-400"}`}
+                className={`custom-input custom-text border px-2 py-1 text-lg  border-black rounded-md placeholder:italic outline-none ${error ? "border-red-500 focus:border-red-500" : "focus:border-orange-400"}`}
                 required
               />
 
@@ -250,14 +250,14 @@ const DashboardForm = ({ setTab, form, setForm }) => {
             </div>
 
             <div className="flex flex-col pt-4">
-              <label htmlFor="" className=" text-md font-medium pb-2">
+              <label htmlFor="" className="custom-text text-md font-medium pb-2">
                 Veg or Non-veg <span className="text-rose-600">*</span>
               </label>
               <select
                 name="veg_non_veg"
                 value={form.veg_non_veg}
                 onChange={inputHandler}
-                className=" text-lg border rounded-md p-2   border-black outline-none placeholder:italic focus:border-orange-400"
+                className="custom-input custom-text text-lg border rounded-md p-2 border-black outline-none placeholder:italic focus:border-orange-400"
               >
                 <option className="italic" value="">Please select</option>
                 <option className="italic" value="Vegetarian">Vegetarian</option>
@@ -270,7 +270,7 @@ const DashboardForm = ({ setTab, form, setForm }) => {
             <div className="flex flex-col pt-4">
               <label
                 htmlFor=""
-                className=" text-md font-medium pb-2"
+                className="custom-text text-md font-medium pb-2"
               >
                 Dish Description  <span className="text-rose-600">*</span>
               </label>
@@ -282,7 +282,7 @@ const DashboardForm = ({ setTab, form, setForm }) => {
                 onChange={inputHandler}
                 value={form.description}
 
-                className="border px-2 py-1  text-lg w-full border-black rounded-md placeholder:italic outline-none focus:border-orange-400"
+                className="custom-input custom-text border px-2 py-1 text-lg w-full border-black rounded-md placeholder:italic outline-none focus:border-orange-400"
               />
             </div>
 
@@ -290,7 +290,7 @@ const DashboardForm = ({ setTab, form, setForm }) => {
               <div className="flex flex-col pt-4">
                 <label
                   htmlFor=""
-                  className=" text-md font-medium pb-2"
+                  className="custom-text text-md font-medium pb-2"
                 >
                   Popularity State
                 </label>
@@ -298,7 +298,7 @@ const DashboardForm = ({ setTab, form, setForm }) => {
                   name="popularity_state"
                   value={form.popularity_state}
                   onChange={inputHandler}
-                  className="text-lg border rounded-md p-2 border-black outline-none placeholder:italic focus:border-orange-400"
+                  className="custom-input custom-text text-lg border rounded-md p-2 border-black outline-none placeholder:italic focus:border-orange-400"
                 >
                   <option value="">Select State</option>
                   {statesData.map((state) => (
@@ -310,7 +310,7 @@ const DashboardForm = ({ setTab, form, setForm }) => {
               <div className="flex flex-col pt-4">
                 <label
                   htmlFor=""
-                  className=" text-md font-medium pb-2"
+                  className="custom-text text-md font-medium pb-2"
                 >
                   Cuisine  <span className="text-rose-600">*</span>
                 </label>
@@ -320,21 +320,21 @@ const DashboardForm = ({ setTab, form, setForm }) => {
                   name="cuisine"
                   onChange={inputHandler}
                   value={form.cuisine}
-                  className="border px-2 py-1 text-lg  border-black rounded-md placeholder:text-gray-400 outline-none placeholder:italic focus:border-orange-400"
+                  className="custom-input custom-text border px-2 py-1 text-lg border-black rounded-md placeholder:text-gray-400 outline-none placeholder:italic focus:border-orange-400"
                   placeholder="Select Cuisine"
                 />
               </div>
             </div>
 
             <div className="flex flex-col pt-4">
-              <label className="text-md font-medium pb-2">Kitchen Equipments <span className="text-rose-600">*</span></label>
+              <label className="custom-text text-md font-medium pb-2">Kitchen Equipments <span className="text-rose-600">*</span></label>
               <div className="w-full flex items-center gap-4">
                 <input
                   name="kitchen_equipments"
                   value={kitchenEquipmentName}
                   onChange={handleKitchenEquipmentChange}
                   placeholder="eg. Oven, Pan, Spatula"
-                  className="flex-1 border px-2 py-1 placeholder:italic text-lg border-black rounded-md placeholder:text-gray-400 outline-none focus:border-orange-400"
+                  className="custom-input custom-text flex-1 border px-2 py-1 placeholder:italic text-lg border-black rounded-md placeholder:text-gray-400 outline-none focus:border-orange-400"
                 />
                 <button onClick={handleKitchenEquipmentSubmit} type="button" className="">
                   <IoIosAdd className="text-green-500 text-3xl rounded-full border border-green-600 hover:bg-green-200" />
@@ -361,7 +361,7 @@ const DashboardForm = ({ setTab, form, setForm }) => {
 
           <div className="flex flex-col px-4 lg:px-8 pb-8">
             <div className="flex flex-col">
-              <label htmlFor="course_type" className=" text-md font-medium pb-2">
+              <label htmlFor="course_type" className="custom-text text-md font-medium pb-2">
                 Course Type  <span className="text-rose-600">*</span>
               </label>
 
@@ -369,7 +369,7 @@ const DashboardForm = ({ setTab, form, setForm }) => {
                 name="course_type"
                 onChange={inputHandlerCourse}
                 value={courseName}
-                className="border p-2 placeholder:italic  text-lg  border-black rounded-md placeholder:text-gray-400 outline-none focus:border-orange-400"
+                className="custom-input custom-text border p-2 placeholder:italic text-lg border-black rounded-md placeholder:text-gray-400 outline-none focus:border-orange-400"
               >
                 <option value="">Select Course Type</option>
                 <option value="Appetizers">Appetizers</option>

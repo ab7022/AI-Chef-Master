@@ -225,19 +225,13 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
 
   return (
     <>
-      <div className="bg-white shadow-xl  p-0.5 w-[90%] lg:w-1/2 rounded-lg">
-        <div className=" items-center relative backdrop-filter backdrop-blur-xl rounded-lg">
-          <p className=" text-3xl text-center flex justify-center items-center gap-2 font-medium pt-4">
-            Ingredients <IoIosPie className="text-green-600" />
-          </p>
+      <div className="custom-bg shadow-xl p-0.5 w-[90%] lg:w-1/2 rounded-lg">
+        <div className="items-center relative backdrop-filter backdrop-blur-xl rounded-lg">
           <Ingredient
             formData={formData}
             setFormData={setFormData}
             portion={1}
           />
-          <p className=" text-3xl text-center pt-4 flex items-center justify-center gap-2 font-medium">
-            Instructions <IoIosPaper className="text-green-600" />
-          </p>
           <Instruction
             formData={formData}
             setFormData={setFormData}
@@ -246,19 +240,13 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
         </div>
       </div>
 
-      <div className="bg-white shadow-xl  p-0.5 w-[90%] lg:w-1/2 rounded-lg mt-5">
-        <div className=" items-center relative backdrop-filter backdrop-blur-xl rounded-lg">
-          <p className=" text-3xl text-center flex justify-center items-center gap-2 font-medium pt-4">
-            Ingredients <IoIosPie className="text-green-600" />
-          </p>
+      <div className="custom-bg shadow-xl  p-0.5 w-[90%] lg:w-1/2 rounded-lg mt-5">
+        <div className="items-center relative backdrop-filter backdrop-blur-xl rounded-lg">
           <Ingredient
             formData={formData}
             setFormData={setFormData}
             portion={2}
           />
-          <p className=" text-3xl text-center pt-4 flex items-center justify-center gap-2 font-medium">
-            Instructions <IoIosPaper className="text-green-600" />
-          </p>
           <Instruction
             formData={formData}
             setFormData={setFormData}
@@ -267,19 +255,13 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
         </div>
       </div>
 
-      <div className="bg-white shadow-xl  p-0.5 w-[90%] lg:w-1/2 rounded-lg mt-5">
-        <div className=" items-center relative backdrop-filter backdrop-blur-xl rounded-lg">
-          <p className=" text-3xl text-center flex justify-center items-center gap-2 font-medium pt-4">
-            Ingredients <IoIosPie className="text-green-600" />
-          </p>
+      <div className="custom-bg shadow-xl  p-0.5 w-[90%] lg:w-1/2 rounded-lg mt-5">
+        <div className="items-center relative backdrop-filter backdrop-blur-xl rounded-lg">
           <Ingredient
             formData={formData}
             setFormData={setFormData}
             portion={3}
           />
-          <p className=" text-3xl text-center pt-4 flex items-center justify-center gap-2 font-medium">
-            Instructions <IoIosPaper className="text-green-600" />
-          </p>
           <Instruction
             formData={formData}
             setFormData={setFormData}
@@ -288,19 +270,13 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
         </div>
       </div>
 
-      <div className="bg-white shadow-xl  p-0.5 w-[90%] lg:w-1/2 rounded-lg mt-5">
-        <div className=" items-center relative backdrop-filter backdrop-blur-xl rounded-lg">
-          <p className=" text-3xl text-center flex justify-center items-center gap-2 font-medium pt-4">
-            Ingredients <IoIosPie className="text-green-600" />
-          </p>
+      <div className="custom-bg shadow-xl p-0.5 w-[90%] lg:w-1/2 rounded-lg mt-5">
+        <div className="items-center relative backdrop-filter backdrop-blur-xl rounded-lg">
           <Ingredient
             formData={formData}
             setFormData={setFormData}
             portion={4}
           />
-          <p className=" text-3xl text-center pt-4 flex items-center justify-center gap-2 font-medium">
-            Instructions <IoIosPaper className="text-green-600" />
-          </p>
           <Instruction
             formData={formData}
             setFormData={setFormData}
@@ -309,19 +285,13 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
         </div>
       </div>
 
-      <div className="bg-white shadow-xl  p-0.5 w-[90%] lg:w-1/2 rounded-lg mt-5">
-        <div className=" items-center relative backdrop-filter backdrop-blur-xl rounded-lg">
-          <p className=" text-3xl text-center flex justify-center items-center gap-2 font-medium pt-4">
-            Ingredients <IoIosPie className="text-green-600" />
-          </p>
+      <div className="custom-bg shadow-xl p-0.5 w-[90%] lg:w-1/2 rounded-lg mt-5">
+        <div className="items-center relative backdrop-filter backdrop-blur-xl rounded-lg">
           <Ingredient
             formData={formData}
             setFormData={setFormData}
             portion={5}
           />
-          <p className=" text-3xl text-center pt-4 flex items-center justify-center gap-2 font-medium">
-            Instructions <IoIosPaper className="text-green-600" />
-          </p>
           <Instruction
             formData={formData}
             setFormData={setFormData}
@@ -362,7 +332,7 @@ const InstructionsPage = ({ setTab, formData, setFormData }) => {
       {open && (
         <div className="fixed z-[3000] left-0 top-0 w-full h-[100dvh] flex items-center justify-center">
           <div className="absolute top-0 z-[3001] w-full h-[100dvh] bg-black opacity-50" />
-          <div className="w-[90%] lg:w-1/2 max-h-[90vh] relative z-[3002] p-2 lg:p-0 bg-white overflow-y-auto">
+          <div className="custom-bg w-[90%] lg:w-1/2 max-h-[90vh] relative z-[3002] p-2 lg:p-0 overflow-y-auto">
             <div className="absolute top-2.5 right-2.5 lg:top-5 lg:right-5">
               <AiOutlineClose
                 onClick={btnHandler}

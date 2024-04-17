@@ -5,6 +5,7 @@ import { useAuthContext } from '../hooks/useAuthContext';
 import { Link, NavLink } from 'react-router-dom';
 import { useLogout } from '../hooks/useLogout'
 import { motion } from 'framer-motion';
+import { MdDarkMode, MdLightMode } from 'react-icons/md';
 
 const menuVariants = {
   hidden: {
@@ -18,23 +19,45 @@ const menuVariants = {
   },
 };
 
-const MobileNav = () => {
+const MobileNav = ({ theme, setTheme }) => {
   const { user } = useAuthContext()
   const { logout } = useLogout()
 
+  const [openMenu, setOpenMenu] = useState(false);
   const handleClick = () => {
     logout()
     setOpenMenu(false)
   }
-  const [openMenu, setOpenMenu] = useState(false);
+
+  const handleThemeChange = () => {
+    if (localStorage.getItem('theme') === 'light' || theme === 'light') {
+      setTheme('dark');
+      localStorage.setItem('theme', 'dark');
+    }
+    else {
+      setTheme('light');
+      localStorage.setItem('theme', 'light');
+    }
+  }
 
   return (
-    <nav className=' xl:hidden'>
-      <div onClick={() => setOpenMenu(true)} className={'text-black text-3xl cursor-pointer'}>
-        <CgMenuRight />
+    <nav className='xl:hidden'>
+      <div className='flex gap-[1rem] items-center'>
+        {localStorage.getItem('theme') === 'light' || theme === 'light' ? (
+          <button title="Switch to Dark Mode" onClick={handleThemeChange} className='flex items-center justify-center rounded-md px-2 py-2 bg-[#eaeaea] text-sm font-medium'>
+            <MdDarkMode size={20} />
+          </button>
+        ) : (
+          <button title="Switch to Light Mode" onClick={handleThemeChange} className='flex items-center justify-center rounded-md px-2 py-2 bg-[#eaeaea] text-sm font-medium'>
+            <MdLightMode size={20} />
+          </button>
+        )}
+
+        <div onClick={() => setOpenMenu(true)} className={'text-black text-3xl cursor-pointer'}>
+          <CgMenuRight />
+        </div>
       </div>
 
-      {/* Menu */}
       <motion.div
         variants={menuVariants}
         initial='hidden'
@@ -45,7 +68,6 @@ const MobileNav = () => {
           <IoMdClose />
         </div>
 
-        {/* menu list */}
         <ul className='h-[100dvh] flex flex-col justify-center items-center gap-y-6  font-primary first-letter:first font-medium text-2xl '>
           <li key='home' className=' text-base  py-1   transition-all duration-300 hover:text-amber-500'>
             <NavLink to='/' onClick={() => setOpenMenu(false)}>Home</NavLink>
@@ -63,22 +85,18 @@ const MobileNav = () => {
             <NavLink to='/contact' onClick={() => setOpenMenu(false)}>Contact</NavLink>
           </li>
 
-          {/* <li key='career' className=' text-base  pb-1   transition-all duration-300     hover:text-amber-500' onClick={()=>{setOpenMenu(false)}}>
-            <NavLink  to='/career'>Career</NavLink>
-            </li> */}
-
           {user && (<div className='flex-col flex items-center  md:flex-row'>
-            <span className=' text-base  pb-1  border-r-2 border-hidden md: '>{user.name}</span>
+            <span className=' text-base  pb-1  border-r-2 border-hidden'>{user.name}</span>
             <button onClick={handleClick} className='border text-base my-4 border-amber-500 px-2  rounded-full mx-2 '>Logout</button>
           </div>)}
 
           {!user && (
             <>
               <li key='login' className=' text-lg  font-primary px-4   transition-all duration-300 border border-yellow-800 rounded-xl hover:bg-[#ff910032]  py-2 '>
-                <Link to='/login' onClick={() => setOpenMenu(false)}>login</Link>
+                <Link to='/login' onClick={() => setOpenMenu(false)}>Login</Link>
               </li>
               <li key='signup' className=' text-lg font-primary px-4   transition-all duration-300 border border-yellow-800 rounded-xl hover:bg-[#ff910032]  py-2 '>
-                <Link to='/signup' onClick={() => setOpenMenu(false)}>signup</Link>
+                <Link to='/signup' onClick={() => setOpenMenu(false)}>Signup</Link>
               </li>
             </>
           )}

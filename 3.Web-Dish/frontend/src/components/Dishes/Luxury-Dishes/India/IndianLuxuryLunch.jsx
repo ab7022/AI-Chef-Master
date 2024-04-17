@@ -4,6 +4,7 @@ import { IndianLunch } from '../../../../Data/LuxuryDishesData/IndianDishes/Indi
 import SearchDish from '../../SearchDish';
 import SearchDishNotFound from '../../SearchDishNotFound';
 import SeeMoreDishes from '../../SeeMoreDishes';
+import SeeMoreDescription from '../../SeeMoreDescription';
 
 const IndianLuxuryLunch = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -14,6 +15,9 @@ const IndianLuxuryLunch = () => {
 
   return (
     <div className="bg-[#f7f3cd]">
+      {/* Pass filteredDish to SeeMoreDescription */}
+      <SeeMoreDescription searchTerm={searchTerm} setSearchTerm={setSearchTerm} filteredDish={filteredDish} />
+
       <div>
         <h1 className='py-12 text-xl sm:text-3xl md:text-5xl text-center font-bold text-black'>Indian Lunch Dishes</h1>
       </div>

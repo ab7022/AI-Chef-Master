@@ -71,20 +71,27 @@ def index():
 @app.route("/callback")
 def google_callback():
     if not google.authorized:
-        return jsonify({"error": "Failed to log in."}),400
+        return jsonify({"error": "Failed to log in."}), 400
     resp = google.get("/oauth2/v1/userinfo")
     assert resp.ok, resp.text
 
     user_info = resp.json()
-    exist_user = db.users.find_one({'email':user_info['email']},{'first_name':1})
+    exist_user = db.users.find_one({'email': user_info['email']}, {'first_name': 1, 'user_id': 1})
 
     if not exist_user:
-        db.users.insert_one({'first_name':user_info['given_name'] ,'last_name': user_info['family_name'],'email':user_info['email']})
+        user_id = "AiChef" + user_info['given_name'].upper() + "-" + str(round((datetime.now().timestamp())*1000000))
+        db.users.insert_one({
+            'first_name': user_info['given_name'],
+            'last_name': user_info['family_name'],
+            'email': user_info['email'],
+            'user_id': user_id
+        })
+    else:
+        user_id = exist_user['user_id']
 
+    user_info['user_id'] = user_id
     token = create_access_token(identity=user_info['email'])
-    
     user_info['access_token'] = token
-    
     user_info_str = urllib.parse.quote(json.dumps(user_info))
     
     return redirect(f"{os.getenv('FRONTEND_URL')}/login?data={user_info_str}", code=302)
@@ -107,9 +114,6 @@ def microsoft_login():
         redirect_uri=app.config["MICROSOFT_OAUTH_REDIRECT_URI"]
     )
     return redirect(auth_url)
-
-from flask import redirect, jsonify, request, url_for
-import urllib.parse
 
 @app.route("/microsoft/callback")
 def microsoft_callback():
@@ -135,30 +139,31 @@ def microsoft_callback():
         headers = {'Authorization': 'Bearer ' + result['access_token']}
         graph_data = requests.get("https://graph.microsoft.com/v1.0/me", headers=headers).json()
 
-        exist_user = db.users.find_one({'email': graph_data["mail"]}, {'first_name': 1})
-
+        exist_user = db.users.find_one({'email': graph_data["mail"]}, {'first_name': 1, 'user_id': 1})
         if not exist_user:
+            user_id = "AiChef"+ graph_data.get("givenName").upper() + "-" + str(round((datetime.now().timestamp())*1000000))
             user_data = {
                 'first_name': graph_data.get("givenName", ""),
                 'last_name': graph_data.get("surname", ""),
                 'email': graph_data.get("mail", ""),
-                'phone': graph_data.get("mobilePhone", "")
+                'phone': graph_data.get("mobilePhone", ""),
+                'user_id': user_id
             }
             db.users.insert_one(user_data)
         else:
             db.users.update_one({'email': graph_data["mail"]}, {'$set': {'phone': graph_data.get("mobilePhone", "")}})
+            user_id = exist_user['user_id']
 
         user_info = {
             'first_name': graph_data.get("givenName", ""),
             'last_name': graph_data.get("surname", ""),
             'email': graph_data.get("mail", ""),
-            'phone': graph_data.get("mobilePhone", "")
+            'phone': graph_data.get("mobilePhone", ""),
+            'user_id': user_id
         }
 
         token = create_access_token(identity=user_info['email'])
-
         user_info['access_token'] = token
-
         user_info_str = urllib.parse.quote(json.dumps(user_info))
 
         frontend_url = os.getenv('FRONTEND_URL') + "/login?data=" + user_info_str
@@ -169,7 +174,6 @@ def microsoft_callback():
 # Manual Authentication
 @app.route('/auth/signup', methods =['POST'])
 def register():
-    
     first_name = request.json.get('first_name')
     last_name = request.json.get('last_name')
     country_code = request.json.get('country_code')
@@ -183,7 +187,7 @@ def register():
         return jsonify({'message': 'User already exists'}), 400
 
     hashed_password = generate_password_hash(password)
-    user_id = "AiChef"+ first_name.upper() + "-" + round((datetime.datetime.now().timestamp())*1000000)
+    user_id = "AiChef"+ first_name.upper() + "-" + str(round((datetime.now().timestamp())*1000000))
     db.users.insert_one({
         'first_name': first_name,
         'last_name': last_name,
@@ -191,14 +195,13 @@ def register():
         'phone': phone,
         'email': email,
         'password': hashed_password,
-        'user_id':user_id
+        'user_id': user_id
     })
     
     return jsonify({'message': 'User registered successfully'}), 201
 
 @app.route('/auth/login', methods=['POST'])
 def loginAuth():
-    
     email = request.json['email']
     password = request.json['password']
    
@@ -207,27 +210,97 @@ def loginAuth():
         return jsonify({'message': 'Invalid credentials'}), 401
     else:
         token  = create_access_token(identity= email)
-
     name = user['first_name']+" "+user['last_name']
-    return jsonify(message = 'Login Successful', access_token = token, email = email, name = name)
+    user_id = user['user_id']
+    return jsonify(message = 'Login Successful', access_token = token, email = email, name = name, user_id = user_id)
+
+@app.route('/auth/validate-token', methods=['GET'])
+@jwt_required()
+def validate_token():
+    current_user = get_jwt_identity()
+    user = db.users.find_one({'email': current_user})
+    if user:
+        name = user['first_name'] + " " + user['last_name']
+        user_id = user['user_id']
+        return jsonify(message='Token is valid', email=current_user, name=name, user_id=user_id)
+    else:
+        return jsonify({'message': 'Invalid token'}), 401
 
 @app.route('/auth/forgetPassword',methods =['POST'])
 def forgetP():
-
     email = request.json.get('email')
     newPassword = request.json.get('newPassword')
 
     db.users.update_one({ "email": email },{"$set": { "password": generate_password_hash(newPassword) }})
     return jsonify({'message':"password updates succesfully"})
 
-@app.route('/logoutAPP', methods=['POST'])
-def logoutAPP():
-    # TODO: Implement logout logic
-    # This route could be a placeholder if you're using token-based authentication.
-    # If you're using sessions, you would typically handle logout on the client-side by clearing the session.
+@app.route('/start-process', methods =['POST'])
+@jwt_required()
+def process():
+    data = request.get_json()
+    result = db.Process.insert_one(data)
+    return jsonify({'message': 'Data inserted successfully'}), 201
 
-    return jsonify({'message': 'Logout successful'}), 200
+@app.route('/get-rows/<user_id>', methods=['GET'])
+@jwt_required()
+def get_rows(user_id):
+    user_processes = db.Process.find({"user.user_id": user_id})
+    
+    all_rows = []
+    for process in user_processes:
+        all_rows.extend(process['rows'])
+    
+    return jsonify({'rows': all_rows}), 201
 
+# app.config['UPLOAD_FOLDER'] = 'files'
+@app.route('/career' ,methods = ['POST'])
+def carrer():
+    if request.method =="POST":
+        applied_for = request.form.get("appliedFor")
+        personal = request.form.get("personal")
+        experiences = request.form.get("experiences")
+        education = request.form.get("education")
+        skills = request.form.get('skills')
+        socials_json = request.form.get('socials')
+        socials = json.loads(socials_json) if socials_json else {}
+        all_questions = request.form.get("allQuestions")
+        voluntary_questions = request.form.get("voluntaryDisclosures")
+
+        # ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'doc', 'docx'}
+        # certificates = request.files.getlist("certificates[]")
+        # certificate_paths = []
+        # saved_files = []
+
+        # for certificate in certificates:
+        #     filename = certificate.filename
+        #     timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+        #     new_filename = f"{timestamp}-{filename}"
+
+        #     if '.' in new_filename and new_filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS:
+        #         file_path = os.path.join(app.config['UPLOAD_FOLDER'], new_filename)
+        #         certificate.save(file_path)
+        #         certificate_paths.append(file_path)
+        #         saved_files.append(file_path)
+        #     else:
+        #         for file in saved_files:
+        #             try:
+        #                 os.remove(file)
+        #             except OSError as e:
+        #                 print(f"Error: {file} : {e.strerror}")
+        #         return jsonify({'message': 'Invalid file format'}), 400
+
+        db.carrers.insert_one({
+            'applied_for': applied_for,
+            'personal': personal,
+            'experience': experiences,
+            'education': education,
+            'skills': skills,
+            'socials': socials,
+            'all_questions': all_questions,
+            'voluntary_questions': voluntary_questions,
+            # 'certificates': certificate_paths
+        })
+        return jsonify({'message':'Application submitted successfully'}), 201
 
 @app.route('/api/dishCreateProcess',methods = ['POST','GET'])
 def  dishCreateProcess():
@@ -286,7 +359,6 @@ def quickDishes():
             #Inde.append(str(int(it['quantity'])//(already_person))*people) +" " + it['unit'])
         return jsonify({"Kitchen_equi":Dish_detail['kitchen_equipments'].split(","),"Indegrients":Inde}),201
     
-
 @app.route('/api/healtyDishes',methods =['POST','GET'])
 def healtyDishes():
     data = request.get_json()
@@ -306,9 +378,6 @@ def healtyDishes():
             #Inde.append(str(int(it['quantity'])//(already_person))*people) +" " + it['unit'])
         return jsonify({"Kitchen_equi":Dish_detail['kitchen_equipments'].split(","),"Indegrients":Inde}),201
     
-
-
-
 @app.route('/userDetials',methods =['GET','POST'])
 @jwt_required()
 def  userDetials():
@@ -317,47 +386,32 @@ def  userDetials():
     first_name = UserData['first_name']
     last_name =UserData['last_name']
     email = UserData['email']
-
     name = first_name +" " +last_name
-
     data = request.get_json()
     country = data['country']
     state = data['state']
     dish_type = data['Dish_category']
-    
 
     db.AllDetails.insert_one({'name':name,'email':email,'country':country,'state':state ,'dish_type':dish_type })
-
-
     return jsonify({"message":"User details saved successfully"}),201 
-
-
 
 @app.route('/api/chef_id',methods =['POST','GET'])
 @jwt_required()
 def create_id():
-
     user_email = get_jwt_identity()
     user = db.users.find_one({'email':user_email})
 
     chef_id = "AiChef"+user['first_name']+ str(random.randint(1000,10000))
-    print(chef_id)
 
     db.users.update_one({'email':user_email},{"$set" :{"chef_id":chef_id}})
-
     return jsonify({"message":"chef id created succesffuly"}),200
 
-
 @app.route('/api/saveMenu',methods =['GET','POST'])
-
 def saveMenu():
-    
     user_email = get_jwt_identity()
     user =db.users.find_one({'email':user_email})
     name = user['first_name'] +" " +user['last_name']
     
-
-
     data = request.get_json()
     print(data)
     meal = data['meal']
@@ -375,8 +429,6 @@ def saveMenu():
     cuisine = data['cuisine']
     desserts = data['desserts']
     appetizers = data['appetizers']
-
-
     
     if meal =='dinner':
         db.Menu.insert_one({
@@ -395,7 +447,6 @@ def saveMenu():
             'cuisine':cuisine, 
             'desserts' :desserts,
             'appetizers':appetizers
-
         })    
     else:
         db.Menu.insert_one({
@@ -412,9 +463,7 @@ def saveMenu():
             'skill':skill,
             'beverages':beverages,
             'cuisine':cuisine
-        
         })
-
 
     reminder_time = reminder -timedelta(minutes =10)
     scheduler.add_job(
@@ -423,9 +472,7 @@ def saveMenu():
         args = [user_email,meal,mainDishes,reminder],
         trigger = 'date',
         run_date = reminder_time
-
     )
- 
     return jsonify({'Message':"Menu saved successfully "}),201
 
 def send_reminder(user_email,meal,mainDishes,reminder):
@@ -437,11 +484,6 @@ def send_reminder(user_email,meal,mainDishes,reminder):
     )
     msg.body =f"Your Dish {meal} with main Dishes {mainDishes} is ready to cook in {reminder} minutes"
     mail.send(msg)
-
-    
-
-
-
 
 # pipeline of data
 '''

@@ -8,7 +8,7 @@ return (
     <div className='bg-[#f7f3cd] min-h-screen'>
     <div className=' '>
         <h1 className='py-12 text-2xl sm:text-4xl md:text-6xl text-center font-bold text-black'>Andhra Pradesh Dishes</h1>
-            <div>
+        <div>
             <Card3 title="AP Breakfast" famousDish={AndhraPradeshBreakFast}/>
         </div>
         <div>

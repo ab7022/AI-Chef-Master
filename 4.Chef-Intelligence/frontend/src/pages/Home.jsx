@@ -8,13 +8,13 @@ import Typewriter from "../components/Typewriter";
 import RecipeDetails from "../components/RecipeDetails";
 import biryani from '../data/biryani.jpeg'
 import { useNavigate } from "react-router-dom";
-export default function Home({ lightMode, sideBarOpen }) {
+
+
+
+
+export default function Home({ lightMode, sideBarOpen, rows, setRows }) {
     const [recipeDetails, setRecipeDetails] = useState(null); 
     const navigate = useNavigate();
-
-    const [rows, setRows] = useState([
-        { ingredient: "", quantity: "", equipment: "" },
-    ]);
     const [suggestionsOfIngredient, setSuggestionsOfIngredient] = useState([]);
     const [suggestionsOfEquipment, setSuggestionsOfEquipment] = useState([]);
 

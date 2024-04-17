@@ -41,7 +41,7 @@ const AboutUs = () => {
         <Fade>
           <div className="flex md:flex-row justify-around flex-col grid-cols-2 gap-5 row-gap-8 lg:col-span-4">
             <div>
-              <p className="font-semibold tracking-wide text-gray-800">
+              <p className="custom-text font-semibold tracking-wide">
                 <a href="/Team">Founded</a>
               </p>
             </div>

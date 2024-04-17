@@ -1,0 +1,114 @@
+:root {
+    --dot-color: lightslategray;
+    --body__bg: rgb(240, 240, 240);
+    --body__bg-secondary: white;
+    --body__bg-reverse: black;
+    --body__color: black;
+    --body__color-secondary: #747474;
+    --input__bg: white;
+    --btn__bg: black;
+    --border-color: rgb(229 231 235);
+}
+
+[data-theme='dark'] {
+    --dot-color: #1c1c1c;
+    --body__bg: #0a0a0a;
+    --body__bg-secondary: black;
+    --body__bg-reverse: white;
+    --body__color: white;
+    --body__color-secondary: #9d9d9d;
+    --input__bg: #1c1c1c;
+    --btn__bg: #1c1c1c;
+    --border-color: #1c1c1c;
+}
+
+body {
+    --dot-bg: var(--body__bg);
+    --dot-size: 1px;
+    --dot-space: 10px;
+    background:
+        linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+        linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+        linear-gradient(to top, var(--dot-color), var(--dot-color));
+    overflow-x: hidden;
+}
+
+.custom-bg {
+    background-color: var(--body__bg-secondary);
+}
+
+.custom-bg-reverse {
+    background-color: var(--body__bg-reverse);
+}
+
+.custom-text {
+    color: var(--body__color);
+}
+
+.custom-text-secondary {
+    color: var(--body__color-secondary);
+}
+
+.custom-input {
+    background-color: var(--input__bg);
+}
+
+.custom-btn {
+    background-color: var(--btn__bg);
+    color: white;
+}
+
+.custom-border {
+    border-color: var(--border-color);
+}
+
+.active {
+    color: #10b104;
+    padding: 6px;
+    font-weight: 800;
+    transition-duration: 400ms;
+    transition-timing-function: ease-in-out;
+}
+
+.get-started {
+    border: 1px solid #ffffff00;
+    background: linear-gradient(to right, #131313, #000000) padding-box, linear-gradient(var(--angle),
+            #070707,
+            #fe7011) border-box;
+    animation: 8s rotate linear infinite;
+}
+
+.popup-media {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 200;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    min-height: 100%;
+    overflow-y: auto;
+    backdrop-filter: blur(10px);
+    transition: all 2s ease;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotate {
+    to {
+        --angle: 360deg;
+    }
+}
+
+@property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}

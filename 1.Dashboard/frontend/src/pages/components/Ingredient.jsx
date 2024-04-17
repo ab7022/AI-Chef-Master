@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { IoIosClose } from 'react-icons/io'
+import { IoIosClose, IoIosPie } from 'react-icons/io'
 import { nonVegetarianIngredients } from '../../Data/nonVegetarianIngredients';
 import { toast } from 'react-hot-toast';
 import { MdEdit } from 'react-icons/md';
@@ -147,10 +147,6 @@ const Ingredient = ({ formData, setFormData, portion }) => {
         }
     };
 
-    // const isQuantityFilledForPortion = (portion) => {
-    //     const lastIngredient = formData.ingredients[formData.ingredients.length - 1];
-    //     return lastIngredient.quantity[portion - 1] !== "";
-    // };
     const isQuantityFilledForPortion = (portion) => {
         if (formData.ingredients.length === 0) return false;
         const lastIngredient = formData.ingredients[formData.ingredients.length - 1];
@@ -160,14 +156,17 @@ const Ingredient = ({ formData, setFormData, portion }) => {
 
     return (
         <>
-            <p className="text-center text-sm italic font-semibold text-zinc-700">* Enter quantity for portion {portion}</p>
+            <p className="custom-text text-3xl text-center flex justify-center items-center gap-2 font-medium pt-4">
+                Ingredients <IoIosPie className="text-green-600" />
+            </p>
+            <p className="custom-text-secondary text-center text-sm italic font-semibold">* Enter quantity for portion {portion}</p>
             <div className="bg-transparent rounded-xl p-4 lg:p-8 py-4 lg:py-4 flex flex-col justify-center items-center">
                 <div className="w-full">
                     {portion === 1 || !isQuantityFilledForPortion(portion) ? (
                         <>
                             <div className="flex flex-col lg:flex-row gap-0 lg:gap-4">
                                 <div className="w-full lg:w-1/2 pt-4 lg:pt-0">
-                                    <label className=" block text-black">Name <span className="text-rose-600">*</span></label>
+                                    <label className="custom-text block">Name <span className="text-rose-600">*</span></label>
                                     <input
                                         disabled={portion !== 1}
                                         type="text"
@@ -175,12 +174,12 @@ const Ingredient = ({ formData, setFormData, portion }) => {
                                         value={ingredientName}
                                         onChange={(e) => setIngredientName(e.target.value)}
                                         placeholder="eg. Chicken"
-                                        className={`${portion !== 1 ? "cursor-not-allowed bg-gray-200" : "cursor-text"} px-2 mt-2 py-1  text-lg w-full border border-black  rounded-md focus:border-orange-400 placeholder:italic outline-none`}
+                                        className={`custom-input custom-text ${portion !== 1 ? "cursor-not-allowed" : "cursor-text"} px-2 mt-2 py-1 text-lg w-full border border-black rounded-md focus:border-orange-400 placeholder:italic outline-none`}
                                     />
                                 </div>
 
                                 <div className="w-full lg:w-1/2 pt-4 lg:pt-0">
-                                    <label className=" block">Quantity <span className="text-rose-600">*</span></label>
+                                    <label className="custom-text block">Quantity <span className="text-rose-600">*</span></label>
                                     <input
                                         disabled={portion !== 1 && isQuantityDisabled}
                                         type="number"
@@ -189,18 +188,18 @@ const Ingredient = ({ formData, setFormData, portion }) => {
                                         onChange={(e) => setIngredientQuantity(e.target.value)}
                                         onFocus={(e) => e.target.addEventListener("wheel", function (e) { e.preventDefault() }, { passive: false })}
                                         placeholder="eg. 200"
-                                        className={`${portion !== 1 && isQuantityDisabled ? "cursor-not-allowed bg-gray-200" : "cursor-text"} input-number px-2 mt-2 py-1 text-black text-lg w-full border border-black  rounded-md placeholder:italic focus:border-orange-400 outline-none`}
+                                        className={`custom-input custom-text ${portion !== 1 && isQuantityDisabled ? "cursor-not-allowed" : "cursor-text"} input-number px-2 mt-2 py-1 text-lg w-full border border-black rounded-md placeholder:italic focus:border-orange-400 outline-none`}
                                     />
                                 </div>
                                 <div className="w-full lg:w-1/2 pt-4 lg:pt-0">
-                                    <label className=" block">Unit  <span className="text-rose-600">*</span></label>
+                                    <label className="custom-text block">Unit  <span className="text-rose-600">*</span></label>
                                     <select
                                         disabled={portion !== 1}
                                         name="ingredient_unit"
                                         value={ingredientUnit}
                                         onChange={(e) => setIngredientUnit(e.target.value)}
 
-                                        className={`${portion !== 1 ? "cursor-not-allowed bg-gray-200" : "cursor-pointer bg-transparent"} px-2 mt-2 py-[7px] text-black text-lg w-full border border-zinc-700  rounded-md focus:border-orange-400 placeholder:italic outline-none`}
+                                        className={`custom-input custom-text ${portion !== 1 ? "cursor-not-allowed" : "cursor-pointer"} px-2 mt-2 py-[7px] text-lg w-full border border-black rounded-md focus:border-orange-400 placeholder:italic outline-none`}
                                     >
                                         <option value="">Select Course Unit</option>
                                         <option value="gram">gram</option>

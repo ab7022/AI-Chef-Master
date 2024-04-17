@@ -1,10 +1,8 @@
 /** @format */
 
-import Hls from "hls.js";
-
 document.addEventListener("DOMContentLoaded", () => {
   var video = document.getElementById("player");
-  var source = "/hls/inshot_20240103_185705791.m3u8";
+  var source = "../../public/hls/inshot_20240103_185705791.m3u8";
 
   const defaultOptions = {};
   if (Hls.isSupported()) {

@@ -5,6 +5,7 @@
 :root {
     --body__bg: rgb(240, 240, 240);
     --body__color: black;
+    --body__color-secondary: #3b3b3b;
     --dot-color: lightslategray;
     --image__color: invert(0);
     --footer__bg: #0a0a0a;
@@ -17,6 +18,7 @@
 [data-theme='dark'] {
     --body__bg: #0a0a0a;
     --body__color: white;
+    --body__color-secondary: #C0C0C0;
     --dot-color: #1c1c1c;
     --image__color: invert(100%);
     --footer__bg: #ffffff;
@@ -54,7 +56,7 @@ body {
 }
 
 .custom-text-secondary {
-    color: gray;
+    color: var(--body__color-secondary);
 }
 
 .custom-image {

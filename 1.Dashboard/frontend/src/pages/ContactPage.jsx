@@ -60,14 +60,14 @@ const ContactPage = () => {
 
   return (
     <div className="grid grid-cols-1  md:grid-cols-2   gap-8 font-primary justify-center px-8 pb-8 pt-20">
-      <div className="text-white flex flex-col items-center justify-center">
+      <div className="custom-text flex flex-col items-center justify-center">
         <div className="">
           <img src="/assets/logo.jpeg" className="object-cover w-full h-full rounded-lg" alt="" />
         </div>
-        <h2 className="text-2xl md:text-4xl font-semibold my-4 text-center text-transparent bg-clip-text bg-gradient-to-b from-black to-zinc-800">
+        <h2 className="text-2xl md:text-4xl font-semibold my-4 text-center">
           Your feedback <br /> helps us improve
         </h2>
-        <div className="text-center text-zinc-800">
+        <div className="custom-text-secondary text-center">
           <p>We are here to help you, and we'd love to connect with you.</p>
           <p>We'll get back in 24h.</p>
         </div>
@@ -75,11 +75,11 @@ const ContactPage = () => {
 
       <form onSubmit={handleSubmit} className="signup flex justify-center items-center ">
         <div className="border rounded-lg w-full md:w-2/3 sm:w-full shadow-xl">
-          <div className="bg-white border border-zinc-500 backdrop-filter backdrop-blur-xl h-full w-full items-center p-4 md:p-8 rounded-lg flex flex-col justify-center">
+          <div className="custom-bg custom-text border border-zinc-500 backdrop-filter backdrop-blur-xl h-full w-full items-center p-4 md:p-8 rounded-lg flex flex-col justify-center">
             <div className="flex flex-col items-center min-w-full">
               <div className="my-2 w-full">
                 <label>Name</label>
-                <input type="text" className="block w-full py-2 placeholder:italic px-4 my-2 border border-zinc-600 rounded-lg" placeholder="Full Name" name="name" onChange={(e) => setName(e.target.value)}
+                <input type="text" className="custom-input custom-text block w-full py-2 placeholder:italic px-4 my-2 border border-zinc-600 rounded-lg" placeholder="Full Name" name="name" onChange={(e) => setName(e.target.value)}
                   value={name}
                   required={true}
                 />
@@ -87,14 +87,14 @@ const ContactPage = () => {
 
               <div className="my-2 w-full">
                 <label>Email</label>
-                <input disabled type="email" name="email" className="block w-full py-2 placeholder:italic px-4 my-2 border border-zinc-600 rounded-lg" placeholder="abc@gmail.com" onChange={(e) => setEmail(e.target.value)}
+                <input disabled type="email" name="email" className="custom-input custom-text block w-full py-2 placeholder:italic px-4 my-2 border border-zinc-600 rounded-lg" placeholder="abc@gmail.com" onChange={(e) => setEmail(e.target.value)}
                   value={email}
                   required={true}
                 />
               </div>
               <div className="my-2 w-full">
                 <label>Message</label>
-                <textarea type="textarea" name="message" className="block w-full min-h-[200px] py-2 text-black placeholder:italic px-4 my-2 border border-zinc-600 rounded-lg" placeholder="Type your message..." onChange={(e) => setMessage(e.target.value)}
+                <textarea type="textarea" name="message" className="custom-input custom-text block w-full min-h-[200px] py-2 placeholder:italic px-4 my-2 border border-zinc-600 rounded-lg" placeholder="Type your message..." onChange={(e) => setMessage(e.target.value)}
                   value={message}
                   required={true}
                 />

@@ -14,7 +14,6 @@ const SpanishLuxuryBreakFast = () => {
         <h1 className='py-12 text-xl sm:text-3xl md:text-5xl text-center font-bold text-black'>Spanish Breakfast Dishes</h1>
       </div>
       <SeeMoreDishes searchTerm={searchTerm} setSearchTerm={setSearchTerm} filteredDish={filteredDish} />
-
      </div>
   );
 };
