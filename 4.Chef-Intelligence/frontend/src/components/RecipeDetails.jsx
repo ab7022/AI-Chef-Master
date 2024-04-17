@@ -15,7 +15,7 @@ export default function RecipeDetails({ recipe, lightMode }) {
 
   return (
     <div
-      className={`flex flex-col items-center justify-center mt-8 ${colors.backgroundOfDiv} ${colors.textdialog} rounded-lg shadow-xl p-8 max-w-4xl mx-4 md:mx-auto`}
+      className={`flex flex-col items-center justify-center mt-8 ${colors.backgroundOfDiv} ${colors.textdialog} rounded-lg shadow-xl p-3 md:p-8 max-w-4xl mx-4 md:mx-auto`}
     >
       <h2 className="text-4xl font-bold mb-6">{name}</h2>
 

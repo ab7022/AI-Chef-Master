@@ -277,7 +277,7 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
               {profileOpen && (
                 <div
                   className={`absolute top-4 right-4 flex-col mt-[56px] w-60  ${colors.textdialog} shadow-md rounded-md p-4 text-sm z-10 flex ${colors.dialogbg} `}
-                >$
+                >
                   <div className="flex flex-row items-center justify-center">
                     <MdAccountCircle
                       className={`text-5xl flex flex-row justify-center text-center  align-center items-center ${colors.hoverText}`}

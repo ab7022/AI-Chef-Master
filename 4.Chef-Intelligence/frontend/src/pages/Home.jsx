@@ -12,12 +12,14 @@ import { useNavigate } from "react-router-dom";
 
 
 
-export default function Home({ lightMode, sideBarOpen, rows, setRows }) {
+export default function Home({ lightMode, sideBarOpen, }) {
     const [recipeDetails, setRecipeDetails] = useState(null); 
     const navigate = useNavigate();
     const [suggestionsOfIngredient, setSuggestionsOfIngredient] = useState([]);
     const [suggestionsOfEquipment, setSuggestionsOfEquipment] = useState([]);
-
+    const [rows, setRows] = useState([
+        { ingredient: "", quantity: "", equipment: "" },
+    ]);
     const handleInputChange = (index, event) => {
         const { name, value } = event.target;
         const updatedRows = [...rows];
