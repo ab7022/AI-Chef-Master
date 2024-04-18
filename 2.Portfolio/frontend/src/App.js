@@ -46,7 +46,7 @@ const App = () => {
     <Router>
       <LocationListener setLocation={setLocation} />
 
-      {location.pathname !== '/chef-intelligence' && (
+      {(location.pathname !== '/chef-intelligence' && location.pathname !== '/chef-intelligence/generatedDish') && (
         <MyNavbar theme={theme} setTheme={setTheme} />
       )}
 
