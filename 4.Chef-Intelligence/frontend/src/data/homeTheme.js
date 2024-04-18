@@ -14,7 +14,7 @@ const lightColors = {
 
 const darkColors = {
     backgroundOfBody: "bg-gray-900",
-    text: "text-[#f7f3cd]",
+    text: "text-white",
     button: "bg-gray-700",
     inputBackground: "bg-gray-800",
     inputText: "text-white",

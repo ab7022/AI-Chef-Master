@@ -4,11 +4,22 @@ import { darkColors, lightColors } from "../data/homeTheme";
 import ingredients from "../data/ingredientsData";
 import equipments from "../data/equipmentData";
 import SideBar from "../components/Sidebar";
+import Typewriter from "../components/Typewriter";
+import RecipeDetails from "../components/RecipeDetails";
+import biryani from '../data/biryani.jpeg'
+import { useNavigate } from "react-router-dom";
 
-export default function Home({ lightMode, sideBarOpen, rows, setRows }) {
+
+
+
+export default function Home({ lightMode, sideBarOpen, }) {
+    const [recipeDetails, setRecipeDetails] = useState(null); 
+    const navigate = useNavigate();
     const [suggestionsOfIngredient, setSuggestionsOfIngredient] = useState([]);
     const [suggestionsOfEquipment, setSuggestionsOfEquipment] = useState([]);
-
+    const [rows, setRows] = useState([
+        { ingredient: "", quantity: "", equipment: "" },
+    ]);
     const handleInputChange = (index, event) => {
         const { name, value } = event.target;
         const updatedRows = [...rows];
@@ -54,26 +65,39 @@ export default function Home({ lightMode, sideBarOpen, rows, setRows }) {
                 if (!row.equipment) missingData.push("Equipment");
                 return toast.error(`Row ${i + 1} is missing: ${missingData.join(", ")}`);
             }
-        }
+            navigate("/generatedDish");
 
-        await fetch(`${import.meta.env.VITE_API_URL}/start-process`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(rows),
-        }).then(() => toast.success('Started processing...')).catch(() => toast.error('Something went wrong.'));
+        }
+        const recipe = {
+            name: "Chicken Biryani",
+            image: biryani,
+            ingredients: ["Rice", "Chicken", "Onion", "Potato"],
+            steps: [
+              "Cook rice and keep aside.",
+              "Marinate chicken with spices and fry.",
+              "Layer rice and chicken in a pot and cook.",
+            ],
+          };
+          
+          setRecipeDetails(recipe);
+
     }
 
     return (
-        <div className={`${colors.backgroundOfBody} ${colors.text}`}>
+        <div className={`${colors.backgroundOfBody} ${colors.text} `}>
             <div className="relative flex flex-row">
-                {sideBarOpen && <SideBar lightMode={lightMode} />}
+                <div className="fixed w-full">
+                                    {sideBarOpen && <SideBar lightMode={lightMode} />}
+
+                </div>
 
                 <div className="flex flex-col w-full md:w-5/6 mx-auto min-h-[calc(100dvh-56px)] items-center justify-center px-2">
-                    <img src='/CompanyLogo.png' alt="" className="w-36 h-36" />
-                    <h1 className="font-extrabold text-6xl md:text-7xl text-orange-400 text-center mb-8 justify-center">
+                    <img src='/CompanyLogo.png' alt="" className="w-52 h-52 " />
+                    {/* <h1 className="font-extrabold text-6xl md:text-7xl text-orange-400 text-center mb-4 justify-center">
                         Chef Intelligence
-                    </h1>
-                    <p className={`${colors.textParagraph} text-base lg:text-lg  mt-4 mb-0 text-center font-semibold max-w-2xl`}>
+                    </h1> */}
+                    <Typewriter text="Chef Intelligence" delay={200} />
+                    <p className={`${colors.textParagraph} text-base lg:text-lg  mt-0 mb-0 text-center font-semibold max-w-2xl`}>
                         Elevate your culinary skills with the power of AI. Search for
                         ingredients and equipment effortlessly to create masterful dishes.
                     </p>
@@ -165,7 +189,10 @@ export default function Home({ lightMode, sideBarOpen, rows, setRows }) {
                         Start To Process
                     </button>
                 </div>
+
             </div>
+            {recipeDetails && <RecipeDetails recipe={recipeDetails} />}
+
         </div>
     );
 }

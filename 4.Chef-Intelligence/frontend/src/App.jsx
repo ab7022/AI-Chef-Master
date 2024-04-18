@@ -5,14 +5,10 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
-
+import Dish from './pages/Dish';
 function App() {
   const [lightMode, setLightMode] = useState(true);
   const [sideBarOpen, setSideBarOpen] = useState(false);
-
-  const [rows, setRows] = useState([
-    { ingredient: "", quantity: "", equipment: "" },
-  ]);
 
   return (
     <>
@@ -24,14 +20,10 @@ function App() {
           setSideBarOpen={setSideBarOpen}
         />
         <Routes>
-          <Route path="/" element={(
-            <Home
-              lightMode={lightMode}
-              sideBarOpen={sideBarOpen}
-              rows={rows}
-              setRows={setRows}
-            />
-          )} />
+          <Route path="/" element={<Home lightMode={lightMode} sideBarOpen={sideBarOpen} />} />
+          <Route path="/generatedDish" element={<Dish lightMode={lightMode} sideBarOpen={sideBarOpen} />} />
+
+
         </Routes>
       </BrowserRouter>
       <ToastContainer position="top-center" />
