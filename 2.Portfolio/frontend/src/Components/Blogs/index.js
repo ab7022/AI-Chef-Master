@@ -4,13 +4,11 @@ import { Link } from "react-router-dom";
 
 const AnimatedCard = ({ imageURL, heading, description, officialURL, index }) => {
     return (
-        <div
-            className={`flex flex-col md:flex-row ${index % 2 === 0 ? "md:flex-row-reverse" : "md:flex-row"} justify-center items-center w-full gap-8 md:gap-12 mx-auto my-12 px-4 sm:px-6 lg:px-8`}
-        >
+        <div className={`flex flex-col md:flex-row ${index % 2 === 0 ? "md:flex-row-reverse" : "md:flex-row"} justify-center items-center w-full gap-8 md:gap-12 mx-auto my-12 px-4 sm:px-6 lg:px-8`}>
             <Fade right={index % 2 === 0} left={index % 2 !== 0}>
                 <img
                     src={imageURL}
-                    className="w-full h-64 md:h-96 md:w-1/2 rounded-lg shadow-lg"
+                    className="w-full h-64 md:h-96 md:w-1/3 rounded-lg shadow-lg"
                     alt=''
                 />
             </Fade>

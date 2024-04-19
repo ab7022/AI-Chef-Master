@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { darkColors, lightColors } from "../data/navbarTheme";
 import { Disclosure } from "@headlessui/react";
 import { MdMenu, MdArrowDropDown, MdAccountCircle } from "react-icons/md";
@@ -10,6 +10,7 @@ import { useLogout } from "../../../hooks/useLogout";
 import { TbLogin } from "react-icons/tb";
 
 const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
+    const location = useLocation();
     const { user } = useAuthContext();
     const { logout } = useLogout();
 
@@ -288,7 +289,7 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
                                 </div>
                                 {profileOpen && (
                                     <div
-                                        className={`absolute top-4 right-4 flex-col mt-[56px] w-60  ${colors.textdialog} shadow-md rounded-md p-4 text-sm z-10 flex ${colors.dialogbg} `}
+                                        className={`absolute top-4 right-4 flex-col mt-[56px] w-64 ${colors.textdialog} shadow-md rounded-md p-4 text-sm z-10 flex ${colors.dialogbg} `}
                                     >
                                         <div className="flex flex-row items-center justify-center">
                                             <MdAccountCircle
@@ -312,14 +313,12 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
                                             </a>
                                         </div>
                                         <div className="p-2 flex flex-col text-center hover:bg-green-600 border-b border-green-900">
-                                            <a
-                                                href="mailto:?to=info@aichefmaster.com"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
+                                            <Link
+                                                to={location.pathname === '/chef-intelligence/archives' ? "" : "archives"}
                                                 className="text-lg text-center"
                                             >
-                                                Archives
-                                            </a>
+                                                {location.pathname === '/chef-intelligence/archives' ? "Chef Intelligence" : "Archives"}
+                                            </Link>
                                         </div>
                                         <div
                                             className="p-2 flex flex-row text-center hover:bg-green-600 border-b border-green-900"

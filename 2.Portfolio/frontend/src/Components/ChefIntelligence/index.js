@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import SideBar from './components/Sidebar';
 import Home from './pages/Home';
 import Dish from './pages/Dish';
+import Archives from './components/Archives';
 
 const ChefIntelligence = () => {
     const [lightMode, setLightMode] = useState(true);
@@ -39,12 +40,15 @@ const ChefIntelligence = () => {
                                 />
                             }
                         />
-                    </Routes>
-                    <Routes>
                         <Route
                             exact
                             path="/generatedDish"
                             element={<Dish lightMode={lightMode} />}
+                        />
+                        <Route
+                            exact
+                            path="/archives"
+                            element={<Archives lightMode={lightMode} />}
                         />
                     </Routes>
                 </div>
