@@ -1,5 +1,4 @@
 import React from "react";
-// import { FaInstagramSquare } from "react-icons/fa";
 import Instagram from "../../Images/Instagram.svg";
 import X from "../../Images/x.svg";
 import LinkedIn from "../../Images/LinkedIn.svg";
@@ -12,9 +11,8 @@ const FooterItem = () => {
   const theme = localStorage.getItem('theme');
 
   return (
-    // <div className="footer rounded-0 card bg-black shadow-lg mt-0 golden-text">
-    <div className="custom-footer footer rounded-0 card shadow-lg mt-0">
-      <div className="text-center my-5">
+    <div className="w-full custom-footer footer rounded-0 shadow-lg mt-0">
+      <div className="text-center py-5">
         <h1 className="footer-heading mb-3">Ready to do your best work? </h1>
         <h5 className="text-2xl font-bold mb-4">Let's get you started.</h5>
         <div className="flex justify-center ">
