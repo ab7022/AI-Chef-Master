@@ -29,8 +29,8 @@ const BannerCard = ({ slides, title, subtitle }) => {
 
       <div className="text-white px-4 absolute top-0 left-0 right-0 bottom-0 flex flex-col items-center justify-center">
         <Slide bottom cascade>
-          <div className="text-4xl mb-8">{title}</div>
-          <div className="text-2xl font-semibold mb-5">{subtitle}</div>
+          <div className="text-xl mb-8">{title}</div>
+          <div className="text-xl md:text-2xl font-semibold mb-5 mx-3">{subtitle}</div>
         </Slide >
       </div>
     </div>

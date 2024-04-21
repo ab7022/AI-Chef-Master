@@ -72,7 +72,7 @@ function SeeMoreDescription({ searchTerm, setSearchTerm, filteredDish }) {
               src={dish.dishImage}  
               alt={dish.dishName}  
             />
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-white z-20">
+            <div className="absolute px-5 inset-0 flex flex-col items-center justify-center text-white z-20">
               <h1 className="text-5xl font-bold mb-4">{dish.dishName}</h1>  
               <div className="flex text-2xl items-center justify-center mb-4">
                 {renderStarRating(dish.rating)}  

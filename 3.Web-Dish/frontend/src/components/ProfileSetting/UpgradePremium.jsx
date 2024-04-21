@@ -10,7 +10,7 @@ export default function UpgradePremium() {
         <div className="bg-[#f7f3cd] pb-8 min-h-screen flex flex-col justify-center items-center">
             <div className="text-[#00544f] w-full rounded-xl p-6 shadow-xl flex items-center justify-center mb-8">
                 <FaCrown className="mr-3" size={25} />
-                <h1 className="text-lg md:text-2xl font-bold">Recipes History</h1>
+                <h1 className="text-lg md:text-2xl font-bold">Upgrade to Premium</h1>
             </div>
 
             <div className="mb-8 mx-5 md:mx-20">

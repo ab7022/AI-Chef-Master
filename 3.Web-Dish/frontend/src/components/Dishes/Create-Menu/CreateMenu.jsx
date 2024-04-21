@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Footer from "../../FooterItem/Footer";
 import React, { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
+import BannerCard from "../../BannerCard";
  
 function CreateMenu() {
   const [numberOfPeople, setNumberOfPeople] = useState(0);
@@ -154,16 +155,18 @@ function CreateMenu() {
 
     return () => clearInterval(intervalId);
   }, [selectedDateTime]);
+ const slides = [
+  { imageUrl: "https://media.istockphoto.com/id/2061261654/photo/hands-waiter-and-writing-order-in-restaurant-for-service-hospitality-and-taking-notes-in.jpg?s=612x612&w=0&k=20&c=EO2HH5GcMZ8kdWejHa0pSm7nx6ZdcHuAIZV4B4fOT9Q=" },
+  { imageUrl: "https://media.istockphoto.com/id/1494912650/photo/chef-working-at-a-restaurant-and-creating-a-menu.jpg?s=612x612&w=0&k=20&c=4kaEAEJKIqhptet3lHjiuaUP2OHYKn1PzQaOSD3WvyU=" },
+  { imageUrl: "https://media.istockphoto.com/id/186558210/photo/professional-chef-in-kitchen.jpg?s=612x612&w=0&k=20&c=ZpK28W0jT0iSq-k-Z4jhuCYZryfwIoqueL55AgoRFBI=" },
+];
 
   return (
     <div className="bg-[#f7f3cd] min-h-screen ">
-      <div className="relative text-center mb-5">
-          <img className="relative h-auto md:h-[90vh] w-full" src="https://media.istockphoto.com/id/2061261654/photo/hands-waiter-and-writing-order-in-restaurant-for-service-hospitality-and-taking-notes-in.jpg?s=612x612&w=0&k=20&c=EO2HH5GcMZ8kdWejHa0pSm7nx6ZdcHuAIZV4B4fOT9Q=" />
-          <h1 className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-[#fff] text-3xl md:text-4xl lg:text-5xl font-bold mb-8 px-4">
-              Create A Menu Using The Ingredients You Have
-          </h1>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 justify-items-center align-items-center md:px-2">
+      <div>
+        <BannerCard slides={slides} title={<h1 className="font-bold" style={{ fontSize: '40px', fontFamily: 'Roboto, sans-serif' }}>Create A Menu Using The Ingredients You Have</h1>}/>
+      </div>      
+       <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-4 justify-items-center align-items-center md:px-2">
           <div className="flex flex-col space-y-4">
               <div className="flex flex-col mb-4 ">
                   <label htmlFor="meal" className="text-[#00544f] text-lg font-bold mb-3">
