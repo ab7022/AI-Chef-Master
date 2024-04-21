@@ -8,9 +8,9 @@ export default function Archives({ lightMode }) {
             <img src='/CompanyLogo.png' alt="" className="w-36 h-36" />
             <Typewriter text="Chef Intelligence" delay={200} />
 
-            <h2 className="font-semibold">Archived Recipes</h2>
+            <h2 className="mb-2 text-3xl md:text-4xl font-semibold">Archived Recipes</h2>
 
-            <div className="my-2 flex flex-wrap justify-center gap-4">
+            <div className="mt-2 mb-4 flex flex-wrap justify-center gap-4">
                 {archived.map((item, i) => (
                     <Card
                         key={i}
@@ -18,7 +18,7 @@ export default function Archives({ lightMode }) {
                         imageUrl={item.dishImage}
                         time="60"
                         rating={item.rating}
-                        dishPath="#"
+                        dishPath="/chef-intelligence/generatedDish"
                     />
                 ))}
             </div>
