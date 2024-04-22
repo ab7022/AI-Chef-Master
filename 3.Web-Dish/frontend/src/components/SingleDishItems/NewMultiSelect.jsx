@@ -42,7 +42,7 @@ const NewMultiSelect = ({ multiple, isValue, onChange, options }) => {
 
   return (
     <>
-      <h1 className="text-green-700 font-bold mt-5 sm:text-lg md:text-2xl">Customize Ingredients</h1>
+      <h1 className="text-green-700 text-2xl font-bold mt-5 md:text-3xl">Customize Ingredients</h1>
       <div className="min-h-[1.5em] md:w-[25em] lg:w-[30em] py-5">
         <span className="flex-grow text-white">
           {multiple

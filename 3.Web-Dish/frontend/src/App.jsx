@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
 import Layout from './components/Layout';
 import NavBarHeader from './components/NavBarHeader';
-import Home from './pages/Home';
 
+import Home from './pages/Home';
 import SingleDish from './pages/SingleDish';
 import Cooking from './pages/Cooking';
 import CreateAccount from './components/LoginSineupPage/CreateAccount';
@@ -73,6 +72,8 @@ import Snacks from './components/Choices/CulinaryCategories/Snacks';
 import Desert from './components/Choices/CulinaryCategories/Desert';
 import Soup from './components/Choices/CulinaryCategories/Soup';
 import Bakery from './components/Choices/CulinaryCategories/Bakery';
+import Settings from './components/Settings';
+
 const App = () => {
 return (
 <>
@@ -146,8 +147,9 @@ return (
             <Route path='/Snacks' element={<Snacks /> } />
             <Route path='/Desert' element={<Desert /> } />
             <Route path='/Soup' element={<Soup /> } />
-            <Route path='/Bakery' element={<Bakery /> } />
+            <Route path='/Bakery' element={<Bakery /> } /> 
 
+            <Route path='/Settings' element={<Settings /> } />
         </Routes>
     </BrowserRouter>
 </>

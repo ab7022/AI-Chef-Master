@@ -1,12 +1,16 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { toast } from "react-hot-toast";
 import { darkColors, lightColors } from "../data/homeTheme";
 import ingredients from "../data/ingredientsData";
 import equipments from "../data/equipmentData";
+import Typewriter from "../components/Typewriter";
 
 export default function Home({ lightMode, rows, setRows }) {
+    const navigate = useNavigate()
     const { user } = useAuthContext();
+    const colors = lightMode ? lightColors : darkColors;
     const userData = JSON.parse(localStorage.getItem('user'));
 
     const [suggestionsOfIngredient, setSuggestionsOfIngredient] = useState([]);
@@ -47,8 +51,6 @@ export default function Home({ lightMode, rows, setRows }) {
         handleInputChange(index, event);
     };
 
-    const colors = lightMode ? lightColors : darkColors;
-
     const handleStartProcess = async (e) => {
         e.preventDefault();
 
@@ -83,23 +85,22 @@ export default function Home({ lightMode, rows, setRows }) {
         }).then(() => {
             toast.success('Started processing...');
             setRows([{ ingredient: "", quantity: "", equipment: "" }]);
+            navigate('generatedDish');
         }).catch(() => toast.error('Something went wrong.'));
     }
 
     return (
         <div className="flex flex-col w-full md:w-5/6 mx-auto min-h-[calc(100dvh-56px)] items-center justify-center px-2">
             <img src='/CompanyLogo.png' alt="" className="w-36 h-36" />
-            <h1 className="font-extrabold text-6xl md:text-7xl text-orange-400 text-center mb-8 justify-center">
-                Chef Intelligence
-            </h1>
+            <Typewriter text="Chef Intelligence" delay={200} />
             <p className={`${colors.textParagraph} text-base lg:text-lg  mt-4 mb-0 text-center font-semibold max-w-2xl`}>
                 Elevate your culinary skills with the power of AI. Search for
                 ingredients and equipment effortlessly to create masterful dishes.
             </p>
-
             <p className={`${colors.textParagraph} text-lg mb-12 lg:mb-4 text-center hidden lg:block font-semibold`}>
                 Start your culinary adventure today with AI Chef Master!
             </p>
+
             <div className={`${colors.backgroundOfDiv} w-full lg:w-auto shadow-xl rounded-xl p-3 justify-center lg:mt-2 mt-12`}>
                 {rows.map((row, index) => (
                     <div key={index} className="gap-2 mb-2">

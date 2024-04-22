@@ -12,7 +12,7 @@ import { FaAngleRight } from 'react-icons/fa6';
 import { MdOutlineUnfoldMoreDouble } from "react-icons/md";
 
 const SeasonalTop = () => {
-  const [animate, setAnimate] = useState(true); // Define and initialize animate state
+  const [animate, setAnimate] = useState(true); 
 
   const fadeIn = useSpring({
     from: { opacity: 0 },
@@ -30,19 +30,17 @@ const SeasonalTop = () => {
               <Link to='/SeasonalDishes' className=' text-end font-bold text-lg sm:text-xl md:text-2xl'><MdOutlineUnfoldMoreDouble  size={30}/></Link>
             </button>
            </div>
-        </div>
-      <Marquee gradientWidth={0} speed={40} direction="left">
-        <Fade bottom cascade duration={800}>
+      </div>
+      <Marquee>
           <div className="flex gap-3 py-3 ml-5 mr-3 overflow-hidden" >
-            {SeasonalDishesData.map((item, index) => (
-              <Flip key={index} cascade left>
-                <animated.div style={fadeIn} className="flex-grow h-full">  
-                  <Card2 key={index} title={item.dishName} time={item.time} rating={item.rating} imageUrl={item.dishImage} />
-                </animated.div>
-              </Flip>
-            ))}
+              {SeasonalDishesData.map((dish, index) => (
+                <Flip key={index} cascade left> 
+                  <animated.div style={fadeIn} className="flex-grow h-full"> 
+                  <Card2 key={index} title={dish.dishName} time={dish.time} rating={dish.rating} imageUrl={dish.dishImage} />
+                  </animated.div>
+                </Flip>
+              ))}
           </div>
-        </Fade>
       </Marquee>
 
       {/* TOP DISHES */}
@@ -54,18 +52,16 @@ const SeasonalTop = () => {
             </button>
           </div>
         </div>
-      <Marquee gradientWidth={0} speed={40} direction="left">
-        <Fade bottom cascade when={animate}>
+      <Marquee>
           <div className="flex gap-3 py-3 ml-5 mr-3 overflow-hidden" >
-            {TopDishesData.map((item, index) => (
-              <Flip key={index} cascade left>
-                <animated.div style={fadeIn} className="flex-grow h-full"> 
-                  <Card2 key={index} title={item.dishName} time={item.time} rating={item.rating} imageUrl={item.dishImage} />
-                </animated.div> 
-              </Flip>
-            ))}
+              {TopDishesData.map((dish, index) => (
+                <Flip key={index} cascade left> 
+                  <animated.div style={fadeIn} className="flex-grow h-full"> 
+                  <Card2 key={index} title={dish.dishName} time={dish.time} rating={dish.rating} imageUrl={dish.dishImage} />
+                  </animated.div>
+                </Flip>
+              ))}
           </div>
-        </Fade>
       </Marquee>
     </div>
   );

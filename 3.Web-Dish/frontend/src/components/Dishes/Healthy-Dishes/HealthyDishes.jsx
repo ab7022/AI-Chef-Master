@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import HealthyDishCategories from './HealthyDishCategories';
 function HealthyDishes() {
  
- const slides = [
+ const slides = [ 
   { imageUrl: "https://www.onemedical.com/media/images/heart-healthy-food.2e16d0ba.fill-1200x630.jpg" },
   { imageUrl: "https://fermeliadental.com/wp-content/uploads/2019/07/healthy-nutrition.jpeg" },
   { imageUrl: "https://media.post.rvohealth.io/wp-content/uploads/2020/08/top-10-nutrition-facts-thumb.jpg" },

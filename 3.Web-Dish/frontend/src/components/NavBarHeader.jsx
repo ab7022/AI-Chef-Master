@@ -184,7 +184,7 @@ return (
                         </li>
                         {/*Create Account */}
                         <li className=" text-base md:text-md text-center"><Link to='/CreateAccount/'> Create Account</Link></li>
-                        {location.pathname !== '/' && <li className="text-base md:text-md flex items-center"> Setting<IoSettingsSharp /></li>}
+                        <li className="text-base md:text-md "> <Link className="flex items-center" to='/Settings'>Setting<IoSettingsSharp /></Link></li>
 
                     </ul>
                 </div>
