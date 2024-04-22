@@ -3,65 +3,52 @@ import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { toast } from "react-hot-toast";
 import { darkColors, lightColors } from "../data/homeTheme";
-import ingredients from "../data/ingredientsData";
-import equipments from "../data/equipmentData";
 import Typewriter from "../components/Typewriter";
+import { IoIosAdd, IoIosClose } from "react-icons/io";
 
-export default function Home({ lightMode, rows, setRows }) {
+export default function Home({ lightMode }) {
     const navigate = useNavigate()
     const { user } = useAuthContext();
     const colors = lightMode ? lightColors : darkColors;
     const userData = JSON.parse(localStorage.getItem('user'));
 
-    const [suggestionsOfIngredient, setSuggestionsOfIngredient] = useState([]);
-    const [suggestionsOfEquipment, setSuggestionsOfEquipment] = useState([]);
+    const [ingredientData, setIngredientData] = useState([
+        { ingredient: "", quantity: "", unit: "" },
+    ]);
 
     const handleInputChange = (index, event) => {
-        if (!user) return toast.error('Please login to proceed!');
         const { name, value } = event.target;
-        const updatedRows = [...rows];
-        updatedRows[index][name] = value;
-        setRows(updatedRows);
+        const newIngredientData = ingredientData.map((row, i) => {
+            if (i !== index) return row;
+            return { ...row, [name]: value };
+        });
+        setIngredientData(newIngredientData);
     };
 
     const handleAddRow = () => {
         if (!user) return toast.error('Please login to proceed!');
-        setRows([...rows, { ingredient: "", quantity: "", equipment: "" }]);
+        setIngredientData([...ingredientData, { ingredient: "", quantity: "", unit: "" }]);
     };
 
-    const handleInputChangeOfIngredient = (index, event) => {
-        if (!user) return toast.error('Please login to proceed!');
-        const value = event.target.value;
-        const filteredIngredients = ingredients.filter((ingredient) =>
-            ingredient.toLowerCase().startsWith(value.toLowerCase())
-        );
-        const limitedSuggestions = filteredIngredients.slice(0, 10);
-        setSuggestionsOfIngredient(limitedSuggestions);
-        handleInputChange(index, event);
-    };
+    const [equipmentData, setEquipmentData] = useState([]);
+    const [newEquipment, setNewEquipment] = useState('');console.log(equipmentData)
 
-    const handleInputChangeOfEquipment = (index, event) => {
-        if (!user) return toast.error('Please login to proceed!');
-        const value = event.target.value;
-        const filteredEquipments = equipments.filter((equipment) =>
-            equipment.toLowerCase().startsWith(value.toLowerCase())
-        );
-        const limitedSuggestions = filteredEquipments.slice(0, 10);
-        setSuggestionsOfEquipment(limitedSuggestions);
-        handleInputChange(index, event);
+    const handleAddEquipment = () => {
+        setEquipmentData([...equipmentData, newEquipment]);
+        setNewEquipment('');
     };
 
     const handleStartProcess = async (e) => {
         e.preventDefault();
 
         if (!user) return toast.error('Please login to proceed!');
-        for (let i = 0; i < rows.length; i++) {
-            const row = rows[i];
-            if (!row.ingredient || !row.quantity || !row.equipment) {
+        for (let i = 0; i < ingredientData.length; i++) {
+            const row = ingredientData[i];
+            if (!row.ingredient || !row.quantity) {
                 let missingData = [];
                 if (!row.ingredient) missingData.push("Ingredient");
                 if (!row.quantity) missingData.push("Quantity");
-                if (!row.equipment) missingData.push("Equipment");
+                if (!row.unit) missingData.push("Unit");
                 return toast.error(`Row ${i + 1} is missing: ${missingData.join(", ")}`);
             }
         }
@@ -72,7 +59,8 @@ export default function Home({ lightMode, rows, setRows }) {
                 name: user.name,
                 user_id: user.user_id
             },
-            rows
+            ingredients: ingredientData,
+            equipments: equipmentData
         }
 
         await fetch(`${process.env.REACT_APP_API_URL}/start-process`, {
@@ -84,7 +72,7 @@ export default function Home({ lightMode, rows, setRows }) {
             body: JSON.stringify(data),
         }).then(() => {
             toast.success('Started processing...');
-            setRows([{ ingredient: "", quantity: "", equipment: "" }]);
+            setIngredientData([{ ingredient: "", quantity: "" }]);
             navigate('generatedDish');
         }).catch(() => toast.error('Something went wrong.'));
     }
@@ -101,70 +89,43 @@ export default function Home({ lightMode, rows, setRows }) {
                 Start your culinary adventure today with AI Chef Master!
             </p>
 
-            <div className={`${colors.backgroundOfDiv} w-full lg:w-auto shadow-xl rounded-xl p-3 justify-center lg:mt-2 mt-12`}>
-                {rows.map((row, index) => (
+            <div className={`${colors.backgroundOfDiv} max-w-[690px] w-full shadow-xl rounded-xl p-3 justify-center lg:mt-2 mt-12`}>
+                <p className="w-full font-semibold text-2xl text-center">Ingredients</p>
+                {ingredientData.map((row, index) => (
                     <div key={index} className="gap-2 mb-2">
                         <div className="flex-col flex gap-3 lg:flex-row mt-4">
                             <input
                                 className={`flex p-2 border border-gray-300 rounded placeholder-gray-400 focus:outline-none focus:border-yellow-500 ${colors.inputBackground} ${colors.inputText}`}
                                 type="text"
-                                placeholder="Ingredient"
+                                placeholder="Name"
                                 name="ingredient"
                                 value={row.ingredient}
-                                onChange={(event) =>
-                                    handleInputChangeOfIngredient(index, event)
-                                }
-                                list={`ingredient-suggestions-${index}`}
+                                onChange={(event) => handleInputChange(index, event)}
                                 required
                             />
                             <input
                                 className={`flex p-2 border border-gray-300 rounded placeholder-gray-400 focus:outline-none focus:border-yellow-500 ${colors.inputBackground} ${colors.inputText}`}
-                                type="text"
+                                type="number"
                                 placeholder="Quantity"
                                 name="quantity"
                                 value={row.quantity}
                                 onChange={(event) => handleInputChange(index, event)}
                                 required
                             />
-                            <input
-                                className={`flex p-2 border border-gray-300 rounded placeholder-gray-400 focus:outline-none focus:border-yellow-500 ${colors.inputBackground} ${colors.inputText}`}
-                                type="text"
-                                placeholder="Equipment"
-                                name="equipment"
-                                value={row.equipment}
-                                onChange={(event) =>
-                                    handleInputChangeOfEquipment(index, event)
-                                }
-                                list={`equipment-suggestions-${index}`}
-                                required
-                            />
-                        </div>
-                        <datalist id={`ingredient-suggestions-${index}`}>
-                            {suggestionsOfIngredient.map((ingredient, i) => (
-                                <option key={i} value={ingredient} />
-                            ))}
-                        </datalist>
-                        <datalist id={`equipment-suggestions-${index}`}>
-                            {suggestionsOfEquipment.map((equipment, i) => (
-                                <option key={i} value={equipment} />
-                            ))}
-                        </datalist>
-                    </div>
-                ))}
-                {rows.map((row, index) => (
-                    <div key={index} className="my-4">
-                        <div className="border border-gray-300 p-4 rounded-md shadow-md">
-                            <ul>
-                                <li>
-                                    <strong>Ingredient:</strong> {row.ingredient}
-                                </li>
-                                <li>
-                                    <strong>Quantity:</strong> {row.quantity}
-                                </li>
-                                <li>
-                                    <strong>Equipment:</strong> {row.equipment}
-                                </li>
-                            </ul>
+                            <select
+                                placeholder="Quantity"
+                                name="unit"
+                                value={row.unit}
+                                onChange={(event) => handleInputChange(index, event)}
+                                className={`bg-transparent flex p-2 border border-gray-300 rounded placeholder-gray-400 focus:outline-none focus:border-yellow-500 ${colors.inputBackground} ${colors.inputText}`}
+                            >
+                                <option value="">Select Course Unit</option>
+                                <option value="gram">gram</option>
+                                <option value="mL">mL</option>
+                                <option value="teaspoon">teaspoon</option>
+                                <option value="tablespoon">tablespoon</option>
+                                <option value="whole">piece</option>
+                            </select>
                         </div>
                     </div>
                 ))}
@@ -178,6 +139,41 @@ export default function Home({ lightMode, rows, setRows }) {
                     </button>
                 </div>
             </div>
+
+
+            <div className={`${colors.backgroundOfDiv} max-w-[690px] w-full shadow-xl rounded-xl p-3 justify-center mt-8`}>
+                <p className="w-full font-semibold text-2xl text-center">Equipments</p>
+                <div className="mt-[20px] w-full flex items-center gap-4">
+                    <input
+                        name="equipments"
+                        onChange={e => setNewEquipment(e.target.value)}
+                        placeholder="eg. Oven, Pan, Spatula"
+                        className={`${colors.inputBackground} ${colors.inputText} flex-1 border border-gray-300 px-2 py-1 placeholder:italic text-lg rounded-md placeholder:text-gray-400 outline-none focus:border-orange-400`}
+                        value={newEquipment}
+                    />
+                    <button onClick={handleAddEquipment} type="button" className="">
+                        <IoIosAdd className="text-green-500 text-3xl rounded-full border border-green-600 hover:bg-green-200" />
+                    </button>
+                </div>
+                <ul className="flex flex-wrap gap-2 my-2 w-full">
+                    {equipmentData.map((equipment, index) => (
+                        <li
+                            key={index}
+                            className="bg-amber-300 font-medium flex flex-row rounded-md items-center gap-2 px-2 py-1"
+                        >
+                            <span>{equipment}</span>
+                            <IoIosClose
+                                onClick={() => {
+                                    const updatedEquipmentData = equipmentData.filter((_, i) => i !== index);
+                                    setEquipmentData(updatedEquipmentData);
+                                }}
+                                className="text-xl cursor-pointer border border-black hover:bg-amber-500 rounded-full"
+                            />
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
             <button
                 onClick={handleStartProcess}
                 className={`${colors.button} ${colors.buttonHoverBackground} ${colors.buttonTextColor} ${colors.buttonHoverTextColor} w-fit mx-auto text-white font-bold py-3 px-4 rounded-xl focus:outline-none focus:ring-2 mt-12 focus:ring-gray-500 focus:ring-opacity-50 my-4 ${colors.buttonHoverTextColor}`}
@@ -187,3 +183,20 @@ export default function Home({ lightMode, rows, setRows }) {
         </div>
     );
 }
+
+// {
+//     ingredientData.map((row, index) => (
+//         <div key={index} className="my-4">
+//             <div className="border border-gray-300 p-4 rounded-md shadow-md">
+//                 <ul>
+//                     <li>
+//                         <strong>Ingredient:</strong> {row.ingredient}
+//                     </li>
+//                     <li>
+//                         <strong>Quantity:</strong> {row.quantity}
+//                     </li>
+//                 </ul>
+//             </div>
+//         </div>
+//     ))
+// }

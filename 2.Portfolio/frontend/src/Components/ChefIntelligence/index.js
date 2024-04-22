@@ -13,10 +13,6 @@ const ChefIntelligence = () => {
     const colors = lightMode ? lightColors : darkColors;
     const [sideBarOpen, setSideBarOpen] = useState(false);
 
-    const [rows, setRows] = useState([
-        { ingredient: "", quantity: "", equipment: "" },
-    ]);
-
     return (
         <>
             <Navbar
@@ -32,13 +28,7 @@ const ChefIntelligence = () => {
                         <Route
                             exact
                             path="/"
-                            element={
-                                <Home
-                                    lightMode={lightMode}
-                                    rows={rows}
-                                    setRows={setRows}
-                                />
-                            }
+                            element={<Home lightMode={lightMode} />}
                         />
                         <Route
                             exact

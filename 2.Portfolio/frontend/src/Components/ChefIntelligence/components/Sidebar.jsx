@@ -1,34 +1,10 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { darkColors, lightColors } from "../data/sidebarTheme";
-import { toast } from "react-hot-toast";
 
 const SideBar = ({ lightMode }) => {
     const { user } = useAuthContext();
     const colors = lightMode ? lightColors : darkColors;
-
-    const [loading, setLoading] = useState(true);
-    const [rows, setRows] = useState([]);
-
-    useEffect(() => {
-        const getRows = async () => {
-            setLoading(false);
-            await fetch(`${process.env.REACT_APP_API_URL}/get-rows/${user.user_id}`, {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${userData.access_token}`,
-                    "Content-Type": "application/json",
-                }
-            })
-                .then(res => res.json())
-                .then((data) => setRows(data.rows))
-                .catch(() => toast.error('Login again. Session expired!'));
-        }
-
-        const userData = JSON.parse(localStorage.getItem('user'));
-        if (user && userData && userData.access_token) getRows();
-    }, [user]);
 
     return (
         <div className={`fixed top-[56px] left-0 lg:relative flex flex-col lg:w-1/5 h-[calc(100dvh-56px)] lg:h-auto lg:top-0 overflow-y-auto ${colors.background} ${colors.text} text-white shadow-2xl`}>
@@ -36,8 +12,6 @@ const SideBar = ({ lightMode }) => {
                 <div className="w-[250px] md:w-full h-[100%] flex items-center justify-center">
                     <Link to='/login' className="w-fit bg-orange-600 px-4 py-2 rounded-md text-lg">Login</Link>
                 </div>
-            ) : loading ? (
-                <h3>Fetching...</h3>
             ) : (
                 <>
                     <div className="flex flex-row justify-center items-center gap-2 mt-3" >
@@ -47,14 +21,10 @@ const SideBar = ({ lightMode }) => {
 
                     <ul className="">
                         <h4 className="text-2xl font-bold text-center mt-3 mb-2 ">All Dishes</h4>
-                        {!loading && rows.map((item, i) => (
-                            <li key={i} className={`tracking-wider ${colors.hoverBackground} p-2 border-b border-gray-700 cursor-pointer`}>{item.ingredient}</li>
-                        ))}
-                        {rows.length > 0 ? (
-                            <li className="text-center mt-4">End Of List</li>
-                        ) : (
-                            <li className="text-center mt-4">Nothing added yet</li>
-                        )}
+                        <li className={`tracking-wider ${colors.hoverBackground} p-2 border-b border-gray-700 cursor-pointer`}><Link to='/chef-intelligence/generatedDish'>Butter Chicken</Link></li>
+                        <li className={`tracking-wider ${colors.hoverBackground} p-2 border-b border-gray-700 cursor-pointer`}><Link to='/chef-intelligence/generatedDish'>Paneer Masala</Link></li>
+                        <li className={`tracking-wider ${colors.hoverBackground} p-2 border-b border-gray-700 cursor-pointer`}><Link to='/chef-intelligence/generatedDish'>Chicken Biryani</Link></li>
+                        <li className="text-center mt-4">End Of List</li>
                     </ul>
                     <footer className="mt-2 px-4 py-2 text-sm text-center text-gray-500">All rights reserved © 2024</footer>
                 </>
