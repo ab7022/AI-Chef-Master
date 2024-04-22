@@ -10,12 +10,14 @@ const lightColors = {
     textParagraph: "text-[#00544f]",
     backgroundOfDiv: "bg-white",
     button: "bg-[#00544f]",
+    overviewButton: "bg-orange-600",
 };
 
 const darkColors = {
     backgroundOfBody: "bg-gray-900",
     text: "text-[#f7f3cd]",
     button: "bg-gray-700",
+    overviewButton: "bg-gray-700",
     inputBackground: "bg-gray-800",
     inputText: "text-white",
     buttonBackground: "bg-gray-900",
