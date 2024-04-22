@@ -102,7 +102,7 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
               </div>
               <div className="p-2 flex flex-col text-lg  border-b border-green-900">
                 <Link to="/signup" className="text-sm text-gray-200">
-                  Archives
+                  Archives 
                 </Link>
               </div>
             </div>
@@ -158,19 +158,7 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
 
                       </div>
 
-                      {/* Audible Output */}
-                      <div className="flex items-center mt-2 text-center">
-                        <input
-                          type="checkbox"
-                          id="soundOption"
-                          checked={soundEnabled}
-                          onChange={toggleSoundOption}
-                          className="mr-2"
-                        />
-                        <label htmlFor="soundOption" className="text-sm">
-                          Audible Output
-                        </label>
-                      </div>
+                    
                     </div>
                   )}
 
@@ -234,6 +222,7 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
                   Help Center
                 </a>
               </div>
+              
             </div>
           </Disclosure.Panel>
 
@@ -329,7 +318,17 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
                       rel="noopener noreferrer"
                       className="text-lg text-center"
                     >
-                      Archives
+                      Archives 
+                    </a>
+                  </div>
+                  <div className="p-2 flex flex-col text-center hover:bg-green-600 border-b border-green-900">
+                    <a
+                      href="mailto:?to=info@aichefmaster.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-lg text-center"
+                    >
+                      Subscription 
                     </a>
                   </div>
                   <div
@@ -382,7 +381,7 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
 
                       </div>
 
-                      {/* Audible Output */}
+                      {/* {selectedValue !== 0 && (
                       <div className="flex items-center mt-2 text-center">
                         <input
                           type="checkbox"
@@ -395,6 +394,7 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
                           Audible Output
                         </label>
                       </div>
+                      )} */}
                     </div>
                   )}
                   <div className="pt-2 flex items-center justify-center">
