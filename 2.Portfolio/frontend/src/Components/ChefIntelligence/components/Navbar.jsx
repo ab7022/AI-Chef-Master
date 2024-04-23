@@ -1,31 +1,30 @@
 import { useState } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useAuthContext } from "../../../hooks/useAuthContext";
+import { useLogout } from "../../../hooks/useLogout";
 import { darkColors, lightColors } from "../data/navbarTheme";
 import { Disclosure } from "@headlessui/react";
 import { MdMenu, MdArrowDropDown, MdAccountCircle } from "react-icons/md";
-import { FiSun, FiMoon } from "react-icons/fi";
+import { FiSun, FiMoon, FiLogIn, FiLogOut } from "react-icons/fi";
 import { HiOutlineX } from "react-icons/hi";
-import { useAuthContext } from "../../../hooks/useAuthContext";
-import { useLogout } from "../../../hooks/useLogout";
-import { TbLogin } from "react-icons/tb";
 
 const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
-    const location = useLocation();
     const { user } = useAuthContext();
     const { logout } = useLogout();
 
     const [selectedLanguage, setSelectedLanguage] = useState("English");
     const [profileOpen, setProfileOpen] = useState(false);
+    const [voiceAssistantOpen, setVoiceAssistantOpen] = useState(false); // State for dropdown menu
+    const [soundEnabled, setSoundEnabled] = useState(true); // State for sound option
+    const [selectedValue, setSelectedValue] = useState(0); // Initially set to 0
 
-    const [voiceAssistantOpen, setVoiceAssistantOpen] = useState(false);
-    const [soundEnabled, setSoundEnabled] = useState(true);
     const toggleVoiceAssistant = () => {
         setVoiceAssistantOpen(!voiceAssistantOpen);
     };
+
     const toggleSoundOption = () => {
         setSoundEnabled(!soundEnabled);
     };
-
     const indianLanguages = ["Hindi", "Bengali", "Telugu", "Marathi", "Tamil"];
 
     const selectLanguage = (language) => {
@@ -56,12 +55,15 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
                             <div className="flex items-center">
                                 <img
                                     className="h-14 rounded-lg w-auto navbar-logo"
-                                    src='/CompanyLogo.png'
+                                    src="/CompanyLogo.png"
                                     alt="LOGO"
                                 />
-                                <p className="text-lg font-bold md:text-sm lg:text-lg">
+                                <a
+                                    className="text-lg font-bold md:text-sm lg:text-lg"
+                                    href="https://aichefmaster.com"
+                                >
                                     AI CHEF MASTER
-                                </p>
+                                </a>
                             </div>
                         </div>
 
@@ -83,20 +85,17 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
                     <Disclosure.Panel
                         className={`md:hidden flex flex-col gap-4 mt-2 w-full text-white font-semibold ${colors.background} ${colors.text}`}
                     >
-                        <div className="flex flex-row items-center justify-center">
-                            {!user ? (
-                                <Link to='/login' className="w-fit bg-orange-600 px-4 py-2 rounded-md text-lg">Login</Link>
-                            ) : (
-                                <>
-                                    <MdAccountCircle
-                                        className={`text-4xl flex flex-row  justify-center text-center align-center items-center ${colors.hoverText}`}
-                                    />
-                                    <div className="py-1 ml-1 text-lg text-center inline-block">
-                                        {user.email}
-                                    </div>
-                                </>
-                            )}
-                        </div>
+                        {user && (
+                            <div className="flex flex-row items-center justify-center">
+                                <MdAccountCircle
+                                    className={`text-3xl flex flex-row  justify-center text-center align-center items-center ${colors.hoverText}`}
+                                />
+
+                                <div className="py-1 ml-2 text-lg text-center inline-block">
+                                    {user.email}
+                                </div>
+                            </div>
+                        )}
 
                         <div className="pt-1 flex flex-col text-lg ml-2 ">
                             <p className="text-2xl ">Account</p>
@@ -109,7 +108,7 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
                                 </Link>
                             </div>
                             <div className="p-2 flex flex-col text-lg  border-b border-green-900">
-                                <Link to="/signup" className="text-sm text-gray-200">
+                                <Link to="/chef-intelligence/achives" className="text-sm text-gray-200">
                                     Archives
                                 </Link>
                             </div>
@@ -137,23 +136,30 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
                             </svg>
                         </div>
 
-                        {/* Voice Assistance */}
                         {voiceAssistantOpen && (
-                            <div className="p-2 ml-6 flex flex-col text-lg  border-b border-green-900"
-                            >
-                                <p className="text-sm pb-2  text-gray-200">Voice Assistance</p>
+                            <div className="p-2 flex flex-col  border-b border-green-900">
+                                <p className="text-sm text-gray-200 ml-6 text-center">Mode Of Communication</p>
 
                                 {/* Sound Option */}
-                                <div className="flex items-center  text-center mt-4">
+                                <div className="flex items-center mt-2 w-full text-center flex-col">
                                     <input
-                                        type="checkbox"
-                                        id="soundOption"
-                                        checked={soundEnabled}
-                                        onChange={toggleSoundOption}
-                                        className="mr-2"
+                                        type="range"
+                                        min="0"
+                                        max="100"
+                                        step="50"
+                                        value={selectedValue}
+                                        onChange={(e) =>
+                                            setSelectedValue(Number(e.target.value))
+                                        }
+                                        className="mr-2 w-2/3"
                                     />
+
                                     <label htmlFor="soundOption" className="text-sm">
-                                        Audible Output
+                                        {selectedValue === 0
+                                            ? "Chat"
+                                            : selectedValue === 50
+                                                ? "Voice"
+                                                : "Chat and Voice"}
                                     </label>
                                 </div>
                             </div>
@@ -219,12 +225,29 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
                                     Help Center
                                 </a>
                             </div>
+                            <div className="p-2 flex flex-col text-lg  border-b border-green-900">
+                                {user ? (
+                                    <button
+                                        onClick={logout}
+                                        className="text-sm text-start text-gray-200"
+                                    >
+                                        Logout
+                                    </button>
+                                ) : (
+                                    <Link
+                                        to='/login'
+                                        className="text-sm text-gray-200"
+                                    >
+                                        Login
+                                    </Link>
+                                )}
+                            </div>
                         </div>
                     </Disclosure.Panel>
 
                     <div className="hidden md:flex justify-center items-center gap-8">
                         <Link
-                            to="/"
+                            to="https://www.aichefmaster.com"
                             className={`p-2 ${colors.hoverBackground} hover:rounded flex-row flex`}
                         >
                             Home
@@ -271,25 +294,14 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
                         </button>
 
                         {user ? (
-                            <>
-                                {/* <button
-                                    onClick={() => logout()}
-                                    className={`p-2 ${colors.hoverBackground} hover:rounded flex-row flex`}
-                                >
-                                    <FiLogIn className="mr-1 mt-1" />
-                                    Logout
-                                </button> */}
-                                <div
-                                    className={`group cursor-pointer`}
+                            <div className={`group cursor-pointer`}>
+                                <MdAccountCircle
+                                    className={`text-4xl mr-4 ${colors.hoverText}`}
                                     onClick={() => setProfileOpen(!profileOpen)}
-                                >
-                                    <MdAccountCircle
-                                        className={`text-4xl mr-4 ${colors.hoverText}`}
-                                    />
-                                </div>
+                                />
                                 {profileOpen && (
                                     <div
-                                        className={`absolute top-4 right-4 flex-col mt-[56px] w-64 ${colors.textdialog} shadow-md rounded-md p-4 text-sm z-10 flex ${colors.dialogbg} `}
+                                        className={`absolute top-4 right-4 flex-col mt-[56px] w-64  ${colors.textdialog} shadow-md rounded-md p-4 text-sm z-10 flex ${colors.dialogbg} `}
                                     >
                                         <div className="flex flex-row items-center justify-center">
                                             <MdAccountCircle
@@ -297,10 +309,13 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
                                             />
                                         </div>
 
-                                        <div className="py-1  border-b text-center">
-                                            {user.email}
-                                        </div>
-                                        <div className="py-2">My Account</div>
+                                        {user && (
+                                            <div className="py-1  border-b text-center">
+                                                {user.email}
+                                            </div>
+                                        )}
+
+                                        {/* <div className="py-2">My Account</div> */}
 
                                         <div className="p-2 flex flex-col text-center hover:bg-green-600 border-b border-green-900">
                                             <a
@@ -314,11 +329,21 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
                                         </div>
                                         <div className="p-2 flex flex-col text-center hover:bg-green-600 border-b border-green-900">
                                             <Link
-                                                to={location.pathname === '/chef-intelligence/archives' ? "" : "archives"}
+                                                to="/chef-intelligence/archives"
                                                 className="text-lg text-center"
                                             >
-                                                {location.pathname === '/chef-intelligence/archives' ? "Chef Intelligence" : "Archives"}
+                                                Archives
                                             </Link>
+                                        </div>
+                                        <div className="p-2 flex flex-col text-center hover:bg-green-600 border-b border-green-900">
+                                            <a
+                                                href="https://aichefmaster.com/upgrade-premium"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-lg text-center"
+                                            >
+                                                Subscription
+                                            </a>
                                         </div>
                                         <div
                                             className="p-2 flex flex-row text-center hover:bg-green-600 border-b border-green-900"
@@ -343,24 +368,33 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
                                         {/* Voice Assistance */}
                                         {voiceAssistantOpen && (
                                             <div className="p-2 flex flex-col text-center hover:bg-green-600 border-b border-green-900">
-                                                <p className="text-lg text-center">Voice Assistance</p>
+                                                <p className="text-base text-center">Mode Of Communication</p>
 
                                                 {/* Sound Option */}
-                                                <div className="flex items-center mt-2 text-center ">
+                                                <div className="flex items-center mt-2 w-full text-center flex-col">
                                                     <input
-                                                        type="checkbox"
-                                                        id="soundOption"
-                                                        checked={soundEnabled}
-                                                        onChange={toggleSoundOption}
-                                                        className="mr-2"
+                                                        type="range"
+                                                        min="0"
+                                                        max="100"
+                                                        step="50"
+                                                        value={selectedValue}
+                                                        onChange={(e) =>
+                                                            setSelectedValue(Number(e.target.value))
+                                                        }
+                                                        className="mr-2 w-full"
                                                     />
+
                                                     <label htmlFor="soundOption" className="text-sm">
-                                                        Audible Output
+                                                        {selectedValue === 0
+                                                            ? "Chat"
+                                                            : selectedValue === 50
+                                                                ? "Voice"
+                                                                : "Chat and Voice"}
                                                     </label>
+
                                                 </div>
                                             </div>
                                         )}
-
                                         <div className="pt-2 flex items-center justify-center">
                                             <button
                                                 onClick={logout}
@@ -371,14 +405,14 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
                                         </div>
                                     </div>
                                 )}
-                            </>
+                            </div>
                         ) : (
                             <Link
                                 to="/login"
-                                className={`mr-2 p-2 ${colors.hoverBackground} hover:rounded flex-row flex items-center`}
+                                className={`p-2 ${colors.hoverBackground} hover:rounded flex-row flex`}
                             >
-                                <TbLogin size={20} className="mr-1" />
-                                <span>Login</span>
+                                <FiLogIn className="mr-1 mt-1" />
+                                Login
                             </Link>
                         )}
                     </div>
@@ -386,6 +420,6 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
             )}
         </Disclosure>
     );
-}
+};
 
-export default Navbar
+export default Navbar;

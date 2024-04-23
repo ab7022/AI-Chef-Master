@@ -34,7 +34,7 @@ export default function Home({ lightMode }) {
     };
 
     const [equipmentData, setEquipmentData] = useState([]);
-    const [newEquipment, setNewEquipment] = useState(''); console.log(equipmentData)
+    const [newEquipment, setNewEquipment] = useState('');
 
     const handleAddEquipment = () => {
         setEquipmentData([...equipmentData, newEquipment]);
