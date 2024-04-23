@@ -9,11 +9,10 @@ import Card2 from '../Card2'
             <h1 className="text-lg md:text-2xl font-bold">Saved Recipes</h1>
       </div>
           
-    <div className="flex flex-wrap justify-center ">
-
-    {IndianBreakFast.map((dish, index) => ( 
-      <Card2 key={index} title={dish.dishName} dishPath={dish.dishPath} imageUrl={dish.dishImage} time={60} rating={4.5} />
-    ))}
+    <div className="flex flex-wrap justify-center gap-3">
+      {IndianBreakFast.map((dish, index) => ( 
+        <Card2 key={index} title={dish.dishName} dishPath={dish.dishPath} imageUrl={dish.dishImage} time={60} rating={4.5} />
+      ))}
     </div>
 
    </div>

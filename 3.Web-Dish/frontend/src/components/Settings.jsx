@@ -41,8 +41,7 @@ function Settings() {
                     <p className="text-gray-600">English</p>
                 </div>
                 <div className="flex justify-between items-center bg-white rounded-lg p-4 shadow-md hover:shadow-lg transition duration-300">
-                    <a href="mailto:?to=info@aichefmaster.com" className="text-lg md:text-xl font-semibold">Help & Feedback</a>
-                 </div>
+<a href="mailto:info@aichefmaster.com?subject=Can%20you%20help%20" className="text-lg md:text-xl font-semibold">Help & Support</a>                 </div>
                 <p className="text-gray-600">Get help and send feedback.</p>
                 <p className="text-gray-600">About & Legal</p>
             </div>

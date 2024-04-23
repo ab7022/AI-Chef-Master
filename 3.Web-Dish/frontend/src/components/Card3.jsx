@@ -33,7 +33,7 @@ const Card3 = ({ title, famousDish }) => {
         <div className="flex font-bold text-xl md:text-2xl lg:text-4xl items-baseline mt-12">{title}</div>
         {dishesSeeMorePath.map((path, index) => (
           title === path.title && (
-            <Link key={index} to={path.pathUrl}>
+            <Link key={index} to={path.pathUrl} onClick={() => window.scrollTo(0,0)}>
               <button className="ml-12 font-bold px-2 mt-12 h-7">
                 <div className="flex items-center mb-5 justify-center" onClick={() => window.scrollTo(0, 0)}>
                   <MdOutlineUnfoldMoreDouble  size={30}/>

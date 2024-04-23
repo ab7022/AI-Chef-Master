@@ -51,7 +51,7 @@ const SeasonalTop = () => {
               <Link to='/TopDishes' className=' text-end font-bold text-lg sm:text-xl md:text-2xl'><MdOutlineUnfoldMoreDouble  size={30}/></Link>
             </button>
           </div>
-        </div>
+        </div>  
       <Marquee>
           <div className="flex gap-3 py-3 ml-5 mr-3 overflow-hidden" >
               {TopDishesData.map((dish, index) => (

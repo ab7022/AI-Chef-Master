@@ -5,7 +5,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-function SeeMoreDescription({ searchTerm, setSearchTerm, filteredDish }) {  
+function SeeMoreDescription({ slideDishes }) {  
   const renderStarRating = (rating) => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -20,10 +20,6 @@ function SeeMoreDescription({ searchTerm, setSearchTerm, filteredDish }) {
     }
 
     return stars;
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
   };
 
   const settings = {
@@ -63,7 +59,7 @@ function SeeMoreDescription({ searchTerm, setSearchTerm, filteredDish }) {
 
   return (
     <Slider {...settings}>
-       {filteredDish.map((dish, index) => (
+       {slideDishes.map((dish, index) => (
         <div key={index} className="slider-item relative overflow-hidden">
           <div className="h-[80vh] flex items-center justify-center">
             <div className="absolute inset-0 bg-black opacity-40 z-10"></div>

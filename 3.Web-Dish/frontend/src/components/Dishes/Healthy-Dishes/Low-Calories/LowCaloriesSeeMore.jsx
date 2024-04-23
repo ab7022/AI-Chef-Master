@@ -6,7 +6,9 @@ import SeeMoreDescription from "../../SeeMoreDescription";
 import SearchDishNotFound from "../../SearchDishNotFound";
 
 function LowCaloriesSeeMore() {
-  const [searchTerm, setSearchTerm] = useState("");  
+  const [searchTerm, setSearchTerm] = useState(""); 
+   const sliderDishes = LowCaloriesData;
+
   const filteredDish = LowCaloriesData.filter(dish =>
     dish.dishName.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -14,7 +16,7 @@ function LowCaloriesSeeMore() {
   return (
     <div>
       <div className="bg-[#f7f3cd] min-h-screen">
-        <SeeMoreDescription searchTerm={searchTerm} setSearchTerm={setSearchTerm} filteredDish={filteredDish} />
+       <SeeMoreDescription slideDishes={sliderDishes} />
 
         <h1 className="text-lg md:text-2xl lg:text-4xl pt-12 pb-5 text-[#00544f] font-bold text-center">Low Calories Dishes</h1>
         <SearchDish setSearchTerm={setSearchTerm} />  

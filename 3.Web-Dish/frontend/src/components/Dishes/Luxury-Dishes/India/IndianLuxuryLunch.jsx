@@ -8,6 +8,7 @@ import SeeMoreDescription from '../../SeeMoreDescription';
 
 const IndianLuxuryLunch = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const sliderDishes = IndianLunch;
 
   const filteredDish = IndianLunch.filter((dish) =>
     dish.dishName.toLowerCase().includes(searchTerm.toLowerCase())
@@ -15,8 +16,7 @@ const IndianLuxuryLunch = () => {
 
   return (
     <div className="bg-[#f7f3cd]">
-      {/* Pass filteredDish to SeeMoreDescription */}
-      <SeeMoreDescription searchTerm={searchTerm} setSearchTerm={setSearchTerm} filteredDish={filteredDish} />
+        <SeeMoreDescription slideDishes={sliderDishes} />
 
       <div>
         <h1 className='py-12 text-xl sm:text-3xl md:text-5xl text-center font-bold text-black'>Indian Lunch Dishes</h1>

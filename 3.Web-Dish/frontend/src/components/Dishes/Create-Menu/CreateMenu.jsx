@@ -164,7 +164,7 @@ function CreateMenu() {
   return (
     <div className="bg-[#f7f3cd] min-h-screen ">
       <div>
-        <BannerCard slides={slides} title={<h1 className="font-bold" style={{ fontSize: '40px', fontFamily: 'Roboto, sans-serif' }}>Create A Menu Using The Ingredients You Have</h1>}/>
+        <BannerCard slides={slides} title={<h1 className="font-bold leading-normal" style={{ fontSize: '40px', fontFamily: 'Roboto, sans-serif' }}>Create A Menu Using The Ingredients You Have</h1>}/>
       </div>      
        <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-4 justify-items-center align-items-center md:px-2">
           <div className="flex flex-col space-y-4">

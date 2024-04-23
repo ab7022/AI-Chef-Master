@@ -60,8 +60,8 @@ const selectLanguage = (countryFlag) => {
 setSelectedLanguage(countryFlag);
 setLanguageDropdownOpen(false);
 };
-    const [selectedIndianLanguage, setSelectedIndianLanguage] = useState('ENG'); // State to store the selected Indian language
-    const [indianDropdownOpen, setIndianDropdownOpen] = useState(false); // State to manage the visibility of the Indian language dropdown
+    const [selectedIndianLanguage, setSelectedIndianLanguage] = useState('ENG');  
+    const [indianDropdownOpen, setIndianDropdownOpen] = useState(false);  
 
     const handleIndianLanguageSelect = (languageCode) => {
         setSelectedIndianLanguage(languageCode);  
@@ -69,12 +69,12 @@ setLanguageDropdownOpen(false);
      };
 
     const toggleIndianDropdown = () => {
-        setIndianDropdownOpen(!indianDropdownOpen); // Toggle the visibility of the Indian language dropdown
+        setIndianDropdownOpen(!indianDropdownOpen);  
     };
 
 return (
 <>
-    <Disclosure as="nav" className="shadow-lg bg-[#00544f] text-white sticky top-0 z-50">
+    <Disclosure as="nav" className="shadow-lg bg-[#00544f] md:px-2 text-white sticky top-0 z-50">
         {({ open }) => (
         <>
             <div className="flex justify-between mx-1 items-center h-16">
@@ -185,7 +185,6 @@ return (
                         {/*Create Account */}
                         <li className=" text-base md:text-md text-center"><Link to='/CreateAccount/'> Create Account</Link></li>
                         <li className="text-base md:text-md "> <Link className="flex items-center" to='/Settings'>Setting<IoSettingsSharp /></Link></li>
-
                     </ul>
                 </div>
 

@@ -7,6 +7,8 @@ import SearchDishNotFound from "../../SearchDishNotFound";
 
 function KetoSeeMore() {
   const [searchTerm, setSearchTerm] = useState(""); 
+     const sliderDishes = KetoData;
+
   const filteredDish = KetoData.filter(dish =>
     dish.dishName.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -14,7 +16,7 @@ function KetoSeeMore() {
   return (
     <div>
       <div className="bg-[#f7f3cd]">
-        <SeeMoreDescription searchTerm={searchTerm} setSearchTerm={setSearchTerm} filteredDish={filteredDish} />
+       <SeeMoreDescription slideDishes={sliderDishes} />
 
         <h1 className="text-lg md:text-2xl lg:text-4xl pt-12 pb-5 text-[#00544f] font-bold text-center">Keto Dishes</h1>
         <SearchDish setSearchTerm={setSearchTerm} />  

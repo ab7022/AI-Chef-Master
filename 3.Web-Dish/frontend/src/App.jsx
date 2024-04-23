@@ -1,15 +1,13 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Layout from './components/Layout';
-import NavBarHeader from './components/NavBarHeader';
-
 import Home from './pages/Home';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SingleDish from './pages/SingleDish';
 import Cooking from './pages/Cooking';
 import CreateAccount from './components/LoginSineupPage/CreateAccount';
 import LoginIn from './components/LoginSineupPage/LoginIn';
 
+import Layout from './components/Layout';
 import TeamPage from './pages/TeamPage';
 import LuxuryDishes from './components/Dishes/Luxury-Dishes/LuxuryDishes';
 import Spanish from './components/Dishes/Luxury-Dishes/Spain/Spanish';
@@ -44,6 +42,7 @@ import ArunachalPradeshLuxuryDinner from './components/Dishes/All-NavItem/Arunac
 
 import QuickDishes from './components/Dishes/Quick-Dishes/QuickDishes';
 import HealthyDishes from './components/Dishes/Healthy-Dishes/HealthyDishes';
+import NavBarHeader from './components/NavBarHeader';
 import ChooseRegion from './components/ChooseRegions/ChooseRegion';
 import ChooseWorldCountries from './components/ChooseRegions/ChooseWorldCountries';
 import ChooseIndia from './components/ChooseRegions/ChooseIndia'
@@ -73,7 +72,6 @@ import Desert from './components/Choices/CulinaryCategories/Desert';
 import Soup from './components/Choices/CulinaryCategories/Soup';
 import Bakery from './components/Choices/CulinaryCategories/Bakery';
 import Settings from './components/Settings';
-
 const App = () => {
 return (
 <>
@@ -148,8 +146,8 @@ return (
             <Route path='/Desert' element={<Desert /> } />
             <Route path='/Soup' element={<Soup /> } />
             <Route path='/Bakery' element={<Bakery /> } /> 
-
             <Route path='/Settings' element={<Settings /> } />
+
         </Routes>
     </BrowserRouter>
 </>

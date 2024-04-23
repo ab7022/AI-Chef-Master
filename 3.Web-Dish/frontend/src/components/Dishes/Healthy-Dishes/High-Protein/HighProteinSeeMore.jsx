@@ -6,14 +6,16 @@ import SeeMoreDescription from "../../SeeMoreDescription";
 import SearchDishNotFound from "../../SearchDishNotFound";
 
 function HighProteinSeeMore() {
-  const [searchTerm, setSearchTerm] = useState(""); // Define searchTerm state
+  const [searchTerm, setSearchTerm] = useState(""); 
+     const sliderDishes = HighProteinData;
+
   const filteredDish = HighProteinData.filter(dish =>
     dish.dishName.toLowerCase().includes(searchTerm.toLowerCase())
   );
   return (
     <div>
       <div className="bg-[#f7f3cd] min-h-screen">
-        <SeeMoreDescription searchTerm={searchTerm} setSearchTerm={setSearchTerm} filteredDish={filteredDish} />
+       <SeeMoreDescription slideDishes={sliderDishes} />
         <h1 className="text-lg md:text-2xl lg:text-4xl pt-12 pb-5 text-[#00544f] font-bold text-center">High Protein Dishes</h1>
         <SearchDish setSearchTerm={setSearchTerm} /> 
 
