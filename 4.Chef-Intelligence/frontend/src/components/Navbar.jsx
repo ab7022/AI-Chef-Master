@@ -11,6 +11,7 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
   const [profileOpen, setProfileOpen] = useState(false);
   const [voiceAssistantOpen, setVoiceAssistantOpen] = useState(false); // State for dropdown menu
   const [soundEnabled, setSoundEnabled] = useState(true); // State for sound option
+  const [selectedValue, setSelectedValue] = useState(0); // Initially set to 0
 
   const toggleVoiceAssistant = () => {
     setVoiceAssistantOpen(!voiceAssistantOpen);
@@ -101,7 +102,7 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
               </div>
               <div className="p-2 flex flex-col text-lg  border-b border-green-900">
                 <Link to="/signup" className="text-sm text-gray-200">
-                  Archives
+                  Archives 
                 </Link>
               </div>
             </div>
@@ -129,27 +130,37 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
               </svg>
             </div>
 
-            {/* Voice Assistance */}
             {voiceAssistantOpen && (
-              <div               className="p-2 ml-6 flex flex-col text-lg  border-b border-green-900"
-              >
-                <p className="text-sm pb-2  text-gray-200">Voice Assistance</p>
+                    <div className="p-2 flex flex-col  border-b border-green-900">
+                      <p className="text-sm text-gray-200 ml-6 text-center">Mode Of Communication</p>
 
-                {/* Sound Option */}
-                <div className="flex items-center  text-center mt-4">
-                  <input
-                    type="checkbox"
-                    id="soundOption"
-                    checked={soundEnabled}
-                    onChange={toggleSoundOption}
-                    className="mr-2"
-                  />
-                  <label htmlFor="soundOption" className="text-sm">
-                    Audible Output
-                  </label>
-                </div>
-              </div>
-            )}
+                      {/* Sound Option */}
+                      <div className="flex items-center mt-2 w-full text-center flex-col">
+                        <input
+                          type="range"
+                          min="0"
+                          max="100"
+                          step="50"
+                          value={selectedValue}
+                          onChange={(e) =>
+                            setSelectedValue(Number(e.target.value))
+                          }
+                          className="mr-2 w-2/3"
+                        />
+
+                        <label htmlFor="soundOption" className="text-sm">
+                          {selectedValue === 0
+                            ? "Chat"
+                            : selectedValue === 50
+                            ? "Voice"
+                            : "Chat and Voice"}
+                        </label> 
+
+                      </div>
+
+                    
+                    </div>
+                  )}
 
             {/* Settings Section */}
             <div className="pt-0 flex flex-col text-lg  ml-2">
@@ -211,6 +222,7 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
                   Help Center
                 </a>
               </div>
+              
             </div>
           </Disclosure.Panel>
 
@@ -276,7 +288,7 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
               />
               {profileOpen && (
                 <div
-                  className={`absolute top-4 right-4 flex-col mt-[56px] w-60  ${colors.textdialog} shadow-md rounded-md p-4 text-sm z-10 flex ${colors.dialogbg} `}
+                  className={`absolute top-4 right-4 flex-col mt-[56px] w-64  ${colors.textdialog} shadow-md rounded-md p-4 text-sm z-10 flex ${colors.dialogbg} `}
                 >
                   <div className="flex flex-row items-center justify-center">
                     <MdAccountCircle
@@ -306,7 +318,17 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
                       rel="noopener noreferrer"
                       className="text-lg text-center"
                     >
-                      Archives
+                      Archives 
+                    </a>
+                  </div>
+                  <div className="p-2 flex flex-col text-center hover:bg-green-600 border-b border-green-900">
+                    <a
+                      href="mailto:?to=info@aichefmaster.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-lg text-center"
+                    >
+                      Subscription 
                     </a>
                   </div>
                   <div
@@ -333,10 +355,34 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
                   {/* Voice Assistance */}
                   {voiceAssistantOpen && (
                     <div className="p-2 flex flex-col text-center hover:bg-green-600 border-b border-green-900">
-                      <p className="text-lg text-center">Voice Assistance</p>
+                      <p className="text-base text-center">Mode Of Communication</p>
 
                       {/* Sound Option */}
-                      <div className="flex items-center mt-2 text-center ">
+                      <div className="flex items-center mt-2 w-full text-center flex-col">
+                        <input
+                          type="range"
+                          min="0"
+                          max="100"
+                          step="50"
+                          value={selectedValue}
+                          onChange={(e) =>
+                            setSelectedValue(Number(e.target.value))
+                          }
+                          className="mr-2 w-full"
+                        />
+
+                        <label htmlFor="soundOption" className="text-sm">
+                          {selectedValue === 0
+                            ? "Chat"
+                            : selectedValue === 50
+                            ? "Voice"
+                            : "Chat and Voice"}
+                        </label> 
+
+                      </div>
+
+                      {/* {selectedValue !== 0 && (
+                      <div className="flex items-center mt-2 text-center">
                         <input
                           type="checkbox"
                           id="soundOption"
@@ -348,9 +394,9 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
                           Audible Output
                         </label>
                       </div>
+                      )} */}
                     </div>
                   )}
-
                   <div className="pt-2 flex items-center justify-center">
                     <button
                       onClick={() => {}}
