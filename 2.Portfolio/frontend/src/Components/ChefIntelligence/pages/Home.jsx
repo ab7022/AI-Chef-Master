@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 import { darkColors, lightColors } from "../data/homeTheme";
 import Typewriter from "../components/Typewriter";
 import { IoIosAdd, IoIosClose } from "react-icons/io";
-import Overview from "../components/Overview";
+// import Overview from "../components/Overview";
 
 export default function Home({ lightMode }) {
     const navigate = useNavigate()
@@ -13,7 +13,7 @@ export default function Home({ lightMode }) {
     const colors = lightMode ? lightColors : darkColors;
     const userData = JSON.parse(localStorage.getItem('user'));
 
-    const [openOverview, setOpenOverview] = useState(false);
+    // const [openOverview, setOpenOverview] = useState(false);
 
     const [ingredientData, setIngredientData] = useState([
         { ingredient: "", quantity: "", unit: "" },
@@ -179,7 +179,7 @@ export default function Home({ lightMode }) {
                 </div>
 
                 <div className="mt-12 mb-4 flex gap-4 items-center">
-                    <button
+                    {/* <button
                         onClick={() => {
                             document.body.style.overflow = "hidden";
                             setOpenOverview(true);
@@ -187,7 +187,7 @@ export default function Home({ lightMode }) {
                         className={`${colors.overviewButton} ${colors.buttonHoverBackground} ${colors.buttonTextColor} ${colors.buttonHoverTextColor} w-fit mx-auto text-white font-bold py-3 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 ${colors.buttonHoverTextColor}`}
                     >
                         Overview
-                    </button>
+                    </button> */}
                     <button
                         onClick={handleStartProcess}
                         className={`${colors.button} ${colors.buttonHoverBackground} ${colors.buttonTextColor} ${colors.buttonHoverTextColor} w-fit mx-auto text-white font-bold py-3 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50 ${colors.buttonHoverTextColor}`}
@@ -197,7 +197,7 @@ export default function Home({ lightMode }) {
                 </div>
             </div>
 
-            {openOverview && <Overview setOpenOverview={setOpenOverview} ingredientData={ingredientData} equipmentData={equipmentData} />}
+            {/* {openOverview && <Overview setOpenOverview={setOpenOverview} ingredientData={ingredientData} equipmentData={equipmentData} />} */}
         </>
     );
 }
