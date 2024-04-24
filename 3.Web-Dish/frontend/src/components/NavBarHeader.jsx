@@ -24,6 +24,8 @@ const categories = [
 { path: "/Quick-Dishes", label: "Quick Dishes" },
 { path: "/Healthy-Dishes", label: "Healthy Dishes" },
 { path: "/Create-Menu", label: "Create Menu" },
+{ path: "https://https://portfolio.aichefmaster.com/chef-intelligence", label: "Chef Intelligence" },
+
 ];
 const IndianLanguages = [
         { name: 'English', code: 'eng'},
