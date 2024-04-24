@@ -121,9 +121,9 @@ export default function Home({ lightMode }) {
                                     name="unit"
                                     value={row.unit}
                                     onChange={(event) => handleInputChange(index, event)}
-                                    className={`bg-transparent flex p-2 border border-gray-300 rounded placeholder-gray-400 focus:outline-none focus:border-yellow-500 ${colors.inputBackground} ${colors.inputText}`}
+                                    className={`bg-transparent md:w-32 flex p-2 border border-gray-300  rounded placeholder-gray-400 focus:outline-none focus:border-yellow-500 ${colors.inputBackground} ${colors.inputText}`}
                                 >
-                                    <option value="">Select Course Unit</option>
+                                    <option value="" className="">Select Course Unit</option>
                                     <option value="gram">gram</option>
                                     <option value="mL">mL</option>
                                     <option value="teaspoon">teaspoon</option>
