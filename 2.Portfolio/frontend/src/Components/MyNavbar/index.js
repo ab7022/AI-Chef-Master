@@ -86,6 +86,15 @@ export default function MyNavbar({ theme, setTheme }) {
                       >
                         Company
                       </Link>
+                      <Link
+                        onClick={() => window.scrollTo(0, 0)}
+                        to="/chef-intelligence"
+                        className={`nav-link ${location.pathname === "/company" ? "active" : ""
+                          } rounded-md px-3 py-2 text-sm font-medium`}
+                      >
+                        Chef Intelligence
+                      </Link>
+
 
                       {localStorage.getItem('theme') === 'light' ? (
                         <button title="Switch to Dark Mode" onClick={handleThemeChange} className={`nav-link flex items-center justify-center rounded-md px-2 py-2 text-sm font-medium`}>
