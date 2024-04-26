@@ -17,7 +17,7 @@ export default function NavBarDishes({ onCategoryClick }) {
     { path: "/Healthy-Dishes", label: "Healthy Dishes" },
    //{ path: "/ChooseVegNonVeg", label: "Create Dishes" },
     { path: "/Create-Menu", label: "Create Menu" },
-
+    { path: "https://portfolio.aichefmaster.com/chef-intelligence", label: "Chef Intelligence" },
    //{ path: "/UserProfile", label: "Profile" },
 
   ];
