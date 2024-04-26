@@ -17,11 +17,13 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
   const [voiceAssistantOpen, setVoiceAssistantOpen] = useState(false); 
   const [selectedValue, setSelectedValue] = useState(0); 
 
+
   const toggleVoiceAssistant = () => {
     setVoiceAssistantOpen(!voiceAssistantOpen);
   };
 
-  const indianLanguages = ["Hindi", "Bengali", "Telugu", "Marathi", "Tamil"];
+
+    const indianLanguages = ["Hindi", "Bengali", "Telugu", "Marathi", "Tamil"];
 
   const selectLanguage = (language) => {
     setSelectedLanguage(language);
