@@ -11,7 +11,9 @@ export default function Home({ lightMode }) {
     const navigate = useNavigate()
     const { user } = useAuthContext();
     const colors = lightMode ? lightColors : darkColors;
-    const userData = JSON.parse(localStorage.getItem('user'));
+    let userData;
+    try { userData = JSON.parse(localStorage.getItem('user')); }
+    catch (error) { userData = {}; console.log(error); }
 
     // const [openOverview, setOpenOverview] = useState(false);
 
@@ -20,6 +22,7 @@ export default function Home({ lightMode }) {
     ]);
 
     const handleInputChange = (index, event) => {
+        if (!user) return toast.error('Please login to proceed!');
         const { name, value } = event.target;
         const newIngredientData = ingredientData.map((row, i) => {
             if (i !== index) return row;
@@ -28,7 +31,7 @@ export default function Home({ lightMode }) {
         setIngredientData(newIngredientData);
     };
 
-    const handleAddRow = () => {
+    const handleAddIngredient = () => {
         if (!user) return toast.error('Please login to proceed!');
         setIngredientData([...ingredientData, { ingredient: "", quantity: "", unit: "" }]);
     };
@@ -37,6 +40,8 @@ export default function Home({ lightMode }) {
     const [newEquipment, setNewEquipment] = useState('');
 
     const handleAddEquipment = () => {
+        if (!user) return toast.error('Please login to proceed!');
+        if (!newEquipment.trim()) return;
         setEquipmentData([...equipmentData, newEquipment]);
         setNewEquipment('');
     };
@@ -123,7 +128,7 @@ export default function Home({ lightMode }) {
                                     onChange={(event) => handleInputChange(index, event)}
                                     className={`bg-transparent md:w-32 flex p-2 border border-gray-300  rounded placeholder-gray-400 focus:outline-none focus:border-yellow-500 ${colors.inputBackground} ${colors.inputText}`}
                                 >
-                                    <option value="" className="">Select Course Unit</option>
+                                    <option value="" className="">Select Unit</option>
                                     <option value="gram">gram</option>
                                     <option value="mL">mL</option>
                                     <option value="teaspoon">teaspoon</option>
@@ -136,7 +141,7 @@ export default function Home({ lightMode }) {
 
                     <div className="flex justify-center gap-2 mt-4 lg:mt-6 items-center align-middle">
                         <button
-                            onClick={handleAddRow}
+                            onClick={handleAddIngredient}
                             className={`py-2 px-4 ${colors.buttonBackground} ${colors.buttonHoverBackground} ${colors.buttonTextColor} ${colors.buttonHoverTextColor} font-bold rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50`}
                         >
                             Add More
@@ -150,8 +155,11 @@ export default function Home({ lightMode }) {
                     <div className="mt-[20px] w-full flex items-center gap-4">
                         <input
                             name="equipments"
-                            onChange={e => setNewEquipment(e.target.value)}
-                            placeholder="eg. Oven, Pan, Spatula"
+                            onChange={e => {
+                                if (!user) return toast.error('Please login to proceed!');
+                                setNewEquipment(e.target.value);
+                            }}
+                            placeholder="eg. Oven"
                             className={`${colors.inputBackground} ${colors.inputText} flex-1 border border-gray-300 px-2 py-1 placeholder:italic text-lg rounded-md placeholder:text-gray-400 outline-none focus:border-orange-400`}
                             value={newEquipment}
                         />

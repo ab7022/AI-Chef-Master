@@ -5,7 +5,7 @@ import { useLogout } from "../../../hooks/useLogout";
 import { darkColors, lightColors } from "../data/navbarTheme";
 import { Disclosure } from "@headlessui/react";
 import { MdMenu, MdArrowDropDown, MdAccountCircle } from "react-icons/md";
-import { FiSun, FiMoon, FiLogIn, FiLogOut } from "react-icons/fi";
+import { FiSun, FiMoon, FiLogIn } from "react-icons/fi";
 import { HiOutlineX } from "react-icons/hi";
 
 const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
@@ -15,16 +15,12 @@ const Navbar = ({ lightMode, setLightMode, sideBarOpen, setSideBarOpen }) => {
     const [selectedLanguage, setSelectedLanguage] = useState("English");
     const [profileOpen, setProfileOpen] = useState(false);
     const [voiceAssistantOpen, setVoiceAssistantOpen] = useState(false); // State for dropdown menu
-    const [soundEnabled, setSoundEnabled] = useState(true); // State for sound option
     const [selectedValue, setSelectedValue] = useState(0); // Initially set to 0
 
     const toggleVoiceAssistant = () => {
         setVoiceAssistantOpen(!voiceAssistantOpen);
     };
 
-    const toggleSoundOption = () => {
-        setSoundEnabled(!soundEnabled);
-    };
     const indianLanguages = ["Hindi", "Bengali", "Telugu", "Marathi", "Tamil"];
 
     const selectLanguage = (language) => {
