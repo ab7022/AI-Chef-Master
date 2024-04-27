@@ -201,7 +201,6 @@ const Ingredient = ({ formData, setFormData, portion }) => {
 
                                         className={`custom-input custom-text ${portion !== 1 ? "cursor-not-allowed" : "cursor-pointer"} px-2 mt-2 py-[7px] text-lg w-full border border-black rounded-md focus:border-orange-400 placeholder:italic outline-none`}
                                     >
-                                        <option value="">Select Course Unit</option>
                                         <option value="gram">gram</option>
                                         <option value="mL">mL</option>
                                         <option value="teaspoon">teaspoon</option>
