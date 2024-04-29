@@ -1,4 +1,3 @@
-// NavBarDishes.js
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -8,18 +7,16 @@ export default function NavBarDishes({ onCategoryClick }) {
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
     onCategoryClick(category);
-  };    
+  };
 
   const categories = [
     { path: "/All-Indian-Dishes", label: "Indian Dishes" },
     { path: "/Luxury-Dishes", label: "Luxury Dishes" },
     { path: "/Quick-Dishes", label: "Quick Dishes" },
     { path: "/Healthy-Dishes", label: "Healthy Dishes" },
-   //{ path: "/ChooseVegNonVeg", label: "Create Dishes" },
+    //{ path: "/ChooseVegNonVeg", label: "Create Dishes" },
     { path: "/Create-Menu", label: "Create Menu" },
-    { path: "https://portfolio.aichefmaster.com/chef-intelligence", label: "Chef Intelligence" },
-   //{ path: "/UserProfile", label: "Profile" },
-
+    //{ path: "/UserProfile", label: "Profile" },
   ];
 
   return (

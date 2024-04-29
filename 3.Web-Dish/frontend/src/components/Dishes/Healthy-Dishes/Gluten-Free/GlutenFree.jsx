@@ -8,7 +8,7 @@ function GlutenFree({ dishType }) {
   const filteredData = dishType ? GlutenFreeData.filter(dish => dish.dishType === dishType) : GlutenFreeData;
 
   return (
-    <div className="bg-[#f7f3cd]">
+    <div className="bg-[#f7f3cd] min-h-screen">
     <div className='flex justify-end mt-12 mb-6 mr-8'>
         <button onClick={()=> window.scrollTo(0, 0)}>
             <Link to='/GlutenFreeSeeMore' className=' text-end font-bold text-lg sm:text-xl md:text-2xl'>See More</Link>

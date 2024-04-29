@@ -18,7 +18,7 @@ function HealthyCard({
   return (
     <Link to={dishPath} onClick={() => window.scrollTo(0, 0)}>
       <Flip cascade left>
-        <div className="flex-grow h-full">
+        <div className="flex-grow">
           <div className="relative flex flex-col justify-around bg-[#00544f] flex-shrink text-white mt-20 shadow-md rounded-lg p-4 border border-gray-200 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg md:hover:shadow-2xl hover:border-gray-300 hover:scale-105">
             <div className="absolute top-3 right-3 bg-white h-7 w-7 rounded-lg flex justify-center items-center border border-black">
               <div className={`${dishType === 'Non-Veg' ? 'bg-[#f01010]' : 'bg-[#16b426]'} border-2 border-black rounded-full h-4 w-4`} />

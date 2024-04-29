@@ -53,11 +53,12 @@ const RecommendedQuickDishes = () => {
     (selectedDishType === null || dish.dishType === selectedDishType) &&
     (selectedCountry === '' || dish.countryName === selectedCountry)
   );
+   const sliderDishes = QuickDishesRecommendedData;
 
   return (
     <div className="bg-[#f7f3cd]" >
       <div className="">
-      <SeeMoreDescription searchTerm={searchTerm} setSearchTerm={setSearchTerm} filteredDish={filteredDish} />
+       <SeeMoreDescription slideDishes={sliderDishes} />
         <h1 className="py-12 text-xl sm:text-3xl md:text-5xl text-center font-bold text-black">Recommended Quick Dishes</h1>
         
       <div className="flex flex-wrap justify-evenly gap-3 mb-8 px-4 md:px-1">

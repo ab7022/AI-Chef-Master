@@ -48,11 +48,11 @@ function HealthyDishCategories() {
     { value: "Veg", label: "Veg", color: "#16b426" },
     { value: "Non-Veg", label: "Non-Veg", color: "#f01010" }
   ];
-
+     
   return (
-    <div className="">
+    <div>
       <nav className=" bg-[#f7f3cd] z-10 top-0 sticky shadow-lg gap-3">
-        <div className="flex flex-wrap  items-center shadow-lg justify-between bg-white mx-auto py-3">
+        <div className="flex flex-wrap  items-center shadow-lg justify-between px-3 bg-[#f7f3cd] mx-auto py-3">
           <div className="">
             <FormControl variant="outlined">
               <Select 
@@ -85,7 +85,7 @@ function HealthyDishCategories() {
             </svg>
           </button>
           <div id="navbar-default " className={`w-full  md:block md:w-auto ${isMenuOpen ? '' : 'hidden'}`}>
-          <ul className="font-medium rounded-lg flex flex-col md:flex-row place-items-center items-center justify-center p-4 md:p-0  border border-gray-100 md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-white dark:border-gray-700 sm:shadow md:shadow-none">
+          <ul className="font-medium rounded-lg flex flex-col md:flex-row place-items-center items-center justify-center p-4 mt-3 shadow-lg md:p-0  border border-gray-100 md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 dark:bg-[#f7f3cd] md:dark:bg-[#f7f3cd] dark:border-emerald-700 sm:shadow md:shadow-none">
             {["High Protein", "Low Calories", "Gluten Free", "Sugar Free", "Keto", "Vegetables"].map(tabName => (
               <li key={tabName} className="my-2 md:mb-0">
                 <button

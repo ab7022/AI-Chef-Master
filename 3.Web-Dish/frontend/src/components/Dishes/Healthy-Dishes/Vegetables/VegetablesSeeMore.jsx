@@ -14,8 +14,7 @@ function VegetablesSeeMore() {
   );
 
   return (
-    <div>
-      <div className="bg-[#f7f3cd]">
+       <div className="bg-[#f7f3cd] min-h-screen pb-8">
        <SeeMoreDescription slideDishes={sliderDishes} />
 
         <h1 className="text-lg md:text-2xl lg:text-4xl pt-12 pb-5 text-[#00544f] font-bold text-center">Vegetable Dishes</h1>
@@ -33,8 +32,7 @@ function VegetablesSeeMore() {
           )}
         </div>
       </div>
-    </div>
-  );
+   );
 }
 
 export default VegetablesSeeMore;
