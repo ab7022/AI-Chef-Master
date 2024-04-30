@@ -5,16 +5,16 @@ import NavBarDishes from '../components/NavBarDishes'
 import Choices from '../components/Choices/Choices'
 import SeasonalTop from '../components/Seasonal-Top/SeasonalTop'
 import Footer from '../components/FooterItem/Footer'
-  
+
 const Home = () => {
   return (
     <div className='overflow-x-hidden'>
-   <NavBarDishes/>
-  <Banner/>
-  <Choices/>
-  <SeasonalTop />
-  <Footer />
-  </div>
+      <NavBarDishes />
+      <Banner />
+      <Choices />
+      <SeasonalTop />
+      <Footer />
+    </div>
   )
 }
 

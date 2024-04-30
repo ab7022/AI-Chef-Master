@@ -1,12 +1,17 @@
+import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+// import { useAuthContext } from './hooks/useAuthContext';
 
+import LocationListener from "./hooks/LocationListener";
 import NavBarHeader from './components/NavBarHeader';
+
 import Home from './pages/Home';
 import SingleDish from './pages/SingleDish';
 import Cooking from './pages/Cooking';
 import CreateAccount from './components/LoginSineupPage/CreateAccount';
 import LoginIn from './components/LoginSineupPage/LoginIn';
 
+import ChefIntelligence from './components/ChefIntelligence';
 import TeamPage from './pages/TeamPage';
 import LuxuryDishes from './components/Dishes/Luxury-Dishes/LuxuryDishes';
 import Spanish from './components/Dishes/Luxury-Dishes/Spain/Spanish';
@@ -72,15 +77,24 @@ import Bakery from './components/Choices/CulinaryCategories/Bakery';
 import Settings from './components/Settings';
 
 const App = () => {
+    // const { user } = useAuthContext(); console.log(user);
+    const [location, setLocation] = useState({ pathname: '' });
+
     return (
         <BrowserRouter>
-            <NavBarHeader />
+            <LocationListener setLocation={setLocation} />
+
+            {(location.pathname !== '/chef-intelligence' && location.pathname !== '/chef-intelligence/generatedDish' && location.pathname !== '/chef-intelligence/archives') && (
+                <NavBarHeader />
+            )}
+
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/cooking' element={<Cooking />} />
                 <Route path='/teampage' element={<TeamPage />} />
-                <Route path='/CreateAccount' element={<CreateAccount />} />
+                <Route path='/signup' element={<CreateAccount />} />
                 <Route path='/login' element={<LoginIn />} />
+                <Route path='chef-intelligence/*' element={<ChefIntelligence />} />
                 <Route path='/Luxury-Dishes' element={<LuxuryDishes />} />
                 <Route path='/Luxury-Dishes/Spanish' element={<Spanish />} />
                 <Route path='/Luxury-Dishes/Spanish/SpanishLuxuryBreakFast' element={<SpanishLuxuryBreakFast />} />

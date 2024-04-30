@@ -42,7 +42,7 @@ export default function UpgradePremium() {
                         <h2 className="text-center text-xl font-bold text-teal-800 mb-2">Free Plan</h2>
                         <p className="text-center text-gray-600 mb-4">No Credit Card Required</p>
                         <h2 className="text-center text-2xl font-bold text-teal-800 mb-4">Rs 0 / {billingPeriod === "monthly" ? "Monthly" : "Yearly"}</h2>
-                        <Link to='/CreateAccount'><button className="block w-full bg-teal-800 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-teal-700 focus:outline-none focus:bg-teal-700 transition duration-300 ease-in-out">Start Now</button></Link>
+                        <Link to='/signup'><button className="block w-full bg-teal-800 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-teal-700 focus:outline-none focus:bg-teal-700 transition duration-300 ease-in-out">Start Now</button></Link>
                         <ul className="text-sm text-gray-700 mt-6">
                             <li className="flex items-center mb-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">

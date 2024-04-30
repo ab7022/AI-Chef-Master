@@ -18,8 +18,6 @@ const Login = ({ isAuthenticated }) => {
   });
 
   const loginWithGoogle = async () => {
-    // const apiUrl = process.env.REACT_APP_TEST_URL;
-
     try {
       const res = await axios.get(
         `${"http://localhost:8000/auth/social/o/google-oauth2/?redirect_uri=http://localhost:5173/login/"}`

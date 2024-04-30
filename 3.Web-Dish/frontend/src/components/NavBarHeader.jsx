@@ -8,11 +8,14 @@ import { Link, useLocation } from "react-router-dom";
 import CompanyLogo from '/CompanyLogo.png';
 import { FiSearch } from "react-icons/fi";
 import { BsCart4 } from "react-icons/bs";
+import { useAuthContext } from "../hooks/useAuthContext";
 const Flag = ({ countryFlag }) => (
     <img src={`https://flagcdn.com/${countryFlag.toLowerCase()}.svg`} alt={countryFlag} className="w-8" />
 );
 
 export default function NavBarHeader() {
+    const { user } = useAuthContext();
+
     const [dish, setDish] = useState("");
     const [selectedLanguage, setSelectedLanguage] = useState("in");
     const [isLanguageDropdownOpen, setLanguageDropdownOpen] = useState(false);
@@ -87,13 +90,13 @@ export default function NavBarHeader() {
                             <div className="hidden md:flex overflow-hidden md:overflow-hidden ">
                                 <ul className="flex flex-shrink leading-4 md:gap-4 lg:gap-4 xl:gap-6 self-end items-center">
                                     <li className="text-base md:text-md">
-                                        <Link className="nav-link" to='/'>Home</Link>
+                                        <Link to='/'>Home</Link>
                                     </li>
                                     <li className="text-base md:text-md">
                                         <Link to='/'>About Us</Link>
                                     </li>
                                     {/* Search Bar */}
-                                    <li className="nav-link flex items-center ">
+                                    <li className="flex items-center ">
                                         <div className="relative ">
                                             <div className='absolute inset-y-0 flex items-center px-3 pointer-events-none'>
                                                 <FiSearch size={25} className='text-gray-500 dark:text-gray-400' />
@@ -143,7 +146,7 @@ export default function NavBarHeader() {
                                                     </div>
                                                     <div className="invisible absolute z-50 flex mx-auto flex-col bg-[#00544f] py-1 px-4 text-white shadow-xl group-hover:visible">
                                                         {categories.map(({ path, label }) => (
-                                                            <Link key={path} to={path} className={`nav-link ${selectedCategory === label ? "active" : ""} hover:bg-[#007a72] rounded-md px-3 py-2 text-lg font-medium`} onClick={() => handleCategoryClick(label)}>
+                                                            <Link key={path} to={path} className={`${selectedCategory === label ? "active" : ""} hover:bg-[#007a72] rounded-md px-3 py-2 text-lg font-medium`} onClick={() => handleCategoryClick(label)}>
                                                                 {label}
                                                             </Link>
                                                         ))}
@@ -183,7 +186,7 @@ export default function NavBarHeader() {
                                         )}
                                     </li>
                                     {/*Create Account */}
-                                    <li className=" text-base md:text-md text-center"><Link to='/CreateAccount/'> Create Account</Link></li>
+                                    {!user && (<li className=" text-base md:text-md text-center"><Link to='/signup/'> Create Account</Link></li>)}
                                     <li className="text-base md:text-md "> <Link className="flex items-center" to='/Settings'>Setting<IoSettingsSharp /></Link></li>
                                 </ul>
                             </div>
@@ -203,13 +206,13 @@ export default function NavBarHeader() {
                             <div className="px-4 py-2">
                                 <ul className="flex gap-5 flex-col">
                                     <li className="text-base md:text-md">
-                                        <Link className="nav-link" to='/'>Home</Link>
+                                        <Link to='/'>Home</Link>
                                     </li>
                                     <li className="text-base md:text-md">
                                         <Link to='/'>About Us</Link>
                                     </li>
                                     {/* Search Bar */}
-                                    <li className="nav-link flex items-center ">
+                                    <li className="flex items-center ">
                                         <div className="relative ">
                                             <div className='absolute inset-y-0 flex items-center px-3 pointer-events-none'>
                                                 <FiSearch size={25} className='text-gray-500 dark:text-gray-400' />
@@ -269,7 +272,7 @@ export default function NavBarHeader() {
                                                     </div>
                                                     <div className="invisible absolute z-50 flex mx-auto flex-col bg-[#00544f] py-1 px-4 text-white shadow-xl group-hover:visible">
                                                         {categories.map(({ path, label }) => (
-                                                            <Link key={path} to={path} className={`nav-link ${selectedCategory === label ? "active" : ""} hover:bg-[#007a72] rounded-md px-3 py-2 text-lg font-medium`} onClick={() => handleCategoryClick(label)}>
+                                                            <Link key={path} to={path} className={`${selectedCategory === label ? "active" : ""} hover:bg-[#007a72] rounded-md px-3 py-2 text-lg font-medium`} onClick={() => handleCategoryClick(label)}>
                                                                 {label}
                                                             </Link>
                                                         ))}
@@ -309,7 +312,7 @@ export default function NavBarHeader() {
                                         )}
                                     </li>
                                     {/*Create Account */}
-                                    <li className=" text-base md:text-md"><Link to='/CreateAccount/'> Create Account</Link></li>
+                                    <li className=" text-base md:text-md"><Link to='/signup'> Create Account</Link></li>
                                     {location.pathname !== '/' && <li className="text-base md:text-md flex items-center"> Setting<IoSettingsSharp /></li>}
 
                                 </ul>
