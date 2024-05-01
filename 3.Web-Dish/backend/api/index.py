@@ -39,7 +39,7 @@ scheduler.start()
 
 
 client = MongoClient(os.getenv('MONGODB_URL'))
-db = client['AI_database']
+db = client['AI_Chef_Master']
 
 # google login 
 app.config["GOOGLE_OAUTH_CLIENT_ID"] = os.getenv('GOOGLE_OAUTH_CLIENT_ID')
@@ -76,11 +76,11 @@ def google_callback():
     assert resp.ok, resp.text
 
     user_info = resp.json()
-    exist_user = db.users.find_one({'email': user_info['email']}, {'first_name': 1, 'user_id': 1})
+    exist_user = db.User.find_one({'email': user_info['email']}, {'first_name': 1, 'user_id': 1})
 
     if not exist_user:
-        user_id = "AiChef" + user_info['given_name'].upper() + "-" + str(round((datetime.now().timestamp())*1000000))
-        db.users.insert_one({
+        user_id = "User" + user_info['given_name'].upper() + "-" + str(round((datetime.now().timestamp())*1000000))
+        db.User.insert_one({
             'first_name': user_info['given_name'],
             'last_name': user_info['family_name'],
             'email': user_info['email'],
@@ -139,9 +139,9 @@ def microsoft_callback():
         headers = {'Authorization': 'Bearer ' + result['access_token']}
         graph_data = requests.get("https://graph.microsoft.com/v1.0/me", headers=headers).json()
 
-        exist_user = db.users.find_one({'email': graph_data["mail"]}, {'first_name': 1, 'user_id': 1})
+        exist_user = db.User.find_one({'email': graph_data["mail"]}, {'first_name': 1, 'user_id': 1})
         if not exist_user:
-            user_id = "AiChef"+ graph_data.get("givenName").upper() + "-" + str(round((datetime.now().timestamp())*1000000))
+            user_id = "User"+ graph_data.get("givenName").upper() + "-" + str(round((datetime.now().timestamp())*1000000))
             user_data = {
                 'first_name': graph_data.get("givenName", ""),
                 'last_name': graph_data.get("surname", ""),
@@ -149,9 +149,9 @@ def microsoft_callback():
                 'phone': graph_data.get("mobilePhone", ""),
                 'user_id': user_id
             }
-            db.users.insert_one(user_data)
+            db.User.insert_one(user_data)
         else:
-            db.users.update_one({'email': graph_data["mail"]}, {'$set': {'phone': graph_data.get("mobilePhone", "")}})
+            db.User.update_one({'email': graph_data["mail"]}, {'$set': {'phone': graph_data.get("mobilePhone", "")}})
             user_id = exist_user['user_id']
 
         user_info = {
@@ -183,12 +183,12 @@ def register():
 
     if not (first_name and last_name and country_code and phone and email and password):
         return jsonify({'message': 'Missing required fields'}), 400
-    if db.users.find_one({'email': email}):
+    if db.User.find_one({'email': email}):
         return jsonify({'message': 'User already exists'}), 400
 
     hashed_password = generate_password_hash(password)
-    user_id = "AiChef"+ first_name.upper() + "-" + str(round((datetime.now().timestamp())*1000000))
-    db.users.insert_one({
+    user_id = "User"+ first_name.upper() + "-" + str(round((datetime.now().timestamp())*1000000))
+    db.User.insert_one({
         'first_name': first_name,
         'last_name': last_name,
         'country_code': country_code,
@@ -205,7 +205,7 @@ def loginAuth():
     email = request.json['email']
     password = request.json['password']
    
-    user = db.users.find_one({'email': email})
+    user = db.User.find_one({'email': email})
     if not user or not check_password_hash(user['password'], password):
         return jsonify({'message': 'Invalid credentials'}), 401
     else:
@@ -218,7 +218,7 @@ def loginAuth():
 @jwt_required()
 def validate_token():
     current_user = get_jwt_identity()
-    user = db.users.find_one({'email': current_user})
+    user = db.User.find_one({'email': current_user})
     if user:
         name = user['first_name'] + " " + user['last_name']
         user_id = user['user_id']
@@ -231,26 +231,15 @@ def forgetP():
     email = request.json.get('email')
     newPassword = request.json.get('newPassword')
 
-    db.users.update_one({ "email": email },{"$set": { "password": generate_password_hash(newPassword) }})
+    db.User.update_one({ "email": email },{"$set": { "password": generate_password_hash(newPassword) }})
     return jsonify({'message':"password updates succesfully"})
 
 @app.route('/start-process', methods =['POST'])
 @jwt_required()
 def process():
     data = request.get_json()
-    result = db.Process.insert_one(data)
+    result = db.CI.insert_one(data)
     return jsonify({'message': 'Data inserted successfully'}), 201
-
-@app.route('/get-rows/<user_id>', methods=['GET'])
-@jwt_required()
-def get_rows(user_id):
-    user_processes = db.Process.find({"user.user_id": user_id})
-    
-    all_rows = []
-    for process in user_processes:
-        all_rows.extend(process['rows'])
-    
-    return jsonify({'rows': all_rows}), 201
 
 # app.config['UPLOAD_FOLDER'] = 'files'
 @app.route('/career' ,methods = ['POST'])
@@ -382,7 +371,7 @@ def healtyDishes():
 @jwt_required()
 def  userDetials():
     temp = get_jwt_identity()
-    UserData = db.users.find_one({'email':temp})
+    UserData = db.User.find_one({'email':temp})
     first_name = UserData['first_name']
     last_name =UserData['last_name']
     email = UserData['email']
@@ -399,17 +388,17 @@ def  userDetials():
 @jwt_required()
 def create_id():
     user_email = get_jwt_identity()
-    user = db.users.find_one({'email':user_email})
+    user = db.User.find_one({'email':user_email})
 
-    chef_id = "AiChef"+user['first_name']+ str(random.randint(1000,10000))
+    chef_id = "User"+user['first_name']+ str(random.randint(1000,10000))
 
-    db.users.update_one({'email':user_email},{"$set" :{"chef_id":chef_id}})
+    db.User.update_one({'email':user_email},{"$set" :{"chef_id":chef_id}})
     return jsonify({"message":"chef id created succesffuly"}),200
 
 @app.route('/api/saveMenu',methods =['GET','POST'])
 def saveMenu():
     user_email = get_jwt_identity()
-    user =db.users.find_one({'email':user_email})
+    user =db.User.find_one({'email':user_email})
     name = user['first_name'] +" " +user['last_name']
     
     data = request.get_json()
