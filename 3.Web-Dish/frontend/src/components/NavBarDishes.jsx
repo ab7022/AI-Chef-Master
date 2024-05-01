@@ -30,9 +30,10 @@ export default function NavBarDishes() {
             to={path}
             className={`${selectedCategory === label ? "active" : ""} leading-4 px-3 py-2 text-lg text-center font-medium`}
             onClick={() => handleCategoryClick(label)}
+            target={path === "/chef-intelligence" ? "_blank" : ""}
           >
             {label}
-          </Link>
+          </Link>  
         ))}
       </div>
     </div>

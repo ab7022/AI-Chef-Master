@@ -9,9 +9,15 @@ import { FaAngleRight } from "react-icons/fa6";
 import { FaMicrophone } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 import { CountryFlag } from '../../../Data/CountryFlagLuxuryData/CountryFlag';
-import RecommendedDishes from '../../../components/RecommendedDIshes/RecommendedDishes'
+import RecommendedData from '../../../Data/RecommendedData';
 import Footer from '../../../components/FooterItem/Footer'
 import BannerCard from '../../BannerCard';
+import Marquee from 'react-fast-marquee';
+import { useSpring, animated } from 'react-spring';
+import Flip from 'react-reveal/Flip';  
+import 'animate.css/animate.min.css';
+import Card2 from '../../Card2';
+
 function LuxuryDishes() {
 const [viewMore, setViewMore] = useState(0);
  const [SearchCountry, setSearchCountry] = useState('');
@@ -31,6 +37,14 @@ const [viewMore, setViewMore] = useState(0);
   { imageUrl: "https://a.cdn-hotels.com/gdcs/production50/d1916/51d76cc9-cbe8-4572-a671-545f882f1847.jpg?impolicy=fcrop&w=800&h=533&q=medium" },
 ];
 const DishText = 'https://see.fontimg.com/api/renderfont4/BWA45/eyJyIjoiZnMiLCJoIjo4MSwidyI6MTI1MCwiZnMiOjY1LCJmZ2MiOiIjMDAwMDAwIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/THV4dXJ5IERpc2hlcyBDdWlzaW5l/rosmatika-regular.png'
+ 
+  const [animate, setAnimate] = useState(true); 
+
+  const fadeIn = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    config: { duration: 1000 },
+  });
 
  return (
    <div className=' bg-[#f7f3cd]'>
@@ -94,7 +108,7 @@ const DishText = 'https://see.fontimg.com/api/renderfont4/BWA45/eyJyIjoiZnMiLCJo
       </div>
 
     </div>
-    <div className='mb-20'>
+    <div className='mb-16'>
         <div className='flex mx-12 flex-row items-center justify-between '>
             <div className='flex text-black text-[2rem] mt-12'>
                 <h1 className='font-bold items-baseline text-xl sm:text-2xl md:text-4xl'> Countries</h1>
@@ -158,10 +172,26 @@ const DishText = 'https://see.fontimg.com/api/renderfont4/BWA45/eyJyIjoiZnMiLCJo
         </div>
          </div>
 
-         <div>
-             <RecommendedDishes />
-              <Footer />
-     </div>
+      <div>
+        <div className='mb-5'>
+          <div className="pb-6 pt-6 px-4 md:px-8">
+            <h1 className='text-center text-xl md:text-3xl lg:text-4xl text-[#00544f] font-semibold'>Recommended Dishes</h1>
+          </div>  
+          <Marquee>
+              <div className="flex gap-3 py-3 ml-5 mr-3 overflow-hidden" >
+                  {RecommendedData.map((dish, index) => (
+                    <Flip key={index} cascade left> 
+                      <animated.div style={fadeIn} className="flex-grow h-full"> 
+                        <Card2 key={index} title={dish.dishName} time={dish.time} rating={dish.rating} imageUrl={dish.dishImage} />
+                      </animated.div>
+                    </Flip>
+                  ))}
+              </div>
+          </Marquee>
+
+        </div>
+        <Footer />
+      </div>
      
 </div>
 );

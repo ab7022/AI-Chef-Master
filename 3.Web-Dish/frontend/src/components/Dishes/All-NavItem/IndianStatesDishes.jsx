@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
- import { FaAngleRight } from 'react-icons/fa6';
+import { FaAngleRight } from 'react-icons/fa6';
 import { IndianStates } from '../../../Data/IndianStates/IndianStatesData';
-import RecommendedDishes from '../../../components/RecommendedDIshes/RecommendedDishes';
+import RecommendedData from '../../../Data/RecommendedData';
 import Footer from '../../../components/FooterItem/Footer';
 import BannerCard from '../../BannerCard';
+import Marquee from 'react-fast-marquee';
+import { useSpring, animated } from 'react-spring';
+import Flip from 'react-reveal/Flip';  
+import 'animate.css/animate.min.css';
+import Card2 from '../../Card2';
 
 function IndianStatesDishes() {
   const [viewMore, setViewMore] = useState(0);
@@ -26,6 +31,14 @@ function IndianStatesDishes() {
     { imageUrl: "https://blog.bigbasket.com/wp-content/uploads/2023/04/South-Indian-main_584509564.jpeg" },
   ];
   const IndianText = 'https://see.fontimg.com/api/renderfont4/Gg5D/eyJyIjoiZnMiLCJoIjoxOTEsInciOjEyNTAsImZzIjoxNTMsImZnYyI6IiMwMDAwMDAiLCJiZ2MiOiIjRkZGRkZGIiwidCI6MX0/SW5kaWFu/samarkan-normal.png';
+ 
+  const [animate, setAnimate] = useState(true); 
+
+  const fadeIn = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    config: { duration: 1000 },
+  });
 
   return (
     <div className='bg-[#f7f3cd]'>
@@ -33,7 +46,7 @@ function IndianStatesDishes() {
         <BannerCard slides={slides} subtitle="Indian states boast diverse, flavorful cuisine" title={<img src={IndianText} className=' filter invert w-96 flex' alt="Indian" />} />
       </div>
 
-      <div className='mb-20'>
+      <div className='mb-16'>
         <div className='flex mx-12 flex-row items-center justify-between '>
           <div className='flex text-black text-[2rem] mt-12'>
             <h1 className='font-bold items-baseline text-xl sm:text-2xl md:text-4xl'> States</h1>
@@ -103,7 +116,23 @@ function IndianStatesDishes() {
       </div>
 
       <div>
-        <RecommendedDishes />
+        <div className='mb-5'>
+          <div className="pb-6 pt-6 px-4 md:px-8">
+            <h1 className='text-center text-xl md:text-3xl lg:text-4xl text-[#00544f] font-semibold'>Recommended Dishes</h1>
+          </div>  
+          <Marquee>
+              <div className="flex gap-3 py-3 ml-5 mr-3 overflow-hidden" >
+                  {RecommendedData.map((dish, index) => (
+                    <Flip key={index} cascade left> 
+                      <animated.div style={fadeIn} className="flex-grow h-full"> 
+                        <Card2 key={index} title={dish.dishName} time={dish.time} rating={dish.rating} imageUrl={dish.dishImage} />
+                      </animated.div>
+                    </Flip>
+                  ))}
+              </div>
+          </Marquee>
+
+        </div>
         <Footer />
       </div>
       <style jsx>
