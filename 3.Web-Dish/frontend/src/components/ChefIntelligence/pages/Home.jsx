@@ -71,7 +71,7 @@ export default function Home({ lightMode }) {
             equipments: equipmentData
         }
 
-        await fetch(`${process.env.REACT_APP_API_URL}/start-process`, {
+        await fetch(`${import.meta.env.VITE_API_URL}/start-process`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${userData.access_token}`,

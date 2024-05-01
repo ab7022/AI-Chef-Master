@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { useLogout } from "../hooks/useLogout";
 import { FaMicrophone } from "react-icons/fa";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -7,14 +9,14 @@ import { IoSettingsSharp } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
 import CompanyLogo from '/CompanyLogo.png';
 import { FiSearch } from "react-icons/fi";
-import { BsCart4 } from "react-icons/bs";
-import { useAuthContext } from "../hooks/useAuthContext";
+
 const Flag = ({ countryFlag }) => (
     <img src={`https://flagcdn.com/${countryFlag.toLowerCase()}.svg`} alt={countryFlag} className="w-8" />
 );
 
 export default function NavBarHeader() {
     const { user } = useAuthContext();
+    const { logout } = useLogout();
 
     const [dish, setDish] = useState("");
     const [selectedLanguage, setSelectedLanguage] = useState("in");
@@ -188,6 +190,9 @@ export default function NavBarHeader() {
                                     {/*Create Account */}
                                     {!user && (<li className=" text-base md:text-md text-center"><Link to='/signup/'> Create Account</Link></li>)}
                                     <li className="text-base md:text-md "> <Link className="flex items-center" to='/Settings'>Setting<IoSettingsSharp /></Link></li>
+                                    {user && (
+                                        <li className="text-base md:text-md text-center"><button onClick={logout}>Logout</button></li>
+                                    )}
                                 </ul>
                             </div>
 
