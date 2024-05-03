@@ -69,7 +69,7 @@ const Values = () => {
         Create and customize your favorite AI CHEF
       </p>
 
-      <div className="grid grid-cols-1 gap-[25px] items-center">
+      <div className="grid grid-cols-3 gap-[25px] items-center">
         {CardList.map((card) => (
           <AnimatedCard key={uuidv4()} {...card} />
         ))}
