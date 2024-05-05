@@ -47,6 +47,7 @@ const AiAssistant = () => {
           AI Assistant
         </h1>
       </div>
+
       <div
         className="relative h-[calc(100vh-7rem-72px)] flex flex-col md:flex-row w-full bg-[#031529] bg-no-repeat bg-cover items-center justify-center px-4 md:px-8 lg:px-20"
       // style={{
@@ -56,18 +57,7 @@ const AiAssistant = () => {
       //   backgroundPosition: "center",
       // }}
       >
-        <video autoPlay loop muted
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100%",
-            objectFit: "cover"
-          }}
-        >
-          <source src="/assets/Electricity.mp4" type="video/mp4" />
-        </video>
+      
         <p className="relative z-10 w-full md:w-1/2 text-[#FFFFFF] text-base md:text-2xl lg:text-3xl font-bold md:pr-4 lg:pr-8 md:text-center">
           With our AI Assistant, cooking becomes a personalized adventure. Choose, customize, and enjoy a delicious meal crafted to your taste.
           <br />
@@ -75,7 +65,9 @@ const AiAssistant = () => {
         </p>
       </div>
       <div className="mt-6">
+        
         {AiAssistantData.map((obj, index) => (
+          
           <AnimatedCard key={uuidv4()} index={index} {...obj} />
         ))}
       </div>
