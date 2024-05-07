@@ -33,7 +33,7 @@ export const ChefCard = ({heading,description,video}) =>{
           height: "400px",
           objectFit: "cover",
           borderRadius: "1rem",
-          filter: "brightness(0.3)", // Adjust the brightness value as needed
+          filter: "brightness(0.9)", 
         }}
       >
         <source src={video} type="video/mp4" />
@@ -72,7 +72,7 @@ export const ChefCard1 = ({heading,description,video,link}) =>{
           height: "400px",
           objectFit: "cover",
           borderRadius: "1rem",
-          filter: "brightness(0.3)", // Adjust the brightness value as needed
+          filter: "brightness(1)", // Adjust the brightness value as needed
         }}
       >
         <source src={video} type="video/mp4" />
