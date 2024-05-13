@@ -63,13 +63,13 @@ const AiAssistant = () => {
       </div>
 
       <div
-        className="relative h-[calc(100vh-7rem-72px)] flex flex-col md:flex-row w-full bg-[#031529] bg-no-repeat bg-cover items-center justify-center px-4 md:px-8 lg:px-20"
-        // style={{
-        //   backgroundImage: "url('https://www.zorang.com/wp-content/uploads/2024/01/ai-technology-brain-background-digital-transformation-concept-scaled-1.webp')",
-        //   backgroundSize: "cover",
-        //   height: '80vh',
-        //   backgroundPosition: "center",
-        // }}
+        className="relative h-[calc(100vh-7rem-72px)] flex flex-col md:flex-row w-full bg-[#031529] bg-no-repeat bg-cover items-center justify-center px-4 md:px-8 lg:px-20 brightness-100"
+        style={{
+          backgroundImage: "url('https://www.zorang.com/wp-content/uploads/2024/01/ai-technology-brain-background-digital-transformation-concept-scaled-1.webp')",
+          backgroundSize: "cover",
+          height: '80vh',
+          backgroundPosition: "center",
+        }}
       >
         <p className="relative z-10 w-full md:w-1/2 text-[#FFFFFF] text-base md:text-2xl lg:text-3xl font-bold md:pr-4 lg:pr-8 md:text-center">
           With our AI Assistant, cooking becomes a personalized adventure.
