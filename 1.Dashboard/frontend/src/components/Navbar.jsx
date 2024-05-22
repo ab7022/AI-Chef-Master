@@ -15,12 +15,12 @@ const Navbar = ({ theme, setTheme }) => {
   };
 
   const handleDashboardClick = () => {
-    if (!user) {
-      toast.error("You need an account to access dashboard", {
-        theme: "dark",
-        position: "bottom-right",
-      });
-    }
+    // if (!user) {
+    //   toast.error("You need an account to access dashboard", {
+    //     theme: "dark",
+    //     position: "bottom-right",
+    //   });
+    // }
   };
 
   const handleThemeChange = () => {
