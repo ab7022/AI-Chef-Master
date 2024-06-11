@@ -20,24 +20,18 @@ const LoginPage = () => {
   const [showPw, setShowPw] = useState(true)
   const { login, error, isLoading, googleLogin } = useLogin()
   const Navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const { response, json } = await login(email, password);
-
     if (response.ok) {
       Navigate("/dashboard");
     }
     else toast.error(json['message']);
   }
-
   const handleSignIn = () => {
-    window.location.href = `${import.meta.env.VITE_API_URL}/login/google`;
+    window.location.href = `https://api.aichefrecipe.com/login/google`;
   };
-
   const navigate = useNavigate();
-
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const userDataStr = urlParams.get('data');
