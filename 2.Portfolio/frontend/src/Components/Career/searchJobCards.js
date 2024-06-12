@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSpring, animated } from "react-spring";
-import { Fade } from 'react-reveal';
+import { Fade } from "react-reveal";
 import { ImLocation } from "react-icons/im";
 
 const listOfJobs = () => [
@@ -14,7 +14,7 @@ const listOfJobs = () => [
     jobType: "Intenship",
     jobPath: "/Frontend-Developer-Engineer",
     jobPosted: "01/02/2024",
-    isOpen: true
+    isOpen: true,
   },
   {
     jobTitle: "Backend Developer Engineer",
@@ -25,7 +25,7 @@ const listOfJobs = () => [
     jobType: "Full Time",
     jobPath: "/Backend-Developer-Engineer",
     jobPosted: "01/02/2024",
-    isOpen: false
+    isOpen: true,
   },
   {
     jobTitle: "AI Engineer",
@@ -36,7 +36,7 @@ const listOfJobs = () => [
     jobType: "Full Time",
     jobPath: "/AI-Engineer",
     jobPosted: "01/02/2024",
-    isOpen: true
+    isOpen: true,
   },
 
   {
@@ -48,7 +48,7 @@ const listOfJobs = () => [
     jobType: "Full Time",
     jobPath: "/Server-Engineer",
     jobPosted: "01/02/2024",
-    isOpen: true
+    isOpen: true,
   },
   {
     jobTitle: "UI/UX Designer",
@@ -59,7 +59,7 @@ const listOfJobs = () => [
     jobType: "Full Time",
     jobPath: "/ui-ux-designer",
     jobPosted: "01/02/2024",
-    isOpen: true
+    isOpen: true,
   },
   {
     jobTitle: "Android Application Developer Engineer",
@@ -70,7 +70,7 @@ const listOfJobs = () => [
     jobType: "Full Time",
     jobPath: "/Android-Application-Developer-Engineer",
     jobPosted: "01/02/2024",
-    isOpen: true
+    isOpen: true,
   },
   {
     jobTitle: "iOS Application Developer Engineer",
@@ -81,7 +81,7 @@ const listOfJobs = () => [
     jobType: "Full Time",
     jobPath: "/iOS-Application-Developer-Engineer",
     jobPosted: "01/02/2024",
-    isOpen: true
+    isOpen: true,
   },
   {
     jobTitle: "Full Stack Developer Engineer",
@@ -92,7 +92,7 @@ const listOfJobs = () => [
     jobType: "Full Time",
     jobPath: "/Full-Stack-Developer-Engineer",
     jobPosted: "01/02/2024",
-    isOpen: true
+    isOpen: true,
   },
   {
     jobTitle: "Customer Support Associate",
@@ -103,7 +103,7 @@ const listOfJobs = () => [
     jobType: "Full Time",
     jobPath: "/Customer-Support-Associate",
     jobPosted: "01/02/2024",
-    isOpen: true
+    isOpen: true,
   },
   {
     jobTitle: "Research and Development Engineer",
@@ -114,8 +114,8 @@ const listOfJobs = () => [
     jobType: "Full Time",
     jobPath: "/Research-and-Development-Engineer",
     jobPosted: "01/02/2024",
-    isOpen: true
-  }
+    isOpen: true,
+  },
 ];
 
 function JobCard({ job }) {
@@ -126,14 +126,14 @@ function JobCard({ job }) {
     boxShadow: hovered
       ? "inset 35px 35px 70px #569efc, inset -35px -35px 70px #ffffff"
       : "inset 35px 35px 70px #a8a8a8, inset -35px -35px 70px #ffffff",
-    transform: hovered ? "scale(1.05)" : "scale(1)"
+    transform: hovered ? "scale(1.05)" : "scale(1)",
   });
 
   return (
     <animated.div
       style={{
         ...cardSpring,
-        transition: "box-shadow 0.3s, transform 0.3s"
+        transition: "box-shadow 0.3s, transform 0.3s",
       }}
       onMouseOver={() => setHovered(true)}
       onMouseOut={() => setHovered(false)}
@@ -160,7 +160,8 @@ function JobCard({ job }) {
       </p>
       <div className="flex flex-col gap-2 md:gap-0 sm:flex-row justify-between items-center mt-3">
         <div>
-          <strong className="text-green-800">Job Type:</strong> <span className="custom-text">{job.jobType}</span>
+          <strong className="text-green-800">Job Type:</strong>{" "}
+          <span className="custom-text">{job.jobType}</span>
         </div>
         {isJobOpen ? (
           <Link onClick={() => window.scrollTo(0, 0)} to={job.jobPath}>
@@ -216,7 +217,7 @@ function SearchJobCards() {
         <div className="flex flex-wrap gap-4 mb-8 px-4 justify-center items-stretch">
           {filteredJobs.map((job, index) => (
             <Fade key={index} delay={index * 100}>
-                <JobCard key={index} job={job} />
+              <JobCard key={index} job={job} />
             </Fade>
           ))}
         </div>
