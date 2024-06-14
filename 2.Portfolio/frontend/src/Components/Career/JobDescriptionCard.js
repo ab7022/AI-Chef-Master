@@ -11,11 +11,12 @@ function JobDescriptionCard({ jobData }) {
     title,
     location,
     endDate,
-    description,
-    requirements,
-    qualifications,
+    companyDescrition,
+    jobDescription,
+    keyResponsibilities,
     skills,
-    experience
+    experience,
+    qualifications
   } = jobData;
 
   return (
@@ -25,7 +26,9 @@ function JobDescriptionCard({ jobData }) {
           <h1 className="custom-text-secondary text-xl font-bold md:text-2xl lg:text-4xl mb-3">
             Job Title
           </h1>
-          <p className="custom-text text-lg md:text-xl lg:text-2xl mb-2">{title}</p>
+          <p className="custom-text text-lg md:text-xl lg:text-2xl mb-2">
+            {title}
+          </p>
           <p className="custom-text">Location: {location}</p>
           <p className="custom-text">End Date: {endDate}</p>
         </div>
@@ -58,25 +61,44 @@ function JobDescriptionCard({ jobData }) {
       <div className="overflow-y-auto p-4 md:p-6 lg:p-8 mx-auto">
         <div className="container-lg py-8">
           <div>
-            <h1 className="custom-text-secondary text-3xl font-semibold mb-4">Job Description</h1>
+            <h1 className="custom-text-secondary text-3xl font-semibold mb-4">
+              Job Description
+            </h1>
 
             <div className="mt-3">
               <h2 className="custom-text text-2xl font-semibold mb-2 break-words">
-                Position Overview
+                Company Descrition
               </h2>
-              <p className="custom-text mb-3">{description}</p>
+              <p className="custom-text mb-3">{companyDescrition}</p>
+            </div>
+            <div className="mt-3">
+              <h2 className="custom-text text-2xl font-semibold mb-2 break-words">
+                Job Overview
+              </h2>
+              <p className="custom-text mb-3">{jobDescription}</p>
             </div>
 
             <div className="custom-text mt-3">
-              <h3 className="text-2xl font-semibold mb-2">Requirements:</h3>
+              <h3 className="text-2xl font-semibold mb-2">
+                Key Responsibilities:
+              </h3>
               <ul className="list-disc pl-6 mb-6">
-                {requirements.map((requirement, index) => (
-                  <li key={`requirement-${index}`}>{requirement}</li>
+                {keyResponsibilities.map((keyResponsibilities, index) => (
+                  <li key={`requirement-${index}`}>{keyResponsibilities}</li>
                 ))}
               </ul>
 
               <h3 className="text-2xl font-semibold mb-2">
-                Educational Qualifications:
+                Required Skills and Tools:
+              </h3>
+              <ul className="list-disc pl-6 mb-6">
+                {skills.map((skill, index) => (
+                  <li key={`skill-${index}`}>{skill}</li>
+                ))}
+              </ul>
+
+              <h3 className="text-2xl font-semibold mb-2">
+                Preferred Qualifications:
               </h3>
               <ul className="list-disc pl-6 mb-6">
                 {qualifications.map((qualification, index) => (
@@ -84,14 +106,9 @@ function JobDescriptionCard({ jobData }) {
                 ))}
               </ul>
 
-              <h3 className="text-2xl font-semibold mb-2">Skills Required:</h3>
-              <ul className="list-disc pl-6 mb-6">
-                {skills.map((skill, index) => (
-                  <li key={`skill-${index}`}>{skill}</li>
-                ))}
-              </ul>
-
-              <h3 className="text-2xl font-semibold mb-2">Experience:</h3>
+              <h3 className="text-2xl font-semibold mb-2">
+                Required Experience:
+              </h3>
               <ul className="list-disc pl-6 mb-6">
                 <li>{experience}</li>
               </ul>
